@@ -1,4 +1,5 @@
 import Select from 'react-select'
+import PropTypes from 'prop-types'
 
 const SelectItems = ({options, title}) => {
 
@@ -37,5 +38,10 @@ const SelectItems = ({options, title}) => {
         </Select>
     );
 };
+
+SelectItems.propTypes =  {
+    options: PropTypes.array,
+    title: PropTypes.string
+}
 
 export default SelectItems;

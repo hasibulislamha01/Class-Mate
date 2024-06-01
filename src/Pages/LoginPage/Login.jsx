@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const validate = (values) => {
@@ -22,8 +23,8 @@ const Login = () => {
         }
     })
     return (
-        <div className="min-h-screen">
-            <h1 className="text-center text-3xl pt-24">Login Here</h1>
+        <div className="min-h-screen py-24">
+            <h1 className="text-center text-3xl">Login Here</h1>
             <form onSubmit={formik.handleSubmit} className="w-1/4 mx-auto flex flex-col gap-14">
                 <div className="input-container">
                     <label className="label">Email</label>
@@ -51,6 +52,10 @@ const Login = () => {
                 </div>
                 <button type="submit" className="btn btn-block">login</button>
             </form>
+            <h5 className="text-center my-6">
+                New to ClassMate?  
+                <Link to='/register' className="ml-3">Sign Up</Link>
+            </h5>
         </div>
     );
 };
