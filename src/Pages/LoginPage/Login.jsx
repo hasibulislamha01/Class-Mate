@@ -1,7 +1,11 @@
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+import useAuth from "../../CustomHooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
+    const {loginUser} = useAuth()
+
     const validate = (values) => {
         const errors = {};
         if(!values.email){
@@ -20,10 +24,26 @@ const Login = () => {
         validate,
         onSubmit: (values)=> {
             console.log(JSON.stringify(values, null, 2));
+            const email = values.email
+            const password = values.password
+
+            // signing in
+            loginUser(email, password)
+            .then((userCredential) => {
+                console.log(userCredential.user)
+                toast.success('Login Successful')
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error(errorMessage, errorCode)
+                toast.error(errorMessage)
+            });
         }
     })
     return (
         <div className="min-h-screen py-24">
+            <Toaster></Toaster>
             <h1 className="text-center text-3xl">Login Here</h1>
             <form onSubmit={formik.handleSubmit} className="w-1/4 mx-auto flex flex-col gap-14">
                 <div className="input-container">

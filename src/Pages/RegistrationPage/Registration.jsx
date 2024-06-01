@@ -1,6 +1,8 @@
 import { useFormik } from "formik";
 import SelectItems from "../../Components/SelectItems/SelectItems";
 import { Link } from "react-router-dom";
+import useAuth from "../../CustomHooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 
 
 
@@ -8,11 +10,13 @@ import { Link } from "react-router-dom";
 
 const Registration = () => {
 
+    const { registerUser, updateProfile, loginUser } = useAuth()
+
     const validate = values => {
         const errors = {};
         if (!values.name) {
             errors.name = 'Name is required';
-        } else if (values.name.length > 15) {
+        } else if (values.name.length > 20) {
             errors.name = 'Name must be 15 characters or less';
         }
         if (!values.photo) {
@@ -38,7 +42,37 @@ const Registration = () => {
         },
         validate,
         onSubmit: values => {
+
             console.log(JSON.stringify(values, null, 2));
+            const email = values.email
+            const password = values.password
+            const photo = values.photo
+            const userName = values.name
+
+            // signing up
+            registerUser(email, password)
+                .then(response => {
+                    console.log(response?.user)
+                    
+                    // updating profile
+                    updateProfile(userName, photo)
+
+                    // signing in
+                    loginUser(email, password)
+                        .then((userCredential) => {
+                            console.log(userCredential.user)
+                        })
+                        .catch((error) => {
+                            const errorCode = error.code;
+                            const errorMessage = error.message;
+                            console.error(errorMessage, errorCode)
+                        });
+                    toast.success('You have successfully registered')
+                })
+                .catch(error => {
+                    console.error(error.message)
+                    toast.error(error.message)
+                })
         },
     })
 
@@ -50,6 +84,7 @@ const Registration = () => {
 
     return (
         <div className="py-12 min-h-screen">
+            <Toaster></Toaster>
             <h1 className="mb-8 text-3xl text-[#A0D6B4] text-center">Register Here</h1>
             <form onSubmit={formik.handleSubmit} className="w-1/2 mx-auto space-y-12">
                 <div className="flex items-center gap-2 w-full">

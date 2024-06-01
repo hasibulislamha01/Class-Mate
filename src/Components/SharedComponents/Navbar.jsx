@@ -1,11 +1,27 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../CustomHooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
-    const navItems = 
-    <>
-        <NavLink to='/'>Home</NavLink>
-        <NavLink to='/register'>Register</NavLink>
-    </>
+    const { user, logoutUser } = useAuth()
+    console.log(user)
+
+    const handleLogout = () => {
+        logoutUser()
+            .then(() => {
+                console.log("logout successfull")
+                toast.success('Logout Successfull')
+            }).catch((error) => {
+                console.error(error.message)
+                toast.error(error.message)
+            });
+    }
+
+    const navItems =
+        <>
+            <NavLink to='/'>Home</NavLink>
+            <NavLink to='/register'>Register</NavLink>
+        </>
     return (
         <div >
             <div className="navbar bg-base-100 fixed opacity-65">
@@ -45,7 +61,16 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end flex items-center gap-4">
                     {navItems}
-                    <a className="btn">Button</a>
+                    <div className="">
+                        {
+                            user ?
+                                <button onClick={handleLogout} className="btn">Logout</button>
+                                :
+                                <Link to='/login'>
+                                    <button className="btn">Login</button>
+                                </Link>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
