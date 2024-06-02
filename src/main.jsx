@@ -12,6 +12,7 @@ import Login from './Pages/LoginPage/Login';
 import AuthProvider from './Components/Auth/AuthProvider';
 import AdminHome from './Pages/AdminPages/AdminHome/AdminHome';
 import DashLayout from './DashboardLayout/DashLayout';
+import AllUsers from './Pages/AdminPages/AllUsers/AllUsers';
 
 const router = createBrowserRouter([
   {
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/admin",
             element: <AdminHome></AdminHome>
-          }
+          },
+          {
+            path: "/dashboard/admin/allUsers",
+            element: <AllUsers></AllUsers>
+          },
         ]
       },
     ]

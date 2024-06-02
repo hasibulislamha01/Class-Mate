@@ -62,7 +62,7 @@ const Navbar = () => {
                         <li><a>Item 3</a></li>
                     </ul> */}
                 </div>
-                <div className="navbar-end flex items-center gap-4">
+                <div className="navbar-end  items-center gap-4 hidden lg:inline-flex">
                     {navItems}
                     <div className="">
                         {
