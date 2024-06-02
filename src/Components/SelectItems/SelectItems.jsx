@@ -1,7 +1,7 @@
 import Select from 'react-select'
 import PropTypes from 'prop-types'
 
-const SelectItems = ({options, title}) => {
+const SelectItems = ({options, title, name}) => {
 
     const customStyles = {
         control: (provided) => ({
@@ -31,9 +31,10 @@ const SelectItems = ({options, title}) => {
             options={options}
             className='w-full selectStyles'
             placeholder={title}
-            name="category"
+            name={name}
             required="required"
             styles={customStyles}
+
         >
         </Select>
     );
@@ -41,7 +42,8 @@ const SelectItems = ({options, title}) => {
 
 SelectItems.propTypes =  {
     options: PropTypes.array,
-    title: PropTypes.string
+    title: PropTypes.string,
+    name: PropTypes.string
 }
 
 export default SelectItems;

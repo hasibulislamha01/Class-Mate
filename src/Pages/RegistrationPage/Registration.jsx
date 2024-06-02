@@ -1,80 +1,20 @@
-import { useFormik } from "formik";
-import SelectItems from "../../Components/SelectItems/SelectItems";
 import { Link } from "react-router-dom";
 import useAuth from "../../CustomHooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
+import SelectItems from "../../Components/SelectItems/SelectItems";
+import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
 
 
 
 
 
 const Registration = () => {
+    const axiosPublic = useAxiosPublic()
+    const { registerUser, updateUserProfile } = useAuth()
 
-    const { registerUser, updateProfile, loginUser } = useAuth()
-
-    const validate = values => {
-        const errors = {};
-        if (!values.name) {
-            errors.name = 'Name is required';
-        } else if (values.name.length > 20) {
-            errors.name = 'Name must be 15 characters or less';
-        }
-        if (!values.photo) {
-            errors.photo = 'Photo is required';
-        }
-        if (!values.email) {
-            errors.email = 'Email is required';
-        }
-        if (!values.password) {
-            errors.password = 'Password is required';
-        } else if (values.password.length < 6) {
-            errors.password = 'Password has to be at least 6 characters long';
-        }
-        return errors;
-    }
-
-    const formik = useFormik({
-        initialValues: {
-            name: '',
-            photo: '',
-            email: '',
-            password: '',
-        },
-        validate,
-        onSubmit: values => {
-
-            console.log(JSON.stringify(values, null, 2));
-            const email = values.email
-            const password = values.password
-            const photo = values.photo
-            const userName = values.name
-
-            // signing up
-            registerUser(email, password)
-                .then(response => {
-                    console.log(response?.user)
-                    
-                    // updating profile
-                    updateProfile(userName, photo)
-
-                    // signing in
-                    loginUser(email, password)
-                        .then((userCredential) => {
-                            console.log(userCredential.user)
-                        })
-                        .catch((error) => {
-                            const errorCode = error.code;
-                            const errorMessage = error.message;
-                            console.error(errorMessage, errorCode)
-                        });
-                    toast.success('You have successfully registered')
-                })
-                .catch(error => {
-                    console.error(error.message)
-                    toast.error(error.message)
-                })
-        },
-    })
+    const [registrationError, setRegistrationError] = useState(null)
 
     const userCategories = [
         { value: 'Student', label: 'Student' },
@@ -82,68 +22,177 @@ const Registration = () => {
         { value: 'Administrator', label: 'Administrator' },
     ]
 
+
+
+    const handleRegister = (event) => {
+        event.preventDefault()
+        setRegistrationError(null)
+        const form = event.target;
+        const firstName = form.firstName.value;
+        const lastName = form.lastName.value;
+        const userName = firstName + " " + lastName;
+        const role = form.role.value
+        console.log(role)
+        // console.log(userName)
+        const userPhoto = form.photo.value;
+        const userEmail = form.email.value;
+        const password = form.password.value;
+
+       
+
+        // validation
+        if (password.length < 6) {
+            setRegistrationError('Password must have at least 6 characters')
+            return;
+        }
+        else if (! /[A-Z]/.test(password)) {
+            setRegistrationError("PassWord must have at least one uppercase letter")
+            return;
+        }
+        else if (! /[a-z]/.test(password)) {
+            setRegistrationError("PassWord must contain at least one lowercase letter")
+            return;
+        }
+
+        else {
+
+            const userInfo = {
+                userName,
+                userEmail,
+                userPhoto,
+                role,
+            }
+
+            // signing up
+            registerUser(userEmail, password)
+                .then(response => {
+                    console.log(response?.user)
+                    // toast.success('Registration Successfull')
+
+                    // updating profile
+                    updateUserProfile(userName, userPhoto)
+                        .then(() => {
+                            console.log('user has been updated', userName, userPhoto)
+                        }).catch((error) => {
+                            console.error(error.message)
+                        });
+
+                    
+                    toast.success('You have successfully registered')
+
+                    // sending user data to database
+                    axiosPublic.post('/users', userInfo)
+                    .then(response => {
+                        console.log(response.data)
+                    })
+                    .catch(error => {
+                        const errorMessage = error.message
+                        const errorCode = error
+                        console.error(errorCode, errorMessage)
+                    })
+                })
+                .catch(error => {
+                    console.error(error.message)
+                    // toast.error(error.message)
+                })
+        }
+    }
+
+
+
+
+
+    // showing error message if registration was not successfull
+    if (registrationError) {
+        toast.error(registrationError)
+    }
+
+
+
+
+    // toggle Password type 
+    const [showPassword, setShowPassword] = useState(false)
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword)
+    }
+
     return (
         <div className="py-12 min-h-screen">
             <Toaster></Toaster>
             <h1 className="mb-8 text-3xl text-[#A0D6B4] text-center">Register Here</h1>
-            <form onSubmit={formik.handleSubmit} className="w-1/2 mx-auto space-y-12">
-                <div className="flex items-center gap-2 w-full">
-                    <div className="input-container ">
-                        <label className="label">Your Name</label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.name}
-                        />
-                        {/* <label className="label">Your Name</label> */}
-                        {formik.errors.name ? <div className="text-red-500">{formik.errors.name}</div> : null}
-                    </div>
-                    <div className="input-container">
-                        <label className="label">Photo</label>
-                        <input
-                            id="photo"
-                            name="photo"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.photo}
-                        />
-                        {/* <label className="label">Photo</label> */}
-                        {formik.errors.photo ? <div className="text-red-500">{formik.errors.photo}</div> : null}
-                    </div>
-                </div>
-                <div className="flex items-center gap-2 ">
-                    <div className="input-container">
-                        <label className="label">Email</label>
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
-                        />
-                        {/* <label className="label">Email</label> */}
-                        {formik.errors.email ? <div className="text-red-500">{formik.errors.email}</div> : null}
-                    </div>
+            <form onSubmit={handleRegister} className="w-1/2 mx-auto space-y-12">
 
-                    <div className="input-container">
-                        <label className="label">Password</label>
+                <div className="flex flex-col lg:flex-row justify-between gap-4">
+                    <div className="input-container mx-auto">
                         <input
-                            id="password"
-                            name="password"
+                            className=""
                             type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.password}
+                            name="firstName"
+                            required="required"
                         />
-                        {/* <label className="label">Password</label> */}
-                        {formik.errors.password ? <div className="text-red-500">{formik.errors.password}</div> : null}
+                        <label className="label">First Name</label>
+                    </div>
+                    <div className="input-container mx-auto">
+                        <input
+                            className=""
+                            type="text"
+                            name="lastName"
+                            required="required"
+                        />
+                        <label className="label">Last Name</label>
                     </div>
                 </div>
-                <div>
-                    <SelectItems options={userCategories} title={'Register as ...'}></SelectItems>
+                <div className="flex flex-col lg:flex-row justify-between gap-4">
+                    <div className="mx-auto input-container w-1/2">
+                        <input
+                            className="w-full"
+                            type="text"
+                            name="photo"
+                            required="required"
+                        />
+                        <label className="label">Your Photo</label>
+                    </div>
+                    <div className="flex-1">
+                        <SelectItems
+                            name={'role'}
+                            options={userCategories}
+                            title={"Register as"}
+                        ></SelectItems>
+                    </div>
                 </div>
-                <button className="btn " type="submit">submit</button>
+                <div className="flex flex-col lg:flex-row justify-between gap-4">
+                    <div className="w-full input-container mx-auto">
+                        <input
+                            className=""
+                            type="email"
+                            name="email"
+                            required="required"
+                        />
+                        <label className="label">Email</label>
+                    </div>
+                    <div className="w-full relative input-container mx-auto">
+                        <input
+                            className=""
+                            type={showPassword ? 'text' : 'password'}
+                            name="password"
+                            required="required"
+                        />
+                        <label className="label">Password</label>
+                        <span
+                            onClick={toggleShowPassword}
+                            className="absolute right-5 bottom-[15px] text-base-300"
+                        >
+                            {
+                                !showPassword ?
+                                    <BsEye />
+                                    : <BsEyeSlash />
+                            }
+                        </span>
+                    </div>
+                </div>
+
+
+                <button className="btn " type="submit">Regsiter</button>
             </form>
             <h4 className="text-center w-full">
                 Already have an account ?
