@@ -22,7 +22,7 @@ const useUserRole = () => {
             })
     }, [user])
 
-    console.log(userRole)
+    // console.log(userRole)
     return userRole
 };
 
