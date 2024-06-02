@@ -1,10 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../CustomHooks/useAuth";
 import toast from "react-hot-toast";
+import useUserRole from "../../CustomHooks/useUserRole";
 
 const Navbar = () => {
     const { user, logoutUser } = useAuth()
-    console.log(user)
+
+    const role = useUserRole()
 
     const handleLogout = () => {
         logoutUser()
@@ -21,6 +23,7 @@ const Navbar = () => {
         <>
             <NavLink to='/'>Home</NavLink>
             <NavLink to='/register'>Register</NavLink>
+            <NavLink to={role === 'Administrator' ? `/dashboard/admin` : '/dashboard'}>Dashboard</NavLink>
         </>
     return (
         <div >

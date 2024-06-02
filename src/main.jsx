@@ -10,6 +10,8 @@ import Home from './Pages/HomePage/Home';
 import Registration from './Pages/RegistrationPage/Registration';
 import Login from './Pages/LoginPage/Login';
 import AuthProvider from './Components/Auth/AuthProvider';
+import AdminHome from './Pages/AdminPages/AdminHome/AdminHome';
+import DashLayout from './DashboardLayout/DashLayout';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,18 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>
+      },
+      {
+        path: "/dashboard",
+        element: <DashLayout></DashLayout>,
+        children: [
+
+          // admin routes
+          {
+            path: "/dashboard/admin",
+            element: <AdminHome></AdminHome>
+          }
+        ]
       },
     ]
   },
