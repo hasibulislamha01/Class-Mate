@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react';
 import { FaExchangeAlt } from 'react-icons/fa';
 
-const UserCard = ({ userInfo }) => {
+
+const UserCard = ({ userInfo, changeUserRole }) => {
+
     const role = userInfo?.role
-    const [newRole, setNewRole] = useState(role)
-    console.log(newRole)
+    
     return (
         <div className="card card-side bg-base-100 w-full shadow-xl h-32 space-x-4">
             <figure className='w-1/5 ml-4'><img className=' rounded-lg  object-cover w-16 h-16 lg:w-[80px]  lg:h-[80px]' src={userInfo?.userPhoto} alt="Movie" /></figure>
@@ -29,13 +29,13 @@ const UserCard = ({ userInfo }) => {
                     <div tabIndex={0} role="button" className="btn btn-sm  text-sm m-1"><FaExchangeAlt /></div>
                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                         <li>
-                            <button onClick={() => setNewRole('Student')}>Student</button>
+                            <button onClick={() => changeUserRole('Student', userInfo?._id)}>Student</button>
                         </li>
                         <li>
-                            <button onClick={() => setNewRole('Tutor')}>Tutor</button>
+                            <button onClick={() => changeUserRole('Tutor', userInfo?._id)}>Tutor</button>
                         </li>
                         <li>
-                            <button onClick={() => setNewRole('Administrator')}>Administrator</button>
+                            <button onClick={() => changeUserRole('Administrator', userInfo?._id)}>Administrator</button>
                         </li>
                     </ul>
                 </div>
@@ -45,6 +45,7 @@ const UserCard = ({ userInfo }) => {
 };
 
 UserCard.propTypes = {
-    userInfo: PropTypes.object
+    userInfo: PropTypes.object,
+    changeUserRole: PropTypes.func
 }
 export default UserCard;

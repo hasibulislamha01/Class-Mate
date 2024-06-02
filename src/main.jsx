@@ -13,6 +13,15 @@ import AuthProvider from './Components/Auth/AuthProvider';
 import AdminHome from './Pages/AdminPages/AdminHome/AdminHome';
 import DashLayout from './DashboardLayout/DashLayout';
 import AllUsers from './Pages/AdminPages/AllUsers/AllUsers';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+
+// Create a client
+const queryClient = new QueryClient()
+
+
 
 const router = createBrowserRouter([
   {
@@ -53,8 +62,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
 )

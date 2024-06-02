@@ -1,10 +1,11 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../CustomHooks/useAuth";
 import toast from "react-hot-toast";
 import useUserRole from "../../CustomHooks/useUserRole";
 
 const Navbar = () => {
     const { user, logoutUser } = useAuth()
+    const navigate = useNavigate()
 
     const role = useUserRole()
 
@@ -13,6 +14,7 @@ const Navbar = () => {
             .then(() => {
                 console.log("logout successfull")
                 toast.success('Logout Successfull')
+                navigate('/')
             }).catch((error) => {
                 console.error(error.message)
                 toast.error(error.message)
