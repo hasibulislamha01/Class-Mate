@@ -4,14 +4,18 @@ import ClassAnimation from "../../../Components/AnimationComponents/ClassAnimati
 import Datefield from "../../../Components/Datefield/Datefield";
 import useAuth from '../../../CustomHooks/useAuth';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
+import Swal from 'sweetalert2';
+import useTodaysDate from '../../../CustomHooks/useTodaysDate';
 
 const CreateSession = () => {
 
     const axiosSecure = useAxiosSecure()
 
-    const {user} = useAuth()
+    const { user } = useAuth()
     const tutorName = user?.displayName;
-    const tutorEmail = user?.email
+    const tutorEmail = user?.email        
+    const applyingDate = useTodaysDate()
+
 
     const handleCreateSession = (event) => {
         event.preventDefault()
@@ -27,7 +31,7 @@ const CreateSession = () => {
         const status = 'pending'
 
         const sessionInfo = {
-            sessionTitle, 
+            sessionTitle,
             tutorName,
             tutorEmail,
             duration,
@@ -38,17 +42,25 @@ const CreateSession = () => {
             classEnds,
             registrationFee,
             status,
+            applyingDate,
         }
         console.log(sessionInfo)
 
         // send data to database
         axiosSecure.post('/sessions', sessionInfo)
-        .then(response => {
-            console.log(response.data)
-        })
-        .catch(error => {
-            console.error(error.message)
-        })
+            .then(response => {
+                console.log(response.data)
+                if (response.data.insertedId) {
+                    Swal.fire({
+                        title: "Success",
+                        text: "You created the session!",
+                        icon: "success"
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error.message)
+            })
     }
 
     return (
@@ -92,7 +104,7 @@ const CreateSession = () => {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        
+
                         <Datefield
                             name={'regStarts'}
                             label={'Registration Starts'}
@@ -102,11 +114,11 @@ const CreateSession = () => {
                             name={'regEnds'}
                             label={'Registration Ends'}
                         ></Datefield>
-                        
+
                     </div>
 
                     <div className="flex items-center gap-4">
-                        
+
                         <Datefield
                             name={'classStarts'}
                             label={'Class Starts'}
