@@ -102,7 +102,7 @@ const DashLayout = () => {
             <DashBoard
                 routes={dashboardRout}
             ></DashBoard>
-            <div className="pt-16">
+            <div className="pt-16 w-full">
                 <Outlet></Outlet>
             </div>
         </div>

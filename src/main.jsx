@@ -17,6 +17,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import TutorHome from './Pages/TutorPages/TutorHomePage/TutorHome';
+import CreateSession from './Pages/TutorPages/CreateSessionPage/CreateSession';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -53,6 +55,33 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/admin/allUsers",
             element: <AllUsers></AllUsers>
+          },
+          
+          
+          // tutor routes
+          {
+            path: "/dashboard/tutor",
+            element: <TutorHome></TutorHome>
+          },
+          {
+            path: "/dashboard/tutor/createSessions",
+            element: <CreateSession></CreateSession>
+          },
+          {
+            path: "/dashboard/tutor/mySessions",
+            element: <TutorHome></TutorHome>
+          },
+          {
+            path: "/dashboard/tutor/uploadMaterials",
+            element: <TutorHome></TutorHome>
+          },
+          {
+            path: "/dashboard/tutor/myMaterials",
+            element: <TutorHome></TutorHome>
+          },
+          {
+            path: "/dashboard/tutor/allNotes",
+            element: <TutorHome></TutorHome>
           },
         ]
       },

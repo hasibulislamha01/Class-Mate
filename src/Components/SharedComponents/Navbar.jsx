@@ -21,11 +21,22 @@ const Navbar = () => {
             });
     }
 
+    let dashboardLink = '/dashboard'
+    if (role === 'Administrator') {
+        dashboardLink = '/dashboard/admin'
+    }
+    else if (role === 'Tutor') {
+        dashboardLink = '/dashboard/tutor'
+    }
+    else if (role === 'Student') {
+        dashboardLink = '/dashboard/student'
+    }
+
     const navItems =
         <>
             <NavLink to='/'>Home</NavLink>
             <NavLink to='/register'>Register</NavLink>
-            <NavLink to={role === 'Administrator' ? `/dashboard/admin` : '/dashboard'}>Dashboard</NavLink>
+            <NavLink to={dashboardLink}>Dashboard</NavLink>
         </>
     return (
         <div >
