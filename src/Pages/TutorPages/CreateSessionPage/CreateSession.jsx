@@ -2,8 +2,54 @@
 import 'react-datepicker/dist/react-datepicker.css'
 import ClassAnimation from "../../../Components/AnimationComponents/ClassAnimation";
 import Datefield from "../../../Components/Datefield/Datefield";
+import useAuth from '../../../CustomHooks/useAuth';
+import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 
 const CreateSession = () => {
+
+    const axiosSecure = useAxiosSecure()
+
+    const {user} = useAuth()
+    const tutorName = user?.displayName;
+    const tutorEmail = user?.email
+
+    const handleCreateSession = (event) => {
+        event.preventDefault()
+        const form = event.target
+        const sessionTitle = form.sessionTitle.value;
+        const duration = form.duration.value;
+        const description = form.description.value;
+        const registrationStarts = form.regStarts.value;
+        const registrationEnds = form.regEnds.value;
+        const classStarts = form.classStarts.value;
+        const classEnds = form.classEnds.value;
+        const registrationFee = 0;
+        const status = 'pending'
+
+        const sessionInfo = {
+            sessionTitle, 
+            tutorName,
+            tutorEmail,
+            duration,
+            description,
+            registrationStarts,
+            registrationEnds,
+            classStarts,
+            classEnds,
+            registrationFee,
+            status,
+        }
+        console.log(sessionInfo)
+
+        // send data to database
+        axiosSecure.post('/sessions', sessionInfo)
+        .then(response => {
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.error(error.message)
+        })
+    }
 
     return (
         <div className="flex flex-col-reverse lg:flex-row justify-evenly items-center">
@@ -12,7 +58,7 @@ const CreateSession = () => {
             </div>
             <div className="">
                 <h1 className="text-center text-3xl my-6"> Create Session </h1>
-                <form className="w-full flex flex-col items-center justify-center space-y-6">
+                <form onSubmit={handleCreateSession} className="w-full flex flex-col items-center justify-center space-y-6">
 
                     <div className="w-full flex items-center gap-4">
                         <div className="input-container mx-auto">
