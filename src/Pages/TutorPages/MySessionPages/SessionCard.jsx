@@ -76,24 +76,26 @@ const SessionCard = ({ mySession, refetch }) => {
 
 
 
-    const handleRequestforApproval = (id, newStatus) => {
+    const handleRequestforApproval = (id, info) => {
         // console.log('requesting', id)
-        return axiosSecure.patch(`/sessions/${id}`, { newStatus })
-            // .then(res => {
-            //     console.log(res.data)
-            //     if (res.data.modifiedCount) {
-            //         toast.success('Request sent to Administrator')
-            //         refetch()
-            //     }
-            // })
-            // .catch(error => {
-            //     console.error(error.message)
-            // })
+        return axiosSecure.patch(`/sessions/request/${id}`, info)
+        // .then(res => {
+        //     console.log(res.data)
+        //     if (res.data.modifiedCount) {
+        //         toast.success('Request sent to Administrator')
+        //         refetch()
+        //     }
+        // })
+        // .catch(error => {
+        //     console.error(error.message)
+        // })
     }
 
     const wrapper = (id, newStatus) => {
+        const defaultAmount = 0
+        const info = { newStatus, defaultAmount }
         toast.promise(
-            handleRequestforApproval(id, newStatus)
+            handleRequestforApproval(id, info)
                 .then(res => {
                     console.log(res.data)
                     if (res.data.modifiedCount) {

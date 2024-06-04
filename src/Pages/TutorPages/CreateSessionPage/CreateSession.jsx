@@ -29,7 +29,7 @@ const CreateSession = () => {
         const classStarts = form.classStarts.value;
         const classEnds = form.classEnds.value;
         const sessionImage = form.sessionImage.value;
-        const registrationFee = 0;
+        const registrationFee = '0';
         const status = 'pending'
 
         const sessionInfo = {

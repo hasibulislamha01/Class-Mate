@@ -11,10 +11,11 @@ import IconButton from '@mui/material/IconButton';
 import { red } from '@mui/material/colors';
 import { IoIosArrowDown } from 'react-icons/io';
 import useFormateDate from '../../../CustomHooks/useFormateDate';
-import { Button, CardMedia } from '@mui/material';
+import { CardMedia } from '@mui/material';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import ApproveModal from './ConfirmModal';
+import { Button } from 'antd';
 
 
 
@@ -58,9 +59,13 @@ const SessionCardinAdmin = ({ session, refetch }) => {
         setExpanded(!expanded);
     };
 
+    // console.log(typeof sessionId)
 
     const handleSession = (id, newStatus, action) => {
+        console.log(typeof id)
         console.log(newStatus, action)
+        const defaultAmount = '0'
+        const info = { newStatus, defaultAmount }
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -71,7 +76,7 @@ const SessionCardinAdmin = ({ session, refetch }) => {
             confirmButtonText: `${action} Session`
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.patch(`/sessions/${id}`, { newStatus })
+                axiosSecure.patch(`/sessions/${id}`, info)
                     .then(res => {
                         console.log(res.data)
                         if (res.data.modifiedCount) {
@@ -167,18 +172,37 @@ const SessionCardinAdmin = ({ session, refetch }) => {
                 </div>
             </CardContent>
             <CardActions disableSpacing>
-                <ApproveModal></ApproveModal>
+
+
 
                 {
                     status === 'approved' ?
-                        <></>
-                        :
                         <div>
-                            < button className="btn" onClick={() => document.getElementById('my_modal_5').showModal()}> open modal</button >
-
-                            <Button onClick={() => handleSession(sessionId, 'approved', 'Approve')} variant="contained" className='ml-5'>Approve</Button>
-                            <Button onClick={() => handleSession(sessionId, 'rejected', 'Reject')} variant="contained" className='ml-5'>Reject</Button>
+                            <Button>Update</Button>
+                            <Button>Delete</Button>
                         </div>
+                        :
+                        status === 'pending' ?
+                            <div className='ml-5 flex items-center justify-center gap-6'>
+                                <ApproveModal
+                                    id={sessionId}
+                                    refetch={refetch}
+                                ></ApproveModal>
+                                < button className="h-[50px] w-[50px]" onClick={() => document.getElementById('my_modal_5').showModal()}>
+                                    <img src="https://i.ibb.co/2SgPbdG/icons8-approve-96.png" alt="approve session" />
+                                </button >
+
+                                <div onClick={() => handleSession(sessionId, 'rejected', 'Reject')} className='hover:cursor-pointer'>
+                                    <img className='h-[50px]' src="https://i.ibb.co/dg3yXmt/icons8-reject-100.png" alt="reject session" />
+                                </div>
+
+                                {/* <Button onClick={() => handleSession(sessionId, 'approved', 'Approve')} variant="contained" className='ml-5'>Approve</Button>
+                            <Button onClick={() => handleSession(sessionId, 'rejected', 'Reject')} variant="contained" className='ml-5'>Reject</Button> */}
+                            </div>
+                            :
+                            <></>
+
+
 
                 }
 

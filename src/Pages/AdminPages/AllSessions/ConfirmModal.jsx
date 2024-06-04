@@ -1,14 +1,17 @@
 import Select from 'react-select'
-import './modal'
 import { useState } from 'react';
+import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
+import Swal from 'sweetalert2';
+import PropTypes from 'prop-types'
 
-const ApproveModal = () => {
+const ApproveModal = ({ id, refetch }) => {
 
-
+    const axiosSecure = useAxiosSecure()
     const paymentOptions = [
         { value: 'paid', label: 'Paid' },
         { value: 'free', label: 'Free' }
     ]
+
 
     const [selectedOption, setSelectedOption] = useState(null);
 
@@ -33,21 +36,53 @@ const ApproveModal = () => {
     const handleApprove = (event) => {
         event.preventDefault()
         const form = event.target;
-        const paymentStatus = form.paymentStatus.value;
+        // const paymentStatus = form.paymentStatus.value;
         const amount = form?.amount?.value;
-        const defaultAmount = 0
+        const defaultAmount = '0'
+        const newStatus = 'approved'
 
         let info = {}
         if (selectedOption?.value === 'paid') {
-            info = { paymentStatus, amount }
+            info = { newStatus, amount }
         }
         else {
-            info = { paymentStatus, defaultAmount }
+            info = { newStatus, defaultAmount }
         }
         console.log(info)
+
+        Swal.fire({
+            title: "Are you sure?",
+            customClass: 'swal-container',
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: `Approve Session`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/sessions/${id}`, info)
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.modifiedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: 'Success',
+                                text: `You have approved the session`,
+                                icon: "success"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.message)
+                    })
+
+            }
+        })
+
     }
     return (
-        <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+        <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle lowModal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">Hello!</h3>
                 <form onSubmit={handleApprove}>
@@ -86,5 +121,10 @@ const ApproveModal = () => {
         </dialog>
     );
 };
+
+ApproveModal.propTypes = {
+    id: PropTypes.string,
+    refetch: PropTypes.func
+}
 
 export default ApproveModal;

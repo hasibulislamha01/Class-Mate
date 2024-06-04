@@ -157,3 +157,11 @@
     border-right: 1px solid #00dfc4;
     letter-spacing: 0.2rem;
 }
+
+.swal-container {
+    z-index: 300000;
+}
+
+.lowModal{
+    z-index: 10 !important
+}
