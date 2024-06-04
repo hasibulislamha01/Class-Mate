@@ -20,6 +20,7 @@ import {
 import TutorHome from './Pages/TutorPages/TutorHomePage/TutorHome';
 import CreateSession from './Pages/TutorPages/CreateSessionPage/CreateSession';
 import MySession from './Pages/TutorPages/MySessionPages/MySession';
+import AllSessions from './Pages/AdminPages/AllSessions/AllSessions';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/admin/allUsers",
             element: <AllUsers></AllUsers>
+          },
+          {
+            path: "/dashboard/admin/allSessions",
+            element: <AllSessions></AllSessions>
           },
           
           

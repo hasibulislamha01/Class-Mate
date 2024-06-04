@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 
-const useGetLatestData = ({key, api}) => {
+const useGetLatestData = (key, api) => {
 
     const axiosSecure = useAxiosSecure()
 
@@ -17,3 +17,5 @@ const useGetLatestData = ({key, api}) => {
 };
 
 export default useGetLatestData;
+
+// used keys : sessionAction , mySessions

@@ -1,24 +1,27 @@
-import { useEffect, useState } from "react";
 import useAuth from "../../../CustomHooks/useAuth";
-import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 import SessionCard from "./SessionCard";
+import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 
 const MySession = () => {
     const {user} = useAuth()
-    const axiosSecure = useAxiosSecure()
+    // const axiosSecure = useAxiosSecure()
     const tutorEmail = user?.email;
 
-    const [mySessions, setMySessions] = useState([])
-    useEffect(()=> {
-        axiosSecure.get(`/sessions/${tutorEmail}`)
-        .then(res => {
-            console.log(res.data)
-            setMySessions(res.data)
-        })
-        .catch(error => {
-            console.log(error.message)
-        })
-    }, [axiosSecure, tutorEmail])
+    const queryInfo = useGetLatestData('mySessions', `/sessions/${tutorEmail}`)
+    const mySessions = queryInfo[0]
+    const refetch = queryInfo[1]
+
+    // const [mySessions, setMySessions] = useState([])
+    // useEffect(()=> {
+    //     axiosSecure.get(`/sessions/${tutorEmail}`)
+    //     .then(res => {
+    //         console.log(res.data)
+    //         setMySessions(res.data)
+    //     })
+    //     .catch(error => {
+    //         console.log(error.message)
+    //     })
+    // }, [axiosSecure, tutorEmail])
 
     return (
         <div>
@@ -30,6 +33,7 @@ const MySession = () => {
                         <SessionCard
                             key={mySession._id}
                             mySession={mySession}
+                            refetch={refetch}
                         ></SessionCard>
                     )
                 }

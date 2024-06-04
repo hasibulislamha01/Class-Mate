@@ -1,0 +1,219 @@
+import PropTypes from 'prop-types'
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Collapse from '@mui/material/Collapse';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import { red } from '@mui/material/colors';
+import { IoIosArrowDown } from 'react-icons/io';
+import useFormateDate from '../../../CustomHooks/useFormateDate';
+import { Button, CardMedia } from '@mui/material';
+import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
+import Swal from 'sweetalert2';
+
+
+
+const ExpandMore = styled((props) => {
+    const { ...other } = props;
+    return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+    }),
+}));
+
+
+const SessionCardinAdmin = ({ session, refetch }) => {
+
+    const axiosSecure = useAxiosSecure()
+    // const confirmAlert = useConfirmAlert()
+    // const getStatus = useChangeStatus(id, action, refetch)
+
+
+    const sessionId = session?._id
+    const tutorPhoto = session?.tutorPhoto
+    const tutorName = session?.tutorName
+    const tutorEmail = session?.tutorEmail
+    const sessionTitle = session?.sessionTitle
+    const formattedRegistrationStartingDate = useFormateDate(session?.registrationStarts)
+    const formattedRegistrationEndingDate = useFormateDate(session?.registrationEnds)
+    const formattedClassStartingDate = useFormateDate(session?.classStarts)
+    const formattedClassEndingDate = useFormateDate(session?.classEnds)
+    const applyingDate = useFormateDate(session?.applyingDate)
+    const duration = session?.duration
+    const registrationFee = session?.registrationFee
+    const status = session?.status
+    const sessionImage = session?.sessionImage
+
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
+
+    const handleSession = (id, newStatus, action) => {
+        console.log(newStatus, action)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: `${action} Session`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/sessions/${id}`, { newStatus })
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.modifiedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: 'Success',
+                                text: `You have ${newStatus} the session`,
+                                icon: "success"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.message)
+                    })
+
+            }
+        })
+
+
+    }
+
+
+    let badgeBg = 'white'
+    if (status === 'pending') {
+        badgeBg = 'bg-warning'
+    }
+    else if (status === 'approved') {
+        badgeBg = 'bg-[#059669] text-[#ecfccb]'
+    }
+    else if (status === 'rejected') {
+        badgeBg = 'bg-[#f43f5e] text-[#fff1f2]'
+    }
+
+
+    return (
+        <Card sx={{ maxWidth: 345 }}>
+            <CardHeader
+                avatar={
+                    <Avatar sx={{ bgcolor: red[500], }} aria-label="recipe">
+                        <img src={tutorPhoto} alt="" />
+                    </Avatar>
+                }
+                action={
+
+                    <div className='w-full mt-3'>
+                        <div id='status-badge' className={`badge border-transparent  w-[100px] font-semibold mr-2 p-3 ${badgeBg}`}>{status}</div>
+                    </div>
+
+
+                }
+                title={sessionTitle}
+                subheader={applyingDate}
+            ></CardHeader>
+
+            <CardMedia
+                component="img"
+                className='h-[200px] object-contain'
+                image={sessionImage}
+                alt="Paella dish"
+            />
+
+            <CardContent>
+
+                <div className='grid grid-cols-2 justify-items-stretch gap-6'>
+
+                    <div className='text-center'>
+                        <p className=''>Registration Starts</p>
+                        <h1 className='font-medium'>{formattedRegistrationStartingDate}</h1>
+                    </div>
+                    <div className='text-center'>
+                        <p className=''>Registration Ends</p>
+                        <h1 className='font-medium'>{formattedRegistrationEndingDate}</h1>
+                    </div>
+
+                    <div className='text-center'>
+                        <p className=''>Class Starts</p>
+                        <h1 className='font-medium'>{formattedClassStartingDate}</h1>
+                    </div>
+                    <div className='text-center'>
+                        <p className=''>Class Ends</p>
+                        <h1 className='font-medium'>{formattedClassEndingDate}</h1>
+                    </div>
+
+                    <div className='text-center'>
+                        <p className=''>Duration</p>
+                        <h1 className='font-medium'>{duration} hours</h1>
+                    </div>
+                    <div className='text-center'>
+                        <p className=''>Registration Fee</p>
+                        <h1 className='font-medium'>{registrationFee}</h1>
+                    </div>
+
+                </div>
+            </CardContent>
+            <CardActions disableSpacing>
+
+                {
+                    status === 'approved' ?
+                        <></>
+                        :
+                        <div>
+                            <Button onClick={() => handleSession(sessionId, 'approved', 'Approve')} variant="contained" className='ml-5'>Approve</Button>
+                            <Button onClick={() => handleSession(sessionId, 'rejected', 'Reject')} variant="contained" className='ml-5'>Reject</Button>
+                        </div>
+
+                }
+
+                <ExpandMore
+                    expand={expanded}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <IoIosArrowDown />
+
+                </ExpandMore>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                    <h1 className='text-2xl text-center my-3'>Session Details</h1>
+                    <p className='text-center'>
+                        {session?.description}
+                    </p>
+                </CardContent>
+                <CardContent>
+                    <h1 className='text-2xl text-center my-3'>Tutor Details</h1>
+
+                    <div className='flex flex-col justify-center items-center text-center'>
+                        <img className='h-[100px] w-[100px] rounded-full' src={tutorPhoto} alt="" />
+                        Name: {tutorName} <br />
+                        Email: {tutorEmail}
+                    </div>
+
+                </CardContent>
+            </Collapse>
+
+        </Card>
+    );
+};
+
+SessionCardinAdmin.propTypes = {
+    session: PropTypes.object,
+    refetch: PropTypes.func
+}
+
+export default SessionCardinAdmin;

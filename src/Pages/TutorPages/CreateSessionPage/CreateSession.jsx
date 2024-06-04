@@ -13,7 +13,8 @@ const CreateSession = () => {
 
     const { user } = useAuth()
     const tutorName = user?.displayName;
-    const tutorEmail = user?.email        
+    const tutorEmail = user?.email
+    const tutorPhoto = user?.photoURL
     const applyingDate = useTodaysDate()
 
 
@@ -27,6 +28,7 @@ const CreateSession = () => {
         const registrationEnds = form.regEnds.value;
         const classStarts = form.classStarts.value;
         const classEnds = form.classEnds.value;
+        const sessionImage = form.sessionImage.value;
         const registrationFee = 0;
         const status = 'pending'
 
@@ -34,6 +36,7 @@ const CreateSession = () => {
             sessionTitle,
             tutorName,
             tutorEmail,
+            tutorPhoto,
             duration,
             description,
             registrationStarts,
@@ -43,6 +46,7 @@ const CreateSession = () => {
             registrationFee,
             status,
             applyingDate,
+            sessionImage
         }
         console.log(sessionInfo)
 
@@ -92,6 +96,16 @@ const CreateSession = () => {
                             />
                             <label className="label">Duration in hours</label>
                         </div>
+                    </div>
+
+                    <div className="input-container mx-auto">
+                        <input
+                            className=""
+                            type="text"
+                            name="sessionImage"
+                            required="required"
+                        />
+                        <label className="label">Add an image of the session</label>
                     </div>
 
                     <div className="w-full mx-auto big-input-container">
