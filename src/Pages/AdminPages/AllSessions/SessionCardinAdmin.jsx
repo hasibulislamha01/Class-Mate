@@ -14,6 +14,7 @@ import useFormateDate from '../../../CustomHooks/useFormateDate';
 import { Button, CardMedia } from '@mui/material';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import ApproveModal from './ConfirmModal';
 
 
 
@@ -166,12 +167,15 @@ const SessionCardinAdmin = ({ session, refetch }) => {
                 </div>
             </CardContent>
             <CardActions disableSpacing>
+                <ApproveModal></ApproveModal>
 
                 {
                     status === 'approved' ?
                         <></>
                         :
                         <div>
+                            < button className="btn" onClick={() => document.getElementById('my_modal_5').showModal()}> open modal</button >
+
                             <Button onClick={() => handleSession(sessionId, 'approved', 'Approve')} variant="contained" className='ml-5'>Approve</Button>
                             <Button onClick={() => handleSession(sessionId, 'rejected', 'Reject')} variant="contained" className='ml-5'>Reject</Button>
                         </div>
