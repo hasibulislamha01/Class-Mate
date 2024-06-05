@@ -16,6 +16,7 @@ import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import ApproveModal from './ConfirmModal';
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 
 
@@ -111,6 +112,8 @@ const SessionCardinAdmin = ({ session, refetch }) => {
     }
 
 
+
+
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardHeader
@@ -177,8 +180,8 @@ const SessionCardinAdmin = ({ session, refetch }) => {
 
                 {
                     status === 'approved' ?
-                        <div>
-                            <Button>Update</Button>
+                        <div className='ml-2 flex items-center gap-4'>
+                            <Link to={`/dashboard/admin/allSessions/update/${sessionId}`}> <Button>Update</Button> </Link>
                             <Button>Delete</Button>
                         </div>
                         :

@@ -10,6 +10,12 @@
     /* border: 1px solid lime; */
 }
 
+.wide-input-container {
+    position: relative;
+    height: 50px;
+    width: 100%;
+}
+
 .big-input-container {
     position: relative;
     height: 80px;
@@ -32,6 +38,7 @@
     border: 1px solid #aaa;
 }
 
+.wide-input-container input,
 .input-container input {
     outline: none;
     height: 100%;
@@ -43,7 +50,8 @@
     font-size: 1rem;
     padding: 0px 10px;
     background-color: #1d2b3a;
-    color: whitesmoke;
+    color: #aaa;
+    font-weight: 500;
 }
 
 .dateField {
@@ -82,7 +90,7 @@
     text-transform: uppercase;
     pointer-events: none;
     font-size: 1rem;
-    color: #ffffff40;
+    color: #aaa;
 }
 
 .big-input-container textarea:valid~.label,
@@ -99,6 +107,8 @@
     font-weight: 400;
 }
 
+.wide-input-container:focus~.label,
+.wide-input-container :valid~.label,
 .input-container input:valid~.label,
 .input-container input:focus~.label {
     color: #00dfc4;
@@ -162,6 +172,6 @@
     z-index: 300000;
 }
 
-.lowModal{
+.lowModal {
     z-index: 10 !important
 }

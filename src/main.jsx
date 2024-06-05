@@ -21,13 +21,18 @@ import TutorHome from './Pages/TutorPages/TutorHomePage/TutorHome';
 import CreateSession from './Pages/TutorPages/CreateSessionPage/CreateSession';
 import MySession from './Pages/TutorPages/MySessionPages/MySession';
 import AllSessions from './Pages/AdminPages/AllSessions/AllSessions';
+import UpdateSession from './Pages/AdminPages/AllSessions/UpdateSession';
+import useAxiosSecure from './CustomHooks/useAxiosSecure';
 
 // Create a client
 const queryClient = new QueryClient()
 
+const baseURL = import.meta.env.BASE_URL
+console.log(baseURL)
 
-
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  
+  [
   {
     path: "/",
     element: <Root></Root>,
@@ -62,6 +67,10 @@ const router = createBrowserRouter([
             path: "/dashboard/admin/allSessions",
             element: <AllSessions></AllSessions>
           },
+          {
+            path: "/dashboard/admin/allSessions/update/:id",
+            element: <UpdateSession></UpdateSession>
+          },
           
           
           // tutor routes
@@ -94,7 +103,6 @@ const router = createBrowserRouter([
     ]
   },
 ]);
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

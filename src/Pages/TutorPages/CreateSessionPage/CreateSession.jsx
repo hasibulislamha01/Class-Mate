@@ -98,7 +98,7 @@ const CreateSession = () => {
                         </div>
                     </div>
 
-                    <div className="input-container mx-auto">
+                    <div className="wide-input-container mx-auto border">
                         <input
                             className=""
                             type="text"

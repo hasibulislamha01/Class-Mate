@@ -18,4 +18,4 @@ const useGetLatestData = (key, api) => {
 
 export default useGetLatestData;
 
-// used keys : sessionAction , mySessions
+// used keys : sessionAction , mySessions, updatedSession
