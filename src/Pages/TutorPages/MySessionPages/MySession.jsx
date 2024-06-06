@@ -7,21 +7,11 @@ const MySession = () => {
     // const axiosSecure = useAxiosSecure()
     const tutorEmail = user?.email;
 
-    const queryInfo = useGetLatestData('mySessions', `/sessions/${tutorEmail}`)
+    const queryInfo = useGetLatestData('mySessions', `/sessions/emailQuery/${tutorEmail}`)
     const mySessions = queryInfo[0]
     const refetch = queryInfo[1]
+    console.log(mySessions)
 
-    // const [mySessions, setMySessions] = useState([])
-    // useEffect(()=> {
-    //     axiosSecure.get(`/sessions/${tutorEmail}`)
-    //     .then(res => {
-    //         console.log(res.data)
-    //         setMySessions(res.data)
-    //     })
-    //     .catch(error => {
-    //         console.log(error.message)
-    //     })
-    // }, [axiosSecure, tutorEmail])
 
     return (
         <div>

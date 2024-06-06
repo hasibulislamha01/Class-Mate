@@ -111,7 +111,38 @@ const SessionCardinAdmin = ({ session, refetch }) => {
         badgeBg = 'bg-[#f43f5e] text-[#fff1f2]'
     }
 
+    const handleDeleteSession = (id) => {
+        // console.log(id)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: `Delete Session`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/sessions/${id}`)
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.deletedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: 'Success',
+                                text: `You have Delted the session`,
+                                icon: "success"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.message)
+                    })
 
+            }
+        })
+        
+    }
 
 
     return (
@@ -182,7 +213,7 @@ const SessionCardinAdmin = ({ session, refetch }) => {
                     status === 'approved' ?
                         <div className='ml-2 flex items-center gap-4'>
                             <Link to={`/dashboard/admin/allSessions/update/${sessionId}`}> <Button>Update</Button> </Link>
-                            <Button>Delete</Button>
+                            <Button onClick={() => handleDeleteSession(sessionId)}>Delete</Button>
                         </div>
                         :
                         status === 'pending' ?

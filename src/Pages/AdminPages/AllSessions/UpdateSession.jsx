@@ -1,29 +1,42 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Select from 'react-select'
-import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 
 
 
 const UpdateSession = () => {
 
+    const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
     const query = useParams()
     const sessionId = query?.id
+    const [sessionArr, setSessionArr] = useState([])
+    // console.log(sessionId)
 
-    const queryData = useGetLatestData('updatedSession', `/sessions/${sessionId}`)
-    const [session] = queryData[0]
-    const refetch = queryData[1]
-    console.log(session)
-    
+    // const queryData = useGetLatestData('updatedSession', `/sessions/${sessionId}`)
+    // console.log('query data: ',queryData)
+    // const [session] = queryData[0]
+    // const refetch = queryData[1]
+    useEffect(() => {
+        axiosSecure.get(`/sessions/${sessionId}`)
+            .then(res => {
+                console.log(res.data)
+                setSessionArr(res.data)
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
+    }, [sessionId])
+
+    const session = sessionArr[0]
+
     const sessionTitle = session?.sessionTitle
     const sessionImg = session?.sessionImage
-    
+
     console.log(sessionTitle, sessionImg)
 
-    const axiosSecure = useAxiosSecure()
     const paymentOptions = [
         { value: 'paid', label: 'Paid' },
         { value: 'free', label: 'Free' }
@@ -83,11 +96,19 @@ const UpdateSession = () => {
                     .then(res => {
                         console.log(res.data)
                         if (res.data.modifiedCount) {
-                            refetch()
+                            // refetch()
                             Swal.fire({
                                 title: 'Success',
                                 text: `You have Updated the session`,
-                                icon: "success"
+                                icon: "success",
+                            });
+
+                        }
+                        else {
+                            Swal.fire({
+                                title: "The session wasn't updated",
+                                text: "You provided the same data the session had before",
+                                icon: "question"
                             });
                         }
                     })
@@ -96,7 +117,7 @@ const UpdateSession = () => {
                     })
 
             }
-            else{
+            else {
                 navigate('/dashboard/admin/allSessions')
             }
         })
