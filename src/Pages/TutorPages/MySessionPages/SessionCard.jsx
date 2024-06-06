@@ -14,10 +14,12 @@ import { red } from '@mui/material/colors';
 import { IoIosArrowDown } from 'react-icons/io';
 import useAuth from '../../../CustomHooks/useAuth';
 import useFormateDate from '../../../CustomHooks/useFormateDate';
-import { CardMedia } from '@mui/material';
+import { CardMedia, Tooltip } from '@mui/material';
 import { Button } from 'antd';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import toast, { Toaster } from 'react-hot-toast';
+import { BsUpload } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -182,7 +184,16 @@ const SessionCard = ({ mySession, refetch }) => {
                 {
                     status === 'rejected' ?
                         <Button onClick={() => wrapper(sessionId, 'pending')} type="primary">Request a new Approval</Button>
-                        : <></>
+                        : status === 'approved' ?
+                            <Tooltip title="Upload Materials" placement="top">
+                                <Link to={`/dashboard/tutor/uploadMaterials/${sessionId}`} className='ml-16 cursor-pointer text-2xl font-bold'>
+                                    <BsUpload />
+                                    {/* <img className='h-[35px]' src="https://i.ibb.co/ydtXMwB/icons8-upload-64.png" alt="" /> */}
+                                </Link>
+                            </Tooltip>
+
+                            : <></>
+
                 }
 
                 <ExpandMore

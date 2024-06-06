@@ -23,6 +23,9 @@ import MySession from './Pages/TutorPages/MySessionPages/MySession';
 import AllSessions from './Pages/AdminPages/AllSessions/AllSessions';
 import UpdateSession from './Pages/AdminPages/AllSessions/UpdateSession';
 import SessionDetails from './Pages/SessionDetailsPage/SessionDetails';
+import UploadMaterial from './Pages/TutorPages/UploadMaterialPage/UploadMaterial';
+import UploadMaterialMain from './Pages/TutorPages/UploadMaterialPage/UploadMaterialMain';
+import MyMaterials from './Pages/TutorPages/MyMaterialsPage/MyMaterials';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -92,12 +95,16 @@ const router = createBrowserRouter(
             element: <MySession></MySession>
           },
           {
-            path: "/dashboard/tutor/uploadMaterials",
-            element: <TutorHome></TutorHome>
+            path: "/dashboard/tutor/uploadMaterials/",
+            element: <UploadMaterialMain></UploadMaterialMain>
+          },
+          {
+            path: "/dashboard/tutor/uploadMaterials/:id",
+            element: <UploadMaterial></UploadMaterial>
           },
           {
             path: "/dashboard/tutor/myMaterials",
-            element: <TutorHome></TutorHome>
+            element: <MyMaterials></MyMaterials>
           },
           {
             path: "/dashboard/tutor/allNotes",
