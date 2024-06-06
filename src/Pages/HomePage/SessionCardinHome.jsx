@@ -2,6 +2,7 @@ import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/ico
 import { Avatar, Badge, Button, Card, Tooltip } from 'antd';
 import useTodaysDate from '../../CustomHooks/useTodaysDate';
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -56,7 +57,9 @@ const SessionCardinHome = ({ session }) => {
                 actions={[
                     <Button key='registerSession' size='small'>Register</Button>,
                     <EditOutlined key="edit" />,
-                    <Button key='viewSessionDetails' size='small'>Details</Button>,
+                    <Link to={`/sessionDetails/${sessionId}`} key='viewSessionDetails'>
+                        <Button  size='small'>Details</Button>
+                    </Link>,
                 ]}
             >
 
