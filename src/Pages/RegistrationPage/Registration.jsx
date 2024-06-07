@@ -117,12 +117,12 @@ const Registration = () => {
     }
 
     return (
-        <div className="py-12 min-h-screen">
+        <div className="py-12 min-h-screen border border-red-300">
             <Toaster></Toaster>
             <h1 className="mb-8 text-3xl text-[#A0D6B4] text-center">Register Here</h1>
-            <form onSubmit={handleRegister} className="w-1/2 mx-auto space-y-12">
+            <form onSubmit={handleRegister} className="w-full px-8 lg:px-0 lg:w-1/2 mx-auto space-y-12 ">
 
-                <div className="flex flex-col lg:flex-row justify-between gap-4">
+                <div className="flex flex-col border border-red-300 lg:flex-row justify-between gap-4">
                     <div className="input-container mx-auto">
                         <input
                             className=""

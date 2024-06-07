@@ -7,13 +7,14 @@
     position: relative;
     height: 50px;
     width: 50%;
-    /* border: 1px solid lime; */
+    border: 1px solid lime;
 }
 
 .wide-input-container {
     position: relative;
     height: 50px;
     width: 100%;
+    border: 1px solid green;
 }
 
 .big-input-container {
@@ -174,4 +175,44 @@
 
 .lowModal {
     z-index: 10 !important
+}
+
+.custom-ribbon {
+    left: 13px !important;
+    width: 80px;
+}
+
+
+
+/* media queries for responsive dessign */
+
+/* ------------  Mobiles ------------- */
+
+@media screen and (max-width:600px) {
+
+    .custom-ribbon {
+        left: 29px !important;
+        width: 80px;
+    }
+
+    .input-container {
+        position: relative;
+        height: 50px;
+        width: 98%;
+        border: 1px solid lime;
+    }
+    
+}
+
+
+
+/* ------------ Tablets -------------- */
+
+@media only screen and (max-width : 778px){
+
+    .custom-ribbon {
+        left: 34px !important;
+        width: 80px;
+    }
+
 }

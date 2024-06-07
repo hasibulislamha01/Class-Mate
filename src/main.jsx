@@ -26,6 +26,8 @@ import SessionDetails from './Pages/SessionDetailsPage/SessionDetails';
 import UploadMaterial from './Pages/TutorPages/UploadMaterialPage/UploadMaterial';
 import UploadMaterialMain from './Pages/TutorPages/UploadMaterialPage/UploadMaterialMain';
 import MyMaterials from './Pages/TutorPages/MyMaterialsPage/MyMaterials';
+import StudentHome from './Pages/StudentPages/StudentHomePage/StudentHome';
+import LoginValidator from './Components/LoginValidator/LoginValidator';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -34,87 +36,98 @@ const baseURL = import.meta.env.VITE_BASE_URL
 console.log(baseURL)
 
 const router = createBrowserRouter(
-  
-  [
-  {
-    path: "/",
-    element: <Root></Root>,
-    children: [
-      {
-        path: "/",
-        element: <Home></Home>
-      },
-      {
-        path: "/register",
-        element: <Registration></Registration>
-      },
-      {
-        path: "/login",
-        element: <Login></Login>
-      },
-      {
-        path: "/sessionDetails/:id",
-        loader: ({params})=> fetch(`${baseURL}/sessions/${params.id}`),
-        element: <SessionDetails></SessionDetails>
-      },
-      {
-        path: "/dashboard",
-        element: <DashLayout></DashLayout>,
-        children: [
 
-          // admin routes
-          {
-            path: "/dashboard/admin",
-            element: <AdminHome></AdminHome>
-          },
-          {
-            path: "/dashboard/admin/allUsers",
-            element: <AllUsers></AllUsers>
-          },
-          {
-            path: "/dashboard/admin/allSessions",
-            element: <AllSessions></AllSessions>
-          },
-          {
-            path: "/dashboard/admin/allSessions/update/:id",
-            element: <UpdateSession></UpdateSession>
-          },
-          
-          
-          // tutor routes
-          {
-            path: "/dashboard/tutor",
-            element: <TutorHome></TutorHome>
-          },
-          {
-            path: "/dashboard/tutor/createSessions",
-            element: <CreateSession></CreateSession>
-          },
-          {
-            path: "/dashboard/tutor/mySessions",
-            element: <MySession></MySession>
-          },
-          {
-            path: "/dashboard/tutor/uploadMaterials/",
-            element: <UploadMaterialMain></UploadMaterialMain>
-          },
-          {
-            path: "/dashboard/tutor/uploadMaterials/:id",
-            element: <UploadMaterial></UploadMaterial>
-          },
-          {
-            path: "/dashboard/tutor/myMaterials",
-            element: <MyMaterials></MyMaterials>
-          },
-          {
-            path: "/dashboard/tutor/allNotes",
-            element: <TutorHome></TutorHome>
-          },
-        ]
-      },
-    ]
-  },
-]);
+  [
+    {
+      path: "/",
+      element: <Root></Root>,
+      children: [
+        {
+          path: "/",
+          element: <Home></Home>
+        },
+        {
+          path: "/register",
+          element: <Registration></Registration>
+        },
+        {
+          path: "/login",
+          element: <Login></Login>
+        },
+        {
+          path: "/sessionDetails/:id",
+          loader: ({ params }) => fetch(`${baseURL}/sessions/${params.id}`),
+          element: <LoginValidator> <SessionDetails></SessionDetails> </LoginValidator>
+        },
+        {
+          path: "/dashboard",
+          element: <DashLayout></DashLayout>,
+          children: [
+
+            // admin routes
+            {
+              path: "/dashboard/admin",
+              element: <AdminHome></AdminHome>
+            },
+            {
+              path: "/dashboard/admin/allUsers",
+              element: <AllUsers></AllUsers>
+            },
+            {
+              path: "/dashboard/admin/allSessions",
+              element: <AllSessions></AllSessions>
+            },
+            {
+              path: "/dashboard/admin/allSessions/update/:id",
+              element: <UpdateSession></UpdateSession>
+            },
+
+
+            // tutor routes
+            {
+              path: "/dashboard/tutor",
+              element: <TutorHome></TutorHome>
+            },
+            {
+              path: "/dashboard/tutor/createSessions",
+              element: <CreateSession></CreateSession>
+            },
+            {
+              path: "/dashboard/tutor/mySessions",
+              element: <MySession></MySession>
+            },
+            {
+              path: "/dashboard/tutor/uploadMaterials/",
+              element: <UploadMaterialMain></UploadMaterialMain>
+            },
+            {
+              path: "/dashboard/tutor/uploadMaterials/:id",
+              element: <UploadMaterial></UploadMaterial>
+            },
+            {
+              path: "/dashboard/tutor/myMaterials",
+              element: <MyMaterials></MyMaterials>
+            },
+            {
+              path: "/dashboard/tutor/allNotes",
+              element: <TutorHome></TutorHome>
+            },
+
+
+            // student routes
+            {
+              path: "/dashboard/student",
+              element: <StudentHome></StudentHome>
+            },
+            {
+              path: "/dashboard/student/bookedSessions",
+              element: <TutorHome></TutorHome>
+            },
+          ]
+        },
+      ]
+    },
+  ]);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

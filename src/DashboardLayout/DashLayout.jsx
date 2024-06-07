@@ -65,22 +65,22 @@ const DashLayout = () => {
 
     const studentRoutes = [
         {
-            link: '/dashboard/admin/materials',
+            link: '/dashboard/student/bookedSessions',
             icon: <GiNotebook />,
             linkTitle: 'Booked Sessions'
         },
         {
-            link: '/dashboard/admin/materials',
+            link: '/dashboard/student/createNote',
             icon: <GiNotebook />,
             linkTitle: 'Create Note'
         },
         {
-            link: '/dashboard/admin/materials',
+            link: '/dashboard/student/manageNotes',
             icon: <GiNotebook />,
             linkTitle: 'Manage Notes'
         },
         {
-            link: '/dashboard/admin/materials',
+            link: '/dashboard/student/allMaterials',
             icon: <GiNotebook />,
             linkTitle: 'All Materials'
         },

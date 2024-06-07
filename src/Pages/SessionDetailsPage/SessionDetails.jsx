@@ -3,14 +3,21 @@ import { useLoaderData } from "react-router-dom";
 import useFormateDate from "../../CustomHooks/useFormateDate";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
 import useUserRole from "../../CustomHooks/useUserRole";
+import useAuth from "../../CustomHooks/useAuth";
+import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const SessionDetails = () => {
     const [session] = useLoaderData()
+    const { user } = useAuth()
     // console.log(session)
     const todaysDateString = useTodaysDate()
     const role = useUserRole()
+    const axiosSecure = useAxiosSecure()
     console.log(role)
 
+
+    const sessionId = session?._id
     const sessionTitle = session?.sessionTitle
     const sessionImg = session?.sessionImage
     const description = session?.description
@@ -21,21 +28,63 @@ const SessionDetails = () => {
     const regEnds = useFormateDate(session?.registrationEnds)
     const classStarts = useFormateDate(session?.classStarts)
     const classEnds = useFormateDate(session?.classEnds)
+    const regFee = session?.registrationFee
 
     const todaysDate = new Date(todaysDateString)
     const regEndDate = new Date(regEnds)
 
     let disableBookNowButton = false
-    if(role === 'Administrator'){
+    if (role === 'Administrator') {
         disableBookNowButton = true
-    } else if (role === 'Tutor'){
+    } else if (role === 'Tutor') {
         disableBookNowButton = true
-    } else if ( regEndDate > todaysDate ){
+    } else if (regEndDate < todaysDate) {
         disableBookNowButton = true
     } else {
         disableBookNowButton = false
     }
 
+    // console.log(regEndDate > todaysDate)
+
+    const handleBookSession = () => {
+        const studentEmail = user?.email
+        console.log(sessionId, studentEmail, regFee)
+        const bookedSessionInfo = {
+            ...session,
+            sessionId,
+            studentEmail
+        }
+        delete bookedSessionInfo?._id
+        // console.log(sessionImg),
+
+        Swal.fire({
+            title: `Book ${sessionTitle} session?`,
+            text: `You will need ${regFee}$ to book the session`,
+            imageUrl: sessionImg,
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "Custom image",
+            showCancelButton: true,
+            cancelButtonColor: "#d33",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (regFee !== '0') {
+                    console.log('redirecting to payment gateway')
+                    console.log(bookedSessionInfo)
+                } else {
+                    console.log(bookedSessionInfo)
+                    axiosSecure.post('/bookedSessions', bookedSessionInfo)
+                        .then(response => {
+                            console.log(response.data)
+                        })
+                        .catch(error => {
+                            console.error(error.message)
+                        })
+                }
+            }
+        });
+
+    }
 
     return (
         <div className="container mx-auto">
@@ -43,7 +92,7 @@ const SessionDetails = () => {
             <div className="py-12 flex flex-col lg:flex-row justify-center items-center gap-12">
                 <div className="space-y-6 text-center">
                     {/* <h1 className="text-2xl">{sessionTitle}</h1> */}
-                    <img src={sessionImg} alt="" />
+                    <img src={sessionImg} alt="" className="w-[450px] h-[350px] object-cover" />
 
                 </div>
 
@@ -94,7 +143,7 @@ const SessionDetails = () => {
                         {description}
                     </p>
                 </div>
-                <Button className="flex justify-center mx-auto" disabled={disableBookNowButton}> Book Now </Button>
+                <Button className="flex justify-center mx-auto" disabled={disableBookNowButton} onClick={handleBookSession}> Book Now </Button>
             </div>
 
 

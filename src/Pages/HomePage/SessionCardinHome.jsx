@@ -1,4 +1,4 @@
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 import { Avatar, Badge, Button, Card, Tooltip } from 'antd';
 import useTodaysDate from '../../CustomHooks/useTodaysDate';
 import PropTypes from 'prop-types'
@@ -11,7 +11,7 @@ const SessionCardinHome = ({ session }) => {
 
     const todaysDateString = useTodaysDate()
     // console.log(todaysDate)
-    console.log(session)
+    // console.log(session)
 
     const sessionId = session?._id
     const sessionImage = session?.sessionImage
@@ -19,7 +19,7 @@ const SessionCardinHome = ({ session }) => {
     const sessionTutorImage = session?.tutorPhoto
     const sessionTutorName = session?.tutorName
     const sessionDescription = session?.description
-    const regStartDateString = session?.registrationStarts
+    // const regStartDateString = session?.registrationStarts
     const regEndDateString = session?.registrationEnds
 
     const todaysDate = new Date(todaysDateString)
@@ -27,11 +27,14 @@ const SessionCardinHome = ({ session }) => {
 
     // console.log( todaysDate,  regEndDate, regEndDate > todaysDate)
     let status = 'Ongoing'
+    let statusColor = 'blue'
     if (regEndDate < todaysDate) {
         status = 'Closed'
+        statusColor = 'red'
     }
     else {
         status = 'Ongoing'
+        statusColor = '#16a34a'
     }
 
     const splittedDescription = sessionDescription.split(' ')
@@ -41,9 +44,9 @@ const SessionCardinHome = ({ session }) => {
 
     return (
 
-        <Badge.Ribbon text={status} placement='start'>
+        <Badge.Ribbon text={status} placement='start' className='custom-ribbon' color={statusColor}>
             <Card
-                className='flex flex-col justify-between'
+                className='flex flex-col justify-between h-full mx-auto'
                 style={{
                     width: 300,
                 }}
