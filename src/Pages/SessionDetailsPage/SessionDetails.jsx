@@ -1,5 +1,5 @@
 import { Button, Card, Col } from "antd";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useFormateDate from "../../CustomHooks/useFormateDate";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
 import useUserRole from "../../CustomHooks/useUserRole";
@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 const SessionDetails = () => {
     const [session] = useLoaderData()
     const { user } = useAuth()
+    const navigate = useNavigate()
     // console.log(session)
     const todaysDateString = useTodaysDate()
     const role = useUserRole()
@@ -34,14 +35,19 @@ const SessionDetails = () => {
     const regEndDate = new Date(regEnds)
 
     let disableBookNowButton = false
+    let paymentPageLink = ''
     if (role === 'Administrator') {
         disableBookNowButton = true
+        paymentPageLink = ''
     } else if (role === 'Tutor') {
         disableBookNowButton = true
+        paymentPageLink = ''
     } else if (regEndDate < todaysDate) {
         disableBookNowButton = true
+        paymentPageLink = ''
     } else {
         disableBookNowButton = false
+        paymentPageLink = `/payment/${sessionId}`
     }
 
     // console.log(regEndDate > todaysDate)
@@ -66,16 +72,29 @@ const SessionDetails = () => {
             imageAlt: "Custom image",
             showCancelButton: true,
             cancelButtonColor: "#d33",
+            confirmButtonColor: '#16a34a',
+            customClass: {
+                confirmButton: 'w-[100px]'
+            }
+            
         }).then((result) => {
             if (result.isConfirmed) {
                 if (regFee !== '0') {
                     console.log('redirecting to payment gateway')
                     console.log(bookedSessionInfo)
+                    navigate(paymentPageLink)
                 } else {
                     console.log(bookedSessionInfo)
                     axiosSecure.post('/bookedSessions', bookedSessionInfo)
                         .then(response => {
                             console.log(response.data)
+                            if (response.data.insertedId) {
+                                Swal.fire({
+                                    title: "Congratulations!",
+                                    text: "You booked the session",
+                                    icon: "success"
+                                });
+                            }
                         })
                         .catch(error => {
                             console.error(error.message)
@@ -143,7 +162,7 @@ const SessionDetails = () => {
                         {description}
                     </p>
                 </div>
-                <Button className="flex justify-center mx-auto" disabled={disableBookNowButton} onClick={handleBookSession}> Book Now </Button>
+                <Button className="flex justify-center mx-auto" disabled={disableBookNowButton} onClick={handleBookSession} > Book Now </Button>
             </div>
 
 

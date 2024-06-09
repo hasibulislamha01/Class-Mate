@@ -28,6 +28,7 @@ import UploadMaterialMain from './Pages/TutorPages/UploadMaterialPage/UploadMate
 import MyMaterials from './Pages/TutorPages/MyMaterialsPage/MyMaterials';
 import StudentHome from './Pages/StudentPages/StudentHomePage/StudentHome';
 import LoginValidator from './Components/LoginValidator/LoginValidator';
+import Payment from './Pages/StudentPages/PaymentPage/Payment';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -58,6 +59,11 @@ const router = createBrowserRouter(
           path: "/sessionDetails/:id",
           loader: ({ params }) => fetch(`${baseURL}/sessions/${params.id}`),
           element: <LoginValidator> <SessionDetails></SessionDetails> </LoginValidator>
+        },
+        {
+          path: "/payment/:id",
+          loader: ({ params }) => fetch(`${baseURL}/sessions/${params.id}`),
+          element: <Payment></Payment>
         },
         {
           path: "/dashboard",
