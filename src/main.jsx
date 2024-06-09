@@ -29,6 +29,7 @@ import MyMaterials from './Pages/TutorPages/MyMaterialsPage/MyMaterials';
 import StudentHome from './Pages/StudentPages/StudentHomePage/StudentHome';
 import LoginValidator from './Components/LoginValidator/LoginValidator';
 import Payment from './Pages/StudentPages/PaymentPage/Payment';
+import BookedSessions from './Pages/StudentPages/BookedSessionsPage/BookedSessions';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -127,7 +128,7 @@ const router = createBrowserRouter(
             },
             {
               path: "/dashboard/student/bookedSessions",
-              element: <TutorHome></TutorHome>
+              element: <BookedSessions></BookedSessions>
             },
           ]
         },

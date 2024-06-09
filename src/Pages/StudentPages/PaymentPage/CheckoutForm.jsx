@@ -1,16 +1,18 @@
-import { CardElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import useAuth from "../../../CustomHooks/useAuth";
 import useTodaysDate from "../../../CustomHooks/useTodaysDate";
 import Swal from "sweetalert2";
 import PropTypes from 'prop-types'
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ session, clientSecret }) => {
 
     const { user } = useAuth()
     // const paymentData = { amount: session?.registrationFee, }
     const stripe = useStripe();
+    const navigate = useNavigate()
     const elements = useElements();
     const todaysDate = useTodaysDate()
     const axiosSecure = useAxiosSecure()
@@ -36,12 +38,14 @@ const CheckoutForm = ({ session, clientSecret }) => {
         if (!stripe || !elements) {
             // Stripe.js has not loaded yet. Make sure to disable
             // form submission until Stripe.js has loaded.
+            setIsLoading(false)
             return;
         }
 
         const card = elements.getElement(CardElement)
 
         if (card == null) {
+            setIsLoading(false)
             return;
         }
 
@@ -115,39 +119,39 @@ const CheckoutForm = ({ session, clientSecret }) => {
                 })
             console.log(paymentInfo)
             setIsLoading(false)
-
+            navigate('/dashboard/student/bookedSessions')
         }
 
     }
 
-    const paymentElementOptions = {
-        layout: "tabs"
-    }
+    // const paymentElementOptions = {
+    //     layout: "tabs"
+    // }
 
     const spinner = <span className="loading loading-spinner loading-sm"></span>
 
     const CARD_ELEMENT_OPTIONS = {
         style: {
             base: {
-              color: "#424770",
-              fontSize: "16px",
-              fontFamily: 'Arial, sans-serif',
-              fontWeight: '500',
-              fontSmoothing: "antialiased",
-              letterSpacing: '0.025em',
-              "::placeholder": {
-                color: "#aab7c4",
-                fontStyle: 'italic',
-              },
+                color: "#424770",
+                fontSize: "16px",
+                fontFamily: 'Arial, sans-serif',
+                fontWeight: '500',
+                fontSmoothing: "antialiased",
+                letterSpacing: '0.025em',
+                "::placeholder": {
+                    color: "#aab7c4",
+                    fontStyle: 'italic',
+                },
             },
             invalid: {
-              color: "#9e2146",
-              textDecoration: 'underline',
+                color: "#9e2146",
+                textDecoration: 'underline',
             },
             complete: {
-              color: "#4caf50",
+                color: "#4caf50",
             },
-          },
+        },
     }
     return (
         <form onSubmit={handleCheckout}>

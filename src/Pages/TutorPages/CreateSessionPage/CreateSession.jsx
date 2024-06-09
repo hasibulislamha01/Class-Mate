@@ -6,6 +6,7 @@ import useAuth from '../../../CustomHooks/useAuth';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useTodaysDate from '../../../CustomHooks/useTodaysDate';
+import { useState } from 'react';
 
 const CreateSession = () => {
 
@@ -16,10 +17,12 @@ const CreateSession = () => {
     const tutorEmail = user?.email
     const tutorPhoto = user?.photoURL
     const applyingDate = useTodaysDate()
+    const [loading, setLoading] = useState(false)
 
 
     const handleCreateSession = (event) => {
         event.preventDefault()
+        setLoading(true)
         const form = event.target
         const sessionTitle = form.sessionTitle.value;
         const duration = form.duration.value;
@@ -55,6 +58,7 @@ const CreateSession = () => {
             .then(response => {
                 console.log(response.data)
                 if (response.data.insertedId) {
+                    setLoading(false)
                     Swal.fire({
                         title: "Success",
                         text: "You created the session!",
@@ -148,7 +152,19 @@ const CreateSession = () => {
 
 
 
-                    <button type="submit" className="btn btn-block">Create Session</button>
+                    <button type="submit" className="btn btn-block" disabled={loading}>
+                        {
+                            loading ? 
+                            <p>
+                                Creating Session
+                                <span className="loading loading-dots loading-sm"></span>
+                            </p>
+                            : 
+                            <p>
+                                Create Session
+                            </p>
+                        }
+                    </button>
                 </form>
 
             </div>
