@@ -1,11 +1,12 @@
 import { Button, Card, Col } from "antd";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import useFormateDate from "../../CustomHooks/useFormateDate";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
 import useUserRole from "../../CustomHooks/useUserRole";
 import useAuth from "../../CustomHooks/useAuth";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import Review from "../StudentPages/ReviewSection/Review";
 
 const SessionDetails = () => {
     const [session] = useLoaderData()
@@ -15,7 +16,8 @@ const SessionDetails = () => {
     const todaysDateString = useTodaysDate()
     const role = useUserRole()
     const axiosSecure = useAxiosSecure()
-    console.log(role)
+    const location = useLocation()
+    console.log(role, location)
 
 
     const sessionId = session?._id
@@ -34,6 +36,7 @@ const SessionDetails = () => {
     const todaysDate = new Date(todaysDateString)
     const regEndDate = new Date(regEnds)
 
+
     let disableBookNowButton = false
     let paymentPageLink = ''
     if (role === 'Administrator') {
@@ -45,7 +48,11 @@ const SessionDetails = () => {
     } else if (regEndDate < todaysDate) {
         disableBookNowButton = true
         paymentPageLink = ''
-    } else {
+    } else if (location.state === '/dashboard/student/bookedSessions') {
+        disableBookNowButton = true
+        paymentPageLink = ''
+    }
+    else {
         disableBookNowButton = false
         paymentPageLink = `/payment/${sessionId}`
     }
@@ -76,7 +83,7 @@ const SessionDetails = () => {
             customClass: {
                 confirmButton: 'w-[100px]'
             }
-            
+
         }).then((result) => {
             if (result.isConfirmed) {
                 if (regFee !== '0') {
@@ -110,7 +117,6 @@ const SessionDetails = () => {
             <h1 className="text-center text-3xl">{sessionTitle}</h1>
             <div className="py-12 flex flex-col lg:flex-row justify-center items-center gap-12">
                 <div className="space-y-6 text-center">
-                    {/* <h1 className="text-2xl">{sessionTitle}</h1> */}
                     <img src={sessionImg} alt="" className="w-[450px] h-[350px] object-cover" />
 
                 </div>
@@ -162,7 +168,16 @@ const SessionDetails = () => {
                         {description}
                     </p>
                 </div>
-                <Button className="flex justify-center mx-auto" disabled={disableBookNowButton} onClick={handleBookSession} > Book Now </Button>
+
+
+                {
+                    location.state === '/dashboard/student/bookedSessions' ?
+                        <Review
+                        sessionId={sessionId}
+                        ></Review>
+                        :
+                        <Button className={`flex justify-center mx-auto`} disabled={disableBookNowButton} onClick={handleBookSession} > Book Now </Button>
+                }
             </div>
 
 

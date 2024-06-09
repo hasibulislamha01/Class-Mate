@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types'
 import { EditOutlined } from '@ant-design/icons';
-import { Avatar, Button, Card, Tooltip } from 'antd';
-import { Link } from 'react-router-dom';
+import { Avatar, Card, Divider, Tooltip } from 'antd';
+import { Link, useLocation } from 'react-router-dom';
 import Meta from 'antd/es/card/Meta';
+import { MdOutlineChromeReaderMode } from "react-icons/md";
 
 const BookedSessionCard = ({ bookedSession }) => {
+
+    const location = useLocation()
 
     const splittedDescription = bookedSession?.description.split(' ')
     const slicedDescription = splittedDescription.slice(0, 10)
     const shortenedDescription = slicedDescription.join(' ')
-    
+
     return (
         <Card
             className='flex flex-col justify-between h-full mx-auto'
@@ -24,11 +27,23 @@ const BookedSessionCard = ({ bookedSession }) => {
                 />
             }
             actions={[
-                <Button key='registerSession' size='small'>Register</Button>,
-                <EditOutlined key="edit" />,
-                <Link to={`/sessionDetails/${bookedSession?.sessionId}`} key='viewSessionDetails'>
-                    <Button size='small'>Details</Button>
-                </Link>,
+                <div key={'bottom-action'} className='flex items-center justify-between'>
+                    {/* <Button key='registerSession' size='small'>Register</Button>, */}
+                    <Link to={``}>
+                        <Tooltip placement="top" title='Give Review' arrow={true}>
+                            <EditOutlined key="edit" />
+                        </Tooltip>
+                    </Link>
+
+                    <Divider type="vertical" className=' border-gray-300' />
+
+                    <Link to={`/sessionDetails/${bookedSession?.sessionId}`}
+                    state={location.pathname} key='viewSessionDetails'>
+                        <Tooltip placement="top" title='View Details' arrow={true} className='w-full mt-1 text-[15px]'>
+                        <MdOutlineChromeReaderMode />
+                        </Tooltip>
+                    </Link>,
+                </div>
             ]}
         >
 

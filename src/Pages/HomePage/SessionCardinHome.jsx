@@ -3,6 +3,7 @@ import { Avatar, Badge, Button, Card, Tooltip } from 'antd';
 import useTodaysDate from '../../CustomHooks/useTodaysDate';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
+import { IoReaderOutline } from "react-icons/io5";
 
 const { Meta } = Card;
 
@@ -61,7 +62,9 @@ const SessionCardinHome = ({ session }) => {
                     <Button key='registerSession' size='small'>Register</Button>,
                     <EditOutlined key="edit" />,
                     <Link to={`/sessionDetails/${sessionId}`} key='viewSessionDetails'>
-                        <Button  size='small'>Details</Button>
+                        <Tooltip placement="top" title='View Details' arrow={true} className='w-full mt-1 text-[15px]'>
+                            <IoReaderOutline />
+                        </Tooltip>
                     </Link>,
                 ]}
             >
