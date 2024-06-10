@@ -2,11 +2,15 @@ import { useFormik } from "formik";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../CustomHooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+import { GoogleAuthProvider } from "firebase/auth";
+
 
 const Login = () => {
 
     const location = useLocation()
-    const { loginUser } = useAuth()
+    const { loginUser, loginWithGoogle, loginWithGithub } = useAuth()
     const navigate = useNavigate()
     console.log(location.state)
 
@@ -36,10 +40,10 @@ const Login = () => {
                 .then((userCredential) => {
                     console.log(userCredential.user)
                     toast.success('Login Successful')
-                    if(location?.state){
+                    if (location?.state) {
                         navigate(location?.state)
                     }
-                    else{
+                    else {
                         navigate('/')
                     }
                 })
@@ -51,14 +55,31 @@ const Login = () => {
                 });
         }
     })
+
+    // const googleProvider = new GoogleAuthProvider()
+    // const handleGoogleLogin = () => {
+    //     loginWithGoogle(googleProvider)
+    //         .then(result => {
+    //             console.log(result.user)
+    //             toast.success('Login Successful')
+    //             if (location?.state) {
+    //                 navigate(location.state)
+    //             } else {
+    //                 navigate('/')
+    //             }
+    //         }).catch(error => {
+    //             console.error(error.message)
+    //             toast.error(error.message)
+    //         })
+    // }
     return (
         <div className="min-h-screen py-24 space-y-6 container mx-auto">
             <Toaster></Toaster>
             <div>
                 {
-                    location?.state ? 
-                    <p className="text-warning text-center text-xl"> You have to login first to proceed </p>
-                    : <></>
+                    location?.state ?
+                        <p className="text-warning text-center text-xl"> You have to login first to proceed </p>
+                        : <></>
                 }
             </div>
             <h1 className="text-center text-3xl">Login Here</h1>
@@ -93,6 +114,13 @@ const Login = () => {
                 New to ClassMate?
                 <Link to='/register' className="ml-3">Sign Up</Link>
             </h5>
+            <div className="flex flex-col items-center justify-center">
+                <h1>login with</h1>
+                <div className="text-xl flex gap-4">
+                    <FcGoogle/>
+                    <FaGithub />
+                </div>
+            </div>
         </div>
     );
 };
