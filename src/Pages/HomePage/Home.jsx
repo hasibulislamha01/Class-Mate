@@ -1,14 +1,15 @@
 import { Toaster } from "react-hot-toast";
 import AllSessions from "./AllSessions";
+import Banner from "../../Components/Banner/Banner";
 
 const Home = () => {
     return (
         <div>
             <Toaster></Toaster>
-            <div className="p-32 text-center bg-rose-100 text-5xl font-semibold">
-                Home Sweet Home
+            <div className="">
+                <Banner></Banner>
             </div>
-            <div className="container mx-auto">
+            <div className="container mx-auto my-16">
                 <AllSessions></AllSessions>
             </div>
         </div>

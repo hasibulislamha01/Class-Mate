@@ -52,7 +52,7 @@ const Login = () => {
         }
     })
     return (
-        <div className="min-h-screen py-24">
+        <div className="min-h-screen py-24 space-y-6 container mx-auto">
             <Toaster></Toaster>
             <div>
                 {
@@ -62,7 +62,7 @@ const Login = () => {
                 }
             </div>
             <h1 className="text-center text-3xl">Login Here</h1>
-            <form onSubmit={formik.handleSubmit} className="lg:w-1/2 mx-auto flex flex-col gap-14 border border-red-400">
+            <form onSubmit={formik.handleSubmit} className="lg:w-1/2 mx-auto flex flex-col gap-14 ">
                 <div className="input-container mx-auto">
                     <input
                         id="email"

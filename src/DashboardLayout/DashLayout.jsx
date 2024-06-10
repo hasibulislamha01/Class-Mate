@@ -9,6 +9,7 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { TbBookUpload } from "react-icons/tb";
 import { GrDocumentUser } from "react-icons/gr";
 import { SlDocs } from "react-icons/sl";
+import BottomNav from "../Components/SharedComponents/BottomNavigation";
 
 
 const DashLayout = () => {
@@ -92,18 +93,21 @@ const DashLayout = () => {
     else if (role === 'Tutor') {
         dashboardRout = tutorRoutes
     }
-    else if(role === "Student"){
+    else if (role === "Student") {
         dashboardRout = studentRoutes
     }
 
 
     return (
-        <div className="flex gap-12">
+        <div className="flex gap-12 max-w-[1920px]">
             <DashBoard
                 routes={dashboardRout}
             ></DashBoard>
             <div className="pt-16 w-full">
                 <Outlet></Outlet>
+                <BottomNav
+                    routes={dashboardRout}
+                ></BottomNav>
             </div>
         </div>
     );

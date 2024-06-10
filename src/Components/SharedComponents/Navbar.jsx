@@ -2,12 +2,15 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../CustomHooks/useAuth";
 import toast from "react-hot-toast";
 import useUserRole from "../../CustomHooks/useUserRole";
+import SideNavBar from "./SideNavBar";
+
 
 const Navbar = () => {
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
 
     const role = useUserRole()
+    const userImage = user ? user?.photoURL : 'avatar.gif'
 
     const handleLogout = () => {
         logoutUser()
@@ -23,7 +26,7 @@ const Navbar = () => {
 
     let dashboardLink = '/dashboard'
     if (role === 'Administrator') {
-        dashboardLink = '/dashboard/admin'
+        dashboardLink = '/dashboard/admin/allUsers'
     }
     else if (role === 'Tutor') {
         dashboardLink = '/dashboard/tutor'
@@ -35,59 +38,53 @@ const Navbar = () => {
     const navItems =
         <>
             <NavLink to='/'>Home</NavLink>
-            <NavLink to='/register'>Register</NavLink>
-            <NavLink to={dashboardLink}>Dashboard</NavLink>
+            {user && <NavLink to={dashboardLink}>Dashboard</NavLink>}
+            {!user && <NavLink to='/login'>Login</NavLink>}
+
         </>
     return (
-        <div >
-            <div className="navbar bg-base-100 fixed opacity-65">
+        <div className="w-full h-[50px] fixed z-50 flex items-center justify-center">
+            <div className="navbar container mx-auto min-w-12  flex justify-between ">
                 <div className="navbar-start">
-                    <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                        </div>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a>Item 1</a></li>
-                            <li>
-                                <a>Parent</a>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </li>
-                            <li><a>Item 3</a></li>
-                        </ul>
-                    </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                   
+                    <a className="btn btn-ghost text-xl">ClassMate</a>
                 </div>
-                <div className="navbar-center hidden lg:flex">
-                    {/* <ul className="menu menu-horizontal px-1">
-                        <li><a>Item 1</a></li>
-                        <li>
-                            <details>
-                                <summary>Parent</summary>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li><a>Item 3</a></li>
-                    </ul> */}
-                </div>
+               
                 <div className="navbar-end  items-center gap-4 hidden lg:inline-flex">
                     {navItems}
                     <div className="">
-                        {
-                            user ?
-                                <button onClick={handleLogout} className="btn">Logout</button>
-                                :
-                                <Link to='/login'>
-                                    <button className="btn">Login</button>
-                                </Link>
-                        }
+                        <div className="dropdown dropdown-hover dropdown-end relative">
+                            <div tabIndex={0} role="button" className="opacity-70">
+                                <img className="w-10 h-10 rounded-full object-cover" src={userImage} alt="" />
+                            </div>
+                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                {
+                                    user ?
+                                        <>
+                                            <li><a>{user?.displayName}</a></li>
+                                            <li onClick={handleLogout}> <a >Logout</a></li>
+                                            <li><Link className={user ? 'inline-block' : 'hidden'} to='/updateProfile'>Update Profile</Link></li>
+                                        </>
+                                        :
+                                        <>
+                                            <li><Link to='/login'><a href="">Login</a></Link></li>
+                                            <li>
+                                                <Link to='/register'><a href="">Register</a></Link>
+                                            </li>
+                                        </>
+                                }
+
+                            </ul>
+                        </div>
+
+
                     </div>
                 </div>
+                <SideNavBar
+                    user={user}
+                    handleLogout={handleLogout}
+                    dashboardLink={dashboardLink}
+                ></SideNavBar>
             </div>
         </div>
     );

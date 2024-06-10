@@ -5,6 +5,7 @@ import { useState } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import SelectItems from "../../Components/SelectItems/SelectItems";
 import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
+import RegisterAnimation from "../../Components/AnimationComponents/RegisterAnimation";
 
 
 
@@ -38,7 +39,7 @@ const Registration = () => {
         const userEmail = form.email.value;
         const password = form.password.value;
 
-       
+
 
         // validation
         if (password.length < 6) {
@@ -77,19 +78,19 @@ const Registration = () => {
                             console.error(error.message)
                         });
 
-                    
+
                     toast.success('You have successfully registered')
 
                     // sending user data to database
                     axiosPublic.post('/users', userInfo)
-                    .then(response => {
-                        console.log(response.data)
-                    })
-                    .catch(error => {
-                        const errorMessage = error.message
-                        const errorCode = error
-                        console.error(errorCode, errorMessage)
-                    })
+                        .then(response => {
+                            console.log(response.data)
+                        })
+                        .catch(error => {
+                            const errorMessage = error.message
+                            const errorCode = error
+                            console.error(errorCode, errorMessage)
+                        })
                 })
                 .catch(error => {
                     console.error(error.message)
@@ -117,87 +118,97 @@ const Registration = () => {
     }
 
     return (
-        <div className="py-12 min-h-screen border border-red-300">
+        <div className="py-12 min-h-screen container mx-auto">
             <Toaster></Toaster>
-            <h1 className="mb-8 text-3xl text-[#A0D6B4] text-center">Register Here</h1>
-            <form onSubmit={handleRegister} className="w-full px-8 lg:px-0 lg:w-1/2 mx-auto space-y-12 ">
-
-                <div className="flex flex-col border border-red-300 lg:flex-row justify-between gap-4">
-                    <div className="input-container mx-auto">
-                        <input
-                            className=""
-                            type="text"
-                            name="firstName"
-                            required="required"
-                        />
-                        <label className="label">First Name</label>
-                    </div>
-                    <div className="input-container mx-auto">
-                        <input
-                            className=""
-                            type="text"
-                            name="lastName"
-                            required="required"
-                        />
-                        <label className="label">Last Name</label>
-                    </div>
+            <div className="flex flex-col lg:flex-row justify-center items-center">
+                <div className="lg:w-1/2 mx-auto">
+                    <RegisterAnimation></RegisterAnimation>
                 </div>
-                <div className="flex flex-col lg:flex-row justify-between gap-4">
-                    <div className="mx-auto input-container w-1/2">
-                        <input
-                            className="w-full"
-                            type="text"
-                            name="photo"
-                            required="required"
-                        />
-                        <label className="label">Your Photo</label>
-                    </div>
-                    <div className="flex-1">
-                        <SelectItems
-                            name={'role'}
-                            options={userCategories}
-                            title={"Register as"}
-                        ></SelectItems>
-                    </div>
-                </div>
-                <div className="flex flex-col lg:flex-row justify-between gap-4">
-                    <div className="w-full input-container mx-auto">
-                        <input
-                            className=""
-                            type="email"
-                            name="email"
-                            required="required"
-                        />
-                        <label className="label">Email</label>
-                    </div>
-                    <div className="w-full relative input-container mx-auto">
-                        <input
-                            className=""
-                            type={showPassword ? 'text' : 'password'}
-                            name="password"
-                            required="required"
-                        />
-                        <label className="label">Password</label>
-                        <span
-                            onClick={toggleShowPassword}
-                            className="absolute right-5 bottom-[15px] text-base-300"
-                        >
-                            {
-                                !showPassword ?
-                                    <BsEye />
-                                    : <BsEyeSlash />
-                            }
-                        </span>
-                    </div>
-                </div>
+                <div className="">
+                    <h1 className="mb-8 text-3xl text-[#A0D6B4] text-center">Register Here</h1>
+
+                    <form onSubmit={handleRegister} className="w-full px-8 lg:px-0 mx-auto space-y-12 ">
+
+                        <div className="flex flex-col lg:flex-row justify-between gap-4">
+                            <div className="input-container mx-auto">
+                                <input
+                                    className=""
+                                    type="text"
+                                    name="firstName"
+                                    required="required"
+                                />
+                                <label className="label">First Name</label>
+                            </div>
+                            <div className="input-container mx-auto">
+                                <input
+                                    className=""
+                                    type="text"
+                                    name="lastName"
+                                    required="required"
+                                />
+                                <label className="label">Last Name</label>
+                            </div>
+                        </div>
+                        <div className="flex flex-col lg:flex-row justify-between gap-4">
+                            <div className="mx-auto input-container w-1/2">
+                                <input
+                                    className="w-full"
+                                    type="text"
+                                    name="photo"
+                                    required="required"
+                                />
+                                <label className="label">Your Photo</label>
+                            </div>
+                            <div className="flex-1">
+                                <SelectItems
+                                    name={'role'}
+                                    options={userCategories}
+                                    title={"Register as"}
+                                ></SelectItems>
+                            </div>
+                        </div>
+                        <div className="flex flex-col lg:flex-row justify-between gap-4">
+                            <div className="w-full input-container mx-auto">
+                                <input
+                                    className=""
+                                    type="email"
+                                    name="email"
+                                    required="required"
+                                />
+                                <label className="label">Email</label>
+                            </div>
+                            <div className="w-full relative input-container mx-auto">
+                                <input
+                                    className=""
+                                    type={showPassword ? 'text' : 'password'}
+                                    name="password"
+                                    required="required"
+                                />
+                                <label className="label">Password</label>
+                                <span
+                                    onClick={toggleShowPassword}
+                                    className="absolute right-5 bottom-[15px] text-base-300"
+                                >
+                                    {
+                                        !showPassword ?
+                                            <BsEye />
+                                            : <BsEyeSlash />
+                                    }
+                                </span>
+                            </div>
+                        </div>
 
 
-                <button className="btn " type="submit">Regsiter</button>
-            </form>
-            <h4 className="text-center w-full">
-                Already have an account ?
-                <Link to='/login' className="text-center w-full ml-3">Sign in</Link>
-            </h4>
+                        <button className="btn btn-block" type="submit">Regsiter</button>
+                    </form>
+                    <h4 className="text-center text-lg w-full mt-12">
+                        Already have an account ?
+                        <Link to='/login' className="w-full ml-3 text-red-400">Sign in</Link>
+                    </h4>
+                </div>
+            </div>
+
+
         </div>
     );
 };

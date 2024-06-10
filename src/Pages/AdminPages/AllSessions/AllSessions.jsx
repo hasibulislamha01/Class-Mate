@@ -9,7 +9,7 @@ const AllSessions = () => {
 
     console.log(allSessions)
     return (
-        <div>
+        <div className="container mx-auto">
             <h1 className="text-3xl text-center ">All Sessions</h1>
             <div className="grid grid-cols-1 lg:grid-cols-2">
                 {

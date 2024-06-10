@@ -11,7 +11,7 @@ const BookedSessions = () => {
 
 
     return (
-        <div>
+        <div className="container mx-auto">
             <h1 className="text-3xl text-center">Booked Sessions</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {

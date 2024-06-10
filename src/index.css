@@ -7,14 +7,14 @@
     position: relative;
     height: 50px;
     width: 50%;
-    border: 1px solid lime;
+    /* border: 1px solid lime; */
 }
 
 .wide-input-container {
     position: relative;
     height: 50px;
     width: 100%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
 }
 
 .big-input-container {
@@ -178,7 +178,7 @@
 }
 
 .custom-ribbon {
-    left: 13px !important;
+    left: 5px !important;
     width: 80px;
 }
 
@@ -191,7 +191,7 @@
 @media screen and (max-width:600px) {
 
     .custom-ribbon {
-        left: 29px !important;
+        left: 25px !important;
         width: 80px;
     }
 
@@ -199,7 +199,7 @@
         position: relative;
         height: 50px;
         width: 98%;
-        border: 1px solid lime;
+        /* border: 1px solid lime; */
     }
     
 }
