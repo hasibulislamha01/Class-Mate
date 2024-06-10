@@ -31,6 +31,10 @@ import LoginValidator from './Components/LoginValidator/LoginValidator';
 import Payment from './Pages/StudentPages/PaymentPage/Payment';
 import BookedSessions from './Pages/StudentPages/BookedSessionsPage/BookedSessions';
 import CreateNote from './Pages/StudentPages/CreateNotePage/CreateNote';
+import ManageNote from './Pages/StudentPages/ManageNotePage/ManageNote';
+import AllMaterials from './Pages/AdminPages/AllMaterialsPage/AllMaterials';
+import StundentAllMaterials from './Pages/StudentPages/StudentAllMaterialsPage/StundentAllMaterials';
+import CourseMaterial from './Pages/StudentPages/StudentAllMaterialsPage/CourseMaterial';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -89,6 +93,10 @@ const router = createBrowserRouter(
               path: "/dashboard/admin/allSessions/update/:id",
               element: <UpdateSession></UpdateSession>
             },
+            {
+              path: "/dashboard/admin/allMaterials",
+              element: <AllMaterials></AllMaterials>
+            },
 
 
             // tutor routes
@@ -134,6 +142,18 @@ const router = createBrowserRouter(
             {
               path: "/dashboard/student/createNote",
               element: <CreateNote></CreateNote>
+            },
+            {
+              path: "/dashboard/student/manageNotes",
+              element: <ManageNote></ManageNote>
+            },
+            {
+              path: "/dashboard/student/allMaterials",
+              element: <StundentAllMaterials></StundentAllMaterials>
+            },
+            {
+              path: "/dashboard/student/allMaterials/:id",
+              element: <CourseMaterial></CourseMaterial>
             },
           ]
         },

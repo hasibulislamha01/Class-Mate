@@ -152,7 +152,7 @@ const SessionDetails = () => {
                     </div>
 
                     <div className="space-y-2">
-                        <h1 className="">Registration Fee: {session?.registrationFee} </h1>
+                        <h1 className="">Registration Fee: {session?.registrationFee}$ </h1>
                         <p className="">Expected duration: {session?.duration} hours</p>
                         <h3>Rating</h3>
                     </div>
@@ -184,7 +184,7 @@ const SessionDetails = () => {
             <div className="my-24 flex flex-col-reverse lg:flex-row justify-center items-center">
                 <div className="text-center space-y-5">
                     <h1 className="font-bold text-xl">Tutor Details</h1>
-                    <img src={tutorImg} alt="" className="h-[200px] w-[200px] rounded-full " />
+                    <img src={tutorImg} alt="" className="h-[200px] w-[200px] object-cover rounded-full " />
                     <div className="space-y-2">
                         <h1>{tutorName}</h1>
                         <p>Email: {tutorEmail}</p>

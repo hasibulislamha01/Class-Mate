@@ -7,10 +7,12 @@ const useUserRole = () => {
 
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
+    const baseURL = import.meta.env.VITE_BASE_URL
+
 
     const [userRole, setUserRole] = useState()
     useEffect(() => {
-        axiosSecure.get(`/users/${user?.email}/role`)
+        axiosSecure.get(`${baseURL}/users/${user?.email}/role`)
             .then(response => {
                 // console.log(response.data)
                 const role = response.data?.role
@@ -20,7 +22,7 @@ const useUserRole = () => {
             .catch(error => {
                 console.error(error.message)
             })
-    }, [user])
+    }, [user, axiosSecure, baseURL])
 
     // console.log(userRole)
     return userRole
