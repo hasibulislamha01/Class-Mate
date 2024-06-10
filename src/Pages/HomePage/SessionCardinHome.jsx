@@ -1,9 +1,9 @@
-import { EditOutlined } from '@ant-design/icons';
-import { Avatar, Badge, Button, Card, Tooltip } from 'antd';
+import { Avatar, Badge, Card, Tooltip } from 'antd';
 import useTodaysDate from '../../CustomHooks/useTodaysDate';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
-import { IoReaderOutline } from "react-icons/io5";
+import { CgEreader } from "react-icons/cg";
+
 
 const { Meta } = Card;
 
@@ -59,11 +59,9 @@ const SessionCardinHome = ({ session }) => {
                     />
                 }
                 actions={[
-                    <Button key='registerSession' size='small'>Register</Button>,
-                    <EditOutlined key="edit" />,
                     <Link to={`/sessionDetails/${sessionId}`} key='viewSessionDetails'>
                         <Tooltip placement="top" title='View Details' arrow={true} className='w-full mt-1 text-[15px]'>
-                            <IoReaderOutline />
+                        <CgEreader />
                         </Tooltip>
                     </Link>,
                 ]}

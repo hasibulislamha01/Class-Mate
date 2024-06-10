@@ -11,7 +11,7 @@ const AllSessions = () => {
     return (
         <div className="container mx-auto">
             <h1 className="text-3xl text-center ">All Sessions</h1>
-            <div className="grid grid-cols-1 lg:grid-cols-2">
+            <div className="my-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mx-auto place-items-center gap-6 ">
                 {
                     allSessions?.map(session =>
                         // console.log(session)

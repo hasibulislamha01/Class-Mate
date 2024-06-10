@@ -19,12 +19,12 @@ const MyMaterials = () => {
         .catch(error => {
             console.error(error.message)
         })
-    }, [tutorEmail])
+    }, [tutorEmail, axiosSecure])
     console.log(materials)
 
     return (
-        <div className="">
-            <h1 className="text-center text-3xl">My Materials</h1>
+        <div className="min-h-screen">
+            <h1 className="text-center text-3xl my-12">My Materials</h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {

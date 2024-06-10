@@ -1,4 +1,4 @@
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+// import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
 import PropTypes from 'prop-types'
 
@@ -23,9 +23,9 @@ const MaterialsCard = ({ material }) => {
                 />
             }
             actions={[
-                <SettingOutlined key="setting" />,
-                <EditOutlined key="edit" />,
-                <EllipsisOutlined key="ellipsis" />,
+                // <SettingOutlined key="setting" />,
+                // <EditOutlined key="edit" />,
+                // <EllipsisOutlined key="ellipsis" />,
             ]}
         >
             <Meta

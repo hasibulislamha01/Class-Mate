@@ -30,6 +30,7 @@ import StudentHome from './Pages/StudentPages/StudentHomePage/StudentHome';
 import LoginValidator from './Components/LoginValidator/LoginValidator';
 import Payment from './Pages/StudentPages/PaymentPage/Payment';
 import BookedSessions from './Pages/StudentPages/BookedSessionsPage/BookedSessions';
+import CreateNote from './Pages/StudentPages/CreateNotePage/CreateNote';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -129,6 +130,10 @@ const router = createBrowserRouter(
             {
               path: "/dashboard/student/bookedSessions",
               element: <BookedSessions></BookedSessions>
+            },
+            {
+              path: "/dashboard/student/createNote",
+              element: <CreateNote></CreateNote>
             },
           ]
         },

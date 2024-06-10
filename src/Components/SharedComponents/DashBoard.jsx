@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const DashBoard = ({ routes }) => {
     console.log(routes)
     return (
-        <div className="h-screen rounded-3xl bg-[#1d2b3a] w-[20%]  flex-col justify-center items-center hidden md:flex md:w-auto px-2">
+        <div className="h-screen mt-12 rounded-r-3xl bg-[#1d2b3a] w-[20%]  flex-col justify-center items-center hidden md:flex md:w-auto px-2">
 
             {
                 routes?.map(route =>
