@@ -3,6 +3,7 @@
 #### This is a online based collaborative study platform
 
 ## Credentials
+#### Live site: https://classmate-ac788.web.app/
 #### admin email:  hablu@developer.com
 #### admin pass: habluDeveloper
 
