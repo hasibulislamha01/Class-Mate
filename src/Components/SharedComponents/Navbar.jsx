@@ -43,7 +43,7 @@ const Navbar = () => {
 
         </>
     return (
-        <div className="w-full h-[50px] fixed z-50 flex items-center justify-center">
+        <div className="bg-white bg-opacity-70 w-full h-[50px] fixed z-50 flex items-center justify-center">
             <div className="navbar container mx-auto min-w-12  flex justify-between ">
                 <div className="navbar-start">
 

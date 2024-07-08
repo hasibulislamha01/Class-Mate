@@ -11,7 +11,7 @@ const TutorCard = ({ tutor }) => {
             }}
             cover={<img alt="example" src={tutor?.userPhoto} className="h-[250px] object-cover" />}
         >
-            <Meta title={tutor?.userName} description="www.instagram.com" />
+            <Meta className="text-center" title={tutor?.userName}/>
         </Card>
     );
 };

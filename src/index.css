@@ -182,7 +182,13 @@
     width: 80px;
 }
 
+.activeRoleButton{
+    color: #00dfc4;
+}
 
+.roleButton{
+    color: #71717a;
+}
 
 
 
