@@ -112,23 +112,25 @@ const Navbar = () => {
 
 
     return (
-        <div className={`border border-red-300 w-full h-[50px] fixed z-50 ${isSticky && 'stickyNav'}`}>
+        <div className={`w-full h-[50px] fixed z-50 ${isSticky && 'stickyNav'}`}>
 
 
 
             {/* horizontal navbar */}
-            <div className="h-full container mx-auto w-full md:flex items-center gap-6 md:px-4">
+            <div className="h-full container mx-auto w-full md:flex items-center gap-6 md:px-4 font-bold">
 
                 {/* website name */}
                 <NavLink to='/' className={`text-xl mr-auto ${!isSticky ? 'text-black' : 'text-white' }`}>ClassMate</NavLink>
 
-                <div className="hidden h-full md:flex items-center gap-6 ">
+                <div className="hidden h-full md:flex items-center gap-6">
                     {
                         navigationRoutes.map(routes =>
                             <NavLink
                                 key={routes.link}
                                 to={routes.link}
-                                className={currentLocation === routes.link ? 'text-black' : 'text-white'}
+                                className={({isActive})=> isActive ? `${isSticky ? 'text-secondary' : 'text-primary'}` 
+                                : 
+                                `${isSticky ? 'text-white' : 'text-gray-500'}`}
                             >
                                 {routes.title}
                             </NavLink>
