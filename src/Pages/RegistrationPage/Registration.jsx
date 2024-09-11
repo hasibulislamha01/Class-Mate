@@ -203,7 +203,7 @@ const Registration = () => {
                     </form>
                     <h4 className="text-center text-lg w-full mt-12">
                         Already have an account ?
-                        <Link to='/login' className="w-full ml-3 text-red-400">Sign in</Link>
+                        <Link to='/login' className="w-full ml-3 text-primary font-bold">Sign in</Link>
                     </h4>
                 </div>
             </div>

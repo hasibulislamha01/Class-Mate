@@ -1,8 +1,7 @@
-import { Avatar, Badge, Card, Tooltip } from 'antd';
+import { Avatar, Button, Card, Tooltip } from 'antd';
 import useTodaysDate from '../../CustomHooks/useTodaysDate';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
-import { CgEreader } from "react-icons/cg";
 
 
 const { Meta } = Card;
@@ -28,14 +27,14 @@ const SessionCardinHome = ({ session }) => {
 
     // console.log( todaysDate,  regEndDate, regEndDate > todaysDate)
     let status = 'Ongoing'
-    let statusColor = 'blue'
+    let statusColor = 'bg-sky-400'
     if (regEndDate < todaysDate) {
         status = 'Closed'
-        statusColor = 'red'
+        statusColor = 'bg-red-400'
     }
     else {
         status = 'Ongoing'
-        statusColor = '#16a34a'
+        statusColor = 'bg-green-500'
     }
 
     const splittedDescription = sessionDescription.split(' ')
@@ -45,7 +44,7 @@ const SessionCardinHome = ({ session }) => {
 
     return (
 
-        <Badge.Ribbon text={status} placement='start' className='custom-ribbon' color={statusColor}>
+        <div className='relative '>
             <Card
                 className='flex flex-col justify-between h-full mx-auto'
                 style={{
@@ -60,12 +59,12 @@ const SessionCardinHome = ({ session }) => {
                 }
                 actions={[
                     <Link to={`/sessionDetails/${sessionId}`} key='viewSessionDetails'>
-                        <Tooltip placement="top" title='View Details' arrow={true} className='w-full mt-1 text-[15px]'>
-                        <CgEreader />
-                        </Tooltip>
+
+                        <Button>View Details</Button>
                     </Link>,
                 ]}
             >
+
 
                 <Meta
                     avatar={
@@ -78,7 +77,12 @@ const SessionCardinHome = ({ session }) => {
                 />
 
             </Card>
-        </Badge.Ribbon>
+
+            {/* status indicator */}
+            <div className={`absolute right-[5%] top-[60%] w-4 h-4 rounded-full ${statusColor}`}>
+
+            </div>
+        </div>
 
 
     );

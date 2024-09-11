@@ -117,8 +117,7 @@ const SessionDetails = () => {
             <h1 className="text-center text-3xl">{sessionTitle}</h1>
             <div className="py-12 flex flex-col lg:flex-row justify-center items-center gap-12">
                 <div className="space-y-6 text-center">
-                    <img src={sessionImg} alt="" className="w-[450px] h-[350px] object-cover" />
-
+                    <img src={sessionImg} alt="" className="w-[450px] h-[350px] object-cover rounded-[7px]" />
                 </div>
 
                 <div className=" text-center space-y-5">

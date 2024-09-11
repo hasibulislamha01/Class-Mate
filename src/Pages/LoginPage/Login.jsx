@@ -56,22 +56,24 @@ const Login = () => {
         }
     })
 
-    // const googleProvider = new GoogleAuthProvider()
-    // const handleGoogleLogin = () => {
-    //     loginWithGoogle(googleProvider)
-    //         .then(result => {
-    //             console.log(result.user)
-    //             toast.success('Login Successful')
-    //             if (location?.state) {
-    //                 navigate(location.state)
-    //             } else {
-    //                 navigate('/')
-    //             }
-    //         }).catch(error => {
-    //             console.error(error.message)
-    //             toast.error(error.message)
-    //         })
-    // }
+    const googleProvider = new GoogleAuthProvider()
+    const handleGoogleLogin = () => {
+        loginWithGoogle(googleProvider)
+            .then(result => {
+                console.log(result.user)
+                toast.success('Login Successful')
+                if (location?.state) {
+                    navigate(location.state)
+                } else {
+                    navigate('/')
+                }
+            }).catch(error => {
+                console.error(error.message)
+                toast.error(error.message)
+            })
+    }
+
+
     return (
         <div className="min-h-screen py-24 space-y-6 container mx-auto">
             <Toaster></Toaster>
@@ -112,13 +114,20 @@ const Login = () => {
             </form>
             <h5 className="text-center my-6">
                 New to ClassMate?
-                <Link to='/register' className="ml-3">Sign Up</Link>
+                <Link to='/register' className="ml-3 text-primary font-bold">Sign Up</Link>
             </h5>
-            <div className="flex flex-col items-center justify-center">
-                <h1>login with</h1>
+            <div className="flex flex-col items-center justify-center gap-6">
+                <h1>Or Login With</h1>
                 <div className="text-xl flex gap-4">
-                    <FcGoogle/>
-                    <FaGithub />
+                    <FcGoogle
+                        size={30}
+                        onClick={handleGoogleLogin}
+                        className="cursor-pointer"
+                    />
+                    <FaGithub
+                        size={30}
+                        className="cursor-pointer"
+                    />
                 </div>
             </div>
         </div>

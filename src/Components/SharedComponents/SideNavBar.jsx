@@ -16,7 +16,7 @@ const SideNavBar = ({ user, handleLogout, dashboardLink }) => {
 
 
     return (
-        <div className='lg:hidden'>
+        <div className='md:hidden'>
             <Button type="" onClick={showDrawer}>
                 <GrMenu />
             </Button>

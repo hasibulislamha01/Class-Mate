@@ -35,6 +35,7 @@ import ManageNote from './Pages/StudentPages/ManageNotePage/ManageNote';
 import AllMaterials from './Pages/AdminPages/AllMaterialsPage/AllMaterials';
 import StundentAllMaterials from './Pages/StudentPages/StudentAllMaterialsPage/StundentAllMaterials';
 import CourseMaterial from './Pages/StudentPages/StudentAllMaterialsPage/CourseMaterial';
+import AllSessionsPage from './Pages/AllSessionsPage/AllSessionsPage';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -60,6 +61,10 @@ const router = createBrowserRouter(
         {
           path: "/login",
           element: <Login></Login>
+        },
+        {
+          path: "/all-sessions",
+          element: <AllSessionsPage/>
         },
         {
           path: "/sessionDetails/:id",

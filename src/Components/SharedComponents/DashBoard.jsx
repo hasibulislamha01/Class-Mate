@@ -8,16 +8,28 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { TbBookUpload } from "react-icons/tb";
 import { GrDocumentUser } from "react-icons/gr";
 import { SlDocs } from "react-icons/sl";
-import useUserRole from "../../CustomHooks/useUserRole";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import ThemeController from "../ThemeController";
+import { GoHome } from "react-icons/go";
 
-const DashBoard = ({ routes }) => {
 
-    const role = useUserRole()
-    console.log(role)
+
+const DashBoard = ({ role }) => {
+
+    // console.log(role)
+    const defaultRoutes = [
+        {
+            link: '/',
+            icon: <GoHome />,
+            linkTitle: 'Home'
+        },
+    ]
 
     let dashboardRout = []
 
     const adminRoutes = [
+        ...defaultRoutes,
         {
             link: '/dashboard/admin/allUsers',
             icon: <FiUsers />,
@@ -36,6 +48,7 @@ const DashBoard = ({ routes }) => {
     ]
 
     const tutorRoutes = [
+        ...defaultRoutes,
         {
             link: '/dashboard/tutor/createSessions',
             icon: <HiOutlinePencilSquare />,
@@ -64,6 +77,7 @@ const DashBoard = ({ routes }) => {
     ]
 
     const studentRoutes = [
+        ...defaultRoutes,
         {
             link: '/dashboard/student/bookedSessions',
             icon: <GiNotebook />,
@@ -99,23 +113,36 @@ const DashBoard = ({ routes }) => {
 
     console.log(dashboardRout)
     return (
-        <div className="h-screen mt-12 rounded-r-3xl bg-[#1d2b3a] w-[20%]  flex-col justify-center items-center hidden md:flex md:w-auto px-2 space-y-6">
-
+        <>
             {
-                dashboardRout?.map(route =>
-                    <NavLink key={route.link} to={route.link} className={({ isActive }) => isActive ? 'w-full rounded-2xl m-2  p-1 flex items-center justify-center gap-6 text-white bg-blue-500' : 'w-full rounded-2xl my-2 p-1 flex items-center justify-start text-white px-5 gap-3'}>
-                        <h3>{route.icon}</h3>
-                        <h3 className='text-xl'>{route.linkTitle}</h3>
-                    </NavLink>
-                )
-            }
+                role ?
+                    <div className=" h-screen w-[50px] md:w-[200px] flex-col justify-start items-start hidden md:flex gap-1 border border-red-400">
 
-        </div>
+                        {
+                            dashboardRout?.map(route =>
+                                <NavLink key={route.link} to={route.link} className={({ isActive }) => isActive ? 'w-full text-sky-500 border border-blue-300 ' : 'w-full  text-black border border-green-400'}>
+                                    <div className="flex items-center justify-start border border-red-400 gap-2">
+                                        <h3>{route.icon}</h3>
+                                        <h3 className=''>{route.linkTitle}</h3>
+                                    </div>
+                                </NavLink>
+                            )
+                        }
+                        <ThemeController />
+
+                    </div>
+                    :
+                    // <div className="h-screen flex flex-col items-center justify-center md:w-[20%]">
+                    //     <Skeleton baseColor="#d41313"/>
+                    // </div>
+                    <Skeleton className="text-red-500 bg-blue-500" />
+            }
+        </>
     );
 };
 
 DashBoard.propTypes = {
-    routes: PropTypes.array
+    role: PropTypes.string
 }
 
 export default DashBoard;
