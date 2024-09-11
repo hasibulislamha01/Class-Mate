@@ -1,8 +1,7 @@
 // UserControls.js
 import { useEffect } from 'react';
 import { NavLink } from "react-router-dom";
-import useAuth from "../../../CustomHooks/useAuth";
-import toast from "react-hot-toast";
+import PropTypes from 'prop-types'
 
 const UserControls = ({ userImage, handleLogout }) => {
     useEffect(() => {
@@ -51,5 +50,10 @@ const UserControls = ({ userImage, handleLogout }) => {
         </div>
     );
 };
+
+UserControls.propTypes = {
+    userImage: PropTypes.string,
+    handleLogout: PropTypes.func
+}
 
 export default UserControls;

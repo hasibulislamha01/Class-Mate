@@ -15,7 +15,7 @@ import { GoHome } from "react-icons/go";
 
 
 
-const DashBoard = ({ role }) => {
+const DashBoardMenu = ({ role }) => {
 
     // console.log(role)
     const defaultRoutes = [
@@ -29,11 +29,21 @@ const DashBoard = ({ role }) => {
     let dashboardRout = []
 
     const adminRoutes = [
-        ...defaultRoutes,
+
         {
-            link: '/dashboard/admin/allUsers',
+            link: '/dashboard/admin/students',
             icon: <FiUsers />,
-            linkTitle: 'All Users'
+            linkTitle: 'Students'
+        },
+        {
+            link: '/dashboard/admin/teachers',
+            icon: <FiUsers />,
+            linkTitle: 'Teachers'
+        },
+        {
+            link: '/dashboard/admin/administrators',
+            icon: <FiUsers />,
+            linkTitle: 'Administrators'
         },
         {
             link: '/dashboard/admin/allSessions',
@@ -48,7 +58,7 @@ const DashBoard = ({ role }) => {
     ]
 
     const tutorRoutes = [
-        ...defaultRoutes,
+
         {
             link: '/dashboard/tutor/createSessions',
             icon: <HiOutlinePencilSquare />,
@@ -77,7 +87,7 @@ const DashBoard = ({ role }) => {
     ]
 
     const studentRoutes = [
-        ...defaultRoutes,
+
         {
             link: '/dashboard/student/bookedSessions',
             icon: <GiNotebook />,
@@ -113,17 +123,27 @@ const DashBoard = ({ role }) => {
 
     console.log(dashboardRout)
     return (
-        <>
+        <div className="min-h-screen w-[15%] md:w-[20%] lg:w-[200px] border border-blue-600">
+
+            {/* logo */}
+            <div className="flex items-center justify-center md:justify-start font-bold my-4">
+                <img src="/logo.jpg" alt="logo" className="w-[50px] h-[50px]rounded-full" />
+                <h1 className="hidden md:inline-flex">ClassMate</h1>
+            </div>
+
+            {/* menues */}
             {
                 role ?
-                    <div className=" h-screen w-[50px] md:w-[200px] flex-col justify-start items-start hidden md:flex gap-1 border border-red-400">
+                    <div className="flex flex-col justify-start items-start gap-1">
+
+
 
                         {
                             dashboardRout?.map(route =>
-                                <NavLink key={route.link} to={route.link} className={({ isActive }) => isActive ? 'w-full text-sky-500 border border-blue-300 ' : 'w-full  text-black border border-green-400'}>
-                                    <div className="flex items-center justify-start border border-red-400 gap-2">
-                                        <h3>{route.icon}</h3>
-                                        <h3 className=''>{route.linkTitle}</h3>
+                                <NavLink key={route.link} to={route.link} className={({ isActive }) => isActive ? 'w-full text-sky-500 ' : 'w-full  text-black '}>
+                                    <div className="flex items-center justify-center md:justify-start gap-2">
+                                        <h3 className="text-2xl md:text-base">{route.icon}</h3>
+                                        <h3 className='hidden md:block'>{route.linkTitle}</h3>
                                     </div>
                                 </NavLink>
                             )
@@ -137,12 +157,12 @@ const DashBoard = ({ role }) => {
                     // </div>
                     <Skeleton className="text-red-500 bg-blue-500" />
             }
-        </>
+        </div>
     );
 };
 
-DashBoard.propTypes = {
+DashBoardMenu.propTypes = {
     role: PropTypes.string
 }
 
-export default DashBoard;
+export default DashBoardMenu;

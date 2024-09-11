@@ -87,7 +87,7 @@ const router = createBrowserRouter(
               element: <AdminHome></AdminHome>
             },
             {
-              path: "/dashboard/admin/allUsers",
+              path: "/dashboard/admin/students",
               element: <AllUsers></AllUsers>
             },
             {

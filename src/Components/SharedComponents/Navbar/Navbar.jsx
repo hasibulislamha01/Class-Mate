@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../../CustomHooks/useAuth";
 import toast from "react-hot-toast";
 import useUserRole from "../../../CustomHooks/useUserRole";
@@ -11,7 +11,6 @@ import ThemeController from "../../ThemeController";
 const Navbar = () => {
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
-    const currentLocation = useLocation()
     const role = useUserRole()
     const [isSticky, setIsSticky] = useState(false)
 

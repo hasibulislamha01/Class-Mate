@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import DashBoard from "../Components/SharedComponents/DashBoard";
+import DashBoardMenu from "../Components/SharedComponents/DashBoardMenu";
 import useUserRole from "../CustomHooks/useUserRole";
 import useAuth from "../CustomHooks/useAuth";
 
@@ -12,15 +12,15 @@ const DashLayout = () => {
 
 
     return (
-        <>
+        <div className="min-h-screen">
         
             {
                 user || role ?
                     <div className="flex gap-12 max-w-[1920px]">
-                        <DashBoard
+                        <DashBoardMenu
                             // routes={dashboardRout}
                             role={role}
-                        ></DashBoard>
+                        ></DashBoardMenu>
                         <div className="pt-16 w-full">
                             <Outlet></Outlet>
                             {/* <BottomNav
@@ -33,7 +33,7 @@ const DashLayout = () => {
                         <span className="loading loading-spinner loading-lg"></span>
                     </div>
             }
-        </>
+        </div>
     );
 };
 
