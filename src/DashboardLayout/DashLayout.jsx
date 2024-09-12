@@ -12,23 +12,26 @@ const DashLayout = () => {
 
 
     return (
-        <div className="min-h-screen">
-        
+        <div className="h-screen max-w-[1600px] mx-auto">
+
             {
                 user || role ?
                     <div className="flex gap-12 max-w-[1920px]">
+
+                        {/* this menu will be shown as a side bar */}
                         <DashBoardMenu
-                            // routes={dashboardRout}
                             role={role}
                         ></DashBoardMenu>
-                        <div className="pt-16 w-full">
+
+                        {/* contents will be displayed here */}
+                        <div className="w-full overflow-scroll">
                             <Outlet></Outlet>
-                            {/* <BottomNav
-                    routes={dashboardRout}
-                ></BottomNav> */}
                         </div>
+
                     </div>
+
                     :
+
                     <div className="h-[100px] flex items-center justify-center">
                         <span className="loading loading-spinner loading-lg"></span>
                     </div>
