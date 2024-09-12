@@ -16,7 +16,7 @@ const DashLayout = () => {
 
             {
                 user || role ?
-                    <div className="flex gap-12 max-w-[1920px]">
+                    <div className="flex gap-2 md:gap-4 max-w-[1920px]">
 
                         {/* this menu will be shown as a side bar */}
                         <DashBoardMenu
@@ -24,7 +24,7 @@ const DashLayout = () => {
                         ></DashBoardMenu>
 
                         {/* contents will be displayed here */}
-                        <div className="w-full overflow-scroll">
+                        <div className="w-full overflow-y-scroll">
                             <Outlet></Outlet>
                         </div>
 

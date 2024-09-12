@@ -1,4 +1,5 @@
 import UsersSummaryCard from "../../../Components/UsersSummaryCard/UsersSummaryCard";
+import RadialChart from "./RadialBarChart";
 
 
 const AdminHome = () => {
@@ -17,6 +18,10 @@ const AdminHome = () => {
                     role={'Administrator'}
                 />
             </div>
+
+            {/* radial bar chart */}
+            <RadialChart/>
+
         </div>
     );
 };

@@ -12,7 +12,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import ThemeController from "../ThemeController";
 import { GoHome } from "react-icons/go";
-
+import { RiShutDownLine } from "react-icons/ri";
 
 
 const DashBoardMenu = ({ role }) => {
@@ -24,7 +24,7 @@ const DashBoardMenu = ({ role }) => {
             icon: <GoHome />,
             linkTitle: 'Home'
         },
-        
+
     ]
 
     let dashboardRout = []
@@ -150,7 +150,7 @@ const DashBoardMenu = ({ role }) => {
                             }
                         </div>
 
-                        <div className="w-full flex flex-col justify-start items-start gap-2 pt-4 border-t-2">
+                        <div className="w-full flex flex-col justify-start  items-center md:items-start gap-2 pt-4 border-t-2">
                             {
                                 defaultRoutes?.map(item =>
                                     <NavLink
@@ -163,9 +163,12 @@ const DashBoardMenu = ({ role }) => {
                                         </div>
                                     </NavLink>
                                 )
-                                
+
                             }
-                            <button className="">Logout</button>
+                            <button className="text-2xl md:text-base flex items-center gap-2">
+                                <RiShutDownLine />
+                                <span className="hidden md:block">Logout</span>
+                            </button>
                             <ThemeController />
                         </div>
 
