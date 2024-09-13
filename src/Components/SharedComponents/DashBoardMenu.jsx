@@ -123,7 +123,7 @@ const DashBoardMenu = ({ role }) => {
 
 
     return (
-        <div className="h-screen w-[15%] md:w-[20%] lg:w-[200px] border border-blue-600">
+        <div className="h-screen w-full h-full border border-blue-600">
 
             {/* logo */}
             <div className="flex items-center justify-center md:justify-start font-bold my-4">

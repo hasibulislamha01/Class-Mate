@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../CustomHooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
@@ -14,6 +14,7 @@ import RegisterAnimation from "../../Components/AnimationComponents/RegisterAnim
 const Registration = () => {
     const axiosPublic = useAxiosPublic()
     const { registerUser, updateUserProfile } = useAuth()
+    const navigate = useNavigate()
 
     const [registrationError, setRegistrationError] = useState(null)
 
@@ -21,6 +22,11 @@ const Registration = () => {
         { value: 'Student', label: 'Student' },
         { value: 'Tutor', label: 'Tutor' },
         { value: 'Administrator', label: 'Administrator' },
+    ]
+
+    const sexCategories = [
+        { value: 'male', label: 'Male' },
+        { value: 'female', label: 'Female' },
     ]
 
 
@@ -32,8 +38,10 @@ const Registration = () => {
         const firstName = form.firstName.value;
         const lastName = form.lastName.value;
         const userName = firstName + " " + lastName;
+        const gender = form.sex.value;
         const role = form.role.value
-        console.log(role)
+        const phone = form.phone.value
+        // console.log(role)
         // console.log(userName)
         const userPhoto = form.photo.value;
         const userEmail = form.email.value;
@@ -62,8 +70,10 @@ const Registration = () => {
                 userEmail,
                 userPhoto,
                 role,
+                gender,
+                phone,
             }
-
+// console.log(userInfo);
             // signing up
             registerUser(userEmail, password)
                 .then(response => {
@@ -85,6 +95,7 @@ const Registration = () => {
                     axiosPublic.post('/users', userInfo)
                         .then(response => {
                             console.log(response.data)
+                            navigate('/')
                         })
                         .catch(error => {
                             const errorMessage = error.message
@@ -150,14 +161,13 @@ const Registration = () => {
                             </div>
                         </div>
                         <div className="flex flex-col lg:flex-row justify-between gap-4">
-                            <div className="mx-auto input-container w-1/2">
-                                <input
-                                    className="w-full"
-                                    type="text"
-                                    name="photo"
-                                    required="required"
-                                />
-                                <label className="label">Your Photo</label>
+
+                            <div className="flex-1">
+                                <SelectItems
+                                    name={'sex'}
+                                    options={sexCategories}
+                                    title={"Enter Sex"}
+                                ></SelectItems>
                             </div>
                             <div className="flex-1">
                                 <SelectItems
@@ -195,6 +205,27 @@ const Registration = () => {
                                             : <BsEyeSlash />
                                     }
                                 </span>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col lg:flex-row justify-between gap-4">
+                            <div className="mx-auto input-container w-1/2">
+                                <input
+                                    className="w-full"
+                                    type="text"
+                                    name="photo"
+                                    required="required"
+                                />
+                                <label className="label">Your Photo</label>
+                            </div>
+                            <div className="mx-auto input-container w-1/2">
+                                <input
+                                    className="w-full"
+                                    type="number"
+                                    name="phone"
+                                    required="required"
+                                />
+                                <label className="label">Your Phone No.</label>
                             </div>
                         </div>
 

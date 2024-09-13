@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import './Navbar.css'
 import ThemeController from "../../ThemeController";
 
-
 const Navbar = () => {
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
@@ -111,12 +110,13 @@ const Navbar = () => {
 
 
     return (
-        <div className={`w-full h-[50px] fixed z-50 ${isSticky && 'stickyNav'}`}>
+        <div className={`w-full h-[50px] fixed z-50 flex items-center px-2 md:px-0 ${isSticky && 'stickyNav'}`}>
 
-
+            {/* website name */}
+            <NavLink to='/' className={`md:hidden text-xl mr-auto ${!isSticky ? 'text-black' : 'text-white' }`}>ClassMate</NavLink>
 
             {/* horizontal navbar */}
-            <div className="h-full container mx-auto w-full md:flex items-center gap-6 md:px-4 font-bold">
+            <div className="hidden h-full container mx-auto w-full md:flex items-center gap-6 md:px-4 font-bold">
 
                 {/* website name */}
                 <NavLink to='/' className={`text-xl mr-auto ${!isSticky ? 'text-black' : 'text-white' }`}>ClassMate</NavLink>

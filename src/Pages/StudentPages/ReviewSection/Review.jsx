@@ -4,7 +4,7 @@ import { useState } from "react";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import PropTypes from 'prop-types'
-// import Rating from "react-rating";
+import Rating from "react-rating";
 
 const Review = ({sessionId}) => {
 
@@ -37,7 +37,7 @@ const Review = ({sessionId}) => {
         })
     }
     return (
-        <div className="my-24 space-y-12">
+        <div id='review' className="min-h-screen flex flex-col justify-center space-y-12">
             <h1 className="text-center text-3xl">Give a Review</h1>
             <form onSubmit={handleReview} className="space-y-4 w-1/2 mx-auto">
                 <Flex gap="middle" vertical>

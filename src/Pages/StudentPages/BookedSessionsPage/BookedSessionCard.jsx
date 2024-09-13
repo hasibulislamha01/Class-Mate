@@ -29,7 +29,9 @@ const BookedSessionCard = ({ bookedSession }) => {
             actions={[
                 <div key={'bottom-action'} className='flex items-center justify-between'>
                     {/* <Button key='registerSession' size='small'>Register</Button>, */}
-                    <Link to={``}>
+                    <Link to={`/sessionDetails/${bookedSession?.sessionId}/#review`}
+                    state={location.pathname}
+                    >
                         <Tooltip placement="top" title='Give Review' arrow={true}>
                             <EditOutlined key="edit" />
                         </Tooltip>

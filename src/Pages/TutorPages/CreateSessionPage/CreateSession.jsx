@@ -72,7 +72,7 @@ const CreateSession = () => {
     }
 
     return (
-        <div className="flex flex-col-reverse lg:flex-row justify-evenly items-center">
+        <div className="min-h-screen flex flex-col-reverse lg:flex-row justify-evenly items-center">
             <div>
                 <ClassAnimation></ClassAnimation>
             </div>

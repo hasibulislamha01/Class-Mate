@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "./useAxiosSecure";
 
-const useGetAllUsersWithSameRole = (role) => {
-    const axiosSecure = useAxiosSecure()
-    const [totalUserWithSameRole, setTotalUserWithSameRole] = useState(0)
-    const baseUrl = import.meta.env.VITE_LOCAL_URL
-    const url = `${baseUrl}/users/role/${role}`
+const useGetAllUsersWithSameAttribute = (role, gender) => {
+    console.log(role, gender);
 
-    useEffect(()=> {
-        axiosSecure.get(url)
-        .then(res => setTotalUserWithSameRole(res?.data))
-        .catch(error => console.error(`error getting all the users having the role: ${role} `, error))
-    }, [role, url, axiosSecure])
+    const axiosSecure = useAxiosSecure()
+    const [userWithSameRole, setUserWithSameAttribute] = useState([])
+
+    useEffect(() => {
+
+        if (!role) return
+
+        const baseUrl = import.meta.env.VITE_LOCAL_URL
+
+
+        axiosSecure.get(`${baseUrl}/users/role/${role}/${gender}`)
+            .then(res => setUserWithSameAttribute(res?.data || []))
+            .catch(error => console.error(`error getting all the users having the role: ${role} `, error))
+    }, [role, gender, axiosSecure])
 
     // console.log(totalUserWithSameRole); ok
-    
-    if(totalUserWithSameRole){
-        return totalUserWithSameRole
-    }
+
+    return userWithSameRole || 0;
 };
 
-export default useGetAllUsersWithSameRole;
+export default useGetAllUsersWithSameAttribute;

@@ -113,7 +113,7 @@ const SessionDetails = () => {
     }
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto pt-16">
             <h1 className="text-center text-3xl">{sessionTitle}</h1>
             <div className="py-12 flex flex-col lg:flex-row justify-center items-center gap-12">
                 <div className="space-y-6 text-center">

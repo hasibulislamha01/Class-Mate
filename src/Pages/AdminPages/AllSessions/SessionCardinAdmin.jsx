@@ -54,11 +54,7 @@ const SessionCardinAdmin = ({ session, refetch }) => {
     const status = session?.status
     const sessionImage = session?.sessionImage
 
-    const [expanded, setExpanded] = React.useState(false);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
 
     // console.log(typeof sessionId)
 
@@ -169,30 +165,14 @@ const SessionCardinAdmin = ({ session, refetch }) => {
                 component="img"
                 className='h-[200px] object-contain'
                 image={sessionImage}
-                alt="Paella dish"
+                alt="Session Image"
             />
 
             <CardContent>
 
                 <div className='grid grid-cols-2 justify-items-stretch gap-6'>
 
-                    <div className='text-center'>
-                        <p className=''>Registration Starts</p>
-                        <h1 className='font-medium'>{formattedRegistrationStartingDate}</h1>
-                    </div>
-                    <div className='text-center'>
-                        <p className=''>Registration Ends</p>
-                        <h1 className='font-medium'>{formattedRegistrationEndingDate}</h1>
-                    </div>
-
-                    <div className='text-center'>
-                        <p className=''>Class Starts</p>
-                        <h1 className='font-medium'>{formattedClassStartingDate}</h1>
-                    </div>
-                    <div className='text-center'>
-                        <p className=''>Class Ends</p>
-                        <h1 className='font-medium'>{formattedClassEndingDate}</h1>
-                    </div>
+                    
 
                     <div className='text-center'>
                         <p className=''>Duration</p>
@@ -240,34 +220,9 @@ const SessionCardinAdmin = ({ session, refetch }) => {
 
                 }
 
-                <ExpandMore
-                    expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <IoIosArrowDown />
-
-                </ExpandMore>
+                
             </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                    <h1 className='text-2xl text-center my-3'>Session Details</h1>
-                    <p className='text-center'>
-                        {session?.description}
-                    </p>
-                </CardContent>
-                <CardContent>
-                    <h1 className='text-2xl text-center my-3'>Tutor Details</h1>
-
-                    <div className='flex flex-col justify-center items-center text-center'>
-                        <img className='h-[100px] w-[100px] rounded-full' src={tutorPhoto} alt="" />
-                        Name: {tutorName} <br />
-                        Email: {tutorEmail}
-                    </div>
-
-                </CardContent>
-            </Collapse>
+            
 
         </Card>
     );

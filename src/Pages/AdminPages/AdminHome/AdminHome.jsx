@@ -5,7 +5,7 @@ import RadialChart from "./RadialBarChart";
 const AdminHome = () => {
 
     return (
-        <div className="container mx-auto border border-red-200">
+        <div className="container mx-auto overflow-y-scroll">
             <h1 className="text-center text-red-600">Welcome, ClassMate Admin !</h1>
             <div className="w-full flex items-center gap-4">
                 <UsersSummaryCard
