@@ -12,7 +12,6 @@ import Login from './Pages/LoginPage/Login';
 import AuthProvider from './Components/Auth/AuthProvider';
 import AdminHome from './Pages/AdminPages/AdminHome/AdminHome';
 import DashLayout from './DashboardLayout/DashLayout';
-import AllUsers from './Pages/AdminPages/AllUsers/AllUsers';
 import {
   QueryClient,
   QueryClientProvider,
@@ -36,6 +35,7 @@ import AllMaterials from './Pages/AdminPages/AllMaterialsPage/AllMaterials';
 import StundentAllMaterials from './Pages/StudentPages/StudentAllMaterialsPage/StundentAllMaterials';
 import CourseMaterial from './Pages/StudentPages/StudentAllMaterialsPage/CourseMaterial';
 import AllSessionsPage from './Pages/AllSessionsPage/AllSessionsPage';
+import AllStudents from './Pages/AdminPages/AllStudents/AllStudents';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -88,7 +88,7 @@ const router = createBrowserRouter(
             },
             {
               path: "/dashboard/admin/students",
-              element: <AllUsers></AllUsers>
+              element: <AllStudents/>
             },
             {
               path: "/dashboard/admin/allSessions",

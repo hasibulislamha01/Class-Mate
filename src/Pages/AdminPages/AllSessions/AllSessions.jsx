@@ -98,14 +98,14 @@ const AllSessions = () => {
                     <thead>
                         <tr>
                             <th>Session Title</th>
-                            <th>Tutor Name</th>
-                            <th>Deadline</th>
+                            <th className="hidden lg:table-cell">Tutor Name</th>
+                            <th className="hidden md:table-cell">Deadline</th>
                             <th>See Details</th>
                             <th colSpan={2} className="">Actions</th>
                         </tr>
                     </thead>
 
-                    <tbody className="">
+                    <tbody className="text-center">
 
                         {/* rows */}
                         {
@@ -118,7 +118,7 @@ const AllSessions = () => {
                                     </th> */}
                                     <td>
                                         <div className="flex items-center gap-3">
-                                            <div className="avatar">
+                                            <div className="avatar hidden md:block">
                                                 <div className="mask mask-squircle h-12 w-12">
                                                     <img
                                                         src={session.sessionImage}
@@ -128,15 +128,15 @@ const AllSessions = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <div className="font-bold">{session.sessionTitle}</div>
+                                                <div className="font-bold text-left">{session.sessionTitle}</div>
                                                 {/* <div className="text-sm opacity-50">United States</div> */}
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td className="hidden lg:table-cell">
                                         {session.tutorName}
                                     </td>
-                                    <td>{session?.registrationEnds}</td>
+                                    <td className="hidden md:table-cell">{session?.registrationEnds}</td>
                                     <th>
                                         <Link to={`/sessionDetails/${session._id}`}>
                                             <button className="btn btn-ghost btn-xs">details</button>
@@ -147,7 +147,7 @@ const AllSessions = () => {
                                             session.status === 'approved' ?
                                                 <div className='ml-2 flex items-center gap-4'>
                                                     <Link to={`/dashboard/admin/allSessions/update/${session._id}`}>
-                                                        <button className="btn btn-sm w-[65px] bg-sky-200 text-black dark:bg-primary dark:text-white">
+                                                        <button className="btn btn-sm w-[65px] bg-sky-200">
                                                             Update
                                                         </button>
                                                     </Link>

@@ -66,7 +66,7 @@ const AllUsers = () => {
 
 
     return (
-        <div className="space-y-12">
+        <div className="space-y-12 border border-fuchsia-500">
             <h1 className="text-center text-3xl">All Users</h1>
             <FilterUsers
                 filterUser={filterUser}

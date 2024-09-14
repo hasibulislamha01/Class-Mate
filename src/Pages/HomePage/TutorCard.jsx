@@ -1,19 +1,20 @@
-import { Card } from "antd";
-import Meta from "antd/es/card/Meta";
+import PropTypes from 'prop-types'
 
 const TutorCard = ({ tutor }) => {
+    console.log(tutor);
     return (
-        <Card
-            className="h-full"
-            hoverable
-            style={{
-                width: 240,
-            }}
-            cover={<img alt="example" src={tutor?.userPhoto} className="h-[250px] object-cover" />}
-        >
-            <Meta className="text-center" title={tutor?.userName}/>
-        </Card>
+        <div className="flex flex-col items-center justify-center gap-2 w-[250px] h-[200px] rounded-[30px]">
+            
+            {/* tutor image */}
+            <img src={tutor.userPhoto} alt="tutor image" className="w-32 h-32 rounded-full object-cover p-2 border-2 border-primary" 
+            />
+            <h1 className="font-bold">{tutor.userName}</h1>
+        </div>
     );
 };
+
+TutorCard.propTypes = {
+    tutor: PropTypes.object 
+}
 
 export default TutorCard;
