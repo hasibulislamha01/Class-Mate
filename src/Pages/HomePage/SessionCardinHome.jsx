@@ -26,14 +26,11 @@ const SessionCardinHome = ({ session }) => {
     const regEndDate = new Date(regEndDateString)
 
     // console.log( todaysDate,  regEndDate, regEndDate > todaysDate)
-    let status = 'Ongoing'
     let statusColor = 'bg-sky-400'
     if (regEndDate < todaysDate) {
-        status = 'Closed'
         statusColor = 'bg-red-400'
     }
     else {
-        status = 'Ongoing'
         statusColor = 'bg-green-500'
     }
 
