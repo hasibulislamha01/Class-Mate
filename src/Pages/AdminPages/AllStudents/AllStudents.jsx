@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import { Skeleton } from "antd";
 
 const AllStudents = () => {
 
@@ -33,6 +34,7 @@ const AllStudents = () => {
 
                 <tbody>
                     {
+                        students ? 
                         students?.map(student =>
                             <tr key={student._id}>
 
@@ -67,6 +69,8 @@ const AllStudents = () => {
                                 </td>
                             </tr>
                         )
+                        :
+                        <Skeleton/>
                     }
                 </tbody>
             </table>
