@@ -78,30 +78,33 @@ const Navbar = () => {
             });
     }
 
-    let dashboardLink = '/dashboard'
+    let dashboardLink = ''
     if (role === 'Administrator') {
-        dashboardLink = '/dashboard/admin/allUsers'
+        dashboardLink = '/dashboard/admin'
     }
     else if (role === 'Tutor') {
         dashboardLink = '/dashboard/tutor'
     }
     else if (role === 'Student') {
         dashboardLink = '/dashboard/student'
-    }
+    } 
 
 
     const navigationRoutes = [
         {
             link: '/',
             title: 'Home',
+            style: '',
         },
         {
             link: '/all-sessions',
             title: 'All Sessions',
+            style: '',
         },
         {
             link: dashboardLink,
             title: 'Dashboard',
+            style: user && role ? 'flex' : 'hidden' ,
         },
 
     ]
@@ -112,22 +115,22 @@ const Navbar = () => {
     return (
         <div className={`w-full h-[50px] fixed z-50 flex items-center px-2 md:px-0 ${isSticky && 'stickyNav'}`}>
 
-            {/* website name */}
+            {/* website name visible in mobiles */}
             <NavLink to='/' className={`md:hidden text-xl mr-auto ${!isSticky ? 'text-black' : 'text-white' }`}>ClassMate</NavLink>
 
             {/* horizontal navbar */}
             <div className="hidden h-full container mx-auto w-full md:flex items-center gap-6 md:px-4 font-bold">
 
-                {/* website name */}
+                {/* website name visible in larger screens */}
                 <NavLink to='/' className={`text-xl mr-auto ${!isSticky ? 'text-black' : 'text-white' }`}>ClassMate</NavLink>
 
                 <div className="hidden h-full md:flex items-center gap-6">
                     {
-                        navigationRoutes.map(routes =>
+                        navigationRoutes?.map(routes =>
                             <NavLink
                                 key={routes.link}
                                 to={routes.link}
-                                className={({isActive})=> isActive ? `${isSticky ? 'text-secondary' : 'text-primary'}` 
+                                className={({isActive})=> isActive ? `${isSticky ? 'text-secondary' : 'text-primary'} ${routes.style}` 
                                 : 
                                 `${isSticky ? 'text-white' : 'text-gray-500'}`}
                             >
@@ -150,7 +153,7 @@ const Navbar = () => {
 
             </div>
 
-            {/* user controlls */}
+            {/* user controlls dropdown */}
             <div id="dropdown" className="absolute top-[85%] left-[83%] hidden w-[150px] rounded-[7px] bg-sky-200 text-primary space-y-2 py-2 px-2">
 
                 {

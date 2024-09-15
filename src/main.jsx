@@ -36,6 +36,7 @@ import StundentAllMaterials from './Pages/StudentPages/StudentAllMaterialsPage/S
 import CourseMaterial from './Pages/StudentPages/StudentAllMaterialsPage/CourseMaterial';
 import AllSessionsPage from './Pages/AllSessionsPage/AllSessionsPage';
 import AllStudents from './Pages/AdminPages/AllStudents/AllStudents';
+import AllTeachers from './Pages/AdminPages/AllTeachers/AllTeachers';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -89,6 +90,10 @@ const router = createBrowserRouter(
             {
               path: "/dashboard/admin/students",
               element: <AllStudents/>
+            },
+            {
+              path: "/dashboard/admin/teachers",
+              element: <AllTeachers/>
             },
             {
               path: "/dashboard/admin/allSessions",

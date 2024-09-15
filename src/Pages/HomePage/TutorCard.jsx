@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 const TutorCard = ({ tutor }) => {
-    console.log(tutor);
+    // console.log(tutor);
     return (
         <div className="flex flex-col items-center justify-center gap-2 w-[250px] h-[200px] rounded-[30px]">
             

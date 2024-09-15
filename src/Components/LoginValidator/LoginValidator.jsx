@@ -11,7 +11,7 @@ const LoginValidator = ({children}) => {
     
     if (loading) {
         return (
-            <div className="mt-12 md:mt-20 flex justify-center items-center">
+            <div className="min-h-screen py-12 md:py-20 flex justify-center items-center">
                 <div className="w-40 mx-auto loading loading-spinner text-warning"></div>
             </div>
         )

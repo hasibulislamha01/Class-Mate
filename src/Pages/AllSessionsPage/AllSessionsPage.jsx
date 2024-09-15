@@ -29,13 +29,14 @@ const AllSessionsPage = () => {
     const [isGridView, setIsGridView] = useState(true)
     const [sessions, setSessions] = useState([])
     const [loading, setLoading] = useState(true)
+    // const [showLatest, setShowLatest] = useState(false)
     // const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
     const handleRedirect = (link) => {
         console.log('hitttted');
-        setLoading(true)
+        // setLoading(true)
         navigate(link)
     }
     // console.log(isGridView);
@@ -51,6 +52,17 @@ const AllSessionsPage = () => {
             .catch(error => console.error(`error loading session data : `, error?.message))
     }, [axiosPublic])
 
+
+    // sorting logics
+    const handleSort = (value) => {
+        console.log(value);
+        if (value === 'active') {
+            // setShowLatest(true)
+        } else {
+            // setShowLatest(false)
+        }
+    }
+
     return (
         <div className="min-h-screen py-16 md:py-24 container mx-auto">
 
@@ -65,13 +77,13 @@ const AllSessionsPage = () => {
                         options={filterOptions}
                         placeholder={'Filter Sessions'}
                         className="w-[200px]"
-                        onChange={(e) => console.log(e.value)}
+                        onChange={(e) => handleSort(e.value)}
                     />
                 </div>
 
 
                 {/* search field */}
-                <div className="relative">
+                <div className="relative font-semibold text-primary">
                     <input
                         className="input border border-primary focus:border-none focus:outline-primary rounded-full w-[300px]"
                         type="text"
@@ -126,7 +138,7 @@ const AllSessionsPage = () => {
                         <TableView
                             sessions={sessions}
                             handleRedirect={handleRedirect}
-                            // setLoading={setLoading}
+                        // setLoading={setLoading}
                         />
                 }
             </div>

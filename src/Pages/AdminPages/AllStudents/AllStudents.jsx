@@ -16,19 +16,18 @@ const AllStudents = () => {
     }, [axiosSecure])
     console.log(students);
     return (
-        <div className="border border-red-300">
+        <div className="">
 
             {/* hedings */}
             <h1 className="font-bold text-3xl text-center my-12">ClassMate Students</h1>
 
-            <table className="w-full table-zebra">
+            <table className="mt-6 w-full table table-zebra table-auto table-pin-rows table-xs md:table-md lg:table-lg">
                 <thead>
-                    <tr className="">
+                    <tr className="bg-sky-100 text-primary text-[15px]">
                         <th className=" ">Student Name</th>
                         <th className="hidden lg:table-cell text-left">Email</th>
                         <th className="hidden md:table-cell text-left">Phone</th>
                         <th>See Details</th>
-                        {/* <th colSpan={2} className="">Actions</th> */}
                     </tr>
                 </thead>
 
@@ -59,11 +58,11 @@ const AllStudents = () => {
                                     {student.userEmail}
                                 </td>
                                 <td className="hidden md:table-cell">{student?.phone}</td>
-                                <th>
+                                <td>
                                     <Link to={`/studentDetails/${student._id}`}>
                                         <button className="btn btn-ghost btn-xs">details</button>
                                     </Link>
-                                </th>
+                                </td>
                                 <td className=" flex justify-evenly items-center">
 
                                 </td>
