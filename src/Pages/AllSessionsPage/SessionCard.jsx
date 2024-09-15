@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
 import PropTypes from 'prop-types'
 
 
-const SessionCard = ({ session }) => {
+const SessionCard = ({ session, handleRedirect }) => {
 
     const todaysDateString = useTodaysDate()
     const regEndDateString = session?.registrationEnds
@@ -47,11 +46,16 @@ const SessionCard = ({ session }) => {
                 </p>
             </div>
 
-            <Link to={`/sessionDetails/${session?._id}`}
+
+
+
+            <button
                 className='mb-6 btn btn-sm w-[120px] mx-auto text-sm font-bold bg-primary/80 text-white hover:bg-primary rounded-md'
+                onClick={() => handleRedirect(`/sessionDetails/${session._id}`)}
             >
-                <button>View Details</button>
-            </Link>
+                View Details
+            </button>
+
 
         </div>
     );
@@ -59,6 +63,7 @@ const SessionCard = ({ session }) => {
 
 
 SessionCard.propTypes = {
-    session: PropTypes.object
+    session: PropTypes.object,
+    handleRedirect: PropTypes.func
 }
 export default SessionCard;

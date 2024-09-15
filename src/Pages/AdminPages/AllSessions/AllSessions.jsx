@@ -1,7 +1,5 @@
-import SessionCardinAdmin from "./SessionCardinAdmin";
 import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 import { Link } from "react-router-dom";
-import { Button } from 'antd';
 import ApproveModal from "./ConfirmModal";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
@@ -111,11 +109,7 @@ const AllSessions = () => {
                         {
                             allSessions?.map(session =>
                                 <tr key={session._id}>
-                                    {/* <th>
-                                        <label>
-                                            <input type="checkbox" className="checkbox" />
-                                        </label>
-                                    </th> */}
+                                    
                                     <td>
                                         <div className="flex items-center gap-3">
                                             <div className="avatar hidden md:block">
@@ -129,7 +123,6 @@ const AllSessions = () => {
                                             </div>
                                             <div>
                                                 <div className="font-bold text-left">{session.sessionTitle}</div>
-                                                {/* <div className="text-sm opacity-50">United States</div> */}
                                             </div>
                                         </div>
                                     </td>

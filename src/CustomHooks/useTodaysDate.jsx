@@ -1,12 +1,20 @@
+import { useEffect, useState } from "react";
 
 const useTodaysDate = () => {
-    const today = new Date()
-    const year = today.getFullYear()
-    const month = today.getMonth() + 1
-    const day = today.getDate()
-    const date = `${month}/${day}/${year}`
-    console.log(date)
-    return date
+
+    const [date, setDate] = useState('')
+
+    useEffect(() => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        const formattedDate = `${month}/${day}/${year}`;
+        // console.log(formattedDate);
+        setDate(formattedDate);
+    }, [])
+    
+    return date || 'N/A'
 };
 
 export default useTodaysDate;

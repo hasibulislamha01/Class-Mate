@@ -4,6 +4,24 @@ import CardSkeleton from "../../Components/Skeletons/CardSkeleton";
 import ListSkeleton from "../../Components/Skeletons/ListSkeleton";
 import GridView from "./GridView";
 import { CiSearch } from "react-icons/ci";
+import Select from 'react-select'
+import { CiGrid41 } from "react-icons/ci";
+import { CiViewTable } from "react-icons/ci";
+import TableView from "./TableView";
+import { useNavigate } from "react-router-dom";
+
+
+
+const filterOptions = [
+    {
+        label: 'All',
+        value: 'all'
+    },
+    {
+        label: 'Currently Enrolling',
+        value: 'active'
+    },
+]
 
 const AllSessionsPage = () => {
 
@@ -11,6 +29,15 @@ const AllSessionsPage = () => {
     const [isGridView, setIsGridView] = useState(true)
     const [sessions, setSessions] = useState([])
     const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(false)
+
+    const navigate = useNavigate()
+
+    const handleRedirect = (link) => {
+        console.log('hitttted');
+        setLoading(true)
+        navigate(link)
+    }
     // console.log(isGridView);
     console.log(sessions);
 
@@ -31,10 +58,15 @@ const AllSessionsPage = () => {
             <h1 className="text-center font-bold text-xl lg:text-3xl">All sessions</h1>
 
             {/* controls */}
-            <div className="my-10 flex items-center justify-center gap-32">
+            <div className="my-10 flex flex-col md:flex-row items-center justify-center gap-32">
 
                 <div>
-                    sort & filter
+                    <Select
+                        options={filterOptions}
+                        placeholder={'Filter Sessions'}
+                        className="w-[200px]"
+                        onChange={(e) => console.log(e.value)}
+                    />
                 </div>
 
 
@@ -45,12 +77,24 @@ const AllSessionsPage = () => {
                         type="text"
                         placeholder="Search Sessions"
                     />
-                    <CiSearch size={30} type="submit" className="absolute top-[20%] left-[85%]" />
+                    <CiSearch fill="#1D8BD5" size={30} type="submit" className="absolute top-[20%] left-[85%]" />
                 </div>
 
-                <div>
-                    <button className="btn" onClick={() => setIsGridView(true)}>Grid</button>
-                    <button className="btn" onClick={() => setIsGridView(false)}>List</button>
+                {/* view controls */}
+                <div className="flex items-center rounded-full border border-sky-200">
+
+                    <div
+                        className={`py-2 px-4 rounded-l-full transition-all duration-500 cursor-pointer ${isGridView ? 'bg-sky-200' : 'bg-base-100'}`}
+                        onClick={() => setIsGridView(true)}
+                    >
+                        <CiGrid41 size={20} />
+                    </div>
+                    <div
+                        className={`py-2 px-4 rounded-r-full transition-all duration-500 cursor-pointer ${!isGridView ? 'bg-sky-200' : 'bg-base-100'}`}
+                        onClick={() => setIsGridView(false)}
+                    >
+                        <CiViewTable size={20} />
+                    </div>
                 </div>
             </div>
 
@@ -66,7 +110,7 @@ const AllSessionsPage = () => {
                             <CardSkeleton />
                         </div>
                         :
-                        <GridView sessions={sessions} />
+                        <GridView sessions={sessions} handleRedirect={handleRedirect} />
 
 
                 }
@@ -79,9 +123,11 @@ const AllSessionsPage = () => {
                     loading ?
                         <ListSkeleton />
                         :
-                        <div>
-                            listview
-                        </div>
+                        <TableView
+                            sessions={sessions}
+                            handleRedirect={handleRedirect}
+                            // setLoading={setLoading}
+                        />
                 }
             </div>
 

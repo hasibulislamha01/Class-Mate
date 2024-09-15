@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import SessionCard from './SessionCard';
 
 
-const GridView = ({ sessions }) => {
+const GridView = ({ sessions, handleRedirect }) => {
 
 
 
@@ -16,6 +16,7 @@ const GridView = ({ sessions }) => {
                     <SessionCard
                         key={session._id}
                         session={session}
+                        handleRedirect={handleRedirect}
                     />
 
                 )
@@ -26,7 +27,8 @@ const GridView = ({ sessions }) => {
 
 
 GridView.propTypes = {
-    sessions: PropTypes.array
+    sessions: PropTypes.array,
+    handleRedirect: PropTypes.func
 }
 
 export default GridView;

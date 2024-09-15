@@ -114,83 +114,92 @@ const SessionDetails = () => {
 
     return (
         <div className="container mx-auto pt-16">
-            <h1 className="text-center text-3xl">{sessionTitle}</h1>
-            <div className="py-12 flex flex-col lg:flex-row justify-center items-center gap-12">
-                <div className="space-y-6 text-center">
-                    <img src={sessionImg} alt="" className="w-[450px] h-[350px] object-cover rounded-[7px]" />
-                </div>
-
-                <div className=" text-center space-y-5">
-
-                    <div className="grid grid-cols-2 gap-4">
-                        {/* <Row className="flex"> */}
-                        <Col>
-                            <Card title="Registration Strats" bordered={false}>
-                                {regStarts}
-                            </Card>
-                        </Col>
-                        <Col >
-                            <Card title="Registration Ends" bordered={false}>
-                                {regEnds}
-                            </Card>
-                        </Col>
-                        {/* </Row> */}
-
-                        {/* <Row className="flex"> */}
-                        <Col>
-                            <Card title="Class Strats" bordered={false}>
-                                {classStarts}
-                            </Card>
-                        </Col>
-                        <Col >
-                            <Card title="Class Ends" bordered={false}>
-                                {classEnds}
-                            </Card>
-                        </Col>
-                        {/* </Row> */}
+            {
+                !session ?
+                    <div className="h-screen flex items-center justify-center">
+                        <span className="loading loading-spinner loading-lg text-primary"></span>
                     </div>
+                    :
+                    <>
+                        <h1 className="text-center text-3xl">{sessionTitle}</h1>
+                        <div className="py-12 flex flex-col lg:flex-row justify-center items-center gap-12">
+                            <div className="space-y-6 text-center">
+                                <img src={sessionImg} alt="" className="w-[450px] h-[350px] object-cover rounded-[7px]" />
+                            </div>
 
-                    <div className="space-y-2">
-                        <h1 className="">Registration Fee: {session?.registrationFee}$ </h1>
-                        <p className="">Expected duration: {session?.duration} hours</p>
-                        <h3>Rating</h3>
-                    </div>
+                            <div className=" text-center space-y-5">
 
-                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    {/* <Row className="flex"> */}
+                                    <Col>
+                                        <Card title="Registration Strats" bordered={false}>
+                                            {regStarts}
+                                        </Card>
+                                    </Col>
+                                    <Col >
+                                        <Card title="Registration Ends" bordered={false}>
+                                            {regEnds}
+                                        </Card>
+                                    </Col>
+                                    {/* </Row> */}
 
-            </div>
+                                    {/* <Row className="flex"> */}
+                                    <Col>
+                                        <Card title="Class Strats" bordered={false}>
+                                            {classStarts}
+                                        </Card>
+                                    </Col>
+                                    <Col >
+                                        <Card title="Class Ends" bordered={false}>
+                                            {classEnds}
+                                        </Card>
+                                    </Col>
+                                    {/* </Row> */}
+                                </div>
 
-            <div className="text-center space-y-6">
-                <div className="space-y-3">
-                    <h1 className="text-xl font-bold">Session Details</h1>
-                    <p>
-                        {description}
-                    </p>
-                </div>
+                                <div className="space-y-2">
+                                    <h1 className="">Registration Fee: {session?.registrationFee}$ </h1>
+                                    <p className="">Expected duration: {session?.duration} hours</p>
+                                    <h3>Rating</h3>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div className="text-center space-y-6">
+                            <div className="space-y-3">
+                                <h1 className="text-xl font-bold">Session Details</h1>
+                                <p>
+                                    {description}
+                                </p>
+                            </div>
 
 
-                {
-                    location.state === '/dashboard/student/bookedSessions' ?
-                        <Review
-                        sessionId={sessionId}
-                        ></Review>
-                        :
-                        <Button className={`flex justify-center mx-auto`} disabled={disableBookNowButton} onClick={handleBookSession} > Book Now </Button>
-                }
-            </div>
+                            {
+                                location.state === '/dashboard/student/bookedSessions' ?
+                                    <Review
+                                        sessionId={sessionId}
+                                    ></Review>
+                                    :
+                                    <Button className={`flex justify-center mx-auto`} disabled={disableBookNowButton} onClick={handleBookSession} > Book Now </Button>
+                            }
+                        </div>
 
 
-            <div className="my-24 flex flex-col-reverse lg:flex-row justify-center items-center">
-                <div className="text-center space-y-5">
-                    <h1 className="font-bold text-xl">Tutor Details</h1>
-                    <img src={tutorImg} alt="" className="h-[200px] w-[200px] object-cover rounded-full " />
-                    <div className="space-y-2">
-                        <h1>{tutorName}</h1>
-                        <p>Email: {tutorEmail}</p>
-                    </div>
-                </div>
+                        <div className="my-24 flex flex-col-reverse lg:flex-row justify-center items-center">
+                            <div className="text-center space-y-5">
+                                <h1 className="font-bold text-xl">Tutor Details</h1>
+                                <img src={tutorImg} alt="" className="h-[200px] w-[200px] object-cover rounded-full " />
+                                <div className="space-y-2">
+                                    <h1>{tutorName}</h1>
+                                    <p>Email: {tutorEmail}</p>
+                                </div>
+                            </div>
 
-            </div>
+                        </div>
+                    </>
+            }
 
         </div>
     );
