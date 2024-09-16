@@ -37,6 +37,7 @@ import CourseMaterial from './Pages/StudentPages/StudentAllMaterialsPage/CourseM
 import AllSessionsPage from './Pages/AllSessionsPage/AllSessionsPage';
 import AllStudents from './Pages/AdminPages/AllStudents/AllStudents';
 import AllTeachers from './Pages/AdminPages/AllTeachers/AllTeachers';
+import AllAdmins from './Pages/AdminPages/AllAdminsPage/AllAdmins';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -94,6 +95,10 @@ const router = createBrowserRouter(
             {
               path: "/dashboard/admin/teachers",
               element: <AllTeachers/>
+            },
+            {
+              path: "/dashboard/admin/administrators",
+              element: <AllAdmins/>
             },
             {
               path: "/dashboard/admin/allSessions",
