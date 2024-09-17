@@ -1,22 +1,23 @@
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types'
 
-const EnhancedAnimation = ({ src }) => {
+const AnimatedPhotoFrame = ({ src, alt }) => {
   return (
-    <div className="h-[250px] w-[250px] relative border border-green-700 flex items-center justify-center">
+    <div className="h-[250px] w-[250px] relative flex items-center justify-center">
       {/* Image */}
-      <img src={src} alt="" className="rounded-full" />
+      <img src={src} alt={alt} className="rounded-full" />
 
       {/* Animated Pulsing Circle 1 */}
       <motion.div
-        className="h-[250px] w-[250px] absolute top-[0%] right-0 border-2 border-dashed border-blue-600 rounded-full"
-        initial={{ scale: 0.8, opacity: 1 }}
+        className="h-[250px] w-[250px] absolute top-[0%] right-0 border-2  border-blue-600 rounded-full"
+        initial={{ scale: 0.9, opacity: 0 }}
         animate={{
-          scale: 1.2,
-          opacity: 0,
+          scale: [0.9, 1.2, 0.9],
+          opacity: [0, 1, 0],
           rotate: [0, 360], // Optional: add rotation for extra dynamic motion
         }}
         transition={{
-          duration: 1,
+          duration: 2,
           ease: 'easeInOut',
           repeat: Infinity,
         }}
@@ -57,4 +58,9 @@ const EnhancedAnimation = ({ src }) => {
   );
 };
 
-export default EnhancedAnimation;
+
+AnimatedPhotoFrame.propTypes = {
+  src: PropTypes.string,
+  alt: PropTypes.string
+}
+export default AnimatedPhotoFrame;
