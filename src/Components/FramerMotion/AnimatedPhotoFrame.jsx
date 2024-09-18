@@ -10,50 +10,20 @@ const AnimatedPhotoFrame = ({ src, alt }) => {
       {/* Animated Pulsing Circle 1 */}
       <motion.div
         className="h-[250px] w-[250px] absolute top-[0%] right-0 border-2  border-blue-600 rounded-full"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{
-          scale: [0.9, 1.2, 0.9],
-          opacity: [0, 1, 0],
-          rotate: [0, 360], // Optional: add rotation for extra dynamic motion
-        }}
-        transition={{
-          duration: 2,
-          ease: 'easeInOut',
-          repeat: Infinity,
-        }}
-      />
-
-      {/* Animated Pulsing Circle 2 */}
-      {/* <motion.div
-        className="h-[250px] w-[250px] absolute top-[0%] right-0 border border-blue-600 rounded-full"
         initial={{ 
-            scale: 1, opacity: 1 
-        }}
-        animate={{
-          scale: 1.4,
-          opacity: 0,
-        }}
-        transition={{
-          duration: 2,
-          ease: 'easeInOut',
-          repeat: Infinity,
-        }}
-      /> */}
-
-      {/* Animated Pulsing Circle 3 */}
-      {/* <motion.div
-        className="h-[250px] w-[250px] absolute top-[0%] right-0 border border-yellow-600 rounded-full"
-        initial={{ scale: 1, opacity: 1 }}
-        animate={{
-          scale: 2.2,
-          opacity: 0,
-        }}
-        transition={{
-          duration: 4,
-          ease: 'easeInOut',
-          repeat: Infinity,
-        }}
-      /> */}
+          scale: 1, opacity: 0 
+      }}
+      animate={{
+        scale: [1, 1.2, 1],
+        opacity: [0.5, 0, 0.5],
+      }}
+      transition={{
+        duration: 2.25,
+        ease: 'easeInOut',
+        repeat: Infinity,
+      }}
+      />
+      
     </div>
   );
 };

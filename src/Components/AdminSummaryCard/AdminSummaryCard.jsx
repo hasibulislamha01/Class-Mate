@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import useUserCount from '../../CustomHooks/useUserCount';
 
 
-const UsersSummaryCard = ({ role }) => {
+const AdminsSummaryCard = ({ role }) => {
     
     const userCount = useUserCount(role)
     console.log(userCount, role);
@@ -15,8 +15,8 @@ const UsersSummaryCard = ({ role }) => {
     );
 };
 
-UsersSummaryCard.propTypes = {
+AdminsSummaryCard.propTypes = {
     role: PropTypes.string
 }
 
-export default UsersSummaryCard;
+export default AdminsSummaryCard;

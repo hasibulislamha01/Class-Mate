@@ -5,7 +5,7 @@ import BookedSessionCard from "./BookedSessionCard";
 const BookedSessions = () => {
 
     const { user } = useAuth()
-    const queryData = useGetLatestData('bookedSessions', `/bookedSessions/${user?.email}`)
+    const queryData = useGetLatestData('bookedSessions', `/bookedSessions/student/${user?.email}`)
     const bookedSessions = queryData[0]
     console.log(bookedSessions)
 
