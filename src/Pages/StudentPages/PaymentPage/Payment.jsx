@@ -37,7 +37,7 @@ const Payment = () => {
     return (
         <div className="min-h-screen flex flex-col justify-center items-center border border-green-300">
             <h1>Please Pay</h1>
-            <div className="w-1/2 border border-red-300">
+            <div className="w-1/2 border border-blue-300">
                 {
                     clientSecret &&
                     <Elements options={options} stripe={stripePromise}>

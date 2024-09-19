@@ -2,7 +2,9 @@ import { format } from "date-fns";
 
 const useFormateDate = ( date ) => {
 
-    // console.log(date)
+    if(!date){
+        return
+    }
     // Split the date string based on the double hyphen separator
     const [month, day, year] = date.split('/');
 

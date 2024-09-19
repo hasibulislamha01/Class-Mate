@@ -1,65 +1,61 @@
 import PropTypes from 'prop-types'
-import { EditOutlined } from '@ant-design/icons';
-import { Avatar, Card, Divider, Tooltip } from 'antd';
+
 import { Link, useLocation } from 'react-router-dom';
-import Meta from 'antd/es/card/Meta';
-import { MdOutlineChromeReaderMode } from "react-icons/md";
+
 
 const BookedSessionCard = ({ bookedSession }) => {
 
     const location = useLocation()
+    console.log(bookedSession);
 
     const splittedDescription = bookedSession?.description.split(' ')
-    const slicedDescription = splittedDescription.slice(0, 10)
-    const shortenedDescription = slicedDescription.join(' ')
+    const slicedDescription = splittedDescription?.slice(0, 10)
+    const shortenedDescription = slicedDescription?.join(' ')
 
     return (
-        <Card
-            className='flex flex-col justify-between h-full mx-auto'
-            style={{
-                width: 300,
-            }}
-            cover={
-                <img
-                    alt="example"
-                    src={bookedSession?.sessionImage}
-                    className='h-[200px] object-cover tooltip'
-                />
-            }
-            actions={[
-                <div key={'bottom-action'} className='flex items-center justify-between'>
-                    {/* <Button key='registerSession' size='small'>Register</Button>, */}
-                    <Link to={`/sessionDetails/${bookedSession?.sessionId}/#review`}
-                    state={location.pathname}
-                    >
-                        <Tooltip placement="top" title='Give Review' arrow={true}>
-                            <EditOutlined key="edit" />
-                        </Tooltip>
-                    </Link>
+        <div key={bookedSession?._id} className="card w-[300px] h-[350px]  rounded-[7px] border border-gray-200 flex flex-col justify-between dark:bg-gray-900">
 
-                    <Divider type="vertical" className=' border-gray-300' />
+            <img className='h-1/2 object-cover rounded-t-[7px]' src={bookedSession?.sessionImage} alt="session image" />
 
-                    <Link to={`/sessionDetails/${bookedSession?.sessionId}`}
-                    state={location.pathname} key='viewSessionDetails'>
-                        <Tooltip placement="top" title='View Details' arrow={true} className='w-full mt-1 text-[15px]'>
-                        <MdOutlineChromeReaderMode />
-                        </Tooltip>
-                    </Link>,
+
+            {/* card body */}
+            <div className='p-4 '>
+                <div className=' flex items-center gap-4'>
+                    <img src={bookedSession?.tutorPhoto} alt="tutor photo" className='w-8 h-8 rounded-full object-cover' />
+                    <h1 className="text-lg text-center font-semibold">
+                        {bookedSession.sessionTitle}
+                    </h1>
+                    <div className={`ml-auto w-4 h-4 ${''} rounded-full`} ></div>
                 </div>
-            ]}
-        >
 
-            <Meta
-                avatar={
-                    <Tooltip placement="top" title={bookedSession?.tutorName} arrow={true} >
-                        <Avatar src={bookedSession?.tutorPhoto} />
-                    </Tooltip>
-                }
-                title={bookedSession?.sessionTitle}
-                description={`${shortenedDescription} ...`}
-            />
+                <p className='text-sm ml-12'>
+                    {shortenedDescription}...
+                </p>
+            </div>
 
-        </Card>
+            <div className='border-b-[1px] border-gray-200' />
+
+            <div className='flex justify-evenly items-center p-4 '>
+
+                <button className='h-[35px] px-2 rounded-md text-sm bg-white border border-primary text-primary hover:bg-primary active:scale-95 hover:text-white transition-all duration-100'>Give Review</button>
+
+                <Link
+                    to={`/sessionDetails/${bookedSession?.sessionId}`}
+                    state={location.pathname}
+                >
+                    <button
+                        className='h-[35px] px-2 rounded-md text-sm border border-primary text-primary hover:bg-primary active:scale-95 hover:text-white transition-all duration-100'
+                    >
+                        See Details
+                    </button>
+                </Link>
+
+            </div>
+
+
+
+
+        </div>
     );
 };
 

@@ -113,7 +113,7 @@ const SessionDetails = () => {
     }
 
     return (
-        <div className="container mx-auto pt-16">
+        <div className="container mx-auto py-16 lg:py-24">
             {
                 !session ?
                     <div className="h-screen flex items-center justify-center">
@@ -121,16 +121,16 @@ const SessionDetails = () => {
                     </div>
                     :
                     <>
-                        <h1 className="text-center text-3xl">{sessionTitle}</h1>
+                        <h1 className="text-center text-2xl text-primary font-bold">{sessionTitle}</h1>
                         <div className="py-12 flex flex-col lg:flex-row justify-center items-center gap-12">
-                            <div className="space-y-6 text-center">
-                                <img src={sessionImg} alt="" className="w-[450px] h-[350px] object-cover rounded-[7px]" />
+                            <div className="space-y-6 text-center px-2 ">
+                                <img src={sessionImg} alt="session image" className="w-[450px] h-[350px] object-cover rounded-[7px]" />
                             </div>
 
                             <div className=" text-center space-y-5">
 
                                 <div className="grid grid-cols-2 gap-4">
-                                    {/* <Row className="flex"> */}
+                                    
                                     <Col>
                                         <Card title="Registration Strats" bordered={false}>
                                             {regStarts}
@@ -170,7 +170,7 @@ const SessionDetails = () => {
                         <div className="text-center space-y-6">
                             <div className="space-y-3">
                                 <h1 className="text-xl font-bold">Session Details</h1>
-                                <p>
+                                <p className="w-[95%] md:w-[80%] mx-auto ">
                                     {description}
                                 </p>
                             </div>

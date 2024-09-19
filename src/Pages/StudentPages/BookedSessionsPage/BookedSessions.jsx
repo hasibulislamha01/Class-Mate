@@ -1,6 +1,8 @@
+
 import useAuth from "../../../CustomHooks/useAuth";
 import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 import BookedSessionCard from "./BookedSessionCard";
+import ReviewModal from "./ReviewModal";
 
 const BookedSessions = () => {
 
@@ -11,7 +13,7 @@ const BookedSessions = () => {
 
 
     return (
-        <div className="container mx-auto">
+        <div className="relative container mx-auto min-h-screen border border-red-500">
             <h1 className="text-3xl text-center">Booked Sessions</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {
@@ -23,6 +25,8 @@ const BookedSessions = () => {
                     )
                 }
             </div>
+            
+            <ReviewModal bookedSessions={bookedSessions}/>
         </div>
     );
 };

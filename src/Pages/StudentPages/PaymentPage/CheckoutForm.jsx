@@ -154,9 +154,10 @@ const CheckoutForm = ({ session, clientSecret }) => {
         },
     }
     return (
-        <form onSubmit={handleCheckout}>
+        <form onSubmit={handleCheckout} >
             {/* <PaymentElement id="payment-element" options={paymentElementOptions} /> */}
             <CardElement
+            className="h-[100px] bg-sky-50 rounded-lg"
                 options={CARD_ELEMENT_OPTIONS}
             />
             <button className="btn mx-auto w-[200px]" type="submit" disabled={!stripe}>

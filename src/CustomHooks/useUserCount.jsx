@@ -6,19 +6,19 @@ const useUserCount = (role) => {
     const axiosSecure = useAxiosSecure()
     const [total, setTotal] = useState(0)
 
-    const baseUrl = import.meta.env.VITE_LOCAL_URL
-    const url = `${baseUrl}/users/numbers/${role}`
-
+    
     // console.log(total);
-
+    
     useEffect(() => {
+        const baseUrl = import.meta.env.VITE_LOCAL_URL
+        const url = `${baseUrl}/users/numbers/${role}`
         axiosSecure.get(url)
             .then(res => {
                 setTotal(res?.data.length);
             }).catch(error => {
                 console.error(error?.message)
             })
-    }, [url, axiosSecure])
+    }, [axiosSecure, role])
 
     if(total){
         return total

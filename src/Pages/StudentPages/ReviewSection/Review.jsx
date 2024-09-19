@@ -4,9 +4,11 @@ import { useState } from "react";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import PropTypes from 'prop-types'
-import Rating from "react-rating";
+// import Rating from "react-rating";
+// import { CiStar } from "react-icons/ci";
 
-const Review = ({sessionId}) => {
+
+const Review = ({ sessionId }) => {
 
     const axiosSecure = useAxiosSecure()
 
@@ -22,27 +24,38 @@ const Review = ({sessionId}) => {
             sessionId
         }
         axiosSecure.post('/reviews', ratingInfo)
-        .then(res => {
-            console.log(res.data)
-            if(res.data.insertedId){
-                Swal.fire({
-                    title: "Thank you for the review",
-                    text: "Your review gives us inspiration",
-                    icon: "success"
-                  });
-            }
-        })
-        .catch(err => {
-            console.error(err.message)
-        })
+            .then(res => {
+                console.log(res.data)
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        title: "Thank you for the review",
+                        text: "Your review gives us inspiration",
+                        icon: "success"
+                    });
+                }
+            })
+            .catch(err => {
+                console.error(err.message)
+            })
     }
     return (
         <div id='review' className="min-h-screen flex flex-col justify-center space-y-12">
             <h1 className="text-center text-3xl">Give a Review</h1>
             <form onSubmit={handleReview} className="space-y-4 w-1/2 mx-auto">
                 <Flex gap="middle" vertical>
-                    <Rate tooltips={desc} onChange={setValue} value={value} className="text-5xl" />
+                    <Rate
+                        tooltips={desc}
+                        onChange={setValue}
+                        value={value}
+                        className="text-5xl"
+                    />
                     {value ? <span>{desc[value - 1]}</span> : null}
+
+                    {/* <Rating
+                        emptySymbol={<CiStar size={50} />}
+                        fullSymbol={<CiStar size={50} />}
+                    /> */}
+
                 </Flex>
                 <TextArea
                     name="reviewDescription"
