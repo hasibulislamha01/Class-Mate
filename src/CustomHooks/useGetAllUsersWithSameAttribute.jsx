@@ -11,10 +11,10 @@ const useGetAllUsersWithSameAttribute = (role, gender) => {
 
         if (!role) return
 
-        const baseUrl = import.meta.env.VITE_LOCAL_URL
+      
 
 
-        axiosSecure.get(`${baseUrl}/users/role/${role}/${gender}`)
+        axiosSecure.get(`/users/role/${role}/${gender}`)
             .then(res => setUserWithSameAttribute(res?.data || []))
             .catch(error => console.error(`error getting all the users having the role: ${role} `, error))
     }, [role, gender, axiosSecure])

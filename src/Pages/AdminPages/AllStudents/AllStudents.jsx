@@ -8,8 +8,8 @@ const AllStudents = () => {
     const axiosSecure = useAxiosSecure()
     const [students, setStudents] = useState([])
     useEffect(() => {
-        const baseUrl = import.meta.env.VITE_LOCAL_URL;
-        const url = `${baseUrl}/users/role/Student/all`
+       
+        const url = `/users/role/Student/all`
         axiosSecure.get(url)
             .then(res => setStudents(res?.data))
             .catch(error => console.error('error loading student data in admin panel :', error?.massege))
