@@ -38,6 +38,7 @@ import AllSessionsPage from './Pages/AllSessionsPage/AllSessionsPage';
 import AllStudents from './Pages/AdminPages/AllStudents/AllStudents';
 import AllTeachers from './Pages/AdminPages/AllTeachers/AllTeachers';
 import AllAdmins from './Pages/AdminPages/AllAdminsPage/AllAdmins';
+import Unauthorized from './Components/Unauthorized/Unauthorized';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -77,6 +78,10 @@ const router = createBrowserRouter(
           path: "/payment/:id",
           loader: ({ params }) => fetch(`${baseURL}/sessions/${params.id}`),
           element: <Payment></Payment>
+        },
+        {
+          path: "/unauthorized",
+          element: <Unauthorized/>
         },
         {
           path: "/dashboard",

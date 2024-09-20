@@ -3,7 +3,7 @@ import { CiStar } from "react-icons/ci";
 import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 
-const ReviewModal = ({ bookedSessions }) => {
+const ReviewModal = ({ bookedSessions, showModal }) => {
 
     const [rating, setRating] = useState(0)
     const [ratingError, setRatingError] = useState('')
@@ -35,7 +35,7 @@ const ReviewModal = ({ bookedSessions }) => {
 
     }
     return (
-        <div id="modal" className="absolute top-[15%] left-[50%] translate-x-[-50%] translatte-y-[50%]  w-[80%] md:w-[50%] mx-auto py-12 rounded-lg bg-sky-100 z-10">
+        <div id="modal" className={`absolute top-[15%] left-[50%] translate-x-[-50%] translatte-y-[50%]  w-[80%] md:w-[50%] mx-auto py-12 rounded-lg bg-sky-100 z-10 ${showModal ? 'block' : 'hidden'}`}>
             
             <IoIosClose size={40} className="absolute top-0 right-0 cursor-pointer"/>
 

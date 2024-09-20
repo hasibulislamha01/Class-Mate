@@ -6,7 +6,6 @@ const useUserRole = () => {
     
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
-    const baseURL = import.meta.env.VITE_BASE_URL;
 
     const [userRole, setUserRole] = useState();
 
@@ -14,17 +13,17 @@ const useUserRole = () => {
         if (user?.email) { // Ensure that user email is available
             const fetchUserRole = async () => {
                 try {
-                    const response = await axiosSecure.get(`${baseURL}/users/${user.email}/role`);
+                    const response = await axiosSecure.get(`/users/${user.email}/role`);
                     const role = response?.data?.role;
                     // console.log(role);
                     setUserRole(role);
                 } catch (error) {
-                    console.error("Error fetching user role:", error.message);
+                    console.error("Error fetching user role:", error?.message);
                 }
             };
             fetchUserRole();
         }
-    }, [user?.email, axiosSecure, baseURL]); // Depend only on user.email, axiosSecure, baseURL
+    }, [user?.email, axiosSecure]); // Depend only on user.email, axiosSecure, baseURL
 
     return userRole;
 };

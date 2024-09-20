@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link, useLocation } from 'react-router-dom';
 
 
-const BookedSessionCard = ({ bookedSession }) => {
+const BookedSessionCard = ({ bookedSession, setShowModal, showModal }) => {
 
     const location = useLocation()
     console.log(bookedSession);
@@ -37,7 +37,12 @@ const BookedSessionCard = ({ bookedSession }) => {
 
             <div className='flex justify-evenly items-center p-4 '>
 
-                <button className='h-[35px] px-2 rounded-md text-sm bg-white border border-primary text-primary hover:bg-primary active:scale-95 hover:text-white transition-all duration-100'>Give Review</button>
+                <button
+                    className='h-[35px] px-2 rounded-md text-sm bg-white border border-primary text-primary hover:bg-primary active:scale-95 hover:text-white transition-all duration-100'
+                    onClick={()=>setShowModal(!showModal)}
+                >
+                    Give Review
+                </button>
 
                 <Link
                     to={`/sessionDetails/${bookedSession?.sessionId}`}

@@ -75,7 +75,7 @@ const Login = () => {
 
 
     return (
-        <div className="min-h-screen py-24 space-y-6 container mx-auto">
+        <div className="min-h-screen py-24 space-y-6 container mx-auto border-2 border-black">
             <Toaster></Toaster>
             <div>
                 {
@@ -84,50 +84,53 @@ const Login = () => {
                         : <></>
                 }
             </div>
-            <h1 className="text-center text-3xl">Login Here</h1>
-            <form onSubmit={formik.handleSubmit} className="lg:w-1/2 mx-auto flex flex-col gap-14 ">
-                <div className="input-container mx-auto">
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
-                    />
-                    <label className="label">Email</label>
-                    {formik.errors.email ? <div className="text-red-500">{formik.errors.email}</div> : null}
-                </div>
+            <div className=" border-2 border-green-600">
+                <h1 className="text-center text-3xl">Login Here</h1>
 
-                <div className="input-container mx-auto">
-                    <input
-                        id="password"
-                        name="password"
-                        type="text"
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
-                    />
-                    <label className="label">Password</label>
-                    {formik.errors.password ? <div className="text-red-500">{formik.errors.password}</div> : null}
+                <form onSubmit={formik.handleSubmit} className="lg:w-1/2 mx-auto flex flex-col gap-14">
+                    <div className="input-container mx-auto">
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            onChange={formik.handleChange}
+                            value={formik.values.email}
+                        />
+                        <label className="label">Email</label>
+                        {formik.errors.email ? <div className="text-red-500">{formik.errors.email}</div> : null}
+                    </div>
 
-                </div>
-                <button type="submit" className="btn w-1/2 mx-auto bg-sky-200">login</button>
-            </form>
-            <h5 className="text-center my-6">
-                New to ClassMate?
-                <Link to='/register' className="ml-3 text-primary font-bold">Sign Up</Link>
-            </h5>
-            <div className="flex flex-col items-center justify-center gap-6">
-                <h1>Or Login With</h1>
-                <div className="text-xl flex gap-4">
-                    <FcGoogle
-                        size={30}
-                        onClick={handleGoogleLogin}
-                        className="cursor-pointer"
-                    />
-                    <FaGithub
-                        size={30}
-                        className="cursor-pointer"
-                    />
+                    <div className="input-container mx-auto">
+                        <input
+                            id="password"
+                            name="password"
+                            type="text"
+                            onChange={formik.handleChange}
+                            value={formik.values.password}
+                        />
+                        <label className="label">Password</label>
+                        {formik.errors.password ? <div className="text-red-500">{formik.errors.password}</div> : null}
+
+                    </div>
+                    <button type="submit" className="btn w-1/2 mx-auto bg-sky-200">login</button>
+                </form>
+                <h5 className="text-center my-6">
+                    New to ClassMate?
+                    <Link to='/register' className="ml-3 text-primary font-bold">Sign Up</Link>
+                </h5>
+                <div className="flex flex-col items-center justify-center gap-6">
+                    <h1>Or Login With</h1>
+                    <div className="text-xl flex gap-4">
+                        <FcGoogle
+                            size={30}
+                            onClick={handleGoogleLogin}
+                            className="cursor-pointer"
+                        />
+                        <FaGithub
+                            size={30}
+                            className="cursor-pointer"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
