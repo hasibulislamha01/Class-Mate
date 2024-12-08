@@ -44,7 +44,7 @@ import Unauthorized from './Components/Unauthorized/Unauthorized';
 const queryClient = new QueryClient()
 
 const baseURL = import.meta.env.VITE_BASE_URL
-console.log(baseURL)
+// console.log(baseURL)
 
 const router = createBrowserRouter(
 

@@ -9,7 +9,7 @@ const GridView = ({ sessions, handleRedirect }) => {
     return (
 
         // grid container
-        <div className="grid grid-cols-1 lg:grid-cols-3 place-items-center gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 place-items-center justify-items-stretch gap-4 lg:gap-6">
             {
                 sessions?.map(session =>
 

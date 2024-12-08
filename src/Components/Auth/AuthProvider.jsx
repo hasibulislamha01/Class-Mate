@@ -1,10 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types'
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword,  getAuth,  onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from "./firebase.config";
 
 
 export const AuthContext = createContext()
+
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const auth = getAuth(app)

@@ -41,7 +41,7 @@ const SessionCardinHome = ({ session }) => {
 
     return (
 
-        <div className='relative '>
+        <div className='relative h-full'>
             <Card
                 className='flex flex-col justify-between h-full mx-auto'
                 style={{
