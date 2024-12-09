@@ -11,6 +11,7 @@ const Navbar = () => {
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
     const role = useUserRole()
+    console.log(role);
     const [isSticky, setIsSticky] = useState(false)
 
     const userImage = user ? user?.photoURL : 'avatar.gif'

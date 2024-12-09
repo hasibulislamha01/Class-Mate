@@ -143,6 +143,10 @@ const AllSessionsPage = () => {
                 }
             </div>
 
+            <div className="mt-10 w-full border border-red-400">
+                pagination
+            </div>
+
         </div>
     );
 };
