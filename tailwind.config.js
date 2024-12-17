@@ -23,33 +23,6 @@ export default {
       }
     },
   },
-  daisyui: {
-    // themes: [
-    //   {
-    //     light: {
-    //       "primary": "#e63946", // Coral Red
-    //       "secondary": "#f1faee", // Off-White
-    //       "accent": "#a8dadc", // Light Grayish Blue
-    //       "neutral": "#a0aec0", // Neutral Gray
-    //       "base-100": "#ffffff", // Background (White)
-    //       "info": "#3abff8",
-    //       "success": "#36d399",
-    //       "warning": "#fbbd23",
-    //       "error": "#f87272",
-    //     },
-    //     dark: {
-    //       "primary": "#e63946", // Coral Red
-    //       "secondary": "#f1faee", // Off-White
-    //       "accent": "#a8dadc", // Light Grayish Blue
-    //       "neutral": "#1f2937", // Dark Neutral
-    //       "base-100": "#1d3557", // Deep Navy Blue
-    //       "info": "#3abff8",
-    //       "success": "#36d399",
-    //       "warning": "#fbbd23",
-    //       "error": "#f87272",
-    //     }
-    //   }
-    // ],
-  },
+  
   plugins: [daisyui],
 }

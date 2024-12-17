@@ -1,32 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "./Auth/AuthProvider";
 
 const ThemeController = () => {
 
-    const [darkTheme, setDarkTheme] = useState(false)
-    const themes = ['dark', 'light']
-    let currentTheme;
-
-    const handleToggleTheme = () => {
-        setDarkTheme(!darkTheme)
-    }
-
-    if(darkTheme){
-        currentTheme = themes[0]
-    } else {
-        currentTheme = themes[1]
-    }
-
-    useEffect(()=>{
-        localStorage?.setItem('theme', currentTheme)
-        const localTheme = localStorage?.getItem('theme')
-        document?.querySelector('html').setAttribute('data-theme', localTheme)
-    }, [currentTheme])
-
+    const {toggleTheme} = useContext(AuthContext)
 
     return (
         <label className="grid cursor-pointer place-items-center">
             <input
-                onChange={handleToggleTheme}
+                onChange={toggleTheme}
                 type="checkbox"
                 value="synthwave"
                 className="toggle theme-controller bg-base-content col-span-2 col-start-1 row-start-1" />

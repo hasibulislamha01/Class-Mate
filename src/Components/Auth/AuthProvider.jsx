@@ -1,15 +1,18 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types'
-import { createUserWithEmailAndPassword,  getAuth,  onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from "./firebase.config";
 
 
 export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null)
+
+    const localTheme = localStorage.getItem('theme') || 'light'
     const auth = getAuth(app)
+    const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [theme, setTheme] = useState(localTheme)
 
 
     // user observer
@@ -67,6 +70,21 @@ const AuthProvider = ({ children }) => {
         return signOut(auth)
     }
 
+
+    // ------------------ theme toggler ---------------------------//
+    const toggleTheme = () => {
+        if (theme === 'light') { setTheme('dark') }
+        if (theme === 'dark') { setTheme('light') }
+    }
+
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    }, [theme])
+
     const authUtilities = {
         registerUser,
         loginUser,
@@ -75,7 +93,8 @@ const AuthProvider = ({ children }) => {
         user,
         loading,
         loginWithGithub,
-        loginWithGoogle
+        loginWithGoogle,
+        toggleTheme
     }
     return (
         <AuthContext.Provider value={authUtilities}>

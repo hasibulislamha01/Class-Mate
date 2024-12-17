@@ -11,7 +11,6 @@ const Navbar = () => {
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
     const role = useUserRole()
-    console.log(role);
     const [isSticky, setIsSticky] = useState(false)
 
     const userImage = user ? user?.photoURL : 'avatar.gif'
@@ -64,9 +63,7 @@ const Navbar = () => {
     }, []);
 
 
-
-
-
+    // logout function
     const handleLogout = () => {
         logoutUser()
             .then(() => {
@@ -79,6 +76,7 @@ const Navbar = () => {
             });
     }
 
+    console.log("user role is: ", role);
     let dashboardLink = '/login'
     let title = 'Login'
     if (role === 'Administrator') {
@@ -92,29 +90,32 @@ const Navbar = () => {
     else if (role === 'Student') {
         dashboardLink = '/dashboard/student'
         title = 'Dashboard'
+    } else{
+        dashboardLink = '/login',
+        title = 'Login'
     }
 
 
 
 
     const navigationRoutes = [
-        {
-            link: '/',
-            title: 'Home',
-            style: '',
-        },
-        {
-            link: '/all-sessions',
-            title: 'All Sessions',
-            style: '',
-        },
-        {
-            link: dashboardLink,
-            title: title,
-            style: user && role ? 'flex' : 'hidden',
-        },
+            {
+                link: '/',
+                title: 'Home',
+                style: '',
+            },
+            {
+                link: '/all-sessions',
+                title: 'All Sessions',
+                style: '',
+            },
+            {
+                link: dashboardLink,
+                title: title,
+                style: user && role ? 'flex' : 'hidden',
+            },
 
-    ]
+        ]
 
     // if(isSticky && )
 
