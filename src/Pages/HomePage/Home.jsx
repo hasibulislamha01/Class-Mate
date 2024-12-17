@@ -6,7 +6,7 @@ import About from "./About";
 
 const Home = () => {
     return (
-        <div>
+        <div className="bg-background">
             <Toaster></Toaster>
             <div className="">
                 <Banner></Banner>
