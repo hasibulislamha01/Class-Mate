@@ -64,7 +64,7 @@ const AllSessionsPage = () => {
     }
 
     return (
-        <div className="min-h-screen py-16 md:py-24 container mx-auto">
+        <div className="min-h-screen container mx-auto py-16 md:py-24 bg-background dark:bg-dark-background text-text dark:text-dark-text transition-colors duration-300">
 
             {/* page heading */}
             <h1 className="text-center font-bold text-xl lg:text-3xl">All sessions</h1>

@@ -3,17 +3,17 @@ import Footer from "../Components/SharedComponents/Footer";
 import Navbar from "../Components/SharedComponents/Navbar/Navbar";
 
 const Root = () => {
-    
+
     const location = useLocation()
     const inDashBoard = location.pathname.includes('/dashboard')
     // console.log(inDashBoard);
 
     return (
-        <div className="">
-            {!inDashBoard && <Navbar/>}
-            
+        <div className="bg-background dark:bg-dark-background">
+            {!inDashBoard && <Navbar />}
+
             <Outlet className='bg-background dark:bg-dark-background'></Outlet>
-            <Footer></Footer>
+            {!inDashBoard && <Footer />}
         </div>
     );
 };
