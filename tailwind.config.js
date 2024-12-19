@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import daisyui from 'daisyui';
-
+ 
 export default {
   content: [
     "./index.html",
@@ -25,16 +25,16 @@ export default {
 
         // Dark Theme Colors
         dark: {
-          primary: '#4AADEB', // Soft Light Blue
-          secondary: '#FFD95A', // Warm Yellow
-          accent: '#E1E2DB', // Light Off-White
-          background: '#1A1D23', // Dark Grayish-Black
-          text: '#EDEDED', // Light Gray
+          primary: '#4F9FD4', // Soft Sky Blue (professional and calming)
+          secondary: '#F6C86D', // Warm Muted Gold for subtle highlights
+          accent: '#1C1F26', // Deep Charcoal for clean contrast
+          background: '#121418', // True Blackish Gray for immersive dark mode
+          text: '#D1D5DB', // Soft Light Gray for readability
           banner: {
-            100: '#30495E', // Muted Teal
-            200: '#2D6A8B', // Deep Soft Blue
-            300: '#23618C', // Bright Blue-Teal Tone
-            400: '#1D8BD5', // Deep Blue (matches light theme primary)
+            100: '#243040', // Dark Teal-Gray (calming and neutral)
+            200: '#2B5068', // Muted Ocean Blue
+            300: '#3E6D8A', // Soft Cool Blue
+            400: '#4F9FD4', // Soft Sky Blue (matches primary)
           },
         },
       },

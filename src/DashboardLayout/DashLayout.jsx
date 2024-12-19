@@ -12,14 +12,14 @@ const DashLayout = () => {
     const isLoading = !user || !role;
 
     return (
-        <div className="h-screen max-w-[1600px] mx-auto">
+        <div className="h-screen max-w-[1600px] mx-auto text-text dark:text-dark-text bg-background dark:bg-dark-background transition-colors duration-300">
 
             {
                 !isLoading ?
                     <div className="flex h-screen gap-2 md:gap-4 max-w-[1920px]">
                         
                         {/*static sidebar */}
-                        <div className="h-full w-[40px] md:w-[20%] lg:w-[200px] sticky top-0">
+                        <div className="h-full w-[40px] md:w-[20%] lg:w-[200px] sticky top-0  bg-primary text-white dark:bg-neutral dark:bg-gradient-to-r from-[#121418] to-[#1A1F26]">
                             <DashBoardMenu role={role} />
                         </div>
 

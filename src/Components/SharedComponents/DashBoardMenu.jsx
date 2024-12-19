@@ -123,24 +123,24 @@ const DashBoardMenu = ({ role }) => {
 
 
     return (
-        <div className="h-screen w-full h-full border border-blue-600">
+        <div className="h-screen w-full flex flex-col justify-between pb-12">
 
             {/* logo */}
-            <div className="flex items-center justify-center md:justify-start font-bold my-4">
-                <img src="/logo.svg" alt="logo" className="w-[50px] h-[50px]rounded-full" />
+            <div className="flex items-center justify-center md:justify-start gap-3 font-bold my-4 px-2">
+                <img src="/logo.svg" alt="logo" className="w-12 h-12 rounded-full" />
                 <h1 className="hidden md:inline-flex">ClassMate</h1>
             </div>
 
             {/* user based menues */}
             {
                 role ?
-                    <div className="flex flex-col gap-[100px] px-2">
 
-
-                        <div className="flex flex-col justify-start items-start gap-2">
+                    <>
+                        <div className="flex flex-col justify-start items-start gap-6 font-semibold">
                             {
                                 dashboardRout?.map(route =>
-                                    <NavLink key={route.link} to={route.link} className={({ isActive }) => isActive ? 'w-full text-sky-500 ' : 'w-full  text-black '}>
+
+                                    <NavLink key={route.link} to={route.link} className={({ isActive }) => isActive ? 'w-full text-secondary border-l-4 border-secondary pl-4' : 'w-full  text-white border-l-4 border-primary dark:border-dark-background pl-4'}>
                                         <div className="flex items-center justify-center md:justify-start gap-2">
                                             <h3 className="text-2xl md:text-base">{route.icon}</h3>
                                             <h3 className='hidden md:block'>{route.linkTitle}</h3>
@@ -150,13 +150,13 @@ const DashBoardMenu = ({ role }) => {
                             }
                         </div>
 
-                        <div className="w-full flex flex-col justify-start  items-center md:items-start gap-2 pt-4 border-t-2">
+                        <div className="w-full flex flex-col justify-start  items-center md:items-start gap-4 pt-4 border-t-2 pl-4 font-semibold">
                             {
                                 defaultRoutes?.map(item =>
                                     <NavLink
                                         key={item.link}
                                         to={item.link}
-                                        className={({ isActive }) => isActive ? 'w-full text-sky-500' : ' w-full  text-black'}>
+                                        className={({ isActive }) => isActive ? 'w-full text-secondary' : ' w-full  text-white'}>
                                         <div className="flex items-center justify-center md:justify-start gap-2">
                                             <h3 className="text-2xl md:text-base">{item.icon}</h3>
                                             <h3 className='hidden md:block'>{item.linkTitle}</h3>
@@ -171,8 +171,8 @@ const DashBoardMenu = ({ role }) => {
                             </button>
                             <ThemeController />
                         </div>
+                    </>
 
-                    </div>
                     :
 
                     <div className="border border-red-500 h-full flex flex-col items-center gap-6">

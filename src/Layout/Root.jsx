@@ -12,7 +12,7 @@ const Root = () => {
         <div className="">
             {!inDashBoard && <Navbar/>}
             
-            <Outlet></Outlet>
+            <Outlet className='bg-background dark:bg-dark-background'></Outlet>
             <Footer></Footer>
         </div>
     );
