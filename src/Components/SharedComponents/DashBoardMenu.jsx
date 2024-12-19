@@ -128,7 +128,7 @@ const DashBoardMenu = ({ role }) => {
             {/* logo */}
             <div className="flex items-center justify-center md:justify-start gap-3 font-bold my-4 px-2">
                 <img src="/logo.svg" alt="logo" className="w-12 h-12 rounded-full" />
-                <h1 className="hidden md:inline-flex">ClassMate</h1>
+                <h1 className="hidden md:inline-flex text-xl">ClassMate</h1>
             </div>
 
             {/* user based menues */}

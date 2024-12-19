@@ -26,7 +26,7 @@ const SessionCard = ({ session, handleRedirect }) => {
 
 
     return (
-        <div key={session?._id} className="card w-[300px] h-[350px]  rounded-[7px] border border-accent dark:border-dark-accent flex flex-col justify-between bg-sky-50 dark:bg-gray-900 shadow-lg">
+        <div key={session?._id} className="card w-[300px] h-[350px]  rounded-[7px] border border-accent dark:border-dark-accent flex flex-col justify-between bg-sky-50 dark:bg-gray-900 shadow-lg shadow-primary/20 dark:shadow-dark-accent">
 
             <img className='h-1/2 object-cover rounded-t-[7px]' src={session?.sessionImage} alt="session image" />
 
@@ -41,7 +41,7 @@ const SessionCard = ({ session, handleRedirect }) => {
                     <div className={`ml-auto w-4 h-4 ${statusColor} rounded-full`} ></div>
                 </div>
 
-                <p className='text-sm ml-12'>
+                <p className='text-sm ml-12 text-gray-500/90'>
                     {session?.description.split(' ')?.slice(0, 12)?.join(' ')}...
                 </p>
             </div>
