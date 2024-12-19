@@ -6,7 +6,7 @@ import About from "./About";
 
 const Home = () => {
     return (
-        <div className="bg-background dark:bg-dark-background text-text dark:text-dark-text">
+        <div className="bg-background dark:bg-dark-background text-text dark:text-dark-text transition-colors duration-300">
             <Toaster></Toaster>
             <div className="">
                 <Banner></Banner>

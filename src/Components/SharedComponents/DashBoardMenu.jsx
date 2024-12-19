@@ -140,7 +140,7 @@ const DashBoardMenu = ({ role }) => {
                             {
                                 dashboardRout?.map(route =>
 
-                                    <NavLink key={route.link} to={route.link} className={({ isActive }) => isActive ? 'w-full text-secondary border-l-4 border-secondary pl-4' : 'w-full  text-white border-l-4 border-primary dark:border-dark-background pl-4'}>
+                                    <NavLink key={route.link} to={route.link} className={({ isActive }) => isActive ? 'w-full text-secondary border-l-4 border-secondary pl-4' : 'w-full  text-accent dark:text-accent/60 border-l-4 border-primary dark:border-dark-background pl-4'}>
                                         <div className="flex items-center justify-center md:justify-start gap-2">
                                             <h3 className="text-2xl md:text-base">{route.icon}</h3>
                                             <h3 className='hidden md:block'>{route.linkTitle}</h3>

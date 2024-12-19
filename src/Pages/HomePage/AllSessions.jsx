@@ -1,6 +1,7 @@
+import SessionCard from "../../Components/SharedComponents/SessionCard";
 import CardSkeleton from "../../Components/Skeletons/CardSkeleton";
 import useGetLatestData from "../../CustomHooks/useGetLatestData";
-import SessionCardinHome from "./SessionCardinHome";
+
 
 const AllSessions = () => {
 
@@ -25,10 +26,10 @@ const AllSessions = () => {
 
                         {
                             allSessions?.map(session =>
-                                <SessionCardinHome
+                                <SessionCard
                                     key={session._id}
                                     session={session}
-                                ></SessionCardinHome>
+                                ></SessionCard>
                             )
                         }
 

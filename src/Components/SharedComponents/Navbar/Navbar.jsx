@@ -121,7 +121,7 @@ const Navbar = () => {
 
 
     return (
-        <div className={`w-full h-[50px] fixed z-50 flex items-center px-2 md:px-0 ${isSticky && 'stickyNav'}`}>
+        <div className={`w-full h-[50px] fixed z-50 flex items-center px-2 md:px-0 shadow-lg  ${isSticky && 'stickyNav shadow-lg'}`}>
 
             {/* website name visible in mobiles */}
             <NavLink to='/' className={`md:hidden text-xl mr-auto ${!isSticky ? 'text-black' : 'text-white'}`}>ClassMate</NavLink>

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import SessionCard from './SessionCard';
+import SessionCard from '../../Components/SharedComponents/SessionCard';
 
 
 const GridView = ({ sessions, handleRedirect }) => {
