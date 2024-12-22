@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
 import PropTypes from 'prop-types'
 
 
-const SessionCard = ({ session, handleRedirect }) => {
+const SessionCard = ({ session }) => {
 
     const todaysDateString = useTodaysDate()
     const regEndDateString = session?.registrationEnds
@@ -48,13 +49,16 @@ const SessionCard = ({ session, handleRedirect }) => {
 
 
 
+            <Link to={`/sessionDetails/${session._id}`} className="flex justify-center items-center">
 
-            <button
-                className='mb-6 btn btn-sm w-[120px] mx-auto text-sm font-bold bg-primary/80 text-white hover:bg-primary rounded-md dark:border-dark-background'
-                onClick={() => handleRedirect(`/sessionDetails/${session._id}`)}
-            >
-                View Details
-            </button>
+                <button
+                    className='mb-6 btn btn-sm w-[120px] mx-auto text-sm font-bold bg-primary/80 text-white hover:bg-primary rounded-md dark:border-dark-background'
+                    
+                >
+                    View Details
+                </button>
+
+            </Link>
 
 
         </div>

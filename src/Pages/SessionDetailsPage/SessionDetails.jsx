@@ -2,17 +2,17 @@ import { Button, Card, Col } from "antd";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import useFormateDate from "../../CustomHooks/useFormateDate";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
-import useUserRole from "../../CustomHooks/useUserRole";
 import useAuth from "../../CustomHooks/useAuth";
 import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import Review from "../StudentPages/ReviewSection/Review";
+import useUserRole from "../../CustomHooks/useUserRole";
 
 const SessionDetails = () => {
-    const [session] = useLoaderData()
+    const session = useLoaderData()
     const { user } = useAuth()
     const navigate = useNavigate()
-    // console.log(session)
+    console.log(session)
     const todaysDateString = useTodaysDate()
     const role = useUserRole()
     const axiosSecure = useAxiosSecure()
