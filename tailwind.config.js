@@ -23,11 +23,11 @@ export default {
           400: '#1D8BD5', // Deep Blue
         },
 
-        // Dark Theme Colors
+        // Dark Theme Colors 
         dark: {
           primary: '#4F9FD4', // Soft Sky Blue (professional and calming)
           secondary: '#F6C86D', // Warm Muted Gold for subtle highlights
-          accent: '#1C1F26', // Deep Charcoal for clean contrast
+          accent: '#1F252B', // Deep Charcoal for clean contrast
           background: '#121418', // True Blackish Gray for immersive dark mode
           text: '#D1D5DB', // Soft Light Gray for readability
           banner: {

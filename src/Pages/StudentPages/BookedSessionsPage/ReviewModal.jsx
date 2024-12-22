@@ -2,8 +2,9 @@ import Rating from "react-rating";
 import { CiStar } from "react-icons/ci";
 import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
+import PropTypes from "prop-types";
 
-const ReviewModal = ({ bookedSessions, showModal }) => {
+const ReviewModal = ({ bookedSession, setShowModal, showModal }) => {
 
     const [rating, setRating] = useState(0)
     const [ratingError, setRatingError] = useState('')
@@ -14,7 +15,7 @@ const ReviewModal = ({ bookedSessions, showModal }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const sessionId = bookedSessions?.sessionId
+        const sessionId = bookedSession?.sessionId
         const ratingValue = rating
         const ratingDescription = e.target.description.value
         const ratingInfo = {
@@ -36,8 +37,8 @@ const ReviewModal = ({ bookedSessions, showModal }) => {
     }
     return (
         <div id="modal" className={`absolute top-[15%] left-[50%] translate-x-[-50%] translatte-y-[50%]  w-[80%] md:w-[50%] mx-auto py-12 rounded-lg bg-sky-100 z-10 ${showModal ? 'block' : 'hidden'}`}>
-            
-            <IoIosClose size={40} className="absolute top-0 right-0 cursor-pointer"/>
+
+            <IoIosClose size={40} className="absolute top-0 right-0 cursor-pointer" onClick={() => setShowModal(false)} />
 
             <h1 className="text-center text-lg font-medium mb-5">Share your experience about the session</h1>
 
@@ -55,10 +56,10 @@ const ReviewModal = ({ bookedSessions, showModal }) => {
                     quiet={false}
                     initialRating={rating}
                     emptySymbol={
-                        <CiStar size={40} color=""/>
+                        <CiStar size={40} color="" />
                     }
                     fullSymbol={
-                        <CiStar size={40} color="#f59e0b"/>
+                        <CiStar size={40} color="#f59e0b" />
                     }
                     onChange={handleSetReview}
                 />
@@ -76,5 +77,11 @@ const ReviewModal = ({ bookedSessions, showModal }) => {
         </div>
     );
 };
+
+ReviewModal.propTypes = {
+    bookedSession: PropTypes.object,
+    setShowModal: PropTypes.func,
+    showModal: PropTypes.bool
+}
 
 export default ReviewModal;

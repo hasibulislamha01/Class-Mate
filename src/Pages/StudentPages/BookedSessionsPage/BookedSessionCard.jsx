@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link, useLocation } from 'react-router-dom';
 
 
-const BookedSessionCard = ({ bookedSession, setShowModal, showModal }) => {
+const BookedSessionCard = ({ bookedSession, setShowModal }) => {
 
     const location = useLocation()
     console.log(bookedSession);
@@ -39,7 +39,7 @@ const BookedSessionCard = ({ bookedSession, setShowModal, showModal }) => {
 
                 <button
                     className='h-[35px] px-2 rounded-md text-sm bg-white border border-primary text-primary hover:bg-primary active:scale-95 hover:text-white transition-all duration-100'
-                    onClick={()=>setShowModal(!showModal)}
+                    onClick={()=>setShowModal(true)}
                 >
                     Give Review
                 </button>
@@ -65,7 +65,8 @@ const BookedSessionCard = ({ bookedSession, setShowModal, showModal }) => {
 };
 
 BookedSessionCard.propTypes = {
-    bookedSession: PropTypes.object
+    bookedSession: PropTypes.object,
+    setShowModal: PropTypes.func,
 }
 
 export default BookedSessionCard;

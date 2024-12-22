@@ -37,29 +37,39 @@ const CreateNote = () => {
 
     return (
         <div>
-            <h1 className="text-center text-3xl mb-12">Create Note</h1>
-            <form onSubmit={handleSaveNote} className="space-y-4 flex flex-col justify-center items-center">
-                <div className="input-container mx-auto">
-                    <input
-                        className=""
-                        type="text"
-                        name="title"
-                        required="required"
-                    />
-                    <label className="label">Note Title</label>
-                </div>
 
-                <div className="input-container mx-auto">
-                    <input
-                        className=""
-                        type="text"
-                        name="description"
-                        required="required"
-                    />
-                    <label className="label">Note Description</label>
-                </div>
-                <button className="btn mx-auto w-[300px]">Create Note</button>
-            </form>
+            {/* form wrapper */}
+            <div className="bg-accent dark:bg-dark-accent rounded-lg lg:w-1/2 mt-12 shadow-lg dark:shadow-dark-accent py-6 md:py-10 lg:py-12 px-6 md:px-8 lg:px-10">
+                <h1 className="text-center text-xl my-4">Create Note</h1>
+                <form onSubmit={handleSaveNote} className="space-y-4 flex flex-col justify-center items-center">
+                    <div className="mx-auto w-full border">
+                        <input
+                            className="bg-slate-200/70 px-4 py-2 rounded-md outline-none border"
+                            type="text"
+                            name="title"
+                            required="required"
+                            placeholder="Enter Note Title"
+                        />
+                        <label className="label">Note Title</label>
+                    </div>
+
+                    <div className=" mx-auto">
+                        <textarea
+                            id=""
+                            className="bg-slate-200/70 px-4 py-2 rounded-md outline-none border"
+                            type="text"
+                            name="description"
+                            required="required"
+                            placeholder="Write your Note here..."
+                        >
+
+                        </textarea>
+                       
+                        <label className="label">Note Description</label>
+                    </div>
+                    <button className="btn mx-auto w-[300px]">Create Note</button>
+                </form>
+            </div>
         </div>
     );
 };

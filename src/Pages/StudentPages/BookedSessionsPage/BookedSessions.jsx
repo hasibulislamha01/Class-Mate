@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const BookedSessions = () => {
 
     const { user } = useAuth()
-    const queryData = useGetLatestData('bookedSessions', `/bookedSessions/student/${user?.email}`)
+    const queryData = useGetLatestData('bookedSessions', `/bookedSessions/${user?.email}`)
     const [showModal, setShowModal] = useState(false)
     const bookedSessions = queryData[0]
     console.log(bookedSessions?.length)
@@ -30,22 +30,27 @@ const BookedSessions = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {
                             bookedSessions?.map(bookedSession =>
-                                <BookedSessionCard
-                                    key={bookedSession._id}
-                                    bookedSession={bookedSession}
-                                    setShowModal={setShowModal}
-                                    showModal={showModal}
-                                ></BookedSessionCard>
+                                <>
+                                    <BookedSessionCard
+                                        key={bookedSession._id}
+                                        bookedSession={bookedSession}
+                                        setShowModal={setShowModal}
+                                        showModal={showModal}
+                                    ></BookedSessionCard>
+
+                                    <ReviewModal
+                                        bookedSession={bookedSession}
+                                        setShowModal={setShowModal}
+                                        showModal={showModal}
+                                    />
+                                </>
                             )
                         }
                     </div>
             }
 
 
-            <ReviewModal
-                showModal={showModal}
-                bookedSessions={bookedSessions}
-            />
+
         </div>
     );
 };
