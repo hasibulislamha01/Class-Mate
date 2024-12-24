@@ -3,8 +3,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../CustomHooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaRegEnvelope } from "react-icons/fa";
 import { GoogleAuthProvider } from "firebase/auth";
+import { MdVpnKey } from "react-icons/md";
 
 
 const Login = () => {
@@ -75,7 +76,7 @@ const Login = () => {
 
 
     return (
-        <div className="min-h-screen py-24 space-y-6 container mx-auto border-2 border-black">
+        <div className="min-h-screen py-24 space-y-6">
             <Toaster></Toaster>
             <div>
                 {
@@ -84,56 +85,82 @@ const Login = () => {
                         : <></>
                 }
             </div>
-            <div className=" border-2 border-green-600">
-                <h1 className="text-center text-3xl">Login Here</h1>
 
-                <form onSubmit={formik.handleSubmit} className="lg:w-1/2 mx-auto flex flex-col gap-14">
-                    <div className="input-container mx-auto">
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
-                        />
-                        <label className="label">Email</label>
-                        {formik.errors.email ? <div className="text-red-500">{formik.errors.email}</div> : null}
-                    </div>
+            {/* content container */}
+            <div className="w-[95%] md:w-[80%] lg:w-[70%] mx-auto py-5 md:py-8 lg:py-10 px-0 md:px-2 lg:px-8 bg-accent dark:bg-dark-accent flex flex-col-reverse md:flex-row items-center border rounded-lg shadow-lg">
 
-                    <div className="input-container mx-auto">
-                        <input
-                            id="password"
-                            name="password"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.password}
-                        />
-                        <label className="label">Password</label>
-                        {formik.errors.password ? <div className="text-red-500">{formik.errors.password}</div> : null}
+                {/* svg or image container */}
+                <div className="text-3xl font-bold flex-1 bg-primary/50 h-full w-full border border-red-300">
+                    <div className="h-full">Login SVG</div>
+                </div>
 
-                    </div>
-                    <button type="submit" className="btn w-1/2 mx-auto bg-sky-200">login</button>
-                </form>
-                <h5 className="text-center my-6">
-                    New to ClassMate?
-                    <Link to='/register' className="ml-3 text-primary font-bold">Sign Up</Link>
-                </h5>
-                <div className="flex flex-col items-center justify-center gap-6">
-                    <h1>Or Login With</h1>
-                    <div className="text-xl flex gap-4">
-                        <FcGoogle
-                            size={30}
-                            onClick={handleGoogleLogin}
-                            className="cursor-pointer"
-                        />
-                        <FaGithub
-                            size={30}
-                            className="cursor-pointer"
-                        />
+                {/* form container */}
+                <div className="flex-1">
+                    <h1 className="text-center text-xl font-bold mb-5">Login Here</h1>
+
+                    <form onSubmit={formik.handleSubmit} className="mx-auto flex flex-col gap-6 px-3">
+
+                        <div>
+                            <div className="flex items-center rounded-lg px-2 border border-primary bg-primary/10">
+                                <label htmlFor="email"><FaRegEnvelope /></label>
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.email}
+                                    className="bg-none w-full px-3 py-2 outline-none"
+                                />
+                            </div>
+                            {formik.errors.email ? <div className="text-red-500">{formik.errors.email}</div> : null}
+                        </div>
+
+                        <div>
+                            <div className="border border-primary px-2 flex items-center rounded-lg">
+                                <label htmlFor="password"><MdVpnKey /></label>
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="text"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.password}
+                                    className="px-3 py-2 w-full outline-none"
+                                />
+
+
+                            </div>
+                            {formik.errors.password ? <div className="text-red-500">{formik.errors.password}</div> : null}
+                        </div>
+
+                        
+                        <button type="submit" className="btn w-1/2 mx-auto bg-sky-200">login</button>
+                    </form>
+                    <h5 className="text-center my-6">
+                        New to ClassMate?
+                        <Link to='/register' className="ml-3 text-primary font-bold">Sign Up</Link>
+                    </h5>
+                    <div className="flex flex-col items-center justify-center gap-6">
+                        <h1>Or Login With</h1>
+                        <div className="text-xl flex gap-4">
+                            <FcGoogle
+                                size={30}
+                                onClick={handleGoogleLogin}
+                                className="cursor-pointer"
+                            />
+                            <FaGithub
+                                size={30}
+                                className="cursor-pointer"
+                            />
+                        </div>
                     </div>
                 </div>
+
             </div>
+
+
+
         </div>
+
     );
 };
 

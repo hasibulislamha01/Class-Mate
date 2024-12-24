@@ -4,14 +4,14 @@
 
 
 .input-container {
-    position: relative;
+    /* position: relative; */
     height: 50px;
     width: 50%;
-    /* border: 1px solid lime; */
+    border: 1px solid lime;
 }
 
 .wide-input-container {
-    position: relative;
+    /* position: relative; */
     height: 50px;
     width: 100%;
     /* border: 1px solid green; */
