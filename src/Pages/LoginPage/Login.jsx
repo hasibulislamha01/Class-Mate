@@ -6,14 +6,74 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaRegEnvelope } from "react-icons/fa";
 import { GoogleAuthProvider } from "firebase/auth";
 import { MdVpnKey } from "react-icons/md";
+import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
 
 
 const Login = () => {
 
     const location = useLocation()
-    const { loginUser, loginWithGoogle, loginWithGithub } = useAuth()
+    const axiosPublic = useAxiosPublic()
+    const { loginUser, loginWithGoogle } = useAuth()
     const navigate = useNavigate()
     console.log(location.state)
+
+    const handleCreateUser = (email, password) => {
+        loginUser(email, password)
+            .then((userCredential) => {
+                const user = userCredential?.user
+                const userName = user.displayName
+                const userEmail = user.email
+                const userPhoto = user.photoURL
+                const role = 'unknown'
+                const gender = 'unknown'
+                const phone = 'unknown'
+                const userInfo = { userName, userEmail, userPhoto, role, gender, phone }
+                console.log(userInfo);
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        console.log(res);
+                        if (res?.insertedId) {
+                            toast.success('User Created and data saved')
+                        }
+                        else {
+                            toast.error('userCreated but data not saved')
+                        }
+                    })
+                toast.success('Login Successful')
+                if (location?.state) {
+                    navigate(location?.state)
+                }
+                else {
+                    navigate('/')
+                }
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error(errorMessage, errorCode)
+                toast.error(errorMessage)
+            });
+    }
+
+    const handleLogin = (email, password) => {
+        loginUser(email, password)
+            .then((userCredential) => {
+                console.log(userCredential.user)
+                toast.success('Login Successful')
+                if (location?.state) {
+                    navigate(location?.state)
+                }
+                else {
+                    navigate('/')
+                }
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error(errorMessage, errorCode)
+                toast.error(errorMessage)
+            });
+    }
 
     const validate = (values) => {
         const errors = {};
@@ -36,24 +96,20 @@ const Login = () => {
             const email = values.email
             const password = values.password
 
+
             // signing in
-            loginUser(email, password)
-                .then((userCredential) => {
-                    console.log(userCredential.user)
-                    toast.success('Login Successful')
-                    if (location?.state) {
-                        navigate(location?.state)
+            axiosPublic.get(`/users/${email}`)
+                .then(response => {
+                    if (response?.data) {
+                        handleLogin(email, password)
                     }
                     else {
-                        navigate('/')
+                        handleCreateUser(email, password)
                     }
                 })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.error(errorMessage, errorCode)
-                    toast.error(errorMessage)
-                });
+                .catch(error => console.error(error.message)
+                )
+
         }
     })
 
@@ -132,7 +188,7 @@ const Login = () => {
                             {formik.errors.password ? <div className="text-red-500">{formik.errors.password}</div> : null}
                         </div>
 
-                        
+
                         <button type="submit" className="btn w-1/2 mx-auto bg-sky-200">login</button>
                     </form>
                     <h5 className="text-center my-6">
