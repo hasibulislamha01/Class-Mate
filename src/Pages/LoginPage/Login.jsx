@@ -7,6 +7,8 @@ import { FaGithub, FaRegEnvelope } from "react-icons/fa";
 import { GoogleAuthProvider } from "firebase/auth";
 import { MdVpnKey } from "react-icons/md";
 import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
+// import { useState } from "react";
+// import LoginModal from "./LoginModal";
 
 
 const Login = () => {
@@ -15,45 +17,25 @@ const Login = () => {
     const axiosPublic = useAxiosPublic()
     const { loginUser, loginWithGoogle } = useAuth()
     const navigate = useNavigate()
+    // const [showModal, setShowModal] = useState(false)
     console.log(location.state)
 
-    const handleCreateUser = (email, password) => {
-        loginUser(email, password)
-            .then((userCredential) => {
-                const user = userCredential?.user
-                const userName = user.displayName
-                const userEmail = user.email
-                const userPhoto = user.photoURL
-                const role = 'unknown'
-                const gender = 'unknown'
-                const phone = 'unknown'
-                const userInfo = { userName, userEmail, userPhoto, role, gender, phone }
-                console.log(userInfo);
-                axiosPublic.post('/users', userInfo)
-                    .then(res => {
-                        console.log(res);
-                        if (res?.insertedId) {
-                            toast.success('User Created and data saved')
-                        }
-                        else {
-                            toast.error('userCreated but data not saved')
-                        }
-                    })
-                toast.success('Login Successful')
-                if (location?.state) {
-                    navigate(location?.state)
-                }
-                else {
-                    navigate('/')
-                }
+    const createUser = (userInfo) => {
+        axiosPublic.post(`/users`, userInfo)
+            .then(response => {
+                console.log(response);
+                toast(response?.data?.message || 'WTF USER')
+
+                // if (location?.state) {
+                //     navigate(location.state)
+                // } else {
+                //     navigate('/')
+                // }
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error(errorMessage, errorCode)
-                toast.error(errorMessage)
-            });
+            .catch(error => console.error(error?.message)
+            )
     }
+
 
     const handleLogin = (email, password) => {
         loginUser(email, password)
@@ -95,35 +77,33 @@ const Login = () => {
             console.log(JSON.stringify(values, null, 2));
             const email = values.email
             const password = values.password
+            console.log(email, password);
 
-
-            // signing in
-            axiosPublic.get(`/users/${email}`)
-                .then(response => {
-                    if (response?.data) {
-                        handleLogin(email, password)
-                    }
-                    else {
-                        handleCreateUser(email, password)
-                    }
-                })
-                .catch(error => console.error(error.message)
-                )
+            handleLogin(email, password)
 
         }
     })
 
     const googleProvider = new GoogleAuthProvider()
-    const handleGoogleLogin = () => {
+    const handleGoogleLogin = async () => {
+
+
         loginWithGoogle(googleProvider)
             .then(result => {
-                console.log(result.user)
-                toast.success('Login Successful')
-                if (location?.state) {
-                    navigate(location.state)
-                } else {
-                    navigate('/')
-                }
+
+                const user = result?.user
+                // toast.success('Login Successful')
+                const userEmail = user.email
+                const userName = user.displayName
+                const userPhoto = user.photoURL
+                const role = 'unknown'
+                const gender = 'unknown'
+                const phone = 'unknown'
+                const userInfo = { userEmail, userName, userPhoto, role, gender, phone  }
+                console.log(userInfo);
+                // creating user...
+                userInfo && createUser(userInfo)
+
             }).catch(error => {
                 console.error(error.message)
                 toast.error(error.message)
@@ -142,6 +122,9 @@ const Login = () => {
                 }
             </div>
 
+            {/* {
+                showModal && <LoginModal />
+            } */}
             {/* content container */}
             <div className="w-[95%] md:w-[80%] lg:w-[70%] mx-auto py-5 md:py-8 lg:py-10 px-0 md:px-2 lg:px-8 bg-accent dark:bg-dark-accent flex flex-col-reverse md:flex-row items-center border rounded-lg shadow-lg">
 
