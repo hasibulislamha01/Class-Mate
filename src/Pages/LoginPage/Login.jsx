@@ -3,28 +3,36 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../CustomHooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub, FaRegEnvelope } from "react-icons/fa";
+import { FaRegEnvelope } from "react-icons/fa";
 import { GoogleAuthProvider } from "firebase/auth";
 import { MdVpnKey } from "react-icons/md";
 import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
-// import { useState } from "react";
-// import LoginModal from "./LoginModal";
+import { useEffect, useState } from "react";
+import LoginModal from "./LoginModal";
+import useUserRole from "../../CustomHooks/useUserRole";
+
 
 
 const Login = () => {
 
     const location = useLocation()
+    const userRole = useUserRole()
     const axiosPublic = useAxiosPublic()
     const { loginUser, loginWithGoogle } = useAuth()
     const navigate = useNavigate()
-    // const [showModal, setShowModal] = useState(false)
+    const [showModal, setShowModal] = useState(false)
     console.log(location.state)
+
+    useEffect(() => {
+        userRole === 'unknown' ? setShowModal(true) : setShowModal(false)
+    }, [userRole])
 
     const createUser = (userInfo) => {
         axiosPublic.post(`/users`, userInfo)
             .then(response => {
                 console.log(response);
-                toast(response?.data?.message || 'WTF USER')
+                toast.success(response?.data?.message || 'WTF USER')
+                setShowModal(true)
 
                 // if (location?.state) {
                 //     navigate(location.state)
@@ -32,8 +40,10 @@ const Login = () => {
                 //     navigate('/')
                 // }
             })
-            .catch(error => console.error(error?.message)
-            )
+            .catch(error => {
+                console.error(error?.message)
+                toast.error('Failed to save data')
+            })
     }
 
 
@@ -99,7 +109,7 @@ const Login = () => {
                 const role = 'unknown'
                 const gender = 'unknown'
                 const phone = 'unknown'
-                const userInfo = { userEmail, userName, userPhoto, role, gender, phone  }
+                const userInfo = { userEmail, userName, userPhoto, role, gender, phone }
                 console.log(userInfo);
                 // creating user...
                 userInfo && createUser(userInfo)
@@ -122,11 +132,11 @@ const Login = () => {
                 }
             </div>
 
-            {/* {
-                showModal && <LoginModal />
-            } */}
+            {
+                showModal && <LoginModal email />
+            }
             {/* content container */}
-            <div className="w-[95%] md:w-[80%] lg:w-[70%] mx-auto py-5 md:py-8 lg:py-10 px-0 md:px-2 lg:px-8 bg-accent dark:bg-dark-accent flex flex-col-reverse md:flex-row items-center border rounded-lg shadow-lg">
+            <div className={`w-[95%] md:w-[80%] lg:w-[70%] mx-auto py-5 md:py-8 lg:py-10 px-0 md:px-2 lg:px-8 flex flex-col-reverse md:flex-row items-center rounded-lg shadow-lg border-none ${showModal ? 'bg-accent dark:bg-dark-accent/30' : 'bg-accent dark:bg-dark-accent'}`}>
 
                 {/* svg or image container */}
                 <div className="text-3xl font-bold flex-1 bg-primary/50 h-full w-full border border-red-300">
@@ -137,7 +147,7 @@ const Login = () => {
                 <div className="flex-1">
                     <h1 className="text-center text-xl font-bold mb-5">Login Here</h1>
 
-                    <form onSubmit={formik.handleSubmit} className="mx-auto flex flex-col gap-6 px-3">
+                    <form onSubmit={formik.handleSubmit} className="max-w-72 mx-auto flex flex-col justify-center gap-6 px-3">
 
                         <div>
                             <div className="flex items-center rounded-lg px-2 border border-primary bg-primary/10">
@@ -172,26 +182,24 @@ const Login = () => {
                         </div>
 
 
-                        <button type="submit" className="btn w-1/2 mx-auto bg-sky-200">login</button>
+                        <button type="submit" className="btn w-1/2 mx-auto bg-sky-200">Login</button>
                     </form>
                     <h5 className="text-center my-6">
                         New to ClassMate?
                         <Link to='/register' className="ml-3 text-primary font-bold">Sign Up</Link>
                     </h5>
-                    <div className="flex flex-col items-center justify-center gap-6">
-                        <h1>Or Login With</h1>
-                        <div className="text-xl flex gap-4">
+
+                        <div
+                            onClick={handleGoogleLogin}
+                            className="w-full max-w-56 mx-auto flex items-center justify-center gap-4 bg-primary/10 rounded-lg py-1 text-md font-semibold border-2 border-primary/50 cursor-pointer">
+                            Proceed with
                             <FcGoogle
                                 size={30}
-                                onClick={handleGoogleLogin}
-                                className="cursor-pointer"
+
+                                className=""
                             />
-                            <FaGithub
-                                size={30}
-                                className="cursor-pointer"
-                            />
+
                         </div>
-                    </div>
                 </div>
 
             </div>

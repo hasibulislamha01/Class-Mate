@@ -6,8 +6,11 @@ import SideNavBar from "../SideNavBar";
 import { useEffect, useState } from "react";
 import './Navbar.css'
 import ThemeController from "../../ThemeController";
+import useAxiosPublic from "../../../CustomHooks/useAxiosPublic";
 
 const Navbar = () => {
+
+    const axiosPublic = useAxiosPublic()
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
     const role = useUserRole()
@@ -76,6 +79,19 @@ const Navbar = () => {
             });
     }
 
+
+    // delete user
+    const handleDeleteUser = () => {
+        axiosPublic.delete(`/users/:${user?.userEmail}`)
+            .then(res => {
+                console.log('deleted user', res);
+
+            }).catch(error => {
+                console.error(error, error?.message);
+
+            })
+    }
+
     console.log("user role is: ", role);
     let dashboardLink = '/login'
     let title = 'Login'
@@ -90,32 +106,32 @@ const Navbar = () => {
     else if (role === 'Student') {
         dashboardLink = '/dashboard/student'
         title = 'Dashboard'
-    } else{
+    } else {
         dashboardLink = '/login',
-        title = 'Login'
+            title = 'Login'
     }
 
 
 
 
     const navigationRoutes = [
-            {
-                link: '/',
-                title: 'Home',
-                style: '',
-            },
-            {
-                link: '/all-sessions',
-                title: 'All Sessions',
-                style: '',
-            },
-            {
-                link: dashboardLink,
-                title: title,
-                style: user && role ? 'flex' : 'hidden',
-            },
+        {
+            link: '/',
+            title: 'Home',
+            style: '',
+        },
+        {
+            link: '/all-sessions',
+            title: 'All Sessions',
+            style: '',
+        },
+        {
+            link: dashboardLink,
+            title: title,
+            style: user && role ? 'flex' : 'hidden',
+        },
 
-        ]
+    ]
 
     // if(isSticky && )
 
@@ -176,9 +192,10 @@ const Navbar = () => {
 
 
                             <button
+                                onClick={handleDeleteUser}
                                 className="btn h-[40px] btn-block border-transparent bg-sky-400 hover:bg-primary hover:text-white dark:bg-primary dark:hover:bg-sky-400 dark:text-white dark:hover:text-black transition-all duration-500"
                             >
-                                Update Profile
+                                Delete Account
                             </button>
 
                         </>
