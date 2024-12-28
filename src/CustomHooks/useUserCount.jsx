@@ -11,10 +11,10 @@ const useUserCount = (role) => {
     
     useEffect(() => {
         
-        const url = `/users/numbers?role=${role}`
+        const url = `/users/counts?role=${role}`
         axiosSecure.get(url)
             .then(res => {
-                setTotal(res?.data.length);
+                setTotal(res?.data?.count);
             }).catch(error => {
                 console.error(error?.message)
             })
