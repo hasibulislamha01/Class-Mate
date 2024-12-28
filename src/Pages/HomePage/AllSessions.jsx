@@ -22,7 +22,7 @@ const AllSessions = () => {
                         <CardSkeleton />
                     </div>
                     :
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center justify-items-stretch gap-6 mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center gap-6">
 
                         {
                             allSessions?.map(session =>

@@ -36,7 +36,7 @@ const ReviewModal = ({ bookedSession, setShowModal, showModal }) => {
 
     }
     return (
-        <div id="modal" className={`absolute top-[15%] left-[50%] translate-x-[-50%] translatte-y-[50%]  w-[80%] md:w-[50%] mx-auto py-12 rounded-lg bg-sky-100 z-10 ${showModal ? 'block' : 'hidden'}`}>
+        <div id="modal" className={`absolute top-[15%] left-[50%] translate-x-[-50%] translatte-y-[50%]  w-[80%] md:w-[50%] mx-auto py-12 rounded-lg bg-primary dark:bg-dark-accent text-accent dark:text-dark-text z-10 ${showModal ? 'block' : 'hidden'}`}>
 
             <IoIosClose size={40} className="absolute top-0 right-0 cursor-pointer" onClick={() => setShowModal(false)} />
 
@@ -64,13 +64,13 @@ const ReviewModal = ({ bookedSession, setShowModal, showModal }) => {
                     onChange={handleSetReview}
                 />
 
-                <p>current rating: {rating}</p>
+                <p className="text-gray-300">current rating: {rating}</p>
 
                 <textarea
-                    className="border border-gray-300 w-[70%]"
+                    className="border border-gray-300 w-[70%] text-text p-2"
                     name="description" id="" required></textarea>
 
-                <button type="submit" className="btn px-24 bg-primary text-white font-bold">Submit</button>
+                <button type="submit" className="btn px-24 bg-secondary dark:bg-dark-secondary text-primary dark:text-dark-accent border-none font-bold ">Submit</button>
 
             </form>
 
