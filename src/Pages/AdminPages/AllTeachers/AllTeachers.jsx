@@ -4,7 +4,7 @@ import useGetAllUsersWithSameAttribute from "../../../CustomHooks/useGetAllUsers
 
 const AllTeachers = () => {
 
-    const teachers = useGetAllUsersWithSameAttribute('Tutor', 'all')
+    const teachers = useGetAllUsersWithSameAttribute('tutor')
     console.log(teachers);
 
     return (

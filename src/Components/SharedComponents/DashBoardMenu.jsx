@@ -37,9 +37,9 @@ const DashBoardMenu = ({ role }) => {
             linkTitle: 'Students'
         },
         {
-            link: '/dashboard/admin/teachers',
+            link: '/dashboard/admin/tutors',
             icon: <FiUsers />,
-            linkTitle: 'Teachers'
+            linkTitle: 'Tutors'
         },
         {
             link: '/dashboard/admin/administrators',
@@ -111,13 +111,13 @@ const DashBoardMenu = ({ role }) => {
         },
     ]
 
-    if (role === 'Administrator') {
+    if (role === 'administrator') {
         dashboardRout = adminRoutes
     }
-    else if (role === 'Tutor') {
+    else if (role === 'tutor') {
         dashboardRout = tutorRoutes
     }
-    else if (role === "Student") {
+    else if (role === "student") {
         dashboardRout = studentRoutes
     }
 

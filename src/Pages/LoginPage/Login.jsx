@@ -150,7 +150,7 @@ const Login = () => {
                     <form onSubmit={formik.handleSubmit} className="max-w-72 mx-auto flex flex-col justify-center gap-6 px-3">
 
                         <div>
-                            <div className="flex items-center rounded-lg px-2 border border-primary bg-primary/10">
+                            <div className="flex items-center border border-primary">
                                 <label htmlFor="email"><FaRegEnvelope /></label>
                                 <input
                                     id="email"
@@ -158,7 +158,7 @@ const Login = () => {
                                     type="email"
                                     onChange={formik.handleChange}
                                     value={formik.values.email}
-                                    className="bg-none w-full px-3 py-2 outline-none"
+                                    className="input-box w-full bg-background"
                                 />
                             </div>
                             {formik.errors.email ? <div className="text-red-500">{formik.errors.email}</div> : null}
@@ -184,27 +184,29 @@ const Login = () => {
 
                         <button type="submit" className="btn w-1/2 mx-auto bg-sky-200">Login</button>
                     </form>
-                    <h5 className="text-center my-6">
+                    <h5 className="text-center my-6 text-text dark:text-dark-text">
                         New to ClassMate?
                         <Link to='/register' className="ml-3 text-primary font-bold">Sign Up</Link>
                     </h5>
 
-                        <div
-                            onClick={handleGoogleLogin}
-                            className="w-full max-w-56 mx-auto flex items-center justify-center gap-4 bg-primary/10 rounded-lg py-1 text-md font-semibold border-2 border-primary/50 cursor-pointer">
-                            Proceed with
-                            <FcGoogle
-                                size={30}
+                    <div
+                        onClick={handleGoogleLogin}
+                        className="w-full max-w-56 mx-auto flex items-center justify-center gap-4 bg-primary/10 rounded-lg py-1 text-md font-semibold border-2 border-primary/50 cursor-pointer hover:border-primary/90  hover:scale-[101%] active:scale-[98%] transition-all duration-250">
+                        <p className="text-text dark:text-dark-text">Proceed with</p>
+                        <FcGoogle
+                            size={30}
 
-                                className=""
-                            />
+                            className=""
+                        />
 
-                        </div>
+                    </div>
                 </div>
 
             </div>
 
 
+            {/* <input type="text" className=' 
+            input-box ml-60' placeholder='type here' /> */}
 
         </div>
 

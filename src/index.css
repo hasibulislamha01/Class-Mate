@@ -190,6 +190,13 @@
     color: #71717a;
 }
 
+.input-box{
+    padding: 0.5rem 1rem;
+    border-radius: 0.4rem;
+    outline: none;
+    background-color: inherit;
+}
+
 
 
 /* media queries for responsive dessign */

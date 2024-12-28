@@ -9,14 +9,16 @@ const useGetAllUsersWithSameAttribute = (role, gender) => {
 
     useEffect(() => {
 
-        if (!role) return
+        let url = ``
+        if (role && gender) url = `/users?role=${role}&gender=${gender}`
+        if (role) url = `/users?role=${role}`
+        if (gender) url = `/users?gender=${gender}`
 
-      
 
 
-        axiosSecure.get(`/users/role/${role}/${gender}`)
+        axiosSecure.get(url)
             .then(res => setUserWithSameAttribute(res?.data || []))
-            .catch(error => console.error(`error getting all the users having the role: ${role} `, error))
+            .catch(error => console.error(`error getting all the users having the role : ${role} and gender ${gender}`, error))
     }, [role, gender, axiosSecure])
 
     // console.log(totalUserWithSameRole); ok

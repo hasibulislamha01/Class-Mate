@@ -11,7 +11,7 @@ const useUserCount = (role) => {
     
     useEffect(() => {
         
-        const url = `/users/numbers/${role}`
+        const url = `/users/numbers?role=${role}`
         axiosSecure.get(url)
             .then(res => {
                 setTotal(res?.data.length);

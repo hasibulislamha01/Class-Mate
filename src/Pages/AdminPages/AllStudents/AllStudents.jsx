@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
-import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
+
 import { Link } from "react-router-dom";
 import { Skeleton } from "antd";
+import useGetAllUsersWithSameAttribute from "../../../CustomHooks/useGetAllUsersWithSameAttribute";
 
 const AllStudents = () => {
 
-    const axiosSecure = useAxiosSecure()
-    const [students, setStudents] = useState([])
-    useEffect(() => {
-       
-        const url = `/users/role/Student/all`
-        axiosSecure.get(url)
-            .then(res => setStudents(res?.data))
-            .catch(error => console.error('error loading student data in admin panel :', error?.massege))
-    }, [axiosSecure])
+    const students = useGetAllUsersWithSameAttribute('student')
     console.log(students);
     return (
         <div className="">
