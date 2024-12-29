@@ -1,41 +1,50 @@
+import React, { useState } from 'react';
 import PropTypes from 'prop-types'
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-// import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import { IoIosArrowDown } from 'react-icons/io';
-import useAuth from '../../../CustomHooks/useAuth';
-import useFormateDate from '../../../CustomHooks/useFormateDate';
-import { CardMedia, Tooltip } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Card } from 'antd';
 import { Button } from 'antd';
+import useAuth from '../../../CustomHooks/useAuth';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import toast, { Toaster } from 'react-hot-toast';
+import { IoIosArrowDown } from 'react-icons/io';
 import { BsUpload } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import ShareIcon from '@mui/icons-material/Share';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
+import SessionInfoTab from './SessionInfoTab';
 
 
-const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-    }),
-}));
+// const tabList = [
+//     {
+//         key: 'tab1',
+//         tab: 'tab1',
+//     },
+//     {
+//         key: 'tab2',
+//         tab: 'tab2',
+//     },
+// ];
+// const contentList = {
+//     tab1: <p>content1</p>,
+//     tab2: <p>content2</p>,
+// };
+const tabListNoTitle = [
+    {
+        key: 'session',
+        label: 'Session Info',
+    },
+    {
+        key: 'materials',
+        label: 'Materials',
+    },
+    {
+        key: 'notes',
+        label: 'Notes',
+    },
+];
+const contentListNoTitle = {
+    session: <p>Session Content</p>,
+    materials: <p>materials content</p>,
+    notes: <p>Notes content</p>,
+};
+
 
 const SessionCard = ({ mySession, refetch }) => {
     // console.log(mySession)
@@ -47,16 +56,17 @@ const SessionCard = ({ mySession, refetch }) => {
     // const tutorName = mySession?.tutorName
     const sessionTitle = mySession?.sessionTitle
     // const registrationStartingDate = mySession?.registrationStarts
-    const formattedRegistrationStartingDate = useFormateDate(mySession?.registrationStarts)
-    const formattedRegistrationEndingDate = useFormateDate(mySession?.registrationEnds)
-    const formattedClassStartingDate = useFormateDate(mySession?.classStarts)
-    const formattedClassEndingDate = useFormateDate(mySession?.classEnds)
-    const applyingDate = useFormateDate(mySession?.applyingDate)
-    const duration = mySession?.duration
-    const registrationFee = mySession?.registrationFee
+    
+    
     const status = mySession?.status
-    const sessionImage = mySession?.sessionImage
 
+
+
+    const contentListNoTitle = {
+        session: <SessionInfoTab mySession={mySession} />,
+        materials: <p>materials content</p>,
+        notes: <p>Notes content</p>,
+    };
 
     let badgeBg = 'white'
     if (status === 'pending') {
@@ -119,103 +129,48 @@ const SessionCard = ({ mySession, refetch }) => {
     }
 
 
+    // antD card controlling logics
+    const [activeTabKey1, setActiveTabKey1] = useState('tab1');
+    const [activeTabKey2, setActiveTabKey2] = useState('app');
+    const onTab1Change = (key) => {
+        setActiveTabKey1(key);
+    };
+    const onTab2Change = (key) => {
+        setActiveTabKey2(key);
+    };
+
     return (
-        <Card sx={{ maxWidth: 345 }}>
-            <Toaster></Toaster>
-            <CardHeader
-                avatar={
-                    <Avatar sx={{ bgcolor: red[500], }} aria-label="recipe">
-                        <img src={tutorPhoto} alt="" />
-                    </Avatar>
+        <>
+
+            <Card
+                title={
+                    <div className='my-2 flex items-center justify-between'>
+                        <div className='flex items-center gap-4'>
+                            <img src={tutorPhoto} alt="tutor photo" className='h-8 w-8 object-cover rounded-full' />
+                            <h1 className='font-bold text-primary'>{sessionTitle}</h1>
+                        </div>
+                        <div className='flex items-center gap-1'>
+                            <div className={`${badgeBg} h-3 w-3 rounded-full`}></div>
+                            <h5 className='text-xs'>{status}</h5>
+                        </div>
+                    </div>
                 }
-                action={
+                style={{
+                    width: '100%',
+                }}
+                tabList={tabListNoTitle}
+                activeTabKey={activeTabKey2}
+                tabBarExtraContent={<a href="#">More</a>}
+                onTabChange={onTab2Change}
+                tabProps={{
+                    size: 'middle',
+                }}
 
-                    <div className='w-full font-semibold'>
-                        <div id='status-badge' className={`badge border-transparent w-[100px] mt-3 p-3 ${badgeBg}`}>{status}</div>
-                    </div>
-
-                }
-                title={sessionTitle}
-                subheader={applyingDate}
-            ></CardHeader>
-
-            <CardMedia
-                component="img"
-                className='h-[200px] object-contain'
-                image={sessionImage}
-                alt="Paella dish"
-            />
-
-            <CardContent>
-
-                <div className='grid grid-cols-2 justify-items-stretch gap-6'>
-
-                    <div className='text-center'>
-                        <p className=''>Registration Starts</p>
-                        <h1 className='font-medium'>{formattedRegistrationStartingDate}</h1>
-                    </div>
-                    <div className='text-center'>
-                        <p className=''>Registration Ends</p>
-                        <h1 className='font-medium'>{formattedRegistrationEndingDate}</h1>
-                    </div>
-
-                    <div className='text-center'>
-                        <p className=''>Class Starts</p>
-                        <h1 className='font-medium'>{formattedClassStartingDate}</h1>
-                    </div>
-                    <div className='text-center'>
-                        <p className=''>Class Ends</p>
-                        <h1 className='font-medium'>{formattedClassEndingDate}</h1>
-                    </div>
-
-                    <div className='text-center'>
-                        <p className=''>Duration</p>
-                        <h1 className='font-medium'>{duration} hours</h1>
-                    </div>
-                    <div className='text-center'>
-                        <p className=''>Registration Fee</p>
-                        <h1 className='font-medium'>{registrationFee}</h1>
-                    </div>
-
-                </div>
-            </CardContent>
-            <CardActions disableSpacing className=''>
-
-                {
-                    status === 'rejected' ?
-                        <Button onClick={() => wrapper(sessionId, 'pending')} type="primary">Request a new Approval</Button>
-                        : status === 'approved' ?
-                            <Tooltip title="Upload Materials" placement="top">
-                                <Link to={`/dashboard/tutor/uploadMaterials/${sessionId}`} className='ml-16 cursor-pointer text-2xl font-bold'>
-                                    <BsUpload />
-                                    {/* <img className='h-[35px]' src="https://i.ibb.co/ydtXMwB/icons8-upload-64.png" alt="" /> */}
-                                </Link>
-                            </Tooltip>
-
-                            : <></>
-
-                }
-
-                <ExpandMore
-                    expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <IoIosArrowDown />
-
-                </ExpandMore>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                    <Typography variant='h5'>Session Details</Typography>
-                    <Typography paragraph>
-                        {mySession?.description}
-                    </Typography>
-                </CardContent>
-            </Collapse>
-
-        </Card>
+                className='shadow-lg'
+            >
+                {contentListNoTitle[activeTabKey2]}
+            </Card>
+        </>
     );
 };
 
