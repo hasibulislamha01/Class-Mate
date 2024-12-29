@@ -1,6 +1,7 @@
 import { Avatar, Button, Card, Tooltip } from "antd";
 import Meta from "antd/es/card/Meta";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const StdAllMtrlsCard = ({ bookedSession }) => {
 
@@ -11,7 +12,7 @@ const StdAllMtrlsCard = ({ bookedSession }) => {
 
     return (
         <Card
-            className='flex flex-col justify-between h-full mx-auto'
+            className='flex flex-col justify-between h-full mx-auto shadow-lg dark:bg-dark-accent dark:border-dark-accent text-text dark:text-dark-text'
             style={{
                 width: 300,
             }}
@@ -46,4 +47,8 @@ const StdAllMtrlsCard = ({ bookedSession }) => {
     );
 };
 
+
+StdAllMtrlsCard.propTypes = {
+    bookedSession: PropTypes.object
+}
 export default StdAllMtrlsCard;

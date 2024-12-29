@@ -94,7 +94,8 @@ const AuthProvider = ({ children }) => {
         loading,
         loginWithGithub,
         loginWithGoogle,
-        toggleTheme
+        toggleTheme,
+        theme
     }
     return (
         <AuthContext.Provider value={authUtilities}>

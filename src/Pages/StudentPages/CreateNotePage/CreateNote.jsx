@@ -39,24 +39,26 @@ const CreateNote = () => {
         <div>
 
             {/* form wrapper */}
-            <div className="bg-accent dark:bg-dark-accent rounded-lg lg:w-1/2 mt-12 shadow-lg dark:shadow-dark-accent py-6 md:py-10 lg:py-12 px-6 md:px-8 lg:px-10">
+            <div className="bg-sky-200 dark:bg-dark-accent rounded-lg w-[95%] md:w-[80%] lg:w-1/2 mx-auto mt-12 shadow-lg shadow-primary/15 dark:shadow-dark-accent py-6 md:py-10 lg:py-12 px-6 md:px-8 lg:px-10">
                 <h1 className="text-center text-xl my-4">Create Note</h1>
-                <form onSubmit={handleSaveNote} className="space-y-4 flex flex-col justify-center items-center">
-                    <div className="mx-auto w-full border">
+                <form onSubmit={handleSaveNote} className="flex flex-col justify-center items-center gap-4 w-[75%] mx-auto">
+                    
+                    <div className="mx-auto form-control gap-1 w-full">
+                        <label className="">Note Title</label>
                         <input
-                            className="bg-slate-200/70 px-4 py-2 rounded-md outline-none border"
+                            className="input-box bg-background"
                             type="text"
                             name="title"
                             required="required"
                             placeholder="Enter Note Title"
                         />
-                        <label className="label">Note Title</label>
                     </div>
 
-                    <div className=" mx-auto">
+                    <div className=" mx-auto form-control gap-1 w-full">
+                        <label className="">Note Description</label>
                         <textarea
                             id=""
-                            className="bg-slate-200/70 px-4 py-2 rounded-md outline-none border"
+                            className="textarea-box bg-background"
                             type="text"
                             name="description"
                             required="required"
@@ -65,9 +67,8 @@ const CreateNote = () => {
 
                         </textarea>
                        
-                        <label className="label">Note Description</label>
                     </div>
-                    <button className="btn mx-auto w-[300px]">Create Note</button>
+                    <button className="mt-6 btn mx-auto w-[300px] bg-primary/70 text-accent border-none">Create Note</button>
                 </form>
             </div>
         </div>

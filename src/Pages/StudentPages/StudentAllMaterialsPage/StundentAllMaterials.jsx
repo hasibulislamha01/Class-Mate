@@ -9,9 +9,9 @@ const StundentAllMaterials = () => {
     const bookedSessions = query[0]
     console.log(bookedSessions)
     return (
-        <div>
-            <h1 className="text-center text-3xl">Booked Sessions</h1>
-            <div>
+        <div className="py-4 md:py=6">
+            <h1 className="text-center text-xl text-primary font-bold mb-6">Browse materials</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center">
                 {
                     bookedSessions?.map(bookedSession =>
                         <StdAllMtrlsCard

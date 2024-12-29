@@ -17,7 +17,7 @@ const BookedSessions = () => {
 
     return (
         <div className="relative container mx-auto min-h-screen">
-            <h1 className="my-6 text-2xl text-center text-primary font-bold">Booked Sessions</h1>
+            <h1 className="my-6 text-xl text-center text-primary font-bold">Booked Sessions</h1>
             {
                 bookedSessions?.length === 0 ?
                     <div className="min-h-screen flex flex-col items-center justify-center gap-6 text-pretty">

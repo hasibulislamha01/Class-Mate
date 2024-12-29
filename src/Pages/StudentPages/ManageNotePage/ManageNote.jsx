@@ -13,7 +13,7 @@ const ManageNote = () => {
 
     return (
         <div>
-            <h1 className="text-center text-3xl ">Manage Notes</h1>
+            <h1 className="text-center text-xl text-primary font-bold my-6 ">Manage Notes</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 place-items-center">
                 {
                     notes?.map(note => 

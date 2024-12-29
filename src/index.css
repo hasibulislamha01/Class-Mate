@@ -203,7 +203,15 @@
     padding: 0.5rem 1rem;
     border-radius: 0.4rem;
     outline: none;
-    background-color: inherit;
+    /* background-color: inherit; */
+}
+
+
+.textarea-box{
+    padding: 0.7rem 1.3rem;
+    border-radius: 0.4rem;
+    outline: none;
+    /* background-color: inherit; */
 }
 
 
