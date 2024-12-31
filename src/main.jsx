@@ -66,11 +66,11 @@ const router = createBrowserRouter(
           element: <Login></Login>
         },
         {
-          path: "/all-sessions",
+          path: "/sessions",
           element: <AllSessionsPage/>
         },
         {
-          path: "/sessionDetails/:id",
+          path: "/sessions/:id",
           loader: ({ params }) => fetch(`${baseURL}/sessions/${params.id}`),
           element: <LoginValidator> <SessionDetails></SessionDetails> </LoginValidator>
         },

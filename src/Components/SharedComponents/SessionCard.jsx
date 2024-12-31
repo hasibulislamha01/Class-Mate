@@ -49,7 +49,7 @@ const SessionCard = ({ session }) => {
 
 
 
-            <Link to={`/sessionDetails/${session._id}`} className="flex justify-center items-center">
+            <Link to={`/sessions/${session._id}`} className="flex justify-center items-center">
 
                 <button
                     className='mb-6 btn btn-sm w-[120px] mx-auto text-sm font-bold bg-primary/80 text-white hover:bg-primary rounded-md dark:border-dark-background'

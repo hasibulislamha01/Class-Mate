@@ -1,7 +1,6 @@
 import Svg from "./Svg";
 import './Banner.css'
 import useAuth from "../../CustomHooks/useAuth";
-import { Button } from "antd";
 
 const Banner = () => {
     const { user } = useAuth()

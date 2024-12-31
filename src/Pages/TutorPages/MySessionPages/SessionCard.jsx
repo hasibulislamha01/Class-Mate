@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import { useContext, useState } from 'react';
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Card } from 'antd';
-import { Button } from 'antd';
+// import { Button } from 'antd';
 import useAuth from '../../../CustomHooks/useAuth';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import toast, { Toaster } from 'react-hot-toast';
-import { IoIosArrowDown } from 'react-icons/io';
-import { BsUpload } from 'react-icons/bs';
+// import { IoIosArrowDown } from 'react-icons/io';
+// import { BsUpload } from 'react-icons/bs';
 import SessionInfoTab from './SessionInfoTab';
+import { AuthContext } from '../../../Components/Auth/AuthProvider';
+import MaterialTab from './MaterialTab';
+import { Link } from 'react-router-dom';
 
 const tabListNoTitle = [
     {
@@ -24,17 +27,14 @@ const tabListNoTitle = [
         label: 'Notes',
     },
 ];
-const contentListNoTitle = {
-    session: <p>Session Content</p>,
-    materials: <p>materials content</p>,
-    notes: <p>Notes content</p>,
-};
+
 
 
 const SessionCard = ({ mySession, refetch }) => {
     // console.log(mySession)
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
+    const { theme } = useContext(AuthContext)
 
     // antD card controlling logics
     const [activeTabKey2, setActiveTabKey2] = useState('session');
@@ -52,7 +52,7 @@ const SessionCard = ({ mySession, refetch }) => {
 
 
     const renderTabContent = (content) => (
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row items-center gap-4">
             {sessionImage && (
                 <img
                     src={sessionImage}
@@ -67,7 +67,7 @@ const SessionCard = ({ mySession, refetch }) => {
 
     const contentListNoTitle = {
         session: renderTabContent(<SessionInfoTab mySession={mySession} />),
-        materials: renderTabContent(<p>materials content</p>),
+        materials: renderTabContent(<MaterialTab/>),
         notes: renderTabContent(<p>Notes content</p>),
     };
 
@@ -133,15 +133,19 @@ const SessionCard = ({ mySession, refetch }) => {
     return (
         <>
 
+            <Toaster />
+
             <Card
                 title={
                     <div className='my-2 flex items-center justify-between'>
                         <div className='flex items-center gap-4'>
                             <img src={tutorPhoto} alt="tutor photo" className='h-8 w-8 object-cover rounded-full' />
-                            <h1 className='font-bold text-primary'>{sessionTitle}</h1>
+                            <Link to={`/sessions/${sessionId}`}>
+                            <h1 className='font-bold text-primary hover:underline hover:underline-offset-4'>{sessionTitle}</h1>
+                            </Link>
                             <h3 className='ml-2 font-md text-xs'>Star</h3>
                         </div>
-                        <div className='flex items-center gap-1'>
+                        <div className='flex items-center gap-1 text-text dark:text-dark-text'>
                             <div className={`${badgeBg} h-3 w-3 rounded-full`}></div>
                             <h5 className='text-xs'>{status}</h5>
                         </div>
@@ -149,6 +153,11 @@ const SessionCard = ({ mySession, refetch }) => {
                 }
                 style={{
                     width: '100%',
+                }}
+                styles={{
+                    header: {
+                        borderBottom: `1px solid ${theme === 'dark' ? "#333333" : "#D1D5DB"}`,
+                    }
                 }}
                 tabList={tabListNoTitle}
                 activeTabKey={activeTabKey2}
@@ -158,7 +167,7 @@ const SessionCard = ({ mySession, refetch }) => {
                     size: 'middle',
                 }}
 
-                className='shadow-lg'
+                className='dark:bg-dark-accent dark:border-dark-accent shadow-lg text-text dark:text-dark-text'
             >
                 {contentListNoTitle[activeTabKey2]}
             </Card>

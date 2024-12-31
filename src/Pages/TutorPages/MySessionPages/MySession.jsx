@@ -16,7 +16,7 @@ const MySession = () => {
         <div>
             <h1 className="mt-6 mb-12 text-center text-xl font-bold text-primary">My Sessions</h1>
 
-            <div className="px-1 md:px-3 lg:px-4 flex flex-col justify-center items-center gap-4 lg:gap-6">
+            <div className="px-1 md:px-3 lg:px-4 grid grid-cols-1 lg:grid-cols-2 lg:gap-6">
                 {
                     mySessions?.map(mySession => 
                         <SessionCard

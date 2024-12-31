@@ -122,7 +122,7 @@ const Navbar = () => {
             style: '',
         },
         {
-            link: '/all-sessions',
+            link: '/sessions',
             title: 'All Sessions',
             style: '',
         },
