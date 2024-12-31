@@ -19,30 +19,35 @@ const SessionInfoTab = ({ mySession }) => {
     console.log(regEndDate, isExpired);
 
     return (
-        <div className="flex items-center gap-10">
-            <img src={sessionImage}
+        <div className="grid grid-cols-2 place-items-center justify-items-start gap-y-3 gap-x-4 md:gap-x-6">
+            {/* <img src={sessionImage}
                 alt="session thumbnail"
                 className="h-40 w-60 object-cover rounded-md"
-            />
+            /> */}
 
-            <div>
-                <div className="flex items-center gap-2">
-                    <h3>Duration:</h3>
-                    {duration} hours
-                </div>
-                <div className="flex items-center gap-2">
-                    <h3>Fee: </h3>
-                    $ {registrationFee}
-                </div>
-                <div className="flex items-center gap-2">
-                    <div className={`h-2 w-2 rounded-full ${isExpired ? 'bg-red-400' : 'bg-green-500'} `}></div>
-                    {isExpired ? `Expired` : `Currently Enrolling`}
-                </div>
+
+            <div className="flex flex-col justify-start">
+                <p>Duration</p>
+                <h3 className="font-bold">{duration} hours</h3>
             </div>
 
-            <div>
-
+            <div className="flex flex-col justify-start">
+                <p>Fee</p>
+                <h3 className="font-bold">$ {registrationFee}</h3>
             </div>
+
+            <div className="flex flex-col justify-start">
+                <p>Class Deadline</p>
+                <h3 className="font-bold">{formattedClassEndingDate}</h3>
+            </div>
+
+            <div className="flex flex-col justify-start">
+                <p>Registration Status</p>
+                <h3 className={`font-bold ${isExpired ? 'text-red-500' : 'text-green-500'} `}>
+                    {isExpired ? 'Expired' : 'Currenly Enrolling'}
+                </h3>
+            </div>
+
         </div>
     );
 };

@@ -4,7 +4,6 @@ import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 
 const MySession = () => {
     const {user} = useAuth()
-    // const axiosSecure = useAxiosSecure()
     const tutorEmail = user?.email;
 
     const queryInfo = useGetLatestData('mySessions', `/sessions/emailQuery/${tutorEmail}`)

@@ -10,21 +10,6 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { BsUpload } from 'react-icons/bs';
 import SessionInfoTab from './SessionInfoTab';
 
-
-// const tabList = [
-//     {
-//         key: 'tab1',
-//         tab: 'tab1',
-//     },
-//     {
-//         key: 'tab2',
-//         tab: 'tab2',
-//     },
-// ];
-// const contentList = {
-//     tab1: <p>content1</p>,
-//     tab2: <p>content2</p>,
-// };
 const tabListNoTitle = [
     {
         key: 'session',
@@ -51,21 +36,39 @@ const SessionCard = ({ mySession, refetch }) => {
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
 
+    // antD card controlling logics
+    const [activeTabKey2, setActiveTabKey2] = useState('session');
+    const onTab2Change = (key) => {
+        setActiveTabKey2(key);
+    };
+
     const sessionId = mySession?._id
     const tutorPhoto = user?.photoURL
     // const tutorName = mySession?.tutorName
     const sessionTitle = mySession?.sessionTitle
-    // const registrationStartingDate = mySession?.registrationStarts
-    
-    
     const status = mySession?.status
+    const sessionImage = mySession?.sessionImage
+    // const registrationStartingDate = mySession?.registrationStarts
 
+
+    const renderTabContent = (content) => (
+        <div className="flex items-center gap-4">
+            {sessionImage && (
+                <img
+                    src={sessionImage}
+                    alt="Session"
+                    className="h-32 w-48 object-cover rounded-md mb-4"
+                />
+            )}
+            {content}
+        </div>
+    );
 
 
     const contentListNoTitle = {
-        session: <SessionInfoTab mySession={mySession} />,
-        materials: <p>materials content</p>,
-        notes: <p>Notes content</p>,
+        session: renderTabContent(<SessionInfoTab mySession={mySession} />),
+        materials: renderTabContent(<p>materials content</p>),
+        notes: renderTabContent(<p>Notes content</p>),
     };
 
     let badgeBg = 'white'
@@ -79,11 +82,7 @@ const SessionCard = ({ mySession, refetch }) => {
         badgeBg = 'bg-[#dc2626] text-[#fef2f2]'
     }
 
-    const [expanded, setExpanded] = React.useState(false);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
 
 
 
@@ -129,15 +128,7 @@ const SessionCard = ({ mySession, refetch }) => {
     }
 
 
-    // antD card controlling logics
-    const [activeTabKey1, setActiveTabKey1] = useState('tab1');
-    const [activeTabKey2, setActiveTabKey2] = useState('app');
-    const onTab1Change = (key) => {
-        setActiveTabKey1(key);
-    };
-    const onTab2Change = (key) => {
-        setActiveTabKey2(key);
-    };
+
 
     return (
         <>
@@ -148,6 +139,7 @@ const SessionCard = ({ mySession, refetch }) => {
                         <div className='flex items-center gap-4'>
                             <img src={tutorPhoto} alt="tutor photo" className='h-8 w-8 object-cover rounded-full' />
                             <h1 className='font-bold text-primary'>{sessionTitle}</h1>
+                            <h3 className='ml-2 font-md text-xs'>Star</h3>
                         </div>
                         <div className='flex items-center gap-1'>
                             <div className={`${badgeBg} h-3 w-3 rounded-full`}></div>
