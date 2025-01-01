@@ -4,6 +4,7 @@
 
 ## Credentials
 #### Live site: https://classmate-ac788.web.app/
+#### Server side repo: https://github.com/hasibulislamha01/ClassMate-Server
 #### admin email:  hablu@developer.com
 #### admin pass: habluDeveloper
 
