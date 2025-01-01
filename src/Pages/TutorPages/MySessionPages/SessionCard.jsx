@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types'
 // import { Link } from 'react-router-dom';
-import { Card } from 'antd';
+import { Button, Card, Tooltip } from 'antd';
 // import { Button } from 'antd';
 import useAuth from '../../../CustomHooks/useAuth';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
@@ -12,6 +12,8 @@ import SessionInfoTab from './SessionInfoTab';
 import { AuthContext } from '../../../Components/Auth/AuthProvider';
 import MaterialTab from './MaterialTab';
 import { Link } from 'react-router-dom';
+import { RiSendPlane2Line } from "react-icons/ri";
+
 
 const tabListNoTitle = [
     {
@@ -48,7 +50,6 @@ const SessionCard = ({ mySession, refetch }) => {
     const sessionTitle = mySession?.sessionTitle
     const status = mySession?.status
     const sessionImage = mySession?.sessionImage
-    // const registrationStartingDate = mySession?.registrationStarts
 
 
     const renderTabContent = (content) => (
@@ -65,11 +66,6 @@ const SessionCard = ({ mySession, refetch }) => {
     );
 
 
-    const contentListNoTitle = {
-        session: renderTabContent(<SessionInfoTab mySession={mySession} />),
-        materials: renderTabContent(<MaterialTab/>),
-        notes: renderTabContent(<p>Notes content</p>),
-    };
 
     let badgeBg = 'white'
     if (status === 'pending') {
@@ -88,7 +84,7 @@ const SessionCard = ({ mySession, refetch }) => {
 
 
     const handleRequestforApproval = (id, info) => {
-        // console.log('requesting', id)
+        console.log('requesting', id)
         return axiosSecure.patch(`/sessions/request/${id}`, info)
         // .then(res => {
         //     console.log(res.data)
@@ -129,6 +125,11 @@ const SessionCard = ({ mySession, refetch }) => {
 
 
 
+    const contentListNoTitle = {
+        session: renderTabContent(<SessionInfoTab mySession={mySession} />),
+        materials: renderTabContent(<MaterialTab />),
+        notes: renderTabContent(<p>Notes content</p>),
+    };
 
     return (
         <>
@@ -141,11 +142,22 @@ const SessionCard = ({ mySession, refetch }) => {
                         <div className='flex items-center gap-4'>
                             <img src={tutorPhoto} alt="tutor photo" className='h-8 w-8 object-cover rounded-full' />
                             <Link to={`/sessions/${sessionId}`}>
-                            <h1 className='font-bold text-primary hover:underline hover:underline-offset-4'>{sessionTitle}</h1>
+                                <h1 className='font-bold text-primary hover:underline hover:underline-offset-4'>{sessionTitle}</h1>
                             </Link>
                             <h3 className='ml-2 font-md text-xs'>Star</h3>
                         </div>
                         <div className='flex items-center gap-1 text-text dark:text-dark-text'>
+                            {
+                                status === 'rejected' &&
+                                <Tooltip title='Request For Approval'>
+                                    <Button
+                                        shape='circle'
+                                        icon={<RiSendPlane2Line />}
+                                        className='mx-2'
+                                        onClick={() => wrapper(sessionId, 'pending')}
+                                    ></Button>
+                                </Tooltip>
+                            }
                             <div className={`${badgeBg} h-3 w-3 rounded-full`}></div>
                             <h5 className='text-xs'>{status}</h5>
                         </div>

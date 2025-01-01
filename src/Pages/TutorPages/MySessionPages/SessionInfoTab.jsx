@@ -16,13 +16,12 @@ const SessionInfoTab = ({ mySession }) => {
     const formattedClassEndingDate = useFormateDate(mySession?.classEnds)
     // const applyingDate = useFormateDate(mySession?.applyingDate)
     const isExpired = todaysDate > regEndDate
-    console.log(todaysDate, regEndDate);
-    console.log(regEndDate, isExpired);
+    const status = mySession?.status
 
     const iterableItems = [
-        {keyName: 'Duration', keyValue: duration, unit: 'hours' },
-        {keyName: 'Fee', keyValue: `$ ${registrationFee}` },
-        {keyName: 'Class Deadline', keyValue: formattedClassEndingDate },
+        { keyName: 'Duration', keyValue: duration, unit: 'hours' },
+        { keyName: 'Fee', keyValue: `$ ${registrationFee}` },
+        { keyName: 'Class Deadline', keyValue: formattedClassEndingDate },
     ]
 
     return (
@@ -30,20 +29,23 @@ const SessionInfoTab = ({ mySession }) => {
 
 
             {
-                iterableItems?.map(item => 
-                    <Info 
-                    key={item?.keyName} 
-                    itemName={item.keyName} 
-                    itemValue={item.keyValue}
-                    unit={item.unit || ''}
+                iterableItems?.map(item =>
+                    <Info
+                        key={item?.keyName}
+                        itemName={item.keyName}
+                        itemValue={item.keyValue}
+                        unit={item.unit || ''}
                     />
                 )
             }
 
             <div className="flex flex-col justify-start">
                 <p>Registration Status</p>
-                <h3 className={`font-bold ${isExpired ? 'text-red-500' : 'text-green-500'} `}>
-                    {isExpired ? 'Expired' : 'Currenly Enrolling'}
+                <h3 className={`font-bold ${isExpired || status === 'rejected' ? 'text-red-500' : 'text-green-500'} `}>
+                    {isExpired ? 'Expired' :
+                        status === 'rejected' ? 'Pending' :
+                            'Currenly Enrolling'
+                    }
                 </h3>
             </div>
 

@@ -96,7 +96,7 @@ const UploadMaterial = () => {
 
     return (
         <div>
-            <h1 className="text-center text-3xl">Upload Materials</h1>
+            <h1 className="text-center text-xl">Upload Materials</h1>
             <div>
                 {/* <h1> </h1> */}
                 <form onSubmit={uploadImage} className="flex flex-col gap-3">
