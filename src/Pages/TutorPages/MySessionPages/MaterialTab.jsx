@@ -4,7 +4,9 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { AiFillFileText } from "react-icons/ai";
 
 
-const MaterialTab = () => {
+const MaterialTab = ({setModalOpen}) => {
+
+    
 
     const iterableItems = [
         { itemName: 'Uploaded', itemValue: '2', unit: 'materials' },
@@ -12,7 +14,7 @@ const MaterialTab = () => {
     ]
     return (
 
-        <div className='flex items-center gap-5 border border-red-300'>
+        <div className='flex items-center gap-5'>
 
             <div className="grid grid-cols-1 place-items-center justify-items-start gap-y-4">
                 {
@@ -27,20 +29,25 @@ const MaterialTab = () => {
                 }
             </div>
 
-            <Tooltip title='View Materials'>
+            <div className="ml-3 flex flex-col gap-4">
+                <Tooltip title='View Materials'>
 
-                <Button
-                    shape="circle"
-                    icon={<AiFillFileText />}
-                ></Button>
-            </Tooltip>
+                    <Button
+                        shape="circle"
+                        icon={<AiFillFileText />}
+                    ></Button>
+                </Tooltip>
 
-            <Tooltip title='Upload Materials'>
-                <Button
-                    shape="circle"
-                    icon={<IoCloudUploadOutline />}
-                ></Button>
-            </Tooltip>
+                <Tooltip title='Upload Materials'>
+                    <Button
+                        shape="circle"
+                        icon={<IoCloudUploadOutline />}
+                        onClick={() => setModalOpen(true)}
+                    ></Button>
+                </Tooltip>
+            </div>
+
+            
 
         </div>
     );

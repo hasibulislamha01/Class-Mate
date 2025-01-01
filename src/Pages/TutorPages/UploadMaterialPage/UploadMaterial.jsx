@@ -95,7 +95,7 @@ const UploadMaterial = () => {
     }
 
     return (
-        <div>
+        <div className="">
             <h1 className="text-center text-xl">Upload Materials</h1>
             <div>
                 {/* <h1> </h1> */}
