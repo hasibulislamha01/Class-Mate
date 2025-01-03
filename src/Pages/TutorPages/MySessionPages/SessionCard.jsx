@@ -14,7 +14,6 @@ import MaterialTab from './MaterialTab';
 import { Link } from 'react-router-dom';
 import { RiSendPlane2Line } from "react-icons/ri";
 import UploadMaterial from '../UploadMaterialPage/UploadMaterial';
-import { AiOutlineClose } from "react-icons/ai";
 
 const tabListNoTitle = [
     {
@@ -33,14 +32,13 @@ const tabListNoTitle = [
 
 
 
-const SessionCard = ({ mySession, refetch }) => {
+const SessionCard = ({ mySession, refetch, modalOpen, setModalOpen }) => {
 
 
     // console.log(mySession)
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
     const { theme } = useContext(AuthContext)
-    const [modalOpen, setModalOpen] = useState(false);
 
     // antD card controlling logics
     const [activeTabKey2, setActiveTabKey2] = useState('session');
@@ -196,19 +194,15 @@ const SessionCard = ({ mySession, refetch }) => {
                     tutorEmail={user?.userEmail}
                 />
             </div>
-
-
-
-            {/* <div className={`absolute h-screen w-full z-20 border-2 border-slate-700 ${isModalOpen && 'bg-slate-400'}`}>
-
-            </div> */}
         </>
     );
 };
 
 SessionCard.propTypes = {
     mySession: PropTypes.object,
-    refetch: PropTypes.func
+    refetch: PropTypes.func,
+    modalOpen: PropTypes.bool,
+    setModalOpen: PropTypes.func
 }
 
 export default SessionCard;

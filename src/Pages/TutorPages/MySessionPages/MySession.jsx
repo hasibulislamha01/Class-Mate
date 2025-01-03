@@ -2,12 +2,13 @@ import useAuth from "../../../CustomHooks/useAuth";
 import SessionCard from "./SessionCard";
 import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 import { useState } from "react";
-import UploadMaterial from "../UploadMaterialPage/UploadMaterial";
+
 
 const MySession = () => {
+
     const { user } = useAuth()
     const tutorEmail = user?.email;
-    // const [isModalOpen, setModalOpen] = useState(false)
+    const [modalOpen, setModalOpen] = useState(false);
     const queryInfo = useGetLatestData('mySessions', `/sessions/emailQuery/${tutorEmail}`)
     const mySessions = queryInfo[0]
     const refetch = queryInfo[1]
@@ -25,6 +26,8 @@ const MySession = () => {
                             key={mySession._id}
                             mySession={mySession}
                             refetch={refetch}
+                            modalOpen={modalOpen}
+                            setModalOpen={setModalOpen}
                         ></SessionCard>
                     )
                 }

@@ -1,43 +1,20 @@
-import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import { useState } from "react";
-import useAuth from "../../../CustomHooks/useAuth";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
-import toast from "react-hot-toast";
-import Swal from "sweetalert2";
 import { Button, Modal, Upload, message } from "antd";
 import { Input } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 
 
-const props = {
-    name: 'file',
-    action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
-    headers: {
-        authorization: 'authorization-text',
-    },
-    onChange(info) {
-        if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    },
-};
-
-
 const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
 
     const axiosSecure = useAxiosSecure()
     const [imageUrl, setImageUrl] = useState(null);
-    const [title, setTitle] = useState('')
     const [materialTitle, setMaterialTitle] = useState('');
     const [driveLink, setDriveLink] = useState('');
     const imgbbApiKey = import.meta.env.VITE_imgBB_api
-    console.log(imgbbApiKey);
+    // console.log(imgbbApiKey);
 
     // Handle image upload via Ant Design's Upload component
     const handleImageUpload = async (file) => {
@@ -81,6 +58,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
             tutorEmail,
             driveLink,
         };
+        console.log(materialInfo);
 
         try {
             const response = await axiosSecure.post('/materials', materialInfo);
@@ -118,25 +96,6 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
         },
     };
 
-    const testing = (event) => {
-        event.preventDefault()
-        const form = new FormData(event.target)
-        const materialTitle = form.get('title');
-        // const driveLink = form.get('driveLink');
-        materialTitle && setTitle(materialTitle)
-        // driveLink && setLink(driveLink)
-        const materialInfo = {
-            materialtitle: title,
-            // materialImage: image,
-            // sessionId,
-            // tutorEmail,
-            // driveLink: link,
-
-        }
-        materialInfo?.materialtitle && console.log(materialInfo);
-        // console.log();
-    }
-
     return (
         <div className="">
 
@@ -148,7 +107,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
                 onCancel={() => setModalOpen(false)}
             >
                 <h1 className="text-center text-lg font-bold">Upload Materials</h1>
-                <form onSubmit={testing} className="flex flex-col gap-3">
+                <form className="flex flex-col gap-3">
                     <div className="flex flex-col">
                         <label className="">Material Title</label>
                         <Input
@@ -156,8 +115,8 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
                             type="text"
                             name="title"
                             required="Enter Material Title"
-                            onChange={(e)=>{setMaterialTitle(e.target.value)}}
-                            />
+                            onChange={(e) => { setMaterialTitle(e.target.value) }}
+                        />
 
                     </div>
 
@@ -181,7 +140,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
                         <Upload {...uploadProps}>
                             <Button icon={<UploadOutlined />}>Upload Image</Button>
                         </Upload>
-                        
+
                     </div>
 
 
@@ -203,5 +162,13 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
         </div >
     );
 };
+
+UploadMaterial.propTypes = {
+    sessionId: PropTypes.string,
+    tutorEmail: PropTypes.string,
+    setModalOpen: PropTypes.func,
+    modalOpen: PropTypes.bool
+}
+
 
 export default UploadMaterial;
