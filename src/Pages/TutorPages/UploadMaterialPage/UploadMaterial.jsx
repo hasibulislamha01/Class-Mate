@@ -4,12 +4,18 @@ import useAuth from "../../../CustomHooks/useAuth";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { Button, Modal, Upload, message } from "antd";
+import { Input } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 
-const UploadMaterial = () => {
+
+
+
+const UploadMaterial = ({ setModalOpen, modalOpen }) => {
 
     const axiosSecure = useAxiosSecure()
     const query = useParams()
-    const {user} = useAuth()
+    const { user } = useAuth()
     const sessionId = query?.id
     const imgbbApi = import.meta.env.VITE_imgbb_api_key
     const tutorEmail = user?.email
@@ -55,12 +61,12 @@ const UploadMaterial = () => {
                 setImage(result.data.url)
             } else {
                 console.error('Upload failed:', result.error.message);
-       
+
             }
         } catch (error) {
             console.error('Error:', error);
-           
-            
+
+
         }
     }
 
@@ -75,69 +81,124 @@ const UploadMaterial = () => {
 
         }
         axiosSecure.post('/materials', materialInfo)
-        .then(res => {
-            console.log(res.data)
-            if(res.data?.insertedId){
-                Swal.fire({
-                    title: "Success!",
-                    text: "Material Uploaded successfully",
-                    icon: "success"
-                  });
-            }
-        })
-        .catch(error => {
-            console.error(error)
-        })
+            .then(res => {
+                console.log(res.data)
+                if (res.data?.insertedId) {
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Material Uploaded successfully",
+                        icon: "success"
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error)
+            })
     }
 
     if (image) {
         handleUploadMaterial()
     }
 
+    const props = {
+        name: 'file',
+        action: {uploadImage},
+        headers: {
+            authorization: 'authorization-text',
+        },
+        onChange(info) {
+            if (info.file.status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+    };
+
+    const testing = (event) => {
+        event.preventDefault()
+        const form = new FormData(event.target)
+        const materialTitle = form.get('title');
+        // const driveLink = form.get('driveLink');
+        materialTitle && setTitle(materialTitle)
+        // driveLink && setLink(driveLink)
+        const materialInfo = {
+            materialtitle: title,
+            // materialImage: image,
+            // sessionId,
+            // tutorEmail,
+            // driveLink: link,
+
+        }
+        materialInfo?.materialtitle && console.log(materialInfo);
+        // console.log();
+    }
+
     return (
         <div className="">
-            <h1 className="text-center text-xl">Upload Materials</h1>
-            <div>
-                {/* <h1> </h1> */}
-                <form onSubmit={uploadImage} className="flex flex-col gap-3">
-                    <div className="input-container mx-auto">
-                        <input
-                            className=""
+
+            <Modal
+                // title="Vertically centered modal dialog"
+                centered
+                open={modalOpen}
+                onOk={() => setModalOpen(false)}
+                onCancel={() => setModalOpen(false)}
+            >
+                <h1 className="text-center text-lg font-bold">Upload Materials</h1>
+                <form onSubmit={testing} className="flex flex-col gap-3">
+                    <div className="flex flex-col">
+                        <label className="">Material Title</label>
+                        <Input
+                            placeholder="Basic usage"
                             type="text"
                             name="title"
-                            required="required"
+                            required="Enter Material Title"
                         />
-                        <label className="label">Material Title</label>
+
                     </div>
 
-                    <div className="input-container mx-auto">
-                        <input
+                    <div className="">
+                        <label className="">Drive Link of Material</label>
+                        <Input
                             className=""
                             type="text"
                             name="driveLink"
                             required="required"
+                            placeholder="Enter Drive Link"
                         />
-                        <label className="label">Drive Link of Material</label>
+                        <input
+                        />
                     </div>
 
-                    <div className="input-container mx-auto">
-                        <input
+                    <div className="flex flex-col">
+
+                        <label className="">Select Image from your Computer</label>
+                        <Upload {...props}>
+                            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                        </Upload>
+                        {/* <input
                             id="imageInput"
                             className=""
                             type="file"
                             name="image"
                             required="required"
-                        />
-                        <label className="label"></label>
+                        /> */}
                     </div>
 
 
 
 
-                    <button type="submit" className="btn bg-blue-500 w-[200px] mx-auto">Upload</button>
+                    <Button
+                        htmlType="submit"
+                    >Upload</Button>
                 </form>
-            </div>
-        </div>
+            </Modal>
+
+
+        </div >
     );
 };
 

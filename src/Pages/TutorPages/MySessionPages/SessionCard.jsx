@@ -40,7 +40,7 @@ const SessionCard = ({ mySession, refetch }) => {
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
     const { theme } = useContext(AuthContext)
-    const [isModalOpen, setModalOpen] = useState(false)
+    const [modalOpen, setModalOpen] = useState(false);
 
     // antD card controlling logics
     const [activeTabKey2, setActiveTabKey2] = useState('session');
@@ -188,14 +188,14 @@ const SessionCard = ({ mySession, refetch }) => {
                 {contentListNoTitle[activeTabKey2]}
             </Card>
 
-            <div className={`absolute z-50 w-[50rem] py-20 rounded-lg ${isModalOpen ? 'block' : 'hidden'} bg-accent border border-red-400`}>
-                <UploadMaterial />
-                <div className='absolute left-[101%] bottom-[101%]'
-                    onClick={() => setModalOpen(false)}
-                >
-                    <AiOutlineClose />
-                </div>
+            <div className='hidden'>
+                <UploadMaterial
+                    modalOpen={modalOpen}
+                    setModalOpen={setModalOpen}
+                />
             </div>
+
+
 
             {/* <div className={`absolute h-screen w-full z-20 border-2 border-slate-700 ${isModalOpen && 'bg-slate-400'}`}>
 

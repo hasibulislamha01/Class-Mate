@@ -29,10 +29,6 @@ const MySession = () => {
                     )
                 }
             </div>
-
-            {/* <div className={`absolute ${isModalOpen ? 'block' : 'hidden'}`}>
-                <UploadMaterial />
-            </div> */}
         </div>
     );
 };
