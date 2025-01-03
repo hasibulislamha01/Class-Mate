@@ -192,6 +192,8 @@ const SessionCard = ({ mySession, refetch }) => {
                 <UploadMaterial
                     modalOpen={modalOpen}
                     setModalOpen={setModalOpen}
+                    sessionId={sessionId}
+                    tutorEmail={user?.userEmail}
                 />
             </div>
 

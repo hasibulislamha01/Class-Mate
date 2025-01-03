@@ -10,106 +10,106 @@ import { UploadOutlined } from '@ant-design/icons';
 
 
 
+const props = {
+    name: 'file',
+    action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
+    headers: {
+        authorization: 'authorization-text',
+    },
+    onChange(info) {
+        if (info.file.status !== 'uploading') {
+            console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+            message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === 'error') {
+            message.error(`${info.file.name} file upload failed.`);
+        }
+    },
+};
 
-const UploadMaterial = ({ setModalOpen, modalOpen }) => {
+
+const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
 
     const axiosSecure = useAxiosSecure()
-    const query = useParams()
-    const { user } = useAuth()
-    const sessionId = query?.id
-    const imgbbApi = import.meta.env.VITE_imgbb_api_key
-    const tutorEmail = user?.email
-    // console.log(tutorEmail)
-
-    const [image, setImage] = useState('')
+    const [imageUrl, setImageUrl] = useState(null);
     const [title, setTitle] = useState('')
-    const [link, setLink] = useState('')
-    console.log(image, title, link)
+    const [materialTitle, setMaterialTitle] = useState('');
+    const [driveLink, setDriveLink] = useState('');
+    const imgbbApiKey = import.meta.env.VITE_imgBB_api
+    console.log(imgbbApiKey);
 
-    async function uploadImage(event) {
-        event.preventDefault()
-        const form = new FormData(event.target)
-        const materialTitle = form.get('title');
-        const driveLink = form.get('driveLink');
-        materialTitle && setTitle(materialTitle)
-        driveLink && setLink(driveLink)
-        const apiKey = imgbbApi; // Replace with your ImgBB API key
-        const input = document.getElementById('imageInput');
-        console.log(input)
-        const file = input.files[0];
-        console.log('file :', file)
-
-        if (!file) {
-            return;
-        }
-
+    // Handle image upload via Ant Design's Upload component
+    const handleImageUpload = async (file) => {
         const formData = new FormData();
         formData.append('image', file);
 
         try {
-            const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+            const response = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
                 method: 'POST',
-                body: formData
+                body: formData,
             });
 
             const result = await response.json();
-            console.log(result)
 
             if (result.success) {
-                console.log('Image URL:', result.data.url);
-                toast.success('Image Uploaded')
-                setImage(result.data.url)
+                setImageUrl(result.data.url);
+                message.success('Image uploaded successfully!');
+                return true;
             } else {
-                console.error('Upload failed:', result.error.message);
-
+                message.error(`Image upload failed: ${result.error.message}`);
+                return false;
             }
         } catch (error) {
-            console.error('Error:', error);
-
-
+            console.error('Error during image upload:', error);
+            message.error('Image upload failed.');
+            return false;
         }
-    }
+    };
 
-    const handleUploadMaterial = () => {
-        // event.preventDefault()
+    // Handle material upload to your backend
+    const handleMaterialUpload = async () => {
+        if (!materialTitle || !driveLink || !imageUrl) {
+            message.error('Please fill in all fields before submitting.');
+            return;
+        }
+
         const materialInfo = {
-            materialtitle: title,
-            materialImage: image,
+            materialtitle: materialTitle,
+            materialImage: imageUrl,
             sessionId,
             tutorEmail,
-            driveLink: link,
+            driveLink,
+        };
 
+        try {
+            const response = await axiosSecure.post('/materials', materialInfo);
+
+            if (response.data?.insertedId) {
+                message.success('Material uploaded successfully!');
+            } else {
+                message.error('Material upload failed.');
+            }
+        } catch (error) {
+            console.error('Error during material upload:', error);
+            message.error('Material upload failed.');
         }
-        axiosSecure.post('/materials', materialInfo)
-            .then(res => {
-                console.log(res.data)
-                if (res.data?.insertedId) {
-                    Swal.fire({
-                        title: "Success!",
-                        text: "Material Uploaded successfully",
-                        icon: "success"
-                    });
-                }
-            })
-            .catch(error => {
-                console.error(error)
-            })
-    }
+    };
 
-    if (image) {
-        handleUploadMaterial()
-    }
-
-    const props = {
+    // Ant Design Upload props
+    const uploadProps = {
         name: 'file',
-        action: {uploadImage},
-        headers: {
-            authorization: 'authorization-text',
+        multiple: false,
+        customRequest: async ({ file, onSuccess, onError }) => {
+            const success = await handleImageUpload(file);
+
+            if (success) {
+                onSuccess('ok');
+            } else {
+                onError(new Error('Image upload failed.'));
+            }
         },
         onChange(info) {
-            if (info.file.status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
             if (info.file.status === 'done') {
                 message.success(`${info.file.name} file uploaded successfully`);
             } else if (info.file.status === 'error') {
@@ -156,7 +156,8 @@ const UploadMaterial = ({ setModalOpen, modalOpen }) => {
                             type="text"
                             name="title"
                             required="Enter Material Title"
-                        />
+                            onChange={(e)=>{setMaterialTitle(e.target.value)}}
+                            />
 
                     </div>
 
@@ -168,6 +169,7 @@ const UploadMaterial = ({ setModalOpen, modalOpen }) => {
                             name="driveLink"
                             required="required"
                             placeholder="Enter Drive Link"
+                            onChange={(e) => setDriveLink(e.target.value)}
                         />
                         <input
                         />
@@ -176,24 +178,24 @@ const UploadMaterial = ({ setModalOpen, modalOpen }) => {
                     <div className="flex flex-col">
 
                         <label className="">Select Image from your Computer</label>
-                        <Upload {...props}>
-                            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                        <Upload {...uploadProps}>
+                            <Button icon={<UploadOutlined />}>Upload Image</Button>
                         </Upload>
-                        {/* <input
-                            id="imageInput"
-                            className=""
-                            type="file"
-                            name="image"
-                            required="required"
-                        /> */}
+                        
                     </div>
 
 
 
 
                     <Button
+                        type="primary"
                         htmlType="submit"
-                    >Upload</Button>
+                        onClick={handleMaterialUpload}
+                        disabled={!imageUrl || !materialTitle || !driveLink}
+                    >
+                        Submit Material
+                    </Button>
+
                 </form>
             </Modal>
 
