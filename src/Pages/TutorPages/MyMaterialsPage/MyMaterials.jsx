@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 import useAuth from "../../../CustomHooks/useAuth";
 import MaterialsCard from "./MaterialsCard";
 import { Button } from "antd";
+import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 
 const MyMaterials = () => {
 
@@ -10,6 +11,7 @@ const MyMaterials = () => {
     const axiosSecure = useAxiosSecure()
     const [materials, setMaterials] = useState()
     const tutorEmail = user?.email
+    const [latestMaterials] = useGetLatestData("materials", `/materials/${tutorEmail && tutorEmail}`)
 
     useEffect(() => {
         axiosSecure.get(`/materials/${tutorEmail}`)
@@ -21,7 +23,7 @@ const MyMaterials = () => {
                 console.error(error.message)
             })
     }, [tutorEmail, axiosSecure])
-    console.log(materials)
+    console.log(materials, latestMaterials)
 
     return (
         <div className="min-h-screen">
@@ -44,7 +46,7 @@ const MyMaterials = () => {
                     <div className="h-[60vh] flex flex-col items-center justify-center gap-10">
                         <h1 className="text font-semibold text-red-500">You have not uploaded any materials yet</h1>
                         <Button className="bg-secondary border-secondary">
-                            <button>Upload Now</button>
+                            Upload Now
                         </Button>
                     </div>
             }

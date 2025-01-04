@@ -13,7 +13,6 @@ import { AuthContext } from '../../../Components/Auth/AuthProvider';
 import MaterialTab from './MaterialTab';
 import { Link } from 'react-router-dom';
 import { RiSendPlane2Line } from "react-icons/ri";
-import UploadMaterial from '../UploadMaterialPage/UploadMaterial';
 
 const tabListNoTitle = [
     {
@@ -32,7 +31,7 @@ const tabListNoTitle = [
 
 
 
-const SessionCard = ({ mySession, refetch, modalOpen, setModalOpen }) => {
+const SessionCard = ({ mySession, refetch, setModalOpen, setSessionId }) => {
 
 
     // console.log(mySession)
@@ -52,7 +51,7 @@ const SessionCard = ({ mySession, refetch, modalOpen, setModalOpen }) => {
     const sessionTitle = mySession?.sessionTitle
     const status = mySession?.status
     const sessionImage = mySession?.sessionImage
-
+    sessionId && setSessionId(sessionId)
 
     const renderTabContent = (content) => (
         <div className="flex flex-col md:flex-row items-center gap-4">
@@ -186,14 +185,6 @@ const SessionCard = ({ mySession, refetch, modalOpen, setModalOpen }) => {
                 {contentListNoTitle[activeTabKey2]}
             </Card>
 
-            <div className='hidden'>
-                <UploadMaterial
-                    modalOpen={modalOpen}
-                    setModalOpen={setModalOpen}
-                    sessionId={sessionId}
-                    tutorEmail={user?.userEmail}
-                />
-            </div>
         </>
     );
 };
@@ -202,7 +193,8 @@ SessionCard.propTypes = {
     mySession: PropTypes.object,
     refetch: PropTypes.func,
     modalOpen: PropTypes.bool,
-    setModalOpen: PropTypes.func
+    setModalOpen: PropTypes.func,
+    setSessionId: PropTypes.func
 }
 
 export default SessionCard;

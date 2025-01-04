@@ -9,6 +9,7 @@ import { UploadOutlined } from '@ant-design/icons';
 
 const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
 
+    // console.log(tutorEmail);
     const axiosSecure = useAxiosSecure()
     const [imageUrl, setImageUrl] = useState(null);
     const [materialTitle, setMaterialTitle] = useState('');
@@ -30,6 +31,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
             const result = await response.json();
 
             if (result.success) {
+                console.log(result.data.url);
                 setImageUrl(result.data.url);
                 message.success('Image uploaded successfully!');
                 return true;
@@ -65,6 +67,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
 
             if (response.data?.insertedId) {
                 message.success('Material uploaded successfully!');
+                setModalOpen(false)
             } else {
                 message.error('Material upload failed.');
             }
@@ -107,7 +110,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
                 onCancel={() => setModalOpen(false)}
             >
                 <h1 className="text-center text-lg font-bold">Upload Materials</h1>
-                <form className="flex flex-col gap-3">
+                <form className="flex flex-col gap-5">
                     <div className="flex flex-col">
                         <label className="">Material Title</label>
                         <Input
@@ -130,8 +133,6 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
                             placeholder="Enter Drive Link"
                             onChange={(e) => setDriveLink(e.target.value)}
                         />
-                        <input
-                        />
                     </div>
 
                     <div className="flex flex-col">
@@ -148,7 +149,6 @@ const UploadMaterial = ({ sessionId, tutorEmail, setModalOpen, modalOpen }) => {
 
                     <Button
                         type="primary"
-                        htmlType="submit"
                         onClick={handleMaterialUpload}
                         disabled={!imageUrl || !materialTitle || !driveLink}
                     >
