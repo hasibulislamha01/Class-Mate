@@ -7,7 +7,7 @@ import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useTodaysDate from '../../../CustomHooks/useTodaysDate';
 import { useState } from 'react';
-import { Input } from 'antd';
+import { Button, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
 const CreateSession = () => {
@@ -21,16 +21,37 @@ const CreateSession = () => {
     const applyingDate = useTodaysDate()
     const [loading, setLoading] = useState(false)
     const [sessionTitle, setSessionTitle] = useState('')
-    const [duration, setDuration] = useState('')
+    const [duration, setDuration] = useState(null)
     const [description, setDescription] = useState('')
-    const [registrationStarts, setRegStart] = useState('')
-    const [registrationEnds, setRegEnd] = useState('')
-    const [classStarts, setClassStart] = useState('')
-    const [classEnds, setClassEnds] = useState('')
+    const [registrationStarts, setRegStart] = useState(null)
+    const [registrationEnds, setRegEnd] = useState(null)
+    const [classStarts, setClassStart] = useState(null)
+    const [classEnds, setClassEnds] = useState(null)
     const [sessionImage, setSessionImage] = useState('')
+    const [ready, setReady] = useState(false)
     const registrationFee = '0';
     const status = 'pending'
 
+    if (
+        !sessionTitle || !duration || !description || !registrationStarts || !registrationEnds || !classStarts || !classEnds || !sessionImage
+    ) {
+        () => setReady(false)
+    }
+    else {
+        () => setReady(true)
+    }
+    console.log(
+        {
+            sessionTitle,
+            duration,
+            sessionImage,
+            registrationStarts,
+            registrationEnds,
+            classStarts,
+            classEnds,
+            description
+        }
+        , ready);
 
 
     const handleCreateSession = (event) => {
@@ -87,87 +108,78 @@ const CreateSession = () => {
             <div>
                 <ClassAnimation></ClassAnimation>
             </div>
-            <div className="">
-                <h1 className="text-center text-3xl my-6"> Create Session </h1>
-                <form onSubmit={handleCreateSession} className="w-full flex flex-col items-center justify-center space-y-6">
+            <div className="px-2 md:px-3 lg:px-6">
+                <h1 className="text-center text-xl font-bold text-primary my-6"> Create Session </h1>
+                <form onSubmit={handleCreateSession} className="w-full flex flex-col space-y-6">
 
-                    <div className="w-full flex items-center gap-4">
-                        <div className="">
-                            <label className="">Session Title</label>
-                            <Input
-                                placeholder='Enter Session Title'
-                                type='text'
-                                name='title'
-                                required='Enter Session Title'
-                                onChange={(e) => { setSessionTitle(e.target.value) }}
-                            />
-
-                        </div>
-
-                        <div className="">
-                            <Input
-                                placeholder='Duration'
-                                type='number'
-                                name='title'
-                                required='Enter Session Title'
-                                onChange={(e) => { setSessionTitle(e.target.value) }}
-                            />
-                        </div>
-                    </div>
 
                     <div className="">
+                        <label className="">Session Title</label>
                         <Input
+                            placeholder='Enter Session Title'
                             type='text'
-                            placeholder='Image of the session'
                             name='title'
                             required='Enter Session Title'
                             onChange={(e) => { setSessionTitle(e.target.value) }}
                         />
-                        <label className="">Add an image of the session</label>
+
                     </div>
 
-                    <div className="w">
+                    <div className="">
+                        <label htmlFor="">Session Duration in hours</label>
+                        <Input
+                            placeholder='Duration (hours)'
+                            type='number'
+                            name='duration'
+                            required='Enter duration'
+                            onChange={(e) => { setDuration(e.target.value) }}
+                        />
+                    </div>
+
+
+                    <div className="">
+                        <label className="">Add an image of the session</label>
+                        <Input
+                            type='text'
+                            placeholder='Image link of the session'
+                            name='title'
+                            required='Enter Session Title'
+                            onChange={(e) => { setSessionImage(e.target.value) }}
+                        />
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label htmlFor="">Registration starting and ending date</label>
+                        <Datefield
+                            name={'regStarts'}
+                            label={'Registration Starts'}
+                            setStart={setRegStart}
+                            setEnd={setRegEnd}
+                        ></Datefield>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label htmlFor="">Class starting and ending date</label>
+                        <Datefield
+                            name={'classEnds'}
+                            label={'Class Ends'}
+                        ></Datefield>
+                    </div>
+
+                    <div className="">
+                        <label className="">Description</label>
                         <TextArea
                             name='description'
                             required
                             placeholder='Describe you session '
                             size={50}
                         />
-                        <label className="">Session Description</label>
-                    </div>
-
-                    <div className="flex items-center gap-4">
-
-                        <Datefield
-                            name={'regStarts'}
-                            label={'Registration Starts'}
-                        ></Datefield>
-
-                        <Datefield
-                            name={'regEnds'}
-                            label={'Registration Ends'}
-                        ></Datefield>
-
-                    </div>
-
-                    <div className="flex items-center gap-4">
-
-                        <Datefield
-                            name={'classStarts'}
-                            label={'Class Starts'}
-                        ></Datefield>
-
-                        <Datefield
-                            name={'classEnds'}
-                            label={'Class Ends'}
-                        ></Datefield>
-
                     </div>
 
 
-
-
-                    <button type="submit" className="btn btn-block" disabled={loading}>
+                    <Button
+                        disabled={!ready}
+                        className="">
                         {
                             loading ?
                                 <p>
@@ -179,7 +191,7 @@ const CreateSession = () => {
                                     Create Session
                                 </p>
                         }
-                    </button>
+                    </Button>
                 </form>
 
             </div>
