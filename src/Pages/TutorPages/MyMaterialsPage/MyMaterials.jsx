@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 import useAuth from "../../../CustomHooks/useAuth";
 import MaterialsCard from "./MaterialsCard";
 import { Button } from "antd";
@@ -8,22 +6,11 @@ import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 const MyMaterials = () => {
 
     const { user } = useAuth()
-    const axiosSecure = useAxiosSecure()
-    const [materials, setMaterials] = useState()
     const tutorEmail = user?.email
-    const [latestMaterials] = useGetLatestData("materials", `/materials/${tutorEmail && tutorEmail}`)
+    const [materials] = useGetLatestData("materials", `/materials/${tutorEmail && tutorEmail}`)
 
-    useEffect(() => {
-        axiosSecure.get(`/materials/${tutorEmail}`)
-            .then(response => {
-                // console.log(response.data)
-                setMaterials(response.data)
-            })
-            .catch(error => {
-                console.error(error.message)
-            })
-    }, [tutorEmail, axiosSecure])
-    console.log(materials, latestMaterials)
+
+    // console.log(materials)
 
     return (
         <div className="min-h-screen">

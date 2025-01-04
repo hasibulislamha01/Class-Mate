@@ -7,6 +7,8 @@ import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useTodaysDate from '../../../CustomHooks/useTodaysDate';
 import { useState } from 'react';
+import { Input } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 
 const CreateSession = () => {
 
@@ -18,6 +20,17 @@ const CreateSession = () => {
     const tutorPhoto = user?.photoURL
     const applyingDate = useTodaysDate()
     const [loading, setLoading] = useState(false)
+    const [sessionTitle, setSessionTitle] = useState('')
+    const [duration, setDuration] = useState('')
+    const [description, setDescription] = useState('')
+    const [registrationStarts, setRegStart] = useState('')
+    const [registrationEnds, setRegEnd] = useState('')
+    const [classStarts, setClassStart] = useState('')
+    const [classEnds, setClassEnds] = useState('')
+    const [sessionImage, setSessionImage] = useState('')
+    const registrationFee = '0';
+    const status = 'pending'
+
 
 
     const handleCreateSession = (event) => {
@@ -32,8 +45,6 @@ const CreateSession = () => {
         const classStarts = form.classStarts.value;
         const classEnds = form.classEnds.value;
         const sessionImage = form.sessionImage.value;
-        const registrationFee = '0';
-        const status = 'pending'
 
         const sessionInfo = {
             sessionTitle,
@@ -81,44 +92,48 @@ const CreateSession = () => {
                 <form onSubmit={handleCreateSession} className="w-full flex flex-col items-center justify-center space-y-6">
 
                     <div className="w-full flex items-center gap-4">
-                        <div className="input-container mx-auto">
-                            <input
-                                className=""
-                                type="text"
-                                name="sessionTitle"
-                                required="required"
+                        <div className="">
+                            <label className="">Session Title</label>
+                            <Input
+                                placeholder='Enter Session Title'
+                                type='text'
+                                name='title'
+                                required='Enter Session Title'
+                                onChange={(e) => { setSessionTitle(e.target.value) }}
                             />
-                            <label className="label">Session Title</label>
+
                         </div>
 
-                        <div className="input-container mx-auto">
-                            <input
-                                className=""
-                                type="number"
-                                name="duration"
-                                required="required"
+                        <div className="">
+                            <Input
+                                placeholder='Duration'
+                                type='number'
+                                name='title'
+                                required='Enter Session Title'
+                                onChange={(e) => { setSessionTitle(e.target.value) }}
                             />
-                            <label className="label">Duration in hours</label>
                         </div>
                     </div>
 
-                    <div className="wide-input-container mx-auto border">
-                        <input
-                            className=""
-                            type="text"
-                            name="sessionImage"
-                            required="required"
+                    <div className="">
+                        <Input
+                            type='text'
+                            placeholder='Image of the session'
+                            name='title'
+                            required='Enter Session Title'
+                            onChange={(e) => { setSessionTitle(e.target.value) }}
                         />
-                        <label className="label">Add an image of the session</label>
+                        <label className="">Add an image of the session</label>
                     </div>
 
-                    <div className="w-full mx-auto big-input-container">
-                        <textarea
+                    <div className="w">
+                        <TextArea
                             name='description'
-                            className=''
                             required
-                        ></textarea>
-                        <label className="label">Session Description</label>
+                            placeholder='Describe you session '
+                            size={50}
+                        />
+                        <label className="">Session Description</label>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -154,15 +169,15 @@ const CreateSession = () => {
 
                     <button type="submit" className="btn btn-block" disabled={loading}>
                         {
-                            loading ? 
-                            <p>
-                                Creating Session
-                                <span className="loading loading-dots loading-sm"></span>
-                            </p>
-                            : 
-                            <p>
-                                Create Session
-                            </p>
+                            loading ?
+                                <p>
+                                    Creating Session
+                                    <span className="loading loading-dots loading-sm"></span>
+                                </p>
+                                :
+                                <p>
+                                    Create Session
+                                </p>
                         }
                     </button>
                 </form>

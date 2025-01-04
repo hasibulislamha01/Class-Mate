@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 
 const MaterialTab = ({ setModalOpen }) => {
 
-    console.log(setModalOpen);
+    // console.log(setModalOpen);
     const iterableItems = [
         { itemName: 'Uploaded', itemValue: '2', unit: 'materials' },
         { itemName: 'Requests', itemValue: '3' },

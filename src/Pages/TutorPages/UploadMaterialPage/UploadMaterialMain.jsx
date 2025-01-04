@@ -21,13 +21,14 @@ const UploadMaterialMain = () => {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {
-                    mySessions?.map(mySession =>
-                        <SessionCard
-                            key={mySession._id}
-                            mySession={mySession}
-                            refetch={refetch}
-                        ></SessionCard>
-                    )
+                    // mySessions?.map(mySession =>
+                    //     <SessionCard
+                    //         key={mySession._id}
+                    //         mySession={mySession}
+                    //         refetch={refetch}
+                    //     ></SessionCard>
+                    // )
+                    'thinking to add something here'
                 }
             </div>
         </div>
