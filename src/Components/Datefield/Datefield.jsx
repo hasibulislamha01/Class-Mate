@@ -10,8 +10,8 @@ const Datefield = ({ setStart, setEnd }) => {
 
     const handleDateChange = (dates) => {
 
-        const startingDate = dates && dates[0] ? dayjs(dates[0]).format('YYYY-MM-DD') : null;
-        const endingDate = dates && dates[1] ? dayjs(dates[1]).format('YYYY-MM-DD') : null;
+        const startingDate = dates && dates[0] ? dayjs(dates[0]).format('MM-DD-YYYY') : null;
+        const endingDate = dates && dates[1] ? dayjs(dates[1]).format('MM-DD-YYYY') : null;
 
         if (dates) {
             setStart(startingDate)

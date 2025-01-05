@@ -6,7 +6,7 @@ const useFormateDate = ( date ) => {
         return
     }
     // Split the date string based on the double hyphen separator
-    const [month, day, year] = date.split('/');
+    const [month, day, year] = date.split('/' || '-');
 
     // Create a valid date string for the Date constructor
     const validDateString = `${year}-${month}-${day}`;

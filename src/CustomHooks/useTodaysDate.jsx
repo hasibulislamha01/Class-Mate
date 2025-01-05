@@ -9,7 +9,7 @@ const useTodaysDate = () => {
         const year = today.getFullYear();
         const month = today.getMonth() + 1;
         const day = today.getDate();
-        const formattedDate = `${year}-${month}-${day}`;
+        const formattedDate = `${month}/${day}/${year}`;
         // console.log(formattedDate);
         setDate(formattedDate);
     }, [])
