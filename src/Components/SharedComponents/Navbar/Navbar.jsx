@@ -7,6 +7,10 @@ import { useEffect, useState } from "react";
 import './Navbar.css'
 import ThemeController from "../../ThemeController";
 import useAxiosPublic from "../../../CustomHooks/useAxiosPublic";
+import { Button, Dropdown } from "antd";
+
+
+
 
 const Navbar = () => {
 
@@ -28,6 +32,34 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
 
     }, [])
+
+    const items = [
+        {
+            key: '1',
+            label: (
+                <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+                    1st menu item
+                </a>
+            ),
+        },
+        {
+            key: '2',
+            label: (
+                <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+                    2nd menu item
+                </a>
+            ),
+        },
+        {
+            key: '3',
+            label: (
+                <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+                    3rd menu item
+                </a>
+            ),
+        }
+    ]
+
 
 
     useEffect(() => {
@@ -167,21 +199,24 @@ const Navbar = () => {
 
                 <div className="ml-5 flex items-center gap-2">
                     <ThemeController />
+                    <Dropdown menu={{ items }} placement="bottom" arrow>
+                    
                     {
                         user ?
                             <img id='userImage' src={userImage} alt="user image" className="h-8 w-8 rounded-full" />
                             :
                             <img id='userImage' src="/avatar.gif" alt="avatar svg image" className="h-8 w-8 rounded-full" />
                     }
+                    </Dropdown>
 
                 </div>
 
             </div>
 
             {/* user controlls dropdown */}
-            <div id="dropdown" className="absolute top-[85%] left-[83%] hidden w-[150px] rounded-[7px] bg-sky-200 text-primary space-y-2 py-2 px-2">
+            <div className="">
 
-                {
+                {/* {
                     user ?
                         <>
                             <button
@@ -207,7 +242,7 @@ const Navbar = () => {
                                 Login
                             </button>
                         </NavLink>
-                }
+                } */}
 
             </div>
 
