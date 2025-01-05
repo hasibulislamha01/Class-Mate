@@ -1,33 +1,43 @@
-import { useState } from "react";
 import { DatePicker } from 'antd';
-import PropTypes from 'prop-types'
-// import dayjs from 'dayjs';
-import useTodaysDate from "../../CustomHooks/useTodaysDate";
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 
 
 const { RangePicker } = DatePicker;
-// const disabledDate = (current) => {
-//     // Can not select days before today and today
-//     return current && current < dayjs().endOf('day');
-// };
 
 const Datefield = ({ setStart, setEnd }) => {
-    const today = useTodaysDate
-    const [startDate, setStartDate] = useState(null)
-    console.log(startDate, today,);
+
+
+    const handleDateChange = (dates) => {
+
+        const startingDate = dates && dates[0] ? dayjs(dates[0]).format('YYYY-MM-DD') : null;
+        const endingDate = dates && dates[1] ? dayjs(dates[1]).format('YYYY-MM-DD') : null;
+
+        if (dates) {
+            setStart(startingDate)
+            setEnd(endingDate)
+        }
+    };
+
+    const disabledDate = (current) => {
+        // Can not select days before today and today
+        return current && current < dayjs().endOf('day');
+    };
+
 
     return (
-        <div className="">
-            <RangePicker
-                onchange={(e) => setStartDate(e.target.value)}
-            />
-        </div>
+
+        <RangePicker
+            onChange={handleDateChange}
+            disabledDate={disabledDate}
+        />
+
     );
 };
 
 Datefield.propTypes = {
-    name: PropTypes.string,
-    label: PropTypes.string
-}
+    setStart: PropTypes.func.isRequired,
+    setEnd: PropTypes.func.isRequired,
+};
 
 export default Datefield;

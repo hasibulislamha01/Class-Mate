@@ -1,6 +1,5 @@
 
 import 'react-datepicker/dist/react-datepicker.css'
-import ClassAnimation from "../../../Components/AnimationComponents/ClassAnimation";
 import Datefield from "../../../Components/Datefield/Datefield";
 import useAuth from '../../../CustomHooks/useAuth';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
@@ -15,6 +14,7 @@ const CreateSession = () => {
     const axiosSecure = useAxiosSecure()
 
     const { user } = useAuth()
+    const todayDate = useTodaysDate()
     const tutorName = user?.displayName;
     const tutorEmail = user?.email
     const tutorPhoto = user?.photoURL
@@ -49,7 +49,13 @@ const CreateSession = () => {
             registrationEnds,
             classStarts,
             classEnds,
-            description
+            description,
+            tutorName,
+            tutorEmail,
+            tutorPhoto,
+            registrationFee: 0,
+            status: 'pending',
+            applyingDate: todayDate
         }
         , ready);
 
@@ -106,7 +112,7 @@ const CreateSession = () => {
     return (
         <div className="min-h-screen flex flex-col-reverse lg:flex-row justify-evenly items-center">
             <div>
-                <ClassAnimation></ClassAnimation>
+                some svg or logo
             </div>
             <div className="px-2 md:px-3 lg:px-6">
                 <h1 className="text-center text-xl font-bold text-primary my-6"> Create Session </h1>
@@ -151,8 +157,6 @@ const CreateSession = () => {
                     <div className="flex flex-col">
                         <label htmlFor="">Registration starting and ending date</label>
                         <Datefield
-                            name={'regStarts'}
-                            label={'Registration Starts'}
                             setStart={setRegStart}
                             setEnd={setRegEnd}
                         ></Datefield>
@@ -161,8 +165,8 @@ const CreateSession = () => {
                     <div className="flex flex-col">
                         <label htmlFor="">Class starting and ending date</label>
                         <Datefield
-                            name={'classEnds'}
-                            label={'Class Ends'}
+                            setStart={setClassStart}
+                            setEnd={setClassEnds}
                         ></Datefield>
                     </div>
 
@@ -173,6 +177,7 @@ const CreateSession = () => {
                             required
                             placeholder='Describe you session '
                             size={50}
+                            onChange={(e)=>{setDescription(e.target.value)}}
                         />
                     </div>
 
