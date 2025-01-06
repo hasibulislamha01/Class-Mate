@@ -9,6 +9,7 @@ import { CiGrid41 } from "react-icons/ci";
 import { CiViewTable } from "react-icons/ci";
 import TableView from "./TableView";
 import { useNavigate } from "react-router-dom";
+import Pagination from "./Pagination";
 
 
 
@@ -143,9 +144,7 @@ const AllSessionsPage = () => {
                 }
             </div>
 
-            <div className="mt-10 w-full border border-red-400">
-                pagination
-            </div>
+            <Pagination />
 
         </div>
     );
