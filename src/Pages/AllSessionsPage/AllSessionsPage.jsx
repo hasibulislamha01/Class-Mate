@@ -9,7 +9,7 @@ import { CiGrid41 } from "react-icons/ci";
 import { CiViewTable } from "react-icons/ci";
 import TableView from "./TableView";
 import { useNavigate } from "react-router-dom";
-import Pagination from "./Pagination";
+import ShowPagination from "./ShowPagination";
 
 
 
@@ -117,10 +117,15 @@ const AllSessionsPage = () => {
             <div className={isGridView ? 'block mx-auto' : 'hidden'}>
                 {
                     loading ?
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center">
+                        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6 place-items-center">
                             <CardSkeleton />
                             <CardSkeleton />
                             <CardSkeleton />
+                            {
+                                <div className="hidden xl:block">
+                                    <CardSkeleton />
+                                </div>
+                            }
                         </div>
                         :
                         <GridView sessions={sessions} handleRedirect={handleRedirect} />
@@ -144,7 +149,10 @@ const AllSessionsPage = () => {
                 }
             </div>
 
-            <Pagination />
+            <div className="my-8 md:my-10 xl:my-12">
+
+                <ShowPagination />
+            </div>
 
         </div>
     );
