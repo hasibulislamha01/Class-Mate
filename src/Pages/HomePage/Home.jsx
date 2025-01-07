@@ -2,7 +2,7 @@ import { Toaster } from "react-hot-toast";
 import AllSessions from "./AllSessions";
 import Banner from "../../Components/Banner/Banner";
 import OurTutors from "./OurTutors";
-import About from "./About";
+import Features from "./Features";
 
 const Home = () => {
     return (
@@ -12,7 +12,7 @@ const Home = () => {
                 <Banner></Banner>
             </div>
             <div className="container mx-auto my-16">
-                <About/>
+                <Features />
                 <AllSessions></AllSessions>
                 <OurTutors></OurTutors>
             </div>
