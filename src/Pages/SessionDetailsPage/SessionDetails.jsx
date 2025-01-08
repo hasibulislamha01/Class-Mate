@@ -129,32 +129,30 @@ const SessionDetails = () => {
 
                             <div className=" text-center space-y-5">
 
-                                <div className="grid grid-cols-2 gap-4">
-                                    
-                                    <Col>
-                                        <Card title="Registration Strats" bordered={false}>
-                                            {regStarts}
-                                        </Card>
-                                    </Col>
-                                    <Col >
-                                        <Card title="Registration Ends" bordered={false}>
-                                            {regEnds}
-                                        </Card>
-                                    </Col>
-                                    {/* </Row> */}
+                                <div className="">
 
-                                    {/* <Row className="flex"> */}
-                                    <Col>
-                                        <Card title="Class Strats" bordered={false}>
-                                            {classStarts}
-                                        </Card>
-                                    </Col>
-                                    <Col >
-                                        <Card title="Class Ends" bordered={false}>
-                                            {classEnds}
-                                        </Card>
-                                    </Col>
-                                    {/* </Row> */}
+                                    <h1 className="text-lg font-bold">{sessionTitle}</h1>
+
+                                    {/* <Card title="Registration Strats" bordered={false}>
+                                        {regStarts}
+                                    </Card>
+
+
+                                    <Card title="Registration Ends" bordered={false}>
+                                        {regEnds}
+                                    </Card>
+
+                                    
+
+                                    <Card title="Class Strats" bordered={false}>
+                                        {classStarts}
+                                    </Card>
+
+
+                                    <Card title="Class Ends" bordered={false}>
+                                        {classEnds}
+                                    </Card> */}
+
                                 </div>
 
                                 <div className="space-y-2">

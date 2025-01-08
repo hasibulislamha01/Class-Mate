@@ -3,6 +3,7 @@ import AllSessions from "./AllSessions";
 import Banner from "../../Components/Banner/Banner";
 import OurTutors from "./OurTutors";
 import Features from "./Features";
+import HowItWorks from "./HowItWorks";
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
             <div className="container mx-auto my-16">
                 <Features />
                 <AllSessions></AllSessions>
+                <HowItWorks/>
                 <OurTutors></OurTutors>
             </div>
         </div>

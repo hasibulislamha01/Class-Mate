@@ -78,7 +78,7 @@ const AllSessions = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center space-y-6 lg:space-y-12 mt-12 lg:mt-24">
-            <h1 className="text-xl xl:text-2xl font-bold text-center ">All Sessions</h1>
+            <h1 className="text-xl xl:text-2xl font-bold text-center ">Explore Yourself</h1>
 
             {
                 !sessions ?
