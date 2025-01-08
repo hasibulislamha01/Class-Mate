@@ -104,6 +104,7 @@ const AllSessions = () => {
 
             <Link to='/sessions'>
                 <Button
+                className="h-10 bg-primary/10 text-lg font-bold text-primary border-none hover:scale-[98%] shadow-lg dark:shadow-dark-accent"
                 >
                     Browse more sessions
                 </Button>
