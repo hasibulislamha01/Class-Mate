@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../../CustomHooks/useAuth";
 import toast from "react-hot-toast";
 import useUserRole from "../../../CustomHooks/useUserRole";
@@ -7,7 +7,10 @@ import { useEffect, useState } from "react";
 import './Navbar.css'
 import ThemeController from "../../ThemeController";
 import useAxiosPublic from "../../../CustomHooks/useAxiosPublic";
-import { Button, Dropdown } from "antd";
+import { Dropdown } from "antd";
+import { AiOutlineLogin } from "react-icons/ai";
+import { VscSaveAs } from "react-icons/vsc";
+import { RxAvatar } from "react-icons/rx";
 
 
 
@@ -33,70 +36,42 @@ const Navbar = () => {
 
     }, [])
 
-    const items = [
-        {
-            key: '1',
-            label: (
-                <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-                    1st menu item
-                </a>
-            ),
-        },
-        {
-            key: '2',
-            label: (
-                <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-                    2nd menu item
-                </a>
-            ),
-        },
-        {
-            key: '3',
-            label: (
-                <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-                    3rd menu item
-                </a>
-            ),
-        }
-    ]
 
+    // useEffect(() => {
+    //     const userControlls = document.getElementById('userImage');
+    //     const dropdown = document.getElementById('dropdown');
 
+    //     const showDropDown = () => {
+    //         dropdown.classList.remove('hidden');
+    //     };
 
-    useEffect(() => {
-        const userControlls = document.getElementById('userImage');
-        const dropdown = document.getElementById('dropdown');
+    //     const hideDropDown = () => {
+    //         dropdown.classList.add('hidden');
+    //     };
 
-        const showDropDown = () => {
-            dropdown.classList.remove('hidden');
-        };
+    //     if (userControlls) {
+    //         userControlls.addEventListener('mouseover', showDropDown);
+    //     }
 
-        const hideDropDown = () => {
-            dropdown.classList.add('hidden');
-        };
+    //     if (dropdown) {
+    //         // Keep the dropdown visible when hovering over it
+    //         dropdown.addEventListener('mouseover', showDropDown);
 
-        if (userControlls) {
-            userControlls.addEventListener('mouseover', showDropDown);
-        }
+    //         // Hide dropdown when the mouse leaves the dropdown area
+    //         dropdown.addEventListener('mouseleave', hideDropDown);
+    //     }
 
-        if (dropdown) {
-            // Keep the dropdown visible when hovering over it
-            dropdown.addEventListener('mouseover', showDropDown);
-
-            // Hide dropdown when the mouse leaves the dropdown area
-            dropdown.addEventListener('mouseleave', hideDropDown);
-        }
-
-        // Cleanup event listeners
-        return () => {
-            if (userControlls) {
-                userControlls.removeEventListener('mouseover', showDropDown);
-            }
-            if (dropdown) {
-                dropdown.removeEventListener('mouseover', showDropDown);
-                dropdown.removeEventListener('mouseleave', hideDropDown);
-            }
-        };
-    }, []);
+    //     // Cleanup event listeners
+    //     return () => {
+    //         if (userControlls) {
+    //             userControlls.removeEventListener('mouseover', showDropDown);
+    //         }
+    //         if (dropdown) {
+    //             dropdown.removeEventListener('mouseover', showDropDown);
+    //             dropdown.removeEventListener('mouseleave', hideDropDown);
+    //         }
+    //     };
+    // }, []);
 
 
     // logout function
@@ -166,7 +141,55 @@ const Navbar = () => {
 
     ]
 
-    // if(isSticky && )
+    const userItems = [
+        {
+            key: '1',
+            label: (
+                <button onClick={handleLogout}>
+                    Logout
+                </button>
+            ),
+
+        },
+        {
+            key: '2',
+            label: (
+                <button>
+                    Update Profile
+                </button>
+            ),
+        }
+    ]
+
+    const guestItems = [
+        {
+            key: '1',
+            label: (
+                <Link to='/login'>
+                    Sign In
+                </Link>
+            ),
+            icon: <AiOutlineLogin />
+        },
+        {
+            key: '2',
+            label: (
+                <Link to='/register'>
+                    Sign Up
+                </Link>
+            ),
+            icon: <VscSaveAs />
+        },
+    ]
+
+    let items;
+    console.log(user);
+    if (user) {
+        items = userItems
+    } else {
+        items = guestItems
+    }
+
 
 
     return (
@@ -200,13 +223,14 @@ const Navbar = () => {
                 <div className="ml-5 flex items-center gap-2">
                     <ThemeController />
                     <Dropdown menu={{ items }} placement="bottom" arrow>
-                    
-                    {
-                        user ?
-                            <img id='userImage' src={userImage} alt="user image" className="h-8 w-8 rounded-full" />
-                            :
-                            <img id='userImage' src="/avatar.gif" alt="avatar svg image" className="h-8 w-8 rounded-full" />
-                    }
+                        {
+                            user ? (
+                                <img id='userImage' src={userImage} alt="user image" className="h-8 w-8 rounded-full" />
+                            ) : (
+
+                                <RxAvatar size={30} fill="#F4E04D" className="text-accent" />
+                            )
+                        }
                     </Dropdown>
 
                 </div>

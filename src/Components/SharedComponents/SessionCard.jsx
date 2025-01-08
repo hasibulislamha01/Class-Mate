@@ -39,7 +39,7 @@ const SessionCard = ({ session }) => {
                     <h1 className="text-lg text-center font-semibold">
                         {session.sessionTitle}
                     </h1>
-                    <div className={`ml-auto w-4 h-4 ${statusColor} rounded-full`} ></div>
+                    <div className={`ml-auto w-2 h-2 ${statusColor} rounded-full`} ></div>
                 </div>
 
                 <p className='text-sm ml-12 text-gray-500/90'>

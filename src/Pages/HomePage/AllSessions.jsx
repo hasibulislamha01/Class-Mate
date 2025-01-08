@@ -11,8 +11,8 @@ const AllSessions = () => {
     // console.log(allSessions)
     // const refetch = queryData[1]
     return (
-        <div className="space-y-6 lg:space-y-12 mt-12 lg:mt-24">
-            <h1 className="text-3xl text-center ">All Sessions</h1>
+        <div className="min-h-screen flex flex-col items-center space-y-6 lg:space-y-12 mt-12 lg:mt-24">
+            <h1 className="text-xl font-bold text-center ">All Sessions</h1>
 
             {
                 !allSessions ?
