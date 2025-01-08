@@ -4,7 +4,7 @@ import SessionCard from '../../Components/SharedComponents/SessionCard';
 
 const GridView = ({ sessions, handleRedirect }) => {
 
-
+// console.log(sessions);
 
     return (
 

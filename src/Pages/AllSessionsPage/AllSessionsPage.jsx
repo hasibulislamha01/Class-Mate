@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
 import CardSkeleton from "../../Components/Skeletons/CardSkeleton";
 import ListSkeleton from "../../Components/Skeletons/ListSkeleton";
 import GridView from "./GridView";
@@ -10,6 +9,7 @@ import { CiViewTable } from "react-icons/ci";
 import TableView from "./TableView";
 import { useNavigate } from "react-router-dom";
 import ShowPagination from "./ShowPagination";
+import useGetLatestData from "../../CustomHooks/useGetLatestData";
 
 
 
@@ -26,10 +26,12 @@ const filterOptions = [
 
 const AllSessionsPage = () => {
 
-    const axiosPublic = useAxiosPublic()
-    const [isGridView, setIsGridView] = useState(true)
+    const [data] = useGetLatestData('sessions', '/sessions?status=approved')
     const [sessions, setSessions] = useState([])
+    const [isGridView, setIsGridView] = useState(true)
     const [loading, setLoading] = useState(true)
+    // console.log(data);
+
     // const [showLatest, setShowLatest] = useState(false)
     // const [loading, setLoading] = useState(false)
 
@@ -41,17 +43,15 @@ const AllSessionsPage = () => {
         navigate(link)
     }
     // console.log(isGridView);
-    console.log(sessions);
+    // console.log(sessions);
 
     // collecting data from database
     useEffect(() => {
-        axiosPublic.get('/sessions')
-            .then(res => {
-                setSessions(res?.data)
-                setLoading(false)
-            })
-            .catch(error => console.error(`error loading session data : `, error?.message))
-    }, [axiosPublic])
+        if (data) {
+            setSessions(data)
+            setLoading(false)
+        }
+    }, [data])
 
 
     // sorting logics
