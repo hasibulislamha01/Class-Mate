@@ -78,10 +78,14 @@ const AllSessions = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center space-y-6 lg:space-y-12 mt-12 lg:mt-24">
-            <h1 className="text-xl xl:text-2xl font-bold text-center ">Explore Yourself</h1>
-            <p className="text-center w-[95%] md:w-[85%] lg:w-[60%] mx-auto">
-                Search your desired session or explore the courses and learn new skills, get certifications. So what are you waiting for?
-            </p>
+
+            <div className="text-center w-[95%] md:w-[85%] lg:w-[60%] mx-auto space-y-3">
+                <h1 className="text-xl xl:text-2xl font-bold text-center ">Explore Yourself</h1>
+                <hr className="border-b lg:w-3/5 mx-auto" />
+                <p className="pt-3">
+                    Search your desired session or explore the courses and learn new skills, get certifications. So what are you waiting for?
+                </p>
+            </div>
 
             {
                 !sessions ?
@@ -107,8 +111,8 @@ const AllSessions = () => {
 
             <Link to='/sessions'>
                 <Button
-                size="large"
-                className=" font-semibold text-accent bg-primary shadow-lg shadow-primary/10 dark:shadow-dark-accent transition-all duration-300"
+                    size="large"
+                    className=" font-semibold text-accent bg-primary shadow-lg shadow-primary/10 dark:shadow-dark-accent transition-all duration-300"
                 >
                     Browse more sessions
                 </Button>

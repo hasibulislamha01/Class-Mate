@@ -125,9 +125,10 @@ const HowItWorks = () => {
     };
     return (
         <section className="min-h-screen flex flex-col justify-center gap-10 my-32">
-            <div className="text-center space-y-5">
+            <div className="text-center w-[95%] md:w-[85%] lg:w-[60%] mx-auto space-y-3">
                 <h1 className="font-bold text-xl xl:text-2xl">How it works</h1>
-                <p className="text-center w-[95%] md:w-[85%] lg:w-[60%] mx-auto">
+                <hr className="lg:w-3/5 mx-auto border-b" />
+                <p className="pt-3">
                     {description}
                 </p>
             </div>

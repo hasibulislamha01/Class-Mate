@@ -65,7 +65,8 @@ const Features = () => {
 
             <div className="space-y-3">
                 <h1 className="text-xl xl:text-2xl font-bold text-center">Who We Are ?</h1>
-                <p className="text-center w-[95%] md:w-[85%] lg:w-[60%] mx-auto">
+                <hr className="w-[90%] md:w-[50%] lg:w-[40%] mx-auto border-b" />
+                <p className="text-center w-[95%] md:w-[85%] lg:w-[60%] mx-auto pt-2">
                     ClassMate is here to help you out finding the best online learning platform. Join the millons of learners today to develop your career.
                 </p>
             </div>

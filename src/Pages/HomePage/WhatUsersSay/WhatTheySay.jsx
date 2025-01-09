@@ -1,19 +1,19 @@
 import { Card } from "antd";
 import { useState } from "react";
-import './whatUsersSay.css'
+import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
 
 const testimonials = [
     {
         "name": "Emily Johnson",
         "profileImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpuUwExMndJ0IioFnec42P_uyo-kr6LJ3LAA&s",
-        "testimonial": "Classmate has completely transformed the way I study with my friends. The collaborative tools make it so easy to share notes and prepare for exams together.",
+        "testimonial": "Classmate has completely transformed the way I study. The collaborative tools make it so easy to share notes and prepare for exams together.",
         "role": "University Student",
         "rating": 5
     },
     {
         "name": "Michael Brown",
         "profileImage": "https://t4.ftcdn.net/jpg/05/08/09/55/360_F_508095569_gWiezEAqSNpFlgJXfQpugdcs5fMBd7f1.jpg",
-        "testimonial": "I love how Classmate allows us to form study groups and work on projects in real-time. It has made group assignments so much more manageable!",
+        "testimonial": "I love how Classmate allows us to form study groups in real-time. It has made group assignments so much more manageable!",
         "role": "College Student",
         "rating": 4.5
     },
@@ -45,23 +45,24 @@ const WhatTheySay = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    const prevIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+    const nextIndex = (currentIndex + 1) % testimonials.length;
+
     const handleNext = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
-        );
+        setCurrentIndex(nextIndex);
     };
 
     const handlePrev = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
-        );
+        setCurrentIndex(prevIndex);
     };
+
+
 
     return (
         <section className="min-h-screen">
 
             <Card
-                className="w-[95%] md:w-[85%] lg:w-[75%] xl:w-[65%] mx-auto"
+                className="relative p-5 w-[95%] md:w-[85%] lg:w-[75%] xl:w-[65%] mx-auto shadow-lg"
             >
 
                 <div className="space-y-3">
@@ -72,22 +73,43 @@ const WhatTheySay = () => {
                 <div className="testimonial-carousel mt-12">
 
                     <div className="testimonial-slide flex flex-col items-center" key={currentIndex}>
-                        <p className="testimonial-text text-center w-[80%] md:w-[70%] mx-auto">
-                            {testimonials[currentIndex].testimonial}
+                        <p className="testimonial-text text-center w-[80%] md:w-[70%] mx-auto text-[1rem]">
+                            {testimonials[currentIndex]?.testimonial}
                         </p>
-                        <div className="flex flex-col items-center my-5">
-                            <img
-                                src={testimonials[currentIndex].profileImage}
-                                alt="Profile"
-                                className="object-cover w-20 h-20"
-                            />
-                            <h4 className="font-bold">{testimonials[currentIndex].name}</h4>
-                            <p>{testimonials[currentIndex].role}</p>
+                        <div className="flex flex-col items-center">
+                            <div className="relative flex items-center justify-center mt-12 h-20 gap-10">
+                                <img
+                                    src={testimonials[prevIndex].profileImage}
+                                    alt="Previous User"
+                                    onClick={handlePrev}
+                                    className="opacity-80 object-cover left-1/4 transform transition-transform duration-500 w-12 h-12 rounded-full cursor-pointer hover:scale-110 z-[99]"
+                                    style={{ zIndex: 1 }}
+                                />
+                                <img
+                                    src={testimonials[currentIndex].profileImage}
+                                    alt="Current User"
+                                    className="object-cover transform transition-transform duration-500 w-20 h-20 rounded-full"
+                                    style={{ zIndex: 2, transform: 'scale(1.2)' }}
+                                />
+                                <img
+                                    src={testimonials[nextIndex].profileImage}
+                                    alt="Next User"
+                                    onClick={handleNext}
+                                    className="opacity-80 object-cover right-1/4 transform transition-transform duration-500 w-12 h-12 rounded-full cursor-pointer hover:scale-110"
+                                // style={{ zIndex: 1 }}
+                                />
+                            </div>
+                            <h4 className="font-bold mt-5">{testimonials[currentIndex]?.name}</h4>
+                            <p>{testimonials[currentIndex]?.role}</p>
                         </div>
                     </div>
                     <div className="controls">
-                        <button onClick={handlePrev} className="prev-button">Prev</button>
-                        <button onClick={handleNext} className="next-button">Next</button>
+                        <button onClick={handleNext} className="absolute left-[-5%] top-[50%] translate-y-[-50%] next-button">
+                            <GrCaretPrevious />
+                        </button>
+                        <button onClick={handlePrev} className="absolute right-[-5%] top-[50%] tranlate-y-[-50%] prev-button">
+                            <GrCaretNext />
+                        </button>
                     </div>
 
                 </div>

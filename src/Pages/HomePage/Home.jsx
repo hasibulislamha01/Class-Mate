@@ -1,7 +1,7 @@
 import { Toaster } from "react-hot-toast";
 import AllSessions from "./AllSessions";
 import Banner from "../../Components/Banner/Banner";
-import OurTutors from "./OurTutors";
+// import OurTutors from "./OurTutors";
 import Features from "./Features";
 import HowItWorks from "./HowItWorks";
 import WhatTheySay from "./WhatUsersSay/WhatTheySay";
@@ -18,7 +18,7 @@ const Home = () => {
                 <AllSessions/>
                 <HowItWorks/>
                 <WhatTheySay/>
-                <OurTutors/>
+                {/* <OurTutors/> */}
             </div>
         </div>
     );
