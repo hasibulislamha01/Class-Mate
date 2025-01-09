@@ -60,9 +60,16 @@ const studentFeatures = [
 
 const Features = () => {
     return (
-        
-        <section className="min-h-screen flex flex-col justify-center space-y-5 md:space-y-8 lg:space-y-12 px-2 md:px-4">
-            <h1 className="text-xl xl:text-2xl font-bold text-center">Features</h1>
+
+        <section className="min-h-screen flex flex-col justify-center space-y-6 md:space-y-8 lg:space-y-12 px-2 md:px-4">
+
+            <div className="space-y-3">
+                <h1 className="text-xl xl:text-2xl font-bold text-center">Who We Are ?</h1>
+                <p className="text-center w-[95%] md:w-[85%] lg:w-[60%] mx-auto">
+                    ClassMate is here to help you out finding the best online learning platform. Join the millons of learners today to develop your career.
+                </p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center gap-4">
                 {studentFeatures.map((features, index) => (
                     <div

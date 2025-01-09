@@ -47,7 +47,7 @@ const HowItWorks = () => {
         {
             id: 3,
             icon: <CiCreditCard2 size={30}/>,
-            title: 'Enroll',
+            title: 'Enroll Course',
             description: 'Get any course in our platform and save 20% with tutor support'
         },
         {
@@ -85,7 +85,7 @@ const HowItWorks = () => {
     ]
 
 
-    const studentHowTo = <div className="py-5 grid grid-cols-2 lg:grid-cols-4 place-items-center gap-y-10">
+    const studentHowTo = <div className="py-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-items-center gap-y-10">
         {
             studentOptions?.map(options => {
                 return (
@@ -102,7 +102,7 @@ const HowItWorks = () => {
         }
     </div>
 
-    const tutorHowTo = <div className="py-5 grid grid-cols-2 lg:grid-cols-4 place-items-center gap-y-10">
+    const tutorHowTo = <div className="py-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-items-center gap-y-10">
         {
             tutorOptions?.map(options => {
                 return (
@@ -124,10 +124,10 @@ const HowItWorks = () => {
         tab2: tutorHowTo,
     };
     return (
-        <section className="min-h-screen flex flex-col justify-center gap-10">
-            <div className="text-center w-[97%] md:w-[85%] lg:w-[75%] mx-auto space-y-5">
+        <section className="min-h-screen flex flex-col justify-center gap-10 my-32">
+            <div className="text-center space-y-5">
                 <h1 className="font-bold text-xl xl:text-2xl">How it works</h1>
-                <p>
+                <p className="text-center w-[95%] md:w-[85%] lg:w-[60%] mx-auto">
                     {description}
                 </p>
             </div>
@@ -138,6 +138,7 @@ const HowItWorks = () => {
                 tabList={tabList}
                 activeTabKey={activeTabKey1}
                 onTabChange={onTab1Change}
+                className="shadow-lg shadow-primary/10"
             >
                 {contentList[activeTabKey1]}
             </Card>
