@@ -5,6 +5,7 @@ import Banner from "../../Components/Banner/Banner";
 import Features from "./Features";
 import HowItWorks from "./HowItWorks";
 import WhatTheySay from "./WhatUsersSay/WhatTheySay";
+import Pricing from "./Pricing/Pricing";
 
 const Home = () => {
     return (
@@ -18,6 +19,7 @@ const Home = () => {
                 <AllSessions/>
                 <HowItWorks/>
                 <WhatTheySay/>
+                <Pricing/>
                 {/* <OurTutors/> */}
             </div>
         </div>

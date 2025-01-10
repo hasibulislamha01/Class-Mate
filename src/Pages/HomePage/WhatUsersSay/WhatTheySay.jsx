@@ -1,6 +1,7 @@
 import { Card } from "antd";
 import { useState } from "react";
 import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
+import './whatUsersSay.css'
 
 const testimonials = [
     {
@@ -98,6 +99,7 @@ const WhatTheySay = () => {
                                     className="opacity-80 object-cover right-1/4 transform transition-transform duration-500 w-12 h-12 rounded-full cursor-pointer hover:scale-110"
                                 // style={{ zIndex: 1 }}
                                 />
+                                
                             </div>
                             <h4 className="font-bold mt-5">{testimonials[currentIndex]?.name}</h4>
                             <p>{testimonials[currentIndex]?.role}</p>
