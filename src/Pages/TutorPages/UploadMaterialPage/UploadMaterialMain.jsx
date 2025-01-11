@@ -1,13 +1,13 @@
 import useAuth from "../../../CustomHooks/useAuth";
 import useGetLatestData from "../../../CustomHooks/useGetLatestData";
-import SessionCard from "../MySessionPages/SessionCard";
+
 
 const UploadMaterialMain = () => {
 
     const { user } = useAuth()
     const tutorEmail = user?.email;
 
-    const queryInfo = useGetLatestData('mySessionsInMaterials', `/sessions/emailQuery/${tutorEmail}`)
+    const queryInfo = useGetLatestData(`/sessions/emailQuery/${tutorEmail}`)
     const mySessions = queryInfo[0]
     const refetch = queryInfo[1]
     console.log(mySessions)

@@ -111,8 +111,8 @@ const CreateSession = () => {
 
     return (
         <div className="min-h-screen flex flex-col-reverse lg:flex-row justify-evenly items-center">
-            <div>
-                some svg or logo
+            <div className=''>
+                <img src="/favicon.png" alt="" className='w-48 md:w-60 lg:w-72' />
             </div>
             <div className="px-2 md:px-3 lg:px-6">
                 <h1 className="text-center text-xl font-bold text-primary my-6"> Create Session </h1>

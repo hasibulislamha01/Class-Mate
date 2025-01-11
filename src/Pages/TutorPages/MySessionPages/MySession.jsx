@@ -11,7 +11,7 @@ const MySession = () => {
     const tutorEmail = user?.email;
     const [sessionId, setSessionId] = useState(null)
     const [modalOpen, setModalOpen] = useState(false);
-    const queryInfo = useGetLatestData('mySessions', `/sessions/emailQuery/${tutorEmail}`)
+    const queryInfo = useGetLatestData(`/sessions?tutorEmail=${tutorEmail}`)
     const mySessions = queryInfo[0]
     const refetch = queryInfo[1]
     // console.log(mySessions, sessionId, tutorEmail)

@@ -10,6 +10,7 @@ import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
 import { useEffect, useState } from "react";
 import LoginModal from "./LoginModal";
 import useUserRole from "../../CustomHooks/useUserRole";
+import { Form, Button, Input } from "antd";
 
 
 
@@ -21,6 +22,10 @@ const Login = () => {
     const { loginUser, loginWithGoogle } = useAuth()
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false)
+
+    const [userEmail, setUserEmail] = useState('')
+    const [password, setPassWord] = useState('')
+
     console.log(location.state)
 
     useEffect(() => {
@@ -67,32 +72,32 @@ const Login = () => {
             });
     }
 
-    const validate = (values) => {
-        const errors = {};
-        if (!values.email) {
-            errors.email = 'Email is required'
-        }
-        if (!values.password) {
-            errors.password = "Password is required"
-        }
-        return errors
-    }
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-        },
-        validate,
-        onSubmit: (values) => {
-            console.log(JSON.stringify(values, null, 2));
-            const email = values.email
-            const password = values.password
-            console.log(email, password);
+    // const validate = (values) => {
+    //     const errors = {};
+    //     if (!values.email) {
+    //         errors.email = 'Email is required'
+    //     }
+    //     if (!values.password) {
+    //         errors.password = "Password is required"
+    //     }
+    //     return errors
+    // }
+    // const formik = useFormik({
+    //     initialValues: {
+    //         email: '',
+    //         password: '',
+    //     },
+    //     validate,
+    //     onSubmit: (values) => {
+    //         console.log(JSON.stringify(values, null, 2));
+    //         const email = values.email
+    //         const password = values.password
+    //         console.log(email, password);
 
-            handleLogin(email, password)
+    //         handleLogin(email, password)
 
-        }
-    })
+    //     }
+    // })
 
     const googleProvider = new GoogleAuthProvider()
     const handleGoogleLogin = async () => {
@@ -120,6 +125,13 @@ const Login = () => {
             })
     }
 
+    const onFinish = (values) => {
+        console.log('Form values:', values);
+    };
+
+    const onFinishFailed = (errorInfo) => {
+        console.error('Validation failed:', errorInfo);
+    };
 
     return (
         <div className="min-h-screen py-24 space-y-6">
@@ -139,51 +151,56 @@ const Login = () => {
             <div className={`w-[95%] md:w-[80%] lg:w-[70%] mx-auto py-5 md:py-8 lg:py-10 px-0 md:px-2 lg:px-8 flex flex-col-reverse md:flex-row items-center rounded-lg shadow-lg border-none ${showModal ? 'bg-accent dark:bg-dark-accent/30' : 'bg-accent dark:bg-dark-accent'}`}>
 
                 {/* svg or image container */}
-                <div className="text-3xl font-bold flex-1 bg-primary/50 h-full w-full border border-red-300">
-                    <div className="h-full">Login SVG</div>
+                <div className="text-3xl font-bold flex-1 h-full w-full">
+                    <div className="h-full">
+                        <img src="/favicon.png" alt="" className="h-1/2 w-1/2 mx-auto" />
+                    </div>
                 </div>
 
                 {/* form container */}
-                <div className="flex-1">
+                <div className="flex-1 flex flex-col items-center">
                     <h1 className="text-center text-xl font-bold mb-5">Login Here</h1>
 
-                    <form onSubmit={formik.handleSubmit} className="max-w-72 mx-auto flex flex-col justify-center gap-6 px-3">
+                    <Form
+                        name="basic"
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off"
+                    >
 
-                        <div>
-                            <div className="flex items-center border border-primary">
-                                <label htmlFor="email"><FaRegEnvelope /></label>
-                                <input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.email}
-                                    className="input-box w-full bg-background"
-                                />
-                            </div>
-                            {formik.errors.email ? <div className="text-red-500">{formik.errors.email}</div> : null}
-                        </div>
+                        {/* Input for Text */}
 
-                        <div>
-                            <div className="border border-primary px-2 flex items-center rounded-lg">
-                                <label htmlFor="password"><MdVpnKey /></label>
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="text"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.password}
-                                    className="px-3 py-2 w-full outline-none"
-                                />
+                        {/* Input for Email */}
+                        <Form.Item
+                            label="Email"
+                            name="email"
+                            rules={[
+                                { required: true, message: 'Please input your email!' },
+                                { type: 'email', message: 'Please enter a valid email!' },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
 
+                        <Form.Item
+                            label="Passoword"
+                            name="username"
+                            rules={[
+                                { required: true, message: 'Please enter a strong password' },
+                                { min: 6, message: 'password must be at least 6 characters' },
+                            ]}
+                        >
+                            <Input />
+                        </Form.Item>
 
-                            </div>
-                            {formik.errors.password ? <div className="text-red-500">{formik.errors.password}</div> : null}
-                        </div>
-
-
-                        <button type="submit" className="btn w-1/2 mx-auto bg-sky-200">Login</button>
-                    </form>
+                        {/* Submit Button */}
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
+                        </Form.Item>
+                    </Form>
                     <h5 className="text-center my-6 text-text dark:text-dark-text">
                         New to ClassMate?
                         <Link to='/register' className="ml-3 text-primary font-bold">Sign Up</Link>

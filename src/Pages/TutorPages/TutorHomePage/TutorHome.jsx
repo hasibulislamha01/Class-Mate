@@ -11,10 +11,10 @@ const TutorHome = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
                 <UsersSummeryCard
-                    api={`/bookedSessions/numbers/${user?.email}`}
+                    api={`/bookedSessions/counts?tutorEmail=${user?.email}`}
                 />
                 <UsersSummeryCard
-                    api={`/bookedSessions/numbers/${user?.email}`}
+                    api={`/bookedSessions/counts?tutorEmail=${user?.email}`}
                 />
             </div>
         </div>

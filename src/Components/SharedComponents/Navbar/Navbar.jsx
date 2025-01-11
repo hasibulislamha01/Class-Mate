@@ -196,13 +196,21 @@ const Navbar = () => {
         <div className={`w-full h-[50px] fixed z-50 flex items-center px-2 md:px-0 shadow-lg  ${isSticky && 'stickyNav shadow-lg'}`}>
 
             {/* website name visible in mobiles */}
-            <NavLink to='/' className={`md:hidden text-xl mr-auto ${!isSticky ? 'text-black' : 'text-white'}`}>ClassMate</NavLink>
+            <NavLink to='/' className={`md:hidden text-xl mr-auto ${!isSticky ? 'text-black' : 'text-white'}`}>
+                {/* <img src="/favicon.png" /> */}
+                <h1>ClassMate</h1>
+            </NavLink>
 
             {/* horizontal navbar */}
             <div className="hidden h-full container mx-auto w-full md:flex items-center gap-6 md:px-4 font-bold">
 
                 {/* website name visible in larger screens */}
-                <NavLink to='/' className={`text-xl mr-auto ${!isSticky ? 'text-black' : 'text-white'}`}>ClassMate</NavLink>
+                <NavLink to='/' className={`text-xl mr-auto flex items-center gap-2 ${!isSticky ? 'text-black' : 'text-white'}`}>
+                    <div className="hidden md:inline-flex">
+                        <img src="/favicon.png" className="w-8 h-8 " />
+                    </div>
+                    <h1>ClassMate</h1>
+                </NavLink>
 
                 <div className="hidden h-full md:flex items-center gap-6">
                     {

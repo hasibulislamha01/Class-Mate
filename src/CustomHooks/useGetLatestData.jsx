@@ -1,21 +1,34 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 
-const useGetLatestData = (key, api) => {
-    // console.log(key, api)
-    const axiosSecure = useAxiosSecure()
+/**
+ * Custom hook to fetch the latest data from a given API endpoint using a secure Axios instance.
+ * @param {string} key - Unique query key for react-query.
+ * @param {string} api - API endpoint to fetch data from.
+ * @returns {object} - Contains fetched data, refetch function, loading status, error status, and error details.
+ */
+const useGetLatestData = (api) => {
+    const axiosSecure = useAxiosSecure();
 
-    const {data, refetch} = useQuery({
-        queryKey: [key],
+    const {
+        data = null,
+        refetch,
+        isLoading,
+        isError,
+        error
+    } = useQuery({
+        queryKey: [api],
         queryFn: async () => {
-            const res = await axiosSecure.get(api)
-            return res?.data
+            try {
+                const response = await axiosSecure.get(api);
+                return response?.data;
+            } catch (err) {
+                throw new Error(err.response?.data?.message || 'Error fetching data');
+            }
         }
-    })
+    });
 
-    return [data, refetch]
+    return [data, refetch, isLoading, isError, error];
 };
 
 export default useGetLatestData;
-
-// used keys : sessionAction , mySessions, updatedSession, homeAllSessions, bookedSessions, allMaterials, 
