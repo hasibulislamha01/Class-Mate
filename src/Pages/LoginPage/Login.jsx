@@ -1,4 +1,4 @@
-import { useFormik } from "formik";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../CustomHooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
@@ -16,15 +16,13 @@ import { Form, Button, Input } from "antd";
 
 const Login = () => {
 
+    const [loginLoading, setLoginLoading] = useState(false)
     const location = useLocation()
     const userRole = useUserRole()
     const axiosPublic = useAxiosPublic()
     const { loginUser, loginWithGoogle } = useAuth()
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false)
-
-    const [userEmail, setUserEmail] = useState('')
-    const [password, setPassWord] = useState('')
 
     console.log(location.state)
 
@@ -56,6 +54,7 @@ const Login = () => {
         loginUser(email, password)
             .then((userCredential) => {
                 console.log(userCredential.user)
+                setLoginLoading(false)
                 toast.success('Login Successful')
                 if (location?.state) {
                     navigate(location?.state)
@@ -68,6 +67,7 @@ const Login = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.error(errorMessage, errorCode)
+                setLoginLoading(false)
                 toast.error(errorMessage)
             });
     }
@@ -126,11 +126,14 @@ const Login = () => {
     }
 
     const onFinish = (values) => {
+        setLoginLoading(true)
         console.log('Form values:', values);
+        handleLogin(values?.email, values?.password)
     };
 
     const onFinishFailed = (errorInfo) => {
         console.error('Validation failed:', errorInfo);
+        toast.error('Failed to login. Try again.')
     };
 
     return (
@@ -167,9 +170,9 @@ const Login = () => {
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
+                        layout="vertical"
+                        className="md:w-60 xl:w-72"
                     >
-
-                        {/* Input for Text */}
 
                         {/* Input for Email */}
                         <Form.Item
@@ -183,9 +186,10 @@ const Login = () => {
                             <Input />
                         </Form.Item>
 
+                        {/* Input for password */}
                         <Form.Item
                             label="Passoword"
-                            name="username"
+                            name="password"
                             rules={[
                                 { required: true, message: 'Please enter a strong password' },
                                 { min: 6, message: 'password must be at least 6 characters' },
@@ -197,7 +201,7 @@ const Login = () => {
                         {/* Submit Button */}
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
-                                Submit
+                                {loginLoading ? 'Logging in' : "Login"}
                             </Button>
                         </Form.Item>
                     </Form>
