@@ -214,6 +214,9 @@
     /* background-color: inherit; */
 }
 
+.custom-spin .ant-spin-dot-item {
+    background-color: #ffffff;
+  }
 
 
 /* media queries for responsive dessign */

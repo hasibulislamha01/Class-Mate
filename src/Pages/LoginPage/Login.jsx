@@ -3,14 +3,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../CustomHooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-import { FaRegEnvelope } from "react-icons/fa";
 import { GoogleAuthProvider } from "firebase/auth";
-import { MdVpnKey } from "react-icons/md";
 import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
 import { useEffect, useState } from "react";
 import LoginModal from "./LoginModal";
 import useUserRole from "../../CustomHooks/useUserRole";
-import { Form, Button, Input } from "antd";
+import { Form, Button, Input, Spin } from "antd";
 
 
 
@@ -161,7 +159,7 @@ const Login = () => {
                 </div>
 
                 {/* form container */}
-                <div className="flex-1 flex flex-col items-center">
+                <div className="flex-1 flex flex-col items-center ">
                     <h1 className="text-center text-xl font-bold mb-5">Login Here</h1>
 
                     <Form
@@ -188,20 +186,27 @@ const Login = () => {
 
                         {/* Input for password */}
                         <Form.Item
-                            label="Passoword"
+                            label="Password"
                             name="password"
                             rules={[
                                 { required: true, message: 'Please enter a strong password' },
                                 { min: 6, message: 'password must be at least 6 characters' },
                             ]}
+                            className=""
                         >
-                            <Input />
+                            <Input className="" />
                         </Form.Item>
 
                         {/* Submit Button */}
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                {loginLoading ? 'Logging in' : "Login"}
+                        <Form.Item className="">
+                            <Button type="primary" htmlType="submit" className="w-full mx-auto">
+                                {loginLoading ?
+                                    <div className="flex items-center gap-5">
+                                        <p>Logging in</p>
+                                        <Spin size="small" className="custom-spin" />
+                                    </div>
+                                    : "Login"
+                                }
                             </Button>
                         </Form.Item>
                     </Form>
@@ -212,7 +217,7 @@ const Login = () => {
 
                     <div
                         onClick={handleGoogleLogin}
-                        className="w-full max-w-56 mx-auto flex items-center justify-center gap-4 bg-primary/10 rounded-lg py-1 text-md font-semibold border-2 border-primary/50 cursor-pointer hover:border-primary/90  hover:scale-[101%] active:scale-[98%] transition-all duration-250">
+                        className="w-full max-w-56 mx-auto flex items-center justify-center gap-4 bg-background dark:bg-dark-background rounded-lg py-1 text-md font-semibold border-1 border-slate-500 cursor-pointer  active:scale-[98%] hover:scale-[102%] ease-in-out transition-all duration-500">
                         <p className="text-text dark:text-dark-text">Proceed with</p>
                         <FcGoogle
                             size={30}
@@ -224,10 +229,6 @@ const Login = () => {
                 </div>
 
             </div>
-
-
-            {/* <input type="text" className=' 
-            input-box ml-60' placeholder='type here' /> */}
 
         </div>
 
