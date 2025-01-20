@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import Footer from "../Components/SharedComponents/Footer";
+import Footer from "../Components/SharedComponents/Footer/Footer";
 import Navbar from "../Components/SharedComponents/Navbar/Navbar";
 
 const Root = () => {

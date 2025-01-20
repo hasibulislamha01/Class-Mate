@@ -1,3 +1,4 @@
+import ShowLineChart from "../../../Components/SharedComponents/SharedCharts/ShowLineChart";
 import UsersSummeryCard from "../../../Components/UsersSummeryCard/UsersSummeryCard";
 import useAuth from "../../../CustomHooks/useAuth";
 
@@ -22,6 +23,12 @@ const TutorHome = () => {
                     api={`/bookedSessions/revenue?tutorEmail=${user?.email}`}
                     subTitle={'Total Earnings in $'}
                 />
+            </div>
+
+            <div className="my-12 grid grid-cols-1 lg:grid-cols-3 place-items-center gap-8">
+                <ShowLineChart/>
+                <ShowLineChart/>
+                <ShowLineChart/>
             </div>
         </div>
     );
