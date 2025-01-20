@@ -32,6 +32,7 @@ const SessionDetails = () => {
     const classStarts = useFormateDate(session?.classStarts)
     const classEnds = useFormateDate(session?.classEnds)
     const regFee = session?.registrationFee
+    const duration = session?.duration
 
     const todaysDate = new Date(todaysDateString)
     const regEndDate = new Date(regEnds)
@@ -120,60 +121,91 @@ const SessionDetails = () => {
                         <span className="loading loading-spinner loading-lg text-primary"></span>
                     </div>
                     :
-                    <>
-                        <h1 className="text-center text-2xl text-primary font-bold">{sessionTitle}</h1>
-                        <div className="py-12 flex flex-col lg:flex-row justify-center items-center gap-12">
-                            <div className="space-y-6 text-center px-2 ">
-                                <img src={sessionImg} alt="session image" className="w-[450px] h-[350px] object-cover rounded-[7px]" />
-                            </div>
+                    <section className="flex flex-col gap-2 lg:gap-3">
 
-                            <div className=" text-center space-y-5">
+                        {/* title card */}
+                        <Card
+                            styles={{
+                                body: { padding: 10 }
+                            }}
+                            className="sticky tracking-wider text-xl shadow-sm"
+                        >
 
-                                <div className="">
+                            <h1 className="text-center text-primary font-bold">{sessionTitle}</h1>
+                        </Card>
 
-                                    <h1 className="text-lg font-bold">{sessionTitle}</h1>
+                        {/* hero cards */}
+                        <div className="h-full flex gap-3">
+                            {/* image card */}
+                            <Card
+                                styles={{
+                                    body: {
+                                        padding: 15
+                                    }
+                                }}
+                                className="shadow-sm"
+                            >
+                                <div className="h-full flex flex-col justify-between gap-5">
 
-                                    {/* <Card title="Registration Strats" bordered={false}>
-                                        {regStarts}
-                                    </Card>
+                                    <div className="w-80 h-48">
+                                        <img src={sessionImg} alt="session image" className="w-full h-full object-cover rounded-md" />
+                                    </div>
 
-
-                                    <Card title="Registration Ends" bordered={false}>
-                                        {regEnds}
-                                    </Card>
-
-                                    
-
-                                    <Card title="Class Strats" bordered={false}>
-                                        {classStarts}
-                                    </Card>
-
-
-                                    <Card title="Class Ends" bordered={false}>
-                                        {classEnds}
-                                    </Card> */}
-
+                                    <div className="leading-7 flex items-end justify-between">
+                                        <div>
+                                            <h1 className="font-bold">{sessionTitle}</h1>
+                                            <h3 className="">Fee:  ${regFee}</h3>
+                                            <h3>Duration: {duration} hours</h3>
+                                        </div>
+                                        <div className="flex justify-center">
+                                            <Button className="bg-primary text-accent">Book Now</Button>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <h1 className="">Registration Fee: {session?.registrationFee}$ </h1>
-                                    <p className="">Expected duration: {session?.duration} hours</p>
-                                    <h3>Rating</h3>
-                                </div>
+                            </Card>
+                            {/* details container */}
+                            <div className="h-full flex flex-col justify-between gap-5">
+                                <Card className="shadow-sm">
+                                    <div className="space-y-8">
+                                        <div>
+                                            <h1 className="text-lg font-bold mb-2">About:</h1>
+                                            <p>
+                                                {description}
+                                            </p>
+                                        </div>
+                                        <div className="text-lg font-bold ">
+                                            Rating:
+                                        </div>
+                                    </div>
+                                </Card>
 
+                                <Card className="shadow-sm">
+                                    <div className="grid grid-cols-4 justify-items-stretch gap-10">
+                                        <div className="pr-2 border-r-2 border-primary">
+                                            <h1 className="text-xl font-bold">{regStarts}</h1>
+                                            <p>Registration Starts</p>
+                                        </div>
+                                        <div className="pr-5 border-r-2 border-primary">
+                                            <h1 className="text-xl font-bold">{regEnds}</h1>
+                                            <p>Registration Ends</p>
+                                        </div>
+                                        <div className="pr-5 border-r-2 border-primary">
+                                            <h1 className="text-xl font-bold">{classStarts}</h1>
+                                            <p>Class Starts</p>
+                                        </div>
+                                        <div className="pr-5 border-r-2 border-primary">
+                                            <h1 className="text-xl font-bold">{classEnds}</h1>
+                                            <p>Class Ends</p>
+                                        </div>
+                                    </div>
+                                </Card>
                             </div>
 
                         </div>
 
+
                         <div className="text-center space-y-6">
-                            <div className="space-y-3">
-                                <h1 className="text-xl font-bold">Session Details</h1>
-                                <p className="w-[95%] md:w-[80%] mx-auto ">
-                                    {description}
-                                </p>
-                            </div>
-
-
                             {
                                 location.state === '/dashboard/student/bookedSessions' ?
                                     <Review
@@ -196,7 +228,7 @@ const SessionDetails = () => {
                             </div>
 
                         </div>
-                    </>
+                    </section>
             }
 
         </div>
