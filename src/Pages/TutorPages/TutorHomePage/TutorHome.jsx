@@ -6,15 +6,21 @@ const TutorHome = () => {
     const { user } = useAuth()
 
     return (
-        <div className="h-full py-6 border border-blue-600">
+        <div className="h-full py-6">
             <h1 className="text-xl font-bold text-center text-primary">Welcome Tutor</h1>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
                 <UsersSummeryCard
-                    api={`/bookedSessions/counts?tutorEmail=${user?.email}`}
+                    api={`/sessions/counts?tutorEmail=${user?.email}`}
+                    subTitle={'Session Created'}
                 />
                 <UsersSummeryCard
                     api={`/bookedSessions/counts?tutorEmail=${user?.email}`}
+                    subTitle={'Total Enrollment Count'}
+                />
+                <UsersSummeryCard
+                    api={`/bookedSessions/revenue?tutorEmail=${user?.email}`}
+                    subTitle={'Total Earnings in $'}
                 />
             </div>
         </div>

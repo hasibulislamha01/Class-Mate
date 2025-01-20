@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
 import useGetLatestData from '../../CustomHooks/useGetLatestData';
+import { Card } from 'antd';
 
 
-const UsersSummeryCard = ({ api }) => {
+const UsersSummeryCard = ({ api, subTitle }) => {
 
     // console.log(api);
     const [data] = useGetLatestData(api)
@@ -11,15 +12,20 @@ const UsersSummeryCard = ({ api }) => {
 
 
     return (
-        <div className="bg-sky-100 rounded-md p-4">
-            <h3 className='font-semibold text-lg'>Total Enrollment</h3>
-            <h1 className='text-3xl'>{data?.count || 0} </h1>
-        </div>
+
+        <Card
+            className='shadow-lg'
+        >
+            <h1 className='text-2xl lg:text-3xl font-semibold'>{data?.count || 0} </h1>
+            <h3 className='text-text text-[0.9rem]'>{subTitle}</h3>
+        </Card>
+
     );
 };
 
 
 UsersSummeryCard.propTypes = {
-    api: PropTypes.string
+    api: PropTypes.string,
+    subTitle: PropTypes.string
 }
 export default UsersSummeryCard;

@@ -61,6 +61,11 @@ const DashBoardMenu = ({ role }) => {
     const tutorRoutes = [
 
         {
+            link: '/dashboard/tutor',
+            icon: <HiOutlinePencilSquare />,
+            linkTitle: 'Profile'
+        },
+        {
             link: '/dashboard/tutor/createSessions',
             icon: <HiOutlinePencilSquare />,
             linkTitle: 'Create Sessions'
