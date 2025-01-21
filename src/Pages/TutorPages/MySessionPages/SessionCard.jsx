@@ -170,6 +170,9 @@ const SessionCard = ({ mySession, refetch, setModalOpen, setSessionId }) => {
                 styles={{
                     header: {
                         borderBottom: `1px solid ${theme === 'dark' ? "#333333" : "#D1D5DB"}`,
+                    },
+                    body: {
+                        padding: 10
                     }
                 }}
                 tabList={tabListNoTitle}

@@ -1,4 +1,4 @@
-import { Button, Card, Col } from "antd";
+import { Button, Card } from "antd";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import useFormateDate from "../../CustomHooks/useFormateDate";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
@@ -7,17 +7,20 @@ import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import Review from "../StudentPages/ReviewSection/Review";
 import useUserRole from "../../CustomHooks/useUserRole";
+import useShowMessage from "../../CustomHooks/Alerts/useShowMessage";
+import ShowModal from "../../Components/UI/ShowModal/ShowModal";
 
 const SessionDetails = () => {
     const session = useLoaderData()
     const { user } = useAuth()
     const navigate = useNavigate()
-    console.log(session)
     const todaysDateString = useTodaysDate()
+    const showMessage = useShowMessage()
+    console.log(session)
     const role = useUserRole()
     const axiosSecure = useAxiosSecure()
     const location = useLocation()
-    console.log(role, location)
+    console.log(role, location, showMessage)
 
 
     const sessionId = session?._id
@@ -158,7 +161,9 @@ const SessionDetails = () => {
                                             <h3>Duration: {duration} hours</h3>
                                         </div>
                                         <div className="flex justify-center">
-                                            <Button className="bg-primary text-accent">Book Now</Button>
+                                            <Button 
+                                            onClick={showMessage?.success('done')}
+                                            className="bg-primary text-accent">Book Now</Button>
                                         </div>
                                     </div>
                                 </div>
@@ -228,6 +233,11 @@ const SessionDetails = () => {
                             </div>
 
                         </div>
+                        <ShowModal buttonText='show' modalContent={
+                            <div>
+                                heoo...
+                            </div>
+                        }/>
                     </section>
             }
 

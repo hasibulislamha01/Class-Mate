@@ -14,7 +14,7 @@ const CreateSession = () => {
     const axiosSecure = useAxiosSecure()
 
     const { user } = useAuth()
-    const todayDate = useTodaysDate()
+    // const todayDate = useTodaysDate()
     const tutorName = user?.displayName;
     const tutorEmail = user?.email
     const tutorPhoto = user?.photoURL
@@ -40,24 +40,24 @@ const CreateSession = () => {
     else {
         () => setReady(true)
     }
-    console.log(
-        {
-            sessionTitle,
-            duration,
-            sessionImage,
-            registrationStarts,
-            registrationEnds,
-            classStarts,
-            classEnds,
-            description,
-            tutorName,
-            tutorEmail,
-            tutorPhoto,
-            registrationFee: 0,
-            status: 'pending',
-            applyingDate: todayDate
-        }
-        , ready);
+    // console.log(
+    //     {
+    //         sessionTitle,
+    //         duration,
+    //         sessionImage,
+    //         registrationStarts,
+    //         registrationEnds,
+    //         classStarts,
+    //         classEnds,
+    //         description,
+    //         tutorName,
+    //         tutorEmail,
+    //         tutorPhoto,
+    //         registrationFee: 0,
+    //         status: 'pending',
+    //         applyingDate: todayDate
+    //     }
+    //     , ready);
 
 
     const handleCreateSession = (event) => {
