@@ -8,7 +8,9 @@ import Swal from "sweetalert2";
 import Review from "../StudentPages/ReviewSection/Review";
 import useUserRole from "../../CustomHooks/useUserRole";
 import useShowMessage from "../../CustomHooks/Alerts/useShowMessage";
-import ShowModal from "../../Components/UI/ShowModal/ShowModal";
+import { AiOutlineMail } from "react-icons/ai";
+import { IoIosCall } from "react-icons/io";
+import Reviews from "./Reviews";
 
 const SessionDetails = () => {
     const session = useLoaderData()
@@ -161,9 +163,9 @@ const SessionDetails = () => {
                                             <h3>Duration: {duration} hours</h3>
                                         </div>
                                         <div className="flex justify-center">
-                                            <Button 
-                                            onClick={showMessage?.success('done')}
-                                            className="bg-primary text-accent">Book Now</Button>
+                                            <Button
+                                                onClick={showMessage?.success('done')}
+                                                className="bg-primary text-accent">Book Now</Button>
                                         </div>
                                     </div>
                                 </div>
@@ -221,23 +223,30 @@ const SessionDetails = () => {
                             }
                         </div>
 
+                        <Reviews />
 
                         <div className="my-24 flex flex-col-reverse lg:flex-row justify-center items-center">
-                            <div className="text-center space-y-5">
-                                <h1 className="font-bold text-xl">Tutor Details</h1>
-                                <img src={tutorImg} alt="" className="h-[200px] w-[200px] object-cover rounded-full " />
-                                <div className="space-y-2">
-                                    <h1>{tutorName}</h1>
-                                    <p>Email: {tutorEmail}</p>
+                            <Card
+                                className="w-96"
+                            >
+
+                                <div className="h-48 w-full">
+                                    <img src={tutorImg} alt="" className="h-full w-full object-cover rounded-md" />
                                 </div>
-                            </div>
+                                <div className="mt-3 flex items-center justify-between">
+                                    <div>
+                                        <h1 className="font-bold text-lg">{tutorName}</h1>
+                                        <p>Classmate Tutor</p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <div className="rounded-full p-2 bg-primary"><AiOutlineMail size={20} fill="#ffffff"  /></div>
+                                        <div className="rounded-full p-2 bg-primary"><IoIosCall size={20} fill="#ffffff" /></div>
+                                        
+                                    </div>
+                                </div>
+                            </Card>
 
                         </div>
-                        <ShowModal buttonText='show' modalContent={
-                            <div>
-                                heoo...
-                            </div>
-                        }/>
                     </section>
             }
 

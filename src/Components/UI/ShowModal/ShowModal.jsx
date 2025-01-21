@@ -1,8 +1,8 @@
-import { Button,  Modal, } from 'antd';
+import { Button, Modal, } from 'antd';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const ShowModal = ({buttonText, modalContent}) => {
+const ShowModal = ({ modalTitle, controlButton, modalContent }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
@@ -16,10 +16,16 @@ const ShowModal = ({buttonText, modalContent}) => {
     };
     return (
         <>
-            <Button type="primary" onClick={showModal}>
-                {buttonText}
-            </Button>
-            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <div type="primary" onClick={showModal}>
+                {controlButton}
+            </div>
+            <Modal
+                title={modalTitle}
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                footer={null}
+            >
                 {modalContent}
             </Modal>
         </>
@@ -28,7 +34,8 @@ const ShowModal = ({buttonText, modalContent}) => {
 
 
 ShowModal.propTypes = {
-    buttonText: PropTypes.string,
-    modalContent: PropTypes.node
+    controlButton: PropTypes.node,
+    modalContent: PropTypes.node,
+    modalTitle: PropTypes.node,
 }
 export default ShowModal;
