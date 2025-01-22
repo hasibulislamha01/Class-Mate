@@ -44,9 +44,9 @@ const BookedSessionCard = ({ bookedSession, setShowModal }) => {
                 <Tooltip placement="topLeft" title='Rate Session'>
                     <div>
                         <ShowModal
-                            controlButton={<Button><GoStar /></Button>}
-                            modalContent={<Review/>}
-                            modalTitle={`Review the session "${bookedSession?.sessionTitle}"`}
+                            controlButton={<Button style={{border: '0', background: 'inherit', color: 'inherit'}}><GoStar /></Button>}
+                            modalContent={<Review sessionId={bookedSession?.sessionId}/>}
+                            // modalTitle={`Review the session "${bookedSession?.sessionTitle}"`}
                         />
                     </div>
                 </Tooltip>
