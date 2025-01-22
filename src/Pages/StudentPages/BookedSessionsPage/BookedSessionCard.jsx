@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types'
-
+import { TbListDetails } from 'react-icons/tb';
+import { GoStar } from "react-icons/go";
 import { Link, useLocation } from 'react-router-dom';
+import { Button, Tooltip } from 'antd';
+import ShowModal from '../../../Components/UI/ShowModal/ShowModal';
+import Review from '../ReviewSection/Review';
 
 
 const BookedSessionCard = ({ bookedSession, setShowModal }) => {
@@ -37,22 +41,22 @@ const BookedSessionCard = ({ bookedSession, setShowModal }) => {
 
             <div className='flex justify-evenly items-center p-4 '>
 
-                <button
-                    className='h-[35px] px-2 rounded-md text-sm bg-primary/80 text-white hover:bg-primary dark:border-dark-background active:scale-95'
-                    onClick={()=>setShowModal(true)}
-                >
-                    Give Review
-                </button>
+                <Tooltip placement="topLeft" title='Rate Session'>
+                    <div>
+                        <ShowModal
+                            controlButton={<Button><GoStar /></Button>}
+                            modalContent={<Review/>}
+                            modalTitle={`Review the session "${bookedSession?.sessionTitle}"`}
+                        />
+                    </div>
+                </Tooltip>
 
                 <Link
                     to={`/sessionDetails/${bookedSession?.sessionId}`}
                     state={location.pathname}
                 >
-                    <button
-                        className='h-[35px] px-2 rounded-md text-sm border border-primary text-primary hover:bg-primary active:scale-95 hover:text-white transition-all duration-100'
-                    >
-                        See Details
-                    </button>
+
+                    <TbListDetails />
                 </Link>
 
             </div>

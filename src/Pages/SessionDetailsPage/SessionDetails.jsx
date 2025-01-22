@@ -223,7 +223,7 @@ const SessionDetails = () => {
                             }
                         </div>
 
-                        <Reviews />
+                        <Reviews sessionId={sessionId}/>
 
                         <div className="my-24 flex flex-col-reverse lg:flex-row justify-center items-center">
                             <Card

@@ -8,7 +8,9 @@ import useAxiosSecure from "./useAxiosSecure";
  * @returns {object} - Contains fetched data, refetch function, loading status, error status, and error details.
  */
 const useGetLatestData = (api) => {
+    
     const axiosSecure = useAxiosSecure();
+    console.log(api);
 
     const {
         data = null,
