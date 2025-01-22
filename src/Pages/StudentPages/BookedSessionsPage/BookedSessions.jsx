@@ -1,18 +1,38 @@
 
-import { useState } from "react";
 import useAuth from "../../../CustomHooks/useAuth";
 import useGetLatestData from "../../../CustomHooks/useGetLatestData";
-import BookedSessionCard from "./BookedSessionCard";
-import ReviewModal from "./ReviewModal";
 import { Link } from "react-router-dom";
+import TabCard from "../../../Components/UI/TabCard/TabCard";
+import MakeCardTitle from "./MakeCardTitle";
+
+const tabs = [
+    {
+        key: 'tab1',
+        tab: 'Session',
+    },
+    {
+        key: 'tab2',
+        tab: 'Materials',
+    },
+    {
+        key: 'tab3',
+        tab: 'Notes',
+    },
+]
+
+const contentListNoTitle = {
+    article: <p>Article content</p>,
+    app: <p>App content</p>,
+    project: <p>Project content</p>,
+};
+
 
 const BookedSessions = () => {
 
     const { user } = useAuth()
     const queryData = useGetLatestData('bookedSessions', `/bookedSessions/${user?.email}`)
-    const [showModal, setShowModal] = useState(false)
     const bookedSessions = queryData[0]
-    console.log(bookedSessions?.length)
+    // console.log(bookedSessions?.length)
 
 
     return (
@@ -27,22 +47,31 @@ const BookedSessions = () => {
                         </Link>
                     </div>
                     :
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 place-items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 place-items-center">
                         {
                             bookedSessions?.map(bookedSession =>
                                 <>
-                                    <BookedSessionCard
+                                    {/* <BookedSessionCard
                                         key={bookedSession._id}
                                         bookedSession={bookedSession}
                                         setShowModal={setShowModal}
                                         showModal={showModal}
-                                    ></BookedSessionCard>
+                                    ></BookedSessionCard> */}
 
-                                    <ReviewModal
+                                    <TabCard
+                                        key={bookedSession?._id}
+                                        tabList={tabs}
+                                        contentList={contentListNoTitle}
+                                        defaultTabkey={'tab1'}
+                                        image={bookedSession?.sessionImage}
+                                        cardTitle={<MakeCardTitle sessionId={bookedSession?.sessionId} tutorPhoto={bookedSession?.tutorPhoto} sessionTitle={bookedSession?.sessionTitle} />}
+                                    />
+
+                                    {/* <ReviewModal
                                         bookedSession={bookedSession}
                                         setShowModal={setShowModal}
                                         showModal={showModal}
-                                    />
+                                    /> */}
                                 </>
                             )
                         }

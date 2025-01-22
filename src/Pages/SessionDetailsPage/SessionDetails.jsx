@@ -215,15 +215,17 @@ const SessionDetails = () => {
                         <div className="text-center space-y-6">
                             {
                                 location.state === '/dashboard/student/bookedSessions' ?
-                                    <Review
-                                        sessionId={sessionId}
-                                    ></Review>
+                                    <section className="my-12 lg:my-24 md:w-[80%] lg:w-[60%] mx-auto">
+                                        <Review
+                                            sessionId={sessionId}
+                                        ></Review>
+                                    </section>
                                     :
                                     <Button className={`flex justify-center mx-auto`} disabled={disableBookNowButton} onClick={handleBookSession} > Book Now </Button>
                             }
                         </div>
 
-                        <Reviews sessionId={sessionId}/>
+                        <Reviews sessionId={sessionId} />
 
                         <div className="my-24 flex flex-col-reverse lg:flex-row justify-center items-center">
                             <Card
@@ -239,9 +241,9 @@ const SessionDetails = () => {
                                         <p>Classmate Tutor</p>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <div className="rounded-full p-2 bg-primary"><AiOutlineMail size={20} fill="#ffffff"  /></div>
+                                        <div className="rounded-full p-2 bg-primary"><AiOutlineMail size={20} fill="#ffffff" /></div>
                                         <div className="rounded-full p-2 bg-primary"><IoIosCall size={20} fill="#ffffff" /></div>
-                                        
+
                                     </div>
                                 </div>
                             </Card>

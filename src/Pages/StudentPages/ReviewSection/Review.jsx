@@ -21,7 +21,6 @@ const Review = ({ sessionId }) => {
     const [value, setValue] = useState()
     const [ratingDescription, setRatingDescription] = useState()
     const [ready, setReady] = useState(false)
-    console.log(value, ratingDescription, ready);
 
     // Use effect to set ready state when value or ratingDescription change
     useEffect(() => {
@@ -40,6 +39,7 @@ const Review = ({ sessionId }) => {
             ratingDescription,
             sessionId,
             userImage,
+            userEmail: user?.email,
             userName,
             likes: 0,
             dislikes: 0,

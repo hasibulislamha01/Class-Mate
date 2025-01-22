@@ -8,7 +8,7 @@ import ListSkeleton from "../../../Components/Skeletons/ListSkeleton";
 
 const AllSessions = () => {
 
-    const queryInfo = useGetLatestData('sessionAction', '/sessions')
+    const queryInfo = useGetLatestData('/sessions')
     const axiosSecure = useAxiosSecure()
     const allSessions = queryInfo[0]
     const refetch = queryInfo[1]

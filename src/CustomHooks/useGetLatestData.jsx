@@ -10,7 +10,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useGetLatestData = (api) => {
     
     const axiosSecure = useAxiosSecure();
-    console.log(api);
+    // console.log(api);
 
     const {
         data = null,
