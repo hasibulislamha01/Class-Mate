@@ -7,7 +7,7 @@ import ShowModal from '../../../Components/UI/ShowModal/ShowModal';
 import Review from '../ReviewSection/Review';
 
 
-const BookedSessionCard = ({ bookedSession, setShowModal }) => {
+const BookedSessionCard = ({ bookedSession }) => {
 
     const location = useLocation()
     console.log(bookedSession);
@@ -52,7 +52,7 @@ const BookedSessionCard = ({ bookedSession, setShowModal }) => {
                 </Tooltip>
 
                 <Link
-                    to={`/sessionDetails/${bookedSession?.sessionId}`}
+                    to={`/sessions/${bookedSession?.sessionId}`}
                     state={location.pathname}
                 >
 
