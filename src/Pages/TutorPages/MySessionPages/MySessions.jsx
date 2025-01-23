@@ -1,9 +1,9 @@
 import useAuth from "../../../CustomHooks/useAuth";
 import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 import TabCard from "../../../Components/UI/TabCard/TabCard";
-import SessionInfoTab from './SessionInfoTab';
-import MaterialTab from './MaterialTab';
-import MakeCardTitleForTutor from "./MakeCardTitleForTutor";
+import SessionInfoTab from './SessionCardsComponents/Tabs/SessionInfoTab';
+import MaterialTab from './SessionCardsComponents/Tabs/MaterialTab';
+import MakeCardTitleForTutor from "./SessionCardsComponents/MakeCardTitleForTutor";
 
 const tabList = [{
     key: 'sessionTab',

@@ -2,7 +2,7 @@ import { Button, Tooltip } from "antd";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { RiSendPlane2Line } from "react-icons/ri";
-import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
+import useAxiosSecure from "../../../../CustomHooks/useAxiosSecure";
 import PropTypes from "prop-types";
 
 const MakeCardTitleForTutor = ({ tutorPhoto, sessionId, sessionTitle, status, refetch }) => {
