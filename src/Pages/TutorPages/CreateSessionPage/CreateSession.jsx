@@ -1,20 +1,19 @@
-
 import 'react-datepicker/dist/react-datepicker.css'
 import Datefield from "../../../Components/Datefield/Datefield";
 import useAuth from '../../../CustomHooks/useAuth';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useTodaysDate from '../../../CustomHooks/useTodaysDate';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import UploadImage from '../../../Components/SharedComponents/UploadImage/UploadImage';
 
 const CreateSession = () => {
 
     const axiosSecure = useAxiosSecure()
 
     const { user } = useAuth()
-    // const todayDate = useTodaysDate()
     const tutorName = user?.displayName;
     const tutorEmail = user?.email
     const tutorPhoto = user?.photoURL
@@ -27,37 +26,38 @@ const CreateSession = () => {
     const [registrationEnds, setRegEnd] = useState(null)
     const [classStarts, setClassStart] = useState(null)
     const [classEnds, setClassEnds] = useState(null)
-    const [sessionImage, setSessionImage] = useState('')
+    const [imageUrl, setImageUrl] = useState(null);
     const [ready, setReady] = useState(false)
     const registrationFee = '0';
     const status = 'pending'
 
-    if (
-        !sessionTitle || !duration || !description || !registrationStarts || !registrationEnds || !classStarts || !classEnds || !sessionImage
-    ) {
-        () => setReady(false)
-    }
-    else {
-        () => setReady(true)
-    }
-    // console.log(
-    //     {
-    //         sessionTitle,
-    //         duration,
-    //         sessionImage,
-    //         registrationStarts,
-    //         registrationEnds,
-    //         classStarts,
-    //         classEnds,
-    //         description,
-    //         tutorName,
-    //         tutorEmail,
-    //         tutorPhoto,
-    //         registrationFee: 0,
-    //         status: 'pending',
-    //         applyingDate: todayDate
-    //     }
-    //     , ready);
+    // Recompute `ready` whenever any required field changes
+    useEffect(() => {
+        if (
+            sessionTitle &&
+            duration &&
+            description &&
+            registrationStarts &&
+            registrationEnds &&
+            classStarts &&
+            classEnds &&
+            imageUrl
+        ) {
+            setReady(true);
+        } else {
+            setReady(false);
+        }
+        // console.log('url is',imageUrl);
+    }, [
+        sessionTitle,
+        duration,
+        description,
+        registrationStarts,
+        registrationEnds,
+        classStarts,
+        classEnds,
+        imageUrl,
+    ]);
 
 
     const handleCreateSession = (event) => {
@@ -71,7 +71,6 @@ const CreateSession = () => {
         const registrationEnds = form.regEnds.value;
         const classStarts = form.classStarts.value;
         const classEnds = form.classEnds.value;
-        const sessionImage = form.sessionImage.value;
 
         const sessionInfo = {
             sessionTitle,
@@ -87,7 +86,7 @@ const CreateSession = () => {
             registrationFee,
             status,
             applyingDate,
-            sessionImage
+            sessionImage: imageUrl
         }
         console.log(sessionInfo)
 
@@ -144,13 +143,9 @@ const CreateSession = () => {
 
 
                     <div className="">
-                        <label className="">Add an image of the session</label>
-                        <Input
-                            type='text'
-                            placeholder='Image link of the session'
-                            name='title'
-                            required='Enter Session Title'
-                            onChange={(e) => { setSessionImage(e.target.value) }}
+                        <UploadImage
+                            formLabel={'Add a cover image of the session'}
+                            setImageUrl={setImageUrl}
                         />
                     </div>
 
@@ -177,7 +172,7 @@ const CreateSession = () => {
                             required
                             placeholder='Describe you session '
                             size={50}
-                            onChange={(e)=>{setDescription(e.target.value)}}
+                            onChange={(e) => { setDescription(e.target.value) }}
                         />
                     </div>
 

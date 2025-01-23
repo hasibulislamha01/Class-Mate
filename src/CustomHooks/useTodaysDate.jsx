@@ -1,20 +1,11 @@
-import { useEffect, useState } from "react";
+import dayjs from "dayjs";
 
 const useTodaysDate = () => {
-
-    const [date, setDate] = useState('')
-
-    useEffect(() => {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = today.getMonth() + 1;
-        const day = today.getDate();
-        const formattedDate = `${month}/${day}/${year}`;
-        // console.log(formattedDate);
-        setDate(formattedDate);
-    }, [])
     
-    return date || 'N/A'
+    const today = dayjs();
+    const formattedDate = today.format('MM-DD-YYYY')
+
+    return formattedDate;
 };
 
 export default useTodaysDate;

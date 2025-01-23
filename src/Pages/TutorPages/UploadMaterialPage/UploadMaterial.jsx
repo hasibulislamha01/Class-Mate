@@ -10,7 +10,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, sessionImage }) => {
 
     console.log('email and id are ',tutorEmail, sessionId);
     const axiosSecure = useAxiosSecure()
-    // const [imageUrl, setImageUrl] = useState(null);
+    
     const [materialTitle, setMaterialTitle] = useState('');
     const [driveLink, setDriveLink] = useState('');
     const imgbbApiKey = import.meta.env.VITE_imgBB_api
@@ -21,34 +21,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, sessionImage }) => {
         tutorEmail,
         driveLink,);
 
-    // Handle image upload via Ant Design's Upload component
-    // const handleImageUpload = async (file) => {
-    //     const formData = new FormData();
-    //     formData.append('image', file);
-
-    //     try {
-    //         const response = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
-    //             method: 'POST',
-    //             body: formData,
-    //         });
-
-    //         const result = await response.json();
-
-    //         if (result.success) {
-    //             console.log(result.data.url);
-    //             setImageUrl(result.data.url);
-    //             message.success('Image uploaded successfully!');
-    //             return true;
-    //         } else {
-    //             message.error(`Image upload failed: ${result.error.message}`);
-    //             return false;
-    //         }
-    //     } catch (error) {
-    //         console.error('Error during image upload:', error);
-    //         message.error('Image upload failed.');
-    //         return false;
-    //     }
-    // };
+    
 
     // Handle material upload to your backend
     const handleMaterialUpload = async () => {
@@ -81,27 +54,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, sessionImage }) => {
         }
     };
 
-    // Ant Design Upload props
-    // const uploadProps = {
-    //     name: 'file',
-    //     multiple: false,
-    //     customRequest: async ({ file, onSuccess, onError }) => {
-    //         const success = await handleImageUpload(file);
-
-    //         if (success) {
-    //             onSuccess('ok');
-    //         } else {
-    //             onError(new Error('Image upload failed.'));
-    //         }
-    //     },
-    //     onChange(info) {
-    //         if (info.file.status === 'done') {
-    //             message.success(`${info.file.name} file uploaded successfully`);
-    //         } else if (info.file.status === 'error') {
-    //             message.error(`${info.file.name} file upload failed.`);
-    //         }
-    //     },
-    // };
+    
 
     return (
         <div className="">
@@ -131,14 +84,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, sessionImage }) => {
                     />
                 </div>
 
-                {/* <div className="flex flex-col">
-
-                    <label className="">Select Image from your Computer</label>
-                    <Upload {...uploadProps}>
-                        <Button icon={<UploadOutlined />}>Upload Image</Button>
-                    </Upload>
-
-                </div> */}
+                
 
                 <Button
                     type="primary"

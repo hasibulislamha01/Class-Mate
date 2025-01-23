@@ -18,7 +18,7 @@ import {
 } from '@tanstack/react-query'
 import TutorHome from './Pages/TutorPages/TutorHomePage/TutorHome';
 import CreateSession from './Pages/TutorPages/CreateSessionPage/CreateSession';
-import MySession from './Pages/TutorPages/MySessionPages/MySession';
+import MySession from './Pages/TutorPages/MySessionPages/MySessions';
 import AllSessions from './Pages/AdminPages/AllSessions/AllSessions';
 import UpdateSession from './Pages/AdminPages/AllSessions/UpdateSession';
 import SessionDetails from './Pages/SessionDetailsPage/SessionDetails';
