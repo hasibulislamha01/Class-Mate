@@ -3,9 +3,9 @@ import useGetLatestData from "../../CustomHooks/useGetLatestData";
 
 const isReviewd = () => {
 
-    const [data] = useGetLatestData()
+    const [data] = useGetLatestData(`/reviews?reviewer=`)
     const [isReviewed, setIsReviewed] = useState(false)
-    
+
     return (
 
     )

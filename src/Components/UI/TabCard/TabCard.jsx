@@ -27,6 +27,7 @@ const TabCard = ({ cardTitle, tabList, defaultTabkey, image, contentList }) => {
             tabProps={{
                 size: 'middle',
             }}
+            className="shadow-md shadow-primary/10"
         >
             <div className="flex items-center gap-3">
                 <div className="h-28 w-40">

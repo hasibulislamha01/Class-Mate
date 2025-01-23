@@ -3,20 +3,18 @@ import useTodaysDate from "../../../CustomHooks/useTodaysDate";
 import PropTypes from 'prop-types'
 import Info from "./Info";
 
-const SessionInfoTab = ({ mySession }) => {
+const SessionInfoTab = ({ registrationFee, duration, regEnds, classEnds }) => {
 
     // const sessionImage = mySession?.sessionImage
-    const registrationFee = mySession?.registrationFee
-    const duration = mySession?.duration
+    // const registrationFee = mySession?.registrationFee
+    // const duration = mySession?.duration
     const todaysDate = new Date(useTodaysDate())
-    const regEndDate = new Date(mySession?.registrationEnds)
+    const regEndDate = new Date(regEnds)
     // const formattedRegistrationStartingDate = useFormateDate(mySession?.registrationStarts)
     // const formattedRegistrationEndingDate = useFormateDate(mySession?.registrationEnds)
     // const formattedClassStartingDate = useFormateDate(mySession?.classStarts)
-    const formattedClassEndingDate = useFormateDate(mySession?.classEnds)
-    // const applyingDate = useFormateDate(mySession?.applyingDate)
+    const formattedClassEndingDate = useFormateDate(classEnds)
     const isExpired = todaysDate > regEndDate
-    const status = mySession?.status
 
     const iterableItems = [
         { keyName: 'Duration', keyValue: duration, unit: 'hours' },
@@ -54,7 +52,10 @@ const SessionInfoTab = ({ mySession }) => {
 };
 
 SessionInfoTab.propTypes = {
-    mySession: PropTypes.object
+    registrationFee: PropTypes.string,
+    duration: PropTypes.string,
+    regEnds: PropTypes.string,
+    classEnds: PropTypes.string,
 }
 
 export default SessionInfoTab;
