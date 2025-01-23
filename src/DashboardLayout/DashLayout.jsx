@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import DashBoardMenu from "../Components/SharedComponents/DashBoardMenu";
 import useUserRole from "../CustomHooks/useUserRole";
 import useAuth from "../CustomHooks/useAuth";
+// import DashboardMenu from "./DashboardMenu";
 
 
 const DashLayout = () => {
@@ -21,6 +22,7 @@ const DashLayout = () => {
                         {/*static sidebar */}
                         <div className="h-full w-11 md:w-[20%] lg:w-60 sticky top-0  bg-primary text-white dark:bg-neutral dark:bg-gradient-to-r from-[#121418] to-[#1A1F26]">
                             <DashBoardMenu role={role} />
+                            {/* <DashboardMenu/> */}
                         </div>
 
                         {/* contents */}

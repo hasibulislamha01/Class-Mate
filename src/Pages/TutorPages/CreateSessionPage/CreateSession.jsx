@@ -179,7 +179,10 @@ const CreateSession = () => {
 
                     <Button
                         disabled={!ready}
-                        className="">
+                        style={{
+                            border: '0px'
+                        }}
+                        className="bg-primary text-accent ">
                         {
                             loading ?
                                 <p>

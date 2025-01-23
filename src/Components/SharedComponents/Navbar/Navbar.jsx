@@ -104,15 +104,15 @@ const Navbar = () => {
     let dashboardLink = '/login'
     let title = 'Login'
     if (role === 'administrator') {
-        dashboardLink = '/dashboard/admin'
+        dashboardLink = '/dashboard/admin/profile'
         title = 'Dashboard'
     }
     else if (role === 'tutor') {
-        dashboardLink = '/dashboard/tutor'
+        dashboardLink = '/dashboard/tutor/profile'
         title = 'Dashboard'
     }
     else if (role === 'student') {
-        dashboardLink = '/dashboard/student'
+        dashboardLink = '/dashboard/student/profile'
         title = 'Dashboard'
     } else {
         dashboardLink = '/login',

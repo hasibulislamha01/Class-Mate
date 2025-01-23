@@ -32,6 +32,11 @@ const DashBoardMenu = ({ role }) => {
     const adminRoutes = [
 
         {
+            link: '/dashboard/admin/profile',
+            icon: <FiUsers />,
+            linkTitle: 'Profile'
+        },
+        {
             link: '/dashboard/admin/students',
             icon: <FiUsers />,
             linkTitle: 'Students'
@@ -61,7 +66,7 @@ const DashBoardMenu = ({ role }) => {
     const tutorRoutes = [
 
         {
-            link: '/dashboard/tutor',
+            link: '/dashboard/tutor/profile',
             icon: <HiOutlinePencilSquare />,
             linkTitle: 'Profile'
         },
@@ -75,11 +80,11 @@ const DashBoardMenu = ({ role }) => {
             icon: <SiGoogleclassroom />,
             linkTitle: 'My Sessions'
         },
-        {
-            link: '/dashboard/tutor/uploadMaterials',
-            icon: <TbBookUpload />,
-            linkTitle: 'Upload Materials'
-        },
+        // {
+        //     link: '/dashboard/tutor/uploadMaterials',
+        //     icon: <TbBookUpload />,
+        //     linkTitle: 'Upload Materials'
+        // },
         {
             link: '/dashboard/tutor/myMaterials',
             icon: <GrDocumentUser />,
@@ -93,6 +98,12 @@ const DashBoardMenu = ({ role }) => {
     ]
 
     const studentRoutes = [
+
+        {
+            link: '/dashboard/student/profile',
+            icon: <GiNotebook />,
+            linkTitle: 'Profile'
+        },
 
         {
             link: '/dashboard/student/bookedSessions',

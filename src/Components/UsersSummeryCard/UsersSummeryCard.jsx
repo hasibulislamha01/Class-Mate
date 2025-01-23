@@ -7,7 +7,7 @@ const UsersSummeryCard = ({ api, subTitle }) => {
 
     // console.log(api);
     const [data] = useGetLatestData(api)
-    console.log(data?.count);
+    // console.log(data?.count);
 
 
 

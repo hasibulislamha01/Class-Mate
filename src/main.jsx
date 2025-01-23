@@ -90,7 +90,7 @@ const router = createBrowserRouter(
 
             // admin routes
             {
-              path: "/dashboard/admin",
+              path: "/dashboard/admin/profile",
               element: <AdminHome></AdminHome>
             },
             {
@@ -121,7 +121,7 @@ const router = createBrowserRouter(
 
             // tutor routes
             {
-              path: "/dashboard/tutor",
+              path: "/dashboard/tutor/profile",
               element: <TutorHome></TutorHome>
             },
             {
@@ -152,7 +152,7 @@ const router = createBrowserRouter(
 
             // student routes
             {
-              path: "/dashboard/student",
+              path: "/dashboard/student/profile",
               element: <StudentHome></StudentHome>
             },
             {

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 const UploadImage = ({formLabel, setImageUrl}) => {
 
     const imgbbApi = import.meta.env.VITE_imgbbApi
-    console.log(imgbbApi);
+    // console.log(imgbbApi);
 
     // Handle image upload via Ant Design's Upload component
     const handleImageUpload = async (file) => {
@@ -22,7 +22,7 @@ const UploadImage = ({formLabel, setImageUrl}) => {
             const result = await response.json();
 
             if (result.success) {
-                console.log(result.data.url);
+                // console.log(result.data.url);
                 setImageUrl(result.data.url);
                 message.success('Image uploaded successfully!');
                 return true;
