@@ -1,16 +1,35 @@
 import useAuth from "../../../CustomHooks/useAuth";
 import MaterialsCard from "./MaterialsCard";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import useGetLatestData from "../../../CustomHooks/useGetLatestData";
+import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 
 const MyMaterials = () => {
 
     const { user } = useAuth()
+    const axiosSecure = useAxiosSecure()
     const tutorEmail = user?.email
-    const [materials] = useGetLatestData("materials", `/materials/${tutorEmail && tutorEmail}`)
+    const [materials, refetch] = useGetLatestData("materials", `/materials/${tutorEmail && tutorEmail}`)
+    // const [selectedMaterialId, setSelectedMaterialId] = useState('')
 
 
     // console.log(materials)
+
+    // delete materials logic
+    const handleDeleteMaterial = (materialId) => {
+        console.log(`/materials/${materialId}`);
+        axiosSecure.delete(`/materials/${materialId}`)
+            .then(res => {
+                // console.log(res.data);
+                if (res.data.deletedCount) {
+                    message.success('Deleted')
+                }
+                refetch()
+            }).catch(error => {
+                console.log(error.message);
+                message.error('Failed to delete.')
+            })
+    }
 
     return (
         <div className="min-h-screen">
@@ -25,6 +44,8 @@ const MyMaterials = () => {
                                 <MaterialsCard
                                     material={material}
                                     key={material?._id}
+                                    // setSelectedMaterialId={setSelectedMaterialId}
+                                    handleDeleteMaterial={handleDeleteMaterial}
                                 ></MaterialsCard>
                             )
                         }

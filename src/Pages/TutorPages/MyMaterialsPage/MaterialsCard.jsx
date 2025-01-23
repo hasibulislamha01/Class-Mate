@@ -1,10 +1,11 @@
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, SettingOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
 import PropTypes from 'prop-types'
 import { IoIosLink } from 'react-icons/io';
+import PopConfirm from '../../../Components/UI/PopConfirm/PopConfirm';
 
 const { Meta } = Card;
-const MaterialsCard = ({ material }) => {
+const MaterialsCard = ({ material, handleDeleteMaterial }) => {
 
     const driveLinkSection =
         <>
@@ -30,8 +31,17 @@ const MaterialsCard = ({ material }) => {
             actions={[
                 <SettingOutlined key="setting" />,
                 <EditOutlined key="edit" />,
-                <EllipsisOutlined key="ellipsis" />,
+                <PopConfirm
+                    key={'delete materials'}
+                    actionableButton={<DeleteOutlined key='delete' />}
+                    description={'Are you sure? This can not be undone.'}
+                    title={'Delete Material'}
+                    // setSelectedMaterialId={setSelectedMaterialId}
+                    materialId={material?._id}
+                    handleDeleteMaterial={handleDeleteMaterial}
+                />,
             ]}
+            className='shadow-md shadow-primary/15'
         >
             <Meta
                 // avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}
@@ -44,6 +54,8 @@ const MaterialsCard = ({ material }) => {
 };
 
 MaterialsCard.propTypes = {
-    material: PropTypes.object
+    material: PropTypes.object,
+    setSelectedMaterialId: PropTypes.func,
+    handleDeleteMaterial: PropTypes.func,
 }
 export default MaterialsCard;
