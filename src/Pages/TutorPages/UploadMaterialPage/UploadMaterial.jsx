@@ -8,18 +8,18 @@ import { Input } from 'antd';
 
 const UploadMaterial = ({ sessionId, tutorEmail, sessionImage }) => {
 
-    console.log('email and id are ',tutorEmail, sessionId);
+    // console.log('email and id are ',tutorEmail, sessionId);
     const axiosSecure = useAxiosSecure()
     
     const [materialTitle, setMaterialTitle] = useState('');
     const [driveLink, setDriveLink] = useState('');
-    const imgbbApiKey = import.meta.env.VITE_imgBB_api
-    console.log('imgbb api key is ', imgbbApiKey);
-    console.log('slfjoe',   materialTitle,
-        sessionImage,
-        sessionId,
-        tutorEmail,
-        driveLink,);
+    
+    // console.log('imgbb api key is ', imgbbApiKey);
+    // console.log('slfjoe',   materialTitle,
+    //     sessionImage,
+    //     sessionId,
+    //     tutorEmail,
+    //     driveLink,);
 
     
 
@@ -37,7 +37,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, sessionImage }) => {
             tutorEmail,
             driveLink,
         };
-        console.log(materialInfo);
+        // console.log(materialInfo);
 
         try {
             const response = await axiosSecure.post('/materials', materialInfo);

@@ -48,7 +48,7 @@ TabCard.propTypes = {
     tabList: PropTypes.array,
     defaultTabkey: PropTypes.any,
     image: PropTypes.string,
-    contentList: PropTypes.array,
+    contentList: PropTypes.object,
     cardTitle: PropTypes.node
 }
 export default TabCard;

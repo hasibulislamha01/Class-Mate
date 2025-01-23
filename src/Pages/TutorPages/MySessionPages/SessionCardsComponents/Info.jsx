@@ -12,7 +12,7 @@ const Info = ({ itemName, itemValue, unit }) => {
 
 Info.propTypes = {
     itemName: PropTypes.string,
-    itemValue: PropTypes.number || PropTypes.string,
+    itemValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     unit: PropTypes.string
 }
 export default Info;

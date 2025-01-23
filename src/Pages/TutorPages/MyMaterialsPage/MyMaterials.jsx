@@ -17,7 +17,6 @@ const MyMaterials = () => {
 
     // delete materials logic
     const handleDeleteMaterial = (materialId) => {
-        console.log(`/materials/${materialId}`);
         axiosSecure.delete(`/materials/${materialId}`)
             .then(res => {
                 // console.log(res.data);
