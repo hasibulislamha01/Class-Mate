@@ -37,5 +37,6 @@ ShowModal.propTypes = {
     controlButton: PropTypes.node,
     modalContent: PropTypes.node,
     modalTitle: PropTypes.node,
+    modalWidth: PropTypes.string
 }
 export default ShowModal;

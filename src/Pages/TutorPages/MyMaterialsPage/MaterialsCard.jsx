@@ -11,14 +11,11 @@ const MaterialsCard = ({ material, handleDeleteMaterial }) => {
         <>
             <p className='flex items-center gap-2'>
                 <IoIosLink />
-                <a href={material?.driveLink}>Browse Drive Link</a>
+                <a href={material?.driveLink} target='blank'>Browse Drive Link</a>
             </p>
         </>
     return (
         <Card
-            style={{
-                // width: 300,
-            }}
             cover={
                 <div className='w-full h-28'>
                     <img
@@ -41,7 +38,7 @@ const MaterialsCard = ({ material, handleDeleteMaterial }) => {
                     handleDeleteMaterial={handleDeleteMaterial}
                 />,
             ]}
-            className='shadow-md shadow-primary/15'
+            className='shadow-md shadow-primary/15 bg-accent dark:bg-dark-accent'
         >
             <Meta
                 // avatar={<Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />}

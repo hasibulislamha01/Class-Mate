@@ -17,8 +17,14 @@ const TabCard = ({ cardTitle, tabList, defaultTabkey, image, contentList }) => {
     return (
         <Card
             title={cardTitle}
+            styles={{
+                title: {
+                    border: '0'
+                }
+            }}
             style={{
                 width: '100%',
+                border: '0'
             }}
             tabList={tabList}
             activeTabKey={activeTabKey}
@@ -27,7 +33,7 @@ const TabCard = ({ cardTitle, tabList, defaultTabkey, image, contentList }) => {
             tabProps={{
                 size: 'middle',
             }}
-            className="shadow-md shadow-primary/10"
+            className="shadow-md shadow-primary/10 text-text dark:text-dark-text bg-accent dark:bg-dark-accent"
         >
             <div className="flex items-center gap-3">
                 <div className="h-28 w-40">

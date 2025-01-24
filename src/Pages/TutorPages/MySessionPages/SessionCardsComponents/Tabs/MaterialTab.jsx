@@ -5,6 +5,7 @@ import { AiFillFileText } from "react-icons/ai";
 import PropTypes from 'prop-types'
 import ShowModal from "../../../../../Components/UI/ShowModal/ShowModal";
 import UploadMaterial from "../../../UploadMaterialPage/UploadMaterial";
+import { Link } from "react-router-dom";
 
 
 const MaterialTab = ({ sessionId, tutorEmail, sessionImage }) => {
@@ -36,10 +37,14 @@ const MaterialTab = ({ sessionId, tutorEmail, sessionImage }) => {
 
                 <Tooltip title='View Materials'>
 
-                    <Button
-                        shape="circle"
-                        icon={<AiFillFileText />}
-                    ></Button>
+                    <Link to='/dashboard/tutor/myMaterials'>
+                        <Button
+                            shape="circle"
+                            icon={<AiFillFileText />}
+                        ></Button>
+                    </Link>
+
+
                 </Tooltip>
 
                 <Tooltip title='Upload Materials'>
