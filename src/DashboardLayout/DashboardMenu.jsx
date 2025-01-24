@@ -109,6 +109,7 @@ const DashboardMenu = () => {
                 mode="inline"
                 theme="dark"
                 inlineCollapsed={collapsed}
+                collapsedWidth={600}
                 items={items}
             />
         </div>

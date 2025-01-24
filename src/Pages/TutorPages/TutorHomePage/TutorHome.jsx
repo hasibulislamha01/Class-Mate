@@ -8,7 +8,7 @@ const TutorHome = () => {
 
     return (
         <div className="h-full py-6">
-            <h1 className="text-xl font-bold text-center text-primary">Welcome Tutor</h1>
+            {/* <h1 className="text-xl font-bold text-center text-primary">Welcome Tutor</h1> */}
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
                 <UsersSummeryCard
