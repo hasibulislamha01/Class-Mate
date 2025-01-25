@@ -1,55 +1,63 @@
 import PropTypes from 'prop-types'
+import ShowTable from '../../Components/UI/ShowTable/ShowTable';
+import { Link } from 'react-router-dom';
+
+const sessionColumns = [
+    // {
+    //     title: 'Session ',
+    //     dataIndex: 'thumbnail',
+    //     key: 'thumbnail',
+    // },
+    {
+        title: 'Session Title',
+        dataIndex: 'title',
+        key: 'title',
+        render: (title, record) => (
+            <div className='flex items-center gap-3'>
+                <div className='h-8 w-8 '>
+                    <img src={record?.thumbnail} alt="session image" className='h-full w-full rounded-full' />
+                </div>
+                <h3><Link to={`/sessions/${record.id}`}>{title}</Link></h3>
+            </div>
+        ),
+    },
+    {
+        title: 'Duration (Hours)',
+        dataIndex: 'duration',
+        key: 'duration',
+    },
+    {
+        title: 'Tutor',
+        dataIndex: 'tutor',
+        key: 'tutor',
+    },
+    // {
+    //     title: '',
+    //     dataIndex: 'address',
+    //     key: 'address',
+    // },
+]
 
 const TableView = ({ sessions, handleRedirect }) => {
 
-
+    const tableItems = sessions?.map((session, index) => {
+        console.log(index, session)
+        return (
+            {
+                key: index + 1,
+                id: session._id,
+                title: session.sessionTitle,
+                thumbnail: session.sessionImage,
+                duration: session.duration,
+                tutor: session.tutorName
+            }
+        )
+    })
+    // console.log(sessions, tableItems);
 
 
     return (
-        <table className="w-full">
-            <thead>
-                <tr>
-                    <th>Session Title</th>
-                    <th className="hidden lg:table-cell text-left">Tutor Name</th>
-                    <th className="hidden md:table-cell text-left">Deadline</th>
-                    <th>See Details</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {
-                    sessions?.map(session =>
-                        <tr key={session?._id}>
-                            <td>
-                                <div className="flex items-center gap-3">
-                                    <div className="avatar hidden md:block">
-                                        <div className="mask mask-squircle h-12 w-12">
-                                            <img
-                                                src={session.sessionImage}
-                                                alt='session image'
-                                                className="rounded-full"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold text-left">{session.sessionTitle}</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td className="hidden lg:table-cell">
-                                {session.tutorName}
-                            </td>
-                            <td className="hidden md:table-cell">{session?.registrationEnds}</td>
-                            <th>
-
-                                <button className="btn btn-ghost btn-xs" onClick={() => handleRedirect(`/sessionDetails/${session._id}`)}>details</button>
-
-                            </th>
-                        </tr>
-                    )
-                }
-            </tbody>
-        </table>
+        <ShowTable columns={sessionColumns} dataSource={tableItems} />
     );
 };
 

@@ -4,10 +4,11 @@ import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 import { Link } from "react-router-dom";
 import TabCard from "../../../Components/UI/TabCard/TabCard";
 import MakeCardTitle from "./MakeCardTitle";
+import SessionTab from "./SessionCardTabs/SessionTab";
 
 const tabs = [
     {
-        key: 'tab1',
+        key: 'session',
         tab: 'Session',
     },
     {
@@ -20,11 +21,6 @@ const tabs = [
     },
 ]
 
-const contentListNoTitle = {
-    article: <p>Article content</p>,
-    app: <p>App content</p>,
-    project: <p>Project content</p>,
-};
 
 
 const BookedSessions = () => {
@@ -33,6 +29,7 @@ const BookedSessions = () => {
     const queryData = useGetLatestData('bookedSessions', `/bookedSessions/${user?.email}`)
     const bookedSessions = queryData[0]
     // console.log(bookedSessions?.length)
+
 
 
     return (
@@ -61,10 +58,18 @@ const BookedSessions = () => {
                                     <TabCard
                                         key={bookedSession?._id}
                                         tabList={tabs}
-                                        contentList={contentListNoTitle}
-                                        defaultTabkey={'tab1'}
+                                        contentList={{
+                                            session: <SessionTab session={bookedSession} />,
+                                            app: <p>App content</p>,
+                                            project: <p>Project content</p>,
+                                        }}
+                                        defaultTabkey={'session'}
                                         image={bookedSession?.sessionImage}
-                                        cardTitle={<MakeCardTitle sessionId={bookedSession?.sessionId} tutorPhoto={bookedSession?.tutorPhoto} sessionTitle={bookedSession?.sessionTitle} />}
+                                        cardTitle={
+                                            <MakeCardTitle
+                                                sessionId={bookedSession?.sessionId} tutorPhoto={bookedSession?.tutorPhoto} sessionTitle={bookedSession?.sessionTitle}
+                                            />
+                                        }
                                     />
 
                                     {/* <ReviewModal

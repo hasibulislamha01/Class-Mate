@@ -22,6 +22,8 @@ const filterOptions = [
     },
 ]
 
+
+
 const AllSessionsPage = () => {
 
     const [data] = useGetLatestData('sessions', '/sessions?status=approved')
@@ -36,7 +38,7 @@ const AllSessionsPage = () => {
 
     const handleChange = (value) => {
         console.log(`selected ${value}`);
-      };
+    };
 
     // const [showLatest, setShowLatest] = useState(false)
     // const [loading, setLoading] = useState(false)
@@ -74,20 +76,20 @@ const AllSessionsPage = () => {
         <div className="min-h-screen container mx-auto py-16 md:py-24 bg-background dark:bg-dark-background text-text dark:text-dark-text transition-colors duration-300">
 
             {/* page heading */}
-            <h1 className="text-center font-bold text-xl lg:text-3xl">All sessions</h1>
+            <h1 className="text-center font-bold">All sessions</h1>
 
             {/* controls */}
-            <div className="my-10 flex flex-col md:flex-row items-center justify-center gap-32">
+            <div className="my-5 w-[95%] md:w-[80%] lg:w-[50%] mx-auto flex flex-col md:flex-row items-center justify-between">
 
                 <div>
-                        <Select
-                            defaultValue="all"
-                            style={{
-                                width: 180,
-                            }}
-                            onChange={handleChange}
-                            options={filterOptions}
-                        />
+                    <Select
+                        defaultValue="all"
+                        style={{
+                            width: 180,
+                        }}
+                        onChange={handleChange}
+                        options={filterOptions}
+                    />
                 </div>
 
 

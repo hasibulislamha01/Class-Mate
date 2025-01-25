@@ -1,7 +1,7 @@
 import useFormateDate from "../../../../../CustomHooks/useFormateDate";
 import useTodaysDate from "../../../../../CustomHooks/useTodaysDate";
 import PropTypes from 'prop-types'
-import Info from "../Info";
+import Info from "../../../../../Components/UI/TabCard/Info";
 
 const SessionInfoTab = ({ registrationFee, duration, regEnds, classEnds }) => {
 
