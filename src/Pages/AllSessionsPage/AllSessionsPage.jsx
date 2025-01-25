@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import CardSkeleton from "../../Components/Skeletons/CardSkeleton";
 import ListSkeleton from "../../Components/Skeletons/ListSkeleton";
 import GridView from "./GridView";
-import { CiSearch } from "react-icons/ci";
-import Select from 'react-select'
-import { CiGrid41 } from "react-icons/ci";
-import { CiViewTable } from "react-icons/ci";
 import TableView from "./TableView";
 import { useNavigate } from "react-router-dom";
 import ShowPagination from "./ShowPagination";
 import useGetLatestData from "../../CustomHooks/useGetLatestData";
+import { AppstoreOutlined, BarsOutlined, SearchOutlined } from '@ant-design/icons';
+import { Input, Segmented, Select } from 'antd';
 
 
 
@@ -31,6 +29,14 @@ const AllSessionsPage = () => {
     const [isGridView, setIsGridView] = useState(true)
     const [loading, setLoading] = useState(true)
     // console.log(data);
+
+    const handleViewChange = () => {
+        setIsGridView((prevState) => !prevState)
+    }
+
+    const handleChange = (value) => {
+        console.log(`selected ${value}`);
+      };
 
     // const [showLatest, setShowLatest] = useState(false)
     // const [loading, setLoading] = useState(false)
@@ -74,40 +80,40 @@ const AllSessionsPage = () => {
             <div className="my-10 flex flex-col md:flex-row items-center justify-center gap-32">
 
                 <div>
-                    <Select
-                        options={filterOptions}
-                        placeholder={'Filter Sessions'}
-                        className="w-[200px]"
-                        onChange={(e) => handleSort(e.value)}
-                    />
+                        <Select
+                            defaultValue="all"
+                            style={{
+                                width: 180,
+                            }}
+                            onChange={handleChange}
+                            options={filterOptions}
+                        />
                 </div>
 
 
                 {/* search field */}
                 <div className="relative font-semibold text-primary">
-                    <input
-                        className="input border border-primary focus:border-none focus:outline-primary rounded-full w-[300px]"
-                        type="text"
-                        placeholder="Search Sessions"
-                    />
-                    <CiSearch fill="#1D8BD5" size={30} type="submit" className="absolute top-[20%] left-[85%]" />
+                    <Input size="medium" placeholder="Search Sessions" prefix={<SearchOutlined />} />
+                    {/* <CiSearch fill="#1D8BD5" size={30} type="submit" className="absolute top-[20%] left-[85%]" /> */}
                 </div>
 
                 {/* view controls */}
-                <div className="flex items-center rounded-full border border-sky-200">
+                <div className="flex items-center rounded-full">
 
-                    <div
-                        className={`py-2 px-4 rounded-l-full transition-all duration-500 cursor-pointer ${isGridView ? 'bg-sky-200' : 'bg-base-100'}`}
-                        onClick={() => setIsGridView(true)}
-                    >
-                        <CiGrid41 size={20} />
-                    </div>
-                    <div
-                        className={`py-2 px-4 rounded-r-full transition-all duration-500 cursor-pointer ${!isGridView ? 'bg-sky-200' : 'bg-base-100'}`}
-                        onClick={() => setIsGridView(false)}
-                    >
-                        <CiViewTable size={20} />
-                    </div>
+                    <Segmented
+                        vertical
+                        options={[
+                            {
+                                value: 'Kanban',
+                                icon: <AppstoreOutlined />,
+                            },
+                            {
+                                value: 'List',
+                                icon: <BarsOutlined />,
+                            },
+                        ]}
+                        onChange={handleViewChange}
+                    />
                 </div>
             </div>
 
