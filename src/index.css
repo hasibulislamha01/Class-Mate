@@ -1,9 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-.page-wrapper{
+/* fonts */
+* {
+    font-family: "Poppins", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.page-wrapper {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -191,15 +201,15 @@
     width: 80px;
 }
 
-.activeRoleButton{
+.activeRoleButton {
     color: #00dfc4;
 }
 
-.roleButton{
+.roleButton {
     color: #71717a;
 }
 
-.input-box{
+.input-box {
     padding: 0.5rem 1rem;
     border-radius: 0.4rem;
     outline: none;
@@ -207,7 +217,7 @@
 }
 
 
-.textarea-box{
+.textarea-box {
     padding: 0.7rem 1.3rem;
     border-radius: 0.4rem;
     outline: none;
@@ -216,7 +226,7 @@
 
 .custom-spin .ant-spin-dot-item {
     background-color: #ffffff;
-  }
+}
 
 
 /* media queries for responsive dessign */
@@ -236,14 +246,14 @@
         width: 98%;
         /* border: 1px solid lime; */
     }
-    
+
 }
 
 
 
 /* ------------ Tablets -------------- */
 
-@media only screen and (max-width : 778px){
+@media only screen and (max-width : 778px) {
 
     .custom-ribbon {
         left: 34px !important;

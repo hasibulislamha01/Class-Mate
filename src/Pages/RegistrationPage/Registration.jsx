@@ -5,7 +5,7 @@ import { useState } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import SelectItems from "../../Components/SelectItems/SelectItems";
 import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
-import RegisterAnimation from "../../Components/AnimationComponents/RegisterAnimation";
+// import RegisterAnimation from "../../Components/AnimationComponents/RegisterAnimation";
 
 
 
@@ -132,9 +132,7 @@ const Registration = () => {
         <div className="py-12 min-h-screen container mx-auto">
             <Toaster></Toaster>
             <div className="flex flex-col lg:flex-row justify-center items-center">
-                <div className="lg:w-1/2 mx-auto">
-                    <RegisterAnimation></RegisterAnimation>
-                </div>
+                
                 <div className="">
                     <h1 className="mb-8 text-3xl text-[#A0D6B4] text-center">Register Here</h1>
 
