@@ -6,6 +6,7 @@ import TabCard from "../../../Components/UI/TabCard/TabCard";
 import MakeCardTitle from "./MakeCardTitle";
 import SessionTab from "./SessionCardTabs/SessionTab";
 import MaterialTab from "./SessionCardTabs/MaterialTab";
+import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
 
 const tabs = [
     {
@@ -27,7 +28,7 @@ const tabs = [
 const BookedSessions = () => {
 
     const { user } = useAuth()
-    const queryData = useGetLatestData('bookedSessions', `/bookedSessions/${user?.email}`)
+    const queryData = useGetLatestData(`/bookedSessions?studentEmail=${user?.email}`)
     const bookedSessions = queryData[0]
     // console.log(bookedSessions?.length)
 
@@ -35,7 +36,12 @@ const BookedSessions = () => {
 
     return (
         <div className="relative container mx-auto min-h-screen">
-            <h1 className="my-6 text-xl text-center text-primary font-bold">Booked Sessions</h1>
+
+            <DashboardHeading
+                title={'Booked Sessions'}
+                subtitle={'The sessions you have purchased appear here.'}
+            />
+            
             {
                 bookedSessions?.length === 0 ?
                     <div className="min-h-screen flex flex-col items-center justify-center gap-6 text-pretty">
@@ -60,9 +66,9 @@ const BookedSessions = () => {
                                         key={bookedSession?._id}
                                         tabList={tabs}
                                         contentList={{
-                                            session: 
-                                            <SessionTab session={bookedSession} />,
-                                            app: <MaterialTab sessionId={bookedSession.sessionId}/>,
+                                            session:
+                                                <SessionTab session={bookedSession} />,
+                                            app: <MaterialTab sessionId={bookedSession.sessionId} />,
                                             project: <p>Project content</p>,
                                         }}
                                         defaultTabkey={'session'}

@@ -16,11 +16,14 @@ const MaterialsCard = ({ material, handleDeleteMaterial, role }) => {
         </>
     return (
         <Card
-        styles={{
-            actions: {
-                display: `${role !== 'tutor' ? 'hidden' : 'block'}`
-            }
+        style={{
+            width: 300
         }}
+            styles={{
+                actions: {
+                    display: `hidden`
+                }
+            }}
             cover={
                 <div className='w-full h-28'>
                     <img
@@ -30,20 +33,22 @@ const MaterialsCard = ({ material, handleDeleteMaterial, role }) => {
                     />
                 </div>
             }
-            
-            actions={[
-                <SettingOutlined key="setting" />,
-                <EditOutlined key="edit" />,
-                <PopConfirm
-                    key={'delete materials'}
-                    actionableButton={<DeleteOutlined key='delete' />}
-                    description={'Are you sure? This can not be undone.'}
-                    title={'Delete Material'}
-                    // setSelectedMaterialId={setSelectedMaterialId}
-                    materialId={material?._id}
-                    handleDeleteMaterial={handleDeleteMaterial}
-                />,
-            ]}
+
+            actions={
+                <div className={`${role === 'tutor' ? 'flex' : 'hidden'} items-center `}>
+                    <SettingOutlined key="setting" />,
+                    <EditOutlined key="edit" />,
+                    <PopConfirm
+                        key={'delete materials'}
+                        actionableButton={<DeleteOutlined key='delete' />}
+                        description={'Are you sure? This can not be undone.'}
+                        title={'Delete Material'}
+                        // setSelectedMaterialId={setSelectedMaterialId}
+                        materialId={material?._id}
+                        handleDeleteMaterial={handleDeleteMaterial}
+                    />
+                </div>
+            }
             className='shadow-md shadow-primary/15 bg-accent dark:bg-dark-accent'
         >
             <Meta
