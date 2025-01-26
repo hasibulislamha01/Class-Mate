@@ -2,10 +2,10 @@ import { DeleteOutlined, EditOutlined, SettingOutlined } from '@ant-design/icons
 import { Card } from 'antd';
 import PropTypes from 'prop-types'
 import { IoIosLink } from 'react-icons/io';
-import PopConfirm from '../../../Components/UI/PopConfirm/PopConfirm';
+import PopConfirm from '../../UI/PopConfirm/PopConfirm';
 
 const { Meta } = Card;
-const MaterialsCard = ({ material, handleDeleteMaterial }) => {
+const MaterialsCard = ({ material, handleDeleteMaterial, role }) => {
 
     const driveLinkSection =
         <>
@@ -16,6 +16,11 @@ const MaterialsCard = ({ material, handleDeleteMaterial }) => {
         </>
     return (
         <Card
+        styles={{
+            actions: {
+                display: `${role !== 'tutor' ? 'hidden' : 'block'}`
+            }
+        }}
             cover={
                 <div className='w-full h-28'>
                     <img
@@ -25,6 +30,7 @@ const MaterialsCard = ({ material, handleDeleteMaterial }) => {
                     />
                 </div>
             }
+            
             actions={[
                 <SettingOutlined key="setting" />,
                 <EditOutlined key="edit" />,
@@ -54,5 +60,6 @@ MaterialsCard.propTypes = {
     material: PropTypes.object,
     setSelectedMaterialId: PropTypes.func,
     handleDeleteMaterial: PropTypes.func,
+    role: PropTypes.string
 }
 export default MaterialsCard;

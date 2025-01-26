@@ -5,7 +5,7 @@ const Info = ({ itemName, itemValue, unit }) => {
     return (
         <div className="flex flex-col justify-start">
             <p className="text-gray-500">{itemName}</p>
-            <h3 className="font-semibold">{itemValue} {unit}</h3>
+            <h3 className="font-medium">{itemValue} {unit}</h3>
         </div>
     );
 };

@@ -6,7 +6,7 @@ const CourseMaterial = () => {
     const params = useParams()
     const id = params.id
     console.log(id)
-    const query = useGetLatestData('getMaterialforStudent', `/materials/student/${id}`)
+    const query = useGetLatestData(`/materials?sessionId=${id}`)
     const materials = query[0]
     console.log(materials)
 

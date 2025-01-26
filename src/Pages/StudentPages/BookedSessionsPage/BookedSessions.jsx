@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import TabCard from "../../../Components/UI/TabCard/TabCard";
 import MakeCardTitle from "./MakeCardTitle";
 import SessionTab from "./SessionCardTabs/SessionTab";
+import MaterialTab from "./SessionCardTabs/MaterialTab";
 
 const tabs = [
     {
@@ -59,8 +60,9 @@ const BookedSessions = () => {
                                         key={bookedSession?._id}
                                         tabList={tabs}
                                         contentList={{
-                                            session: <SessionTab session={bookedSession} />,
-                                            app: <p>App content</p>,
+                                            session: 
+                                            <SessionTab session={bookedSession} />,
+                                            app: <MaterialTab sessionId={bookedSession.sessionId}/>,
                                             project: <p>Project content</p>,
                                         }}
                                         defaultTabkey={'session'}

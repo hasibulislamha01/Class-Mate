@@ -1,5 +1,5 @@
 import useAuth from "../../../CustomHooks/useAuth";
-import MaterialsCard from "./MaterialsCard";
+import MaterialsCard from "../../../Components/SharedComponents/DashboardComponents/MaterialsCard";
 import { Button, message } from "antd";
 import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";

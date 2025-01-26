@@ -5,9 +5,10 @@ import PropTypes from "prop-types";
 
 const StdAllMtrlsCard = ({ bookedSession }) => {
 
-    const splittedDescription = bookedSession?.description?.split(' ')
-    const slicedDescription = splittedDescription.slice(0, 10)
-    const shortenedDescription = slicedDescription.join(' ')
+    console.log(bookedSession);
+    // const splittedDescription = bookedSession?.description?.split(' ')
+    // const slicedDescription = splittedDescription.slice(0, 10)
+    // const shortenedDescription = slicedDescription.join(' ')
 
 
     return (
@@ -40,7 +41,7 @@ const StdAllMtrlsCard = ({ bookedSession }) => {
                     </Tooltip>
                 }
                 title={bookedSession?.sessionTitle}
-                description={`${shortenedDescription} ...`}
+                description={`${ 'wow'} ...`}
             />
 
         </Card>

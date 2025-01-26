@@ -1,11 +1,11 @@
 import { Button, Tooltip } from "antd";
-import Info from "../Info";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { AiFillFileText } from "react-icons/ai";
 import PropTypes from 'prop-types'
 import ShowModal from "../../../../../Components/UI/ShowModal/ShowModal";
 import UploadMaterial from "../../../UploadMaterialPage/UploadMaterial";
 import { Link } from "react-router-dom";
+import Info from "../../../../../Components/UI/TabCard/Info";
 
 
 const MaterialTab = ({ sessionId, tutorEmail, sessionImage }) => {
