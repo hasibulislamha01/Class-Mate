@@ -63,7 +63,7 @@ const UploadImage = ({formLabel, setImageUrl}) => {
 
             <label className="">{formLabel}</label>
             <Upload {...uploadProps}>
-                <Button icon={<UploadOutlined />}>Upload Image</Button>
+                <Button icon={<UploadOutlined />}>Upload Now</Button>
             </Upload>
 
         </div>
