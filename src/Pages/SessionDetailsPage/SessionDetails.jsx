@@ -1,4 +1,4 @@
-import { Button, Card } from "antd";
+import { Button, Card, Rate } from "antd";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import useFormateDate from "../../CustomHooks/useFormateDate";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
@@ -11,6 +11,7 @@ import useShowMessage from "../../CustomHooks/Alerts/useShowMessage";
 import { AiOutlineMail } from "react-icons/ai";
 import { IoIosCall } from "react-icons/io";
 import Reviews from "./Reviews";
+import { useEffect, useState } from "react";
 
 const SessionDetails = () => {
     const session = useLoaderData()
@@ -22,6 +23,7 @@ const SessionDetails = () => {
     const role = useUserRole()
     const axiosSecure = useAxiosSecure()
     const location = useLocation()
+    const [rating, setRating] = useState(0)
     console.log(role, location, showMessage)
 
 
@@ -63,7 +65,11 @@ const SessionDetails = () => {
         paymentPageLink = `/payment/${sessionId}`
     }
 
-    // console.log(regEndDate > todaysDate)
+    useEffect(() => {
+        axiosSecure.get(`/reviews/average/${sessionId}`)
+            .then(res => setRating(res?.data.rating))
+            .catch(error => console.error(error.message))
+    })
 
     const handleBookSession = () => {
         const studentEmail = user?.email
@@ -119,7 +125,7 @@ const SessionDetails = () => {
     }
 
     return (
-        <div className="container mx-auto py-16 lg:py-24">
+        <div className="w-[95%] xl:w-[85%] mx-auto pt-20">
             {
                 !session ?
                     <div className="h-screen flex items-center justify-center">
@@ -140,7 +146,7 @@ const SessionDetails = () => {
                         </Card>
 
                         {/* hero cards */}
-                        <div className="h-full flex gap-3">
+                        <div className="h-full flex flex-col lg:flex-row gap-3">
                             {/* image card */}
                             <Card
                                 styles={{
@@ -150,19 +156,19 @@ const SessionDetails = () => {
                                 }}
                                 className="shadow-sm"
                             >
-                                <div className="h-full flex flex-col justify-between gap-5">
+                                <div className="h-full flex flex-col md:flex-row lg:flex-col items-center justify-between gap-5">
 
                                     <div className="w-80 h-48">
                                         <img src={sessionImg} alt="session image" className="w-full h-full object-cover rounded-md" />
                                     </div>
 
-                                    <div className="leading-7 flex items-end justify-between">
-                                        <div>
+                                    <div className="leading-7 flex flex-col md:flex-col items-start justify-center w-full">
+                                        <div className="">
                                             <h1 className="font-bold">{sessionTitle}</h1>
                                             <h3 className="">Fee:  ${regFee}</h3>
                                             <h3>Duration: {duration} hours</h3>
                                         </div>
-                                        <div className="flex justify-center">
+                                        <div className="w-full flex justify-end">
                                             <Button
                                                 onClick={showMessage?.success('done')}
                                                 className="bg-primary text-accent">Book Now</Button>
@@ -172,7 +178,7 @@ const SessionDetails = () => {
 
                             </Card>
                             {/* details container */}
-                            <div className="h-full flex flex-col justify-between gap-5">
+                            <div className="h-full flex flex-col justify-between gap-10">
                                 <Card className="shadow-sm">
                                     <div className="space-y-8">
                                         <div>
@@ -181,28 +187,36 @@ const SessionDetails = () => {
                                                 {description}
                                             </p>
                                         </div>
-                                        <div className="text-lg font-bold ">
-                                            Rating:
+                                        <div className="text-sm font-semibold flex items-center gap-4">
+                                            <h3>Rating:</h3>
+                                            {rating ?
+                                                <Rate 
+                                                style={{
+                                                    fontSize: 16,
+                                                    color: '#5CBFE9'
+                                                }} disabled value={rating} /> :
+                                                <p className="font-medium text-xs">no reviews yet</p>
+                                            }
                                         </div>
                                     </div>
                                 </Card>
 
                                 <Card className="shadow-sm">
-                                    <div className="grid grid-cols-4 justify-items-stretch gap-10">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-stretch gap-10">
                                         <div className="pr-2 border-r-2 border-primary">
-                                            <h1 className="text-xl font-bold">{regStarts}</h1>
+                                            <h1 className="text-lg font-bold">{regStarts}</h1>
                                             <p>Registration Starts</p>
                                         </div>
                                         <div className="pr-5 border-r-2 border-primary">
-                                            <h1 className="text-xl font-bold">{regEnds}</h1>
+                                            <h1 className="text-lg font-bold">{regEnds}</h1>
                                             <p>Registration Ends</p>
                                         </div>
                                         <div className="pr-5 border-r-2 border-primary">
-                                            <h1 className="text-xl font-bold">{classStarts}</h1>
+                                            <h1 className="text-lg font-bold">{classStarts}</h1>
                                             <p>Class Starts</p>
                                         </div>
                                         <div className="pr-5 border-r-2 border-primary">
-                                            <h1 className="text-xl font-bold">{classEnds}</h1>
+                                            <h1 className="text-lg font-bold">{classEnds}</h1>
                                             <p>Class Ends</p>
                                         </div>
                                     </div>
