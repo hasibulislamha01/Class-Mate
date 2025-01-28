@@ -21,7 +21,7 @@ const Navbar = () => {
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
     const role = useUserRole()
-    console.log(role);
+    // console.log(role);
     const [isSticky, setIsSticky] = useState(false)
 
     const userImage = user ? user?.photoURL : 'avatar.gif'
@@ -193,7 +193,7 @@ const Navbar = () => {
 
 
     return (
-        <div className={`w-full h-[50px] fixed z-50 flex items-center px-2 md:px-0 shadow-lg  ${isSticky && 'stickyNav shadow-lg'}`}>
+        <div className={`w-full h-[50px] fixed z-50 flex items-center px-2 md:px-0 ${isSticky ? 'stickyNav shadow-lg' : 'bg-white/40'}`}>
 
             {/* website name visible in mobiles */}
             <NavLink to='/' className={`md:hidden text-lg font-bold mr-auto ${!isSticky ? 'text-black' : 'text-white'}`}>

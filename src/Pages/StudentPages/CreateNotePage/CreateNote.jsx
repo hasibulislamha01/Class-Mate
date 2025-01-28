@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import useAuth from "../../../CustomHooks/useAuth";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
+import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
 
 const CreateNote = () => {
 
@@ -37,12 +38,12 @@ const CreateNote = () => {
 
     return (
         <div>
-
+            <DashboardHeading title={'Create Session'} subtitle={'Create a note of a session you have already booked'} />
             {/* form wrapper */}
             <div className="bg-sky-200 dark:bg-dark-accent rounded-lg w-[95%] md:w-[80%] lg:w-1/2 mx-auto mt-12 shadow-lg shadow-primary/15 dark:shadow-dark-accent py-6 md:py-10 lg:py-12 px-6 md:px-8 lg:px-10">
-                <h1 className="text-center text-xl my-4">Create Note</h1>
+
                 <form onSubmit={handleSaveNote} className="flex flex-col justify-center items-center gap-4 w-[75%] mx-auto">
-                    
+
                     <div className="mx-auto form-control gap-1 w-full">
                         <label className="">Note Title</label>
                         <input
@@ -66,7 +67,7 @@ const CreateNote = () => {
                         >
 
                         </textarea>
-                       
+
                     </div>
                     <button className="mt-6 btn mx-auto w-[300px] bg-primary/70 text-accent border-none">Create Note</button>
                 </form>

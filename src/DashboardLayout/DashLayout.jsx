@@ -16,7 +16,7 @@ const DashLayout = () => {
     const isLoading = !user || !role;
 
     return (
-        <div className="h-screen max-w-[1600px] mx-auto text-text dark:text-dark-text bg-background dark:bg-dark-background transition-colors duration-300">
+        <div className="h-screen max-w-[1600px] mx-auto text-text dark:text-dark-text bg-background dark:bg-dark-background transition-colors duration-300 overflow-hidden">
 
             {
                 !isLoading ?
@@ -40,7 +40,7 @@ const DashLayout = () => {
                             </div>
 
                             {/* contents */}
-                            <div className="mx-auto px-2 md:px-5 lg:px-8 xl:px-10  w-full overflow-y-auto h-full bg-background dark:bg-dark-background rounded-lg">
+                            <div className="h-full mx-auto px-2 md:px-5 lg:px-8 xl:px-10  w-full overflow-y-auto bg-background dark:bg-dark-background rounded-lg">
                                 <Outlet />
                             </div>
                         </div>

@@ -76,12 +76,21 @@ const AllSessionsPage = () => {
         <div className="min-h-screen container mx-auto py-16 md:py-24 bg-background dark:bg-dark-background text-text dark:text-dark-text transition-colors duration-300">
 
             {/* page heading */}
-            <h1 className="text-center font-bold">All sessions</h1>
+            <div className="text-center">
+                <h1 className="font-semibold text-lg">All sessions</h1>
+                <p className="text-sm">Find your desired session with manual search or browse yourself.</p>
+            </div>
 
             {/* controls */}
-            <div className="my-5 w-[95%] md:w-[80%] lg:w-[50%] mx-auto flex flex-col md:flex-row items-center justify-between">
+            <div className="my-5 w-[95%] mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
 
-                <div>
+                {/* search field */}
+                <div className="font-semibold text-primary">
+                    <Input size="medium" placeholder="Search Sessions" prefix={<SearchOutlined />} className="w-72" />
+                </div>
+
+                <div className="flex items-center gap-5">
+
                     <Select
                         defaultValue="all"
                         style={{
@@ -90,32 +99,27 @@ const AllSessionsPage = () => {
                         onChange={handleChange}
                         options={filterOptions}
                     />
-                </div>
 
 
-                {/* search field */}
-                <div className="relative font-semibold text-primary">
-                    <Input size="medium" placeholder="Search Sessions" prefix={<SearchOutlined />} />
-                    {/* <CiSearch fill="#1D8BD5" size={30} type="submit" className="absolute top-[20%] left-[85%]" /> */}
-                </div>
 
-                {/* view controls */}
-                <div className="flex items-center rounded-full">
+                    {/* view controls */}
+                    <div className="flex items-center rounded-full">
 
-                    <Segmented
-                        vertical
-                        options={[
-                            {
-                                value: 'Kanban',
-                                icon: <AppstoreOutlined />,
-                            },
-                            {
-                                value: 'List',
-                                icon: <BarsOutlined />,
-                            },
-                        ]}
-                        onChange={handleViewChange}
-                    />
+                        <Segmented
+                            vertical
+                            options={[
+                                {
+                                    value: 'Kanban',
+                                    icon: <AppstoreOutlined />,
+                                },
+                                {
+                                    value: 'List',
+                                    icon: <BarsOutlined />,
+                                },
+                            ]}
+                            onChange={handleViewChange}
+                        />
+                    </div>
                 </div>
             </div>
 
