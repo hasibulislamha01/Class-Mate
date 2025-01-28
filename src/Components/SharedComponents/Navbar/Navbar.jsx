@@ -196,9 +196,12 @@ const Navbar = () => {
         <div className={`w-full h-[50px] fixed z-50 flex items-center px-2 md:px-0 ${isSticky ? 'stickyNav shadow-lg' : 'bg-white/40'}`}>
 
             {/* website name visible in mobiles */}
-            <NavLink to='/' className={`md:hidden text-lg font-bold mr-auto ${!isSticky ? 'text-black' : 'text-white'}`}>
+            <NavLink to='/' className={`md:hidden text-lg font-bold mr-auto`}>
                 {/* <img src="/favicon.png" /> */}
-                <h1>ClassMate</h1>
+                <h1>
+                    <span className={`font-semibold ${isSticky ? 'text-accent' : 'text-primary'}`}> Class</span>
+                    <span className={`font-semibold ${isSticky ? 'text-secondary' : 'text-primary'} `}>Mate</span>
+                </h1>
             </NavLink>
 
             {/* horizontal navbar */}
@@ -209,7 +212,10 @@ const Navbar = () => {
                     <div className="hidden md:inline-flex">
                         <img src="/favicon.png" className="w-8 h-8 " />
                     </div>
-                    <h1>ClassMate</h1>
+                    <h1>
+                        <span className={`font-semibold ${isSticky ? 'text-accent' : 'text-primary'}`}> Class</span>
+                        <span className={`font-semibold ${isSticky ? 'text-secondary' : 'text-primary'} `}>Mate</span>
+                    </h1>
                 </NavLink>
 
                 <div className="hidden h-full md:flex items-center gap-6 font-bold">
@@ -218,7 +224,7 @@ const Navbar = () => {
                             <NavLink
                                 key={routes.link}
                                 to={routes.link}
-                                className={({ isActive }) => `font-semibold ${isActive ? isSticky ? 'text-secondary' : 'text-primary' : `${isSticky ? 'text-accent': 'text-gray-500'}`} `}
+                                className={({ isActive }) => `font-semibold ${isActive ? isSticky ? 'text-secondary' : 'text-primary' : `${isSticky ? 'text-accent' : 'text-gray-500'}`} `}
 
                             >
                                 {routes.title}
