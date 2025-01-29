@@ -3,7 +3,6 @@ import CardSkeleton from "../../Components/Skeletons/CardSkeleton";
 import ListSkeleton from "../../Components/Skeletons/ListSkeleton";
 import GridView from "./GridView";
 import TableView from "./TableView";
-import { useNavigate } from "react-router-dom";
 import ShowPagination from "./ShowPagination";
 import useGetLatestData from "../../CustomHooks/useGetLatestData";
 import { AppstoreOutlined, BarsOutlined, SearchOutlined } from '@ant-design/icons';
@@ -40,19 +39,6 @@ const AllSessionsPage = () => {
         console.log(`selected ${value}`);
     };
 
-    // const [showLatest, setShowLatest] = useState(false)
-    // const [loading, setLoading] = useState(false)
-
-    const navigate = useNavigate()
-
-    const handleRedirect = (link) => {
-        console.log('hitttted');
-        // setLoading(true)
-        navigate(link)
-    }
-    // console.log(isGridView);
-    // console.log(sessions);
-
     // collecting data from database
     useEffect(() => {
         if (data) {
@@ -63,14 +49,14 @@ const AllSessionsPage = () => {
 
 
     // sorting logics
-    const handleSort = (value) => {
-        console.log(value);
-        if (value === 'active') {
-            // setShowLatest(true)
-        } else {
-            // setShowLatest(false)
-        }
-    }
+    // const handleSort = (value) => {
+    //     console.log(value);
+    //     if (value === 'active') {
+    //         // setShowLatest(true)
+    //     } else {
+    //         // setShowLatest(false)
+    //     }
+    // }
 
     return (
         <div className="min-h-screen container mx-auto py-16 md:py-24 bg-background dark:bg-dark-background text-text dark:text-dark-text transition-colors duration-300">
@@ -140,7 +126,7 @@ const AllSessionsPage = () => {
                             }
                         </div>
                         :
-                        <GridView sessions={sessions} handleRedirect={handleRedirect} />
+                        <GridView sessions={sessions}/>
 
 
                 }
@@ -155,8 +141,6 @@ const AllSessionsPage = () => {
                         :
                         <TableView
                             sessions={sessions}
-                            handleRedirect={handleRedirect}
-                        // setLoading={setLoading}
                         />
                 }
             </div>

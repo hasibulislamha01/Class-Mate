@@ -100,7 +100,7 @@ const Navbar = () => {
             })
     }
 
-    console.log("user role is: ", role);
+    // console.log("user role is: ", role);
     let dashboardLink = '/login'
     let title = 'Login'
     if (role === 'administrator') {
@@ -183,7 +183,7 @@ const Navbar = () => {
     ]
 
     let items;
-    console.log(user);
+    // console.log(user);
     if (user) {
         items = userItems
     } else {

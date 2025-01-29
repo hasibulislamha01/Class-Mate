@@ -38,10 +38,10 @@ const sessionColumns = [
     // },
 ]
 
-const TableView = ({ sessions, handleRedirect }) => {
+const TableView = ({ sessions }) => {
 
     const tableItems = sessions?.map((session, index) => {
-        console.log(index, session)
+        // console.log(index, session)
         return (
             {
                 key: index + 1,

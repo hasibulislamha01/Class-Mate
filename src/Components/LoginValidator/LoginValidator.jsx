@@ -6,7 +6,7 @@ const LoginValidator = ({children}) => {
 
     const location = useLocation()
     const {user, loading} = useAuth()
-    console.log(user, location)
+    // console.log(user, location)
 
     
     if (loading) {
