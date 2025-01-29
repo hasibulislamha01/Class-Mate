@@ -153,7 +153,7 @@ const DashBoardMenu = ({ role }) => {
                             {
                                 dashboardRout?.map(route =>
 
-                                    <NavLink key={route.link} to={route.link} className={({ isActive }) => ` w-full py-2 transition-all duration-200 ${isActive ? 'bg-primary rounded-md text-accent' : ''}`}>
+                                    <NavLink key={route.link} to={route.link} className={({ isActive }) => `text-sm w-full py-2 transition-all duration-200 ${isActive ? 'bg-primary rounded-md text-accent' : ''}`}>
                                         <div className="flex items-center justify-center md:justify-start gap-2">
                                             <div className="p-2 rounded-xl flex items-center justify-center">{route.icon}</div>
                                             <h3 className='hidden md:block'>{route.linkTitle}</h3>
@@ -163,16 +163,16 @@ const DashBoardMenu = ({ role }) => {
                             }
                         </div>
 
-                        <hr className="border-b-1  " />
+                        <hr className="border-b-1 mt-5  " />
 
-                        <div className="w-full flex flex-col justify-start  items-center md:items-start gap-4 pt-4 pl-4">
+                        <div className="w-full flex flex-col justify-start  items-center md:items-start gap-2 pt-4 pl-4">
                             <h4 className="uppercase font-semibold text-gray-500 text-xs ">Controls</h4>
                             {
                                 defaultRoutes?.map(item =>
                                     <NavLink
                                         key={item.link}
                                         to={item.link}
-                                        className={({ isActive }) => ` w-full py-2 transition-all duration-200 ${isActive ? 'bg-primary rounded-md text-accent' : ''}`}>
+                                        className={({ isActive }) => `text-sm w-full py-2 transition-all duration-200 ${isActive ? 'bg-primary rounded-md text-accent' : ''}`}>
                                         <div className="flex items-center justify-center md:justify-start gap-2">
                                             <h3 className="text-2xl md:text-base">{item.icon}</h3>
                                             <h3 className='hidden md:block'>{item.linkTitle}</h3>

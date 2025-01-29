@@ -63,18 +63,18 @@ const WhatTheySay = () => {
         <section className="min-h-screen">
 
             <Card
-                className="relative p-5 w-[95%] md:w-[85%] lg:w-[75%] xl:w-[65%] mx-auto shadow-lg"
+                className="relative md:p-5 w-[90%] md:w-[85%] lg:w-[75%] xl:w-[65%] mx-auto shadow-lg "
             >
 
-                <div className="space-y-3">
+                <div className="space-y-3 ">
                     <h1 className="text-xl font-bold text-center">What Users Are Saying</h1>
                     <hr className="w-[90%] md:w-[50%] lg:w-[40%] mx-auto border-b" />
                 </div>
 
-                <div className="testimonial-carousel mt-12">
+                <div className=" mt-12">
 
-                    <div className="testimonial-slide flex flex-col items-center" key={currentIndex}>
-                        <p className="testimonial-text text-center w-[80%] md:w-[70%] mx-auto text-[1rem]">
+                    <div className="flex flex-col items-center" key={currentIndex}>
+                        <p className="testimonial-text text-center w-[99%] md:w-[70%] mx-auto text-[0.9rem] lg:text-[1rem]">
                             {testimonials[currentIndex]?.testimonial}
                         </p>
                         <div className="flex flex-col items-center">
