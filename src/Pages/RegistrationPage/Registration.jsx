@@ -92,7 +92,7 @@ const Registration = () => {
     }
 
     return (
-        <div className="py-12 min-h-screen container mx-auto">
+        <div className="w-[90%] md:w-[95%] py-12 min-h-screen container mx-auto">
             <div className="flex flex-col lg:flex-row justify-center items-center">
 
                 <div className="my-20">
@@ -104,7 +104,7 @@ const Registration = () => {
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                         layout="vertical"
-                        className="md:w-60 lg:w-72 xl:w-auto px-20 pt-5 pb-10 bg-accent dark:bg-dark-accent rounded-lg text-text dark:text-dark-text"
+                        className="w-full px-5 md:px-12 lg:px-20 pt-5 pb-10 bg-accent dark:bg-dark-accent rounded-lg text-text dark:text-dark-text [&>*]:w-[]"
                     >
 
                         <h1 className="capitalize text-center font-medium text-lg my-5 text-primary">Create a Classmate account</h1>
@@ -243,9 +243,9 @@ const Registration = () => {
                     </Form>
 
 
-                    <h4 className="text-center text-lg w-full mt-12">
+                    <h4 className="text-center text-sm w-full mt-12">
                         Already have an account ?
-                        <Link to='/login' className="w-full ml-3 text-primary font-bold">Sign in</Link>
+                        <Link to='/login' className="w-full ml-3 text-primary font-semibold">Sign in</Link>
                     </h4>
                 </div>
             </div>

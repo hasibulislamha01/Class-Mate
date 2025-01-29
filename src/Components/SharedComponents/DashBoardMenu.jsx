@@ -147,13 +147,13 @@ const DashBoardMenu = ({ role }) => {
                 role ?
 
                     <>
-                        <div className="flex flex-col justify-start items-start px-4">
-                            <h4 className="uppercase mb-5 font-semibold text-gray-500 text-xs ">Dashboard</h4>
+                        <div className="flex flex-col justify-start items-start px-1 lg:px-4 ">
+                            <h4 className="hidden md:block uppercase mb-5 font-semibold text-gray-500 text-[0.6rem]  lg:text-xs">Dashboard</h4>
 
                             {
                                 dashboardRout?.map(route =>
 
-                                    <NavLink key={route.link} to={route.link} className={({ isActive }) => `text-sm w-full py-2 transition-all duration-200 ${isActive ? 'bg-primary rounded-md text-accent' : ''}`}>
+                                    <NavLink key={route.link} to={route.link} className={({ isActive }) => `text-xs lg:text-sm w-full py-2 transition-all duration-200 ${isActive ? 'bg-primary rounded-md text-accent' : ''}`}>
                                         <div className="flex items-center justify-center md:justify-start gap-2">
                                             <div className="p-2 rounded-xl flex items-center justify-center">{route.icon}</div>
                                             <h3 className='hidden md:block'>{route.linkTitle}</h3>

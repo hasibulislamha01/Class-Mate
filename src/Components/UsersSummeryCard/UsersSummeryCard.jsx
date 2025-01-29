@@ -16,7 +16,7 @@ const UsersSummeryCard = ({ api, subTitle }) => {
         <Card
             className='shadow-lg'
         >
-            <h1 className='text-2xl lg:text-3xl font-semibold'>{data?.count || 0} </h1>
+            <h1 className='text-xl lg:text-2xl font-semibold'>{data?.count || 0} </h1>
             <h3 className='text-text text-[0.9rem]'>{subTitle}</h3>
         </Card>
 

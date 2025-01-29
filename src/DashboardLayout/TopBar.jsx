@@ -21,19 +21,19 @@ const TopBar = ({userName, userPhoto, userRole}) => {
 
             </div>
 
-            <div className="w-full pr-5 lg:pr-8 flex justify-between">
+            <div className="w-full pr-5 lg:pr-8 flex justify-end md:justify-between ">
                 {/* search */}
                 <Input
                     placeholder="Search"
-                    className="bg-background dark:bg-dark-background w-60 text-text dark:text-dark-text"
+                    className="hidden lg:flex bg-background dark:bg-dark-background w-60 text-text dark:text-dark-text"
                     prefix={<SearchOutlined key={'search'} />}
                 />
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-end gap-4">
                     <BellOutlined key='bell' />
                     <img src={userPhoto} alt="" className="h-8 w-8 object-cover rounded-full" />
                     <div className="flex flex-col">
-                        <h5 className="text-sm">{userName}</h5>
+                        <h5 className="text-sm hidden md:block">{userName}</h5>
                         <h4 className="text-sm font-semibold">{userRole}</h4>
                     </div>
                 </div>
