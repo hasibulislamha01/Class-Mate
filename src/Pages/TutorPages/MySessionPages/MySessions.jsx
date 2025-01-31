@@ -4,6 +4,7 @@ import TabCard from "../../../Components/UI/TabCard/TabCard";
 import SessionInfoTab from './SessionCardsComponents/Tabs/SessionInfoTab';
 import MaterialTab from './SessionCardsComponents/Tabs/MaterialTab';
 import MakeCardTitleForTutor from "./SessionCardsComponents/MakeCardTitleForTutor";
+import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 
 const tabList = [{
     key: 'sessionTab',
@@ -24,10 +25,16 @@ const MySession = () => {
     const { user } = useAuth()
     const tutorEmail = user?.email;
     const tutorPhoto = user?.photoURL
+    const axiosSecure = useAxiosSecure()
     const queryInfo = useGetLatestData(`/sessions?tutorEmail=${tutorEmail}`)
     const mySessions = queryInfo[0]
     const refetch = queryInfo[1]
     // console.log(mySessions, sessionId, tutorEmail)
+
+    const handleRenewSession = (sessionId) => {
+        console.log(`renewing the session ${sessionId}`);
+        // axiosSecure.patch(`/sessions/`)
+    }
 
 
     return (
@@ -47,6 +54,9 @@ const MySession = () => {
                                         duration={session.duration}
                                         regEnds={session.registrationEnds}
                                         classEnds={session.classEnds}
+                                        status={session?.status}
+                                        sessionId={session._id}
+                                        handleRenewSession={handleRenewSession}
                                     />,
 
                                 materialsTab:

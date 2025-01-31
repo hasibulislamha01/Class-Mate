@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { Button, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import UploadImage from '../../../Components/SharedComponents/UploadImage/UploadImage';
+import DashboardHeading from '../../../Components/SharedComponents/DashboardComponents/DashboardHeading';
 
 const CreateSession = () => {
 
@@ -109,36 +110,43 @@ const CreateSession = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col-reverse lg:flex-row justify-evenly items-center">
-            <div className=''>
+        <div className="min-h-screen flex flex-col justify-center items-center bg-[url(/favicon.png) bg-no-repeat] bg-[url('/favicon.png')] bg-no-repeat bg-center bg-cover">
+            <DashboardHeading
+                title={'Create a Session'}
+                subtitle={'Create a session and expand yourself as a ClassMate tutor'} />
+            {/* <div className=''>
                 <img src="/favicon.png" alt="" className='w-48 md:w-60 lg:w-72' />
-            </div>
-            <div className="px-2 md:px-3 lg:px-6">
-                <h1 className="text-center text-xl font-bold text-primary my-6"> Create Session </h1>
-                <form onSubmit={handleCreateSession} className="w-full flex flex-col space-y-6">
+            </div> */}
+            <div className="px-3 md:px-6 lg:px-12 xl:px-32 w-full py-10 bg-accent/90 dark:bg-dark-accent rounded-lg">
+
+                <form onSubmit={handleCreateSession} className="w-full flex flex-col space-y-6 ">
 
 
-                    <div className="">
-                        <label className="">Session Title</label>
-                        <Input
-                            placeholder='Enter Session Title'
-                            type='text'
-                            name='title'
-                            required='Enter Session Title'
-                            onChange={(e) => { setSessionTitle(e.target.value) }}
-                        />
+                    <div className='flex flex-col items-center md:flex-row gap-5'>
+                        <div className="">
+                            <label className="">Session Title</label>
+                            <Input
+                                className='dark:bg-dark-background dark:text-dark-text dark:border-dark-accent'
+                                placeholder='Enter Session Title'
+                                type='text'
+                                name='title'
+                                required='Enter Session Title'
+                                onChange={(e) => { setSessionTitle(e.target.value) }}
+                            />
 
-                    </div>
+                        </div>
 
-                    <div className="">
-                        <label htmlFor="">Session Duration in hours</label>
-                        <Input
-                            placeholder='Duration (hours)'
-                            type='number'
-                            name='duration'
-                            required='Enter duration'
-                            onChange={(e) => { setDuration(e.target.value) }}
-                        />
+                        <div className="">
+                            <label htmlFor="">Session Duration in hours</label>
+                            <Input
+                                className='dark:bg-dark-background dark:text-dark-text dark:border-dark-accent'
+                                placeholder='Duration (hours)'
+                                type='number'
+                                name='duration'
+                                required='Enter duration'
+                                onChange={(e) => { setDuration(e.target.value) }}
+                            />
+                        </div>
                     </div>
 
 
@@ -149,20 +157,22 @@ const CreateSession = () => {
                         />
                     </div>
 
-                    <div className="flex flex-col">
-                        <label htmlFor="">Registration starting and ending date</label>
-                        <Datefield
-                            setStart={setRegStart}
-                            setEnd={setRegEnd}
-                        ></Datefield>
-                    </div>
+                    <div className='flex flex-col md:flex-row gap-5 '>
+                        <div className="flex flex-col">
+                            <label htmlFor="">Registration starting and ending date</label>
+                            <Datefield
+                                setStart={setRegStart}
+                                setEnd={setRegEnd}
+                            ></Datefield>
+                        </div>
 
-                    <div className="flex flex-col">
-                        <label htmlFor="">Class starting and ending date</label>
-                        <Datefield
-                            setStart={setClassStart}
-                            setEnd={setClassEnds}
-                        ></Datefield>
+                        <div className="flex flex-col">
+                            <label htmlFor="">Class starting and ending date</label>
+                            <Datefield
+                                setStart={setClassStart}
+                                setEnd={setClassEnds}
+                            ></Datefield>
+                        </div>
                     </div>
 
                     <div className="">

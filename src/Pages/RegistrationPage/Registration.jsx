@@ -92,10 +92,10 @@ const Registration = () => {
     }
 
     return (
-        <div className="w-[90%] md:w-[95%] py-12 min-h-screen container mx-auto">
+        <div className="w-[90%] md:w-[95%] min-h-screen flex flex-col justify-center container mx-auto">
             <div className="flex flex-col lg:flex-row justify-center items-center">
 
-                <div className="my-20">
+                <div className="my-20 w-auto">
                 
                     <Form
                         name="basic"
