@@ -135,7 +135,7 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen py-24 space-y-6">
+        <div className="min-h-screen py-24 space-y-6 ">
             <Toaster></Toaster>
             <div>
                 {
@@ -149,12 +149,12 @@ const Login = () => {
                 showModal && <LoginModal email />
             }
             {/* content container */}
-            <div className={`w-[85%] md:w-[80%] lg:w-[70%] mx-auto py-5 md:py-8 lg:py-10 px-0 md:px-2 lg:px-8 flex flex-col-reverse md:flex-row items-center rounded-lg shadow-lg border-none ${showModal ? 'bg-accent dark:bg-dark-accent/30' : 'bg-accent dark:bg-dark-accent'}`}>
+            <div className={`w-[85%] md:w-[80%] lg:w-[70%] mx-auto py-20 md:py-8 lg:py-10 px-0 md:px-2 lg:px-8 flex flex-col-reverse md:flex-row items-center rounded-lg shadow-lg border-none ${showModal ? 'bg-accent dark:bg-dark-accent/30' : 'bg-accent dark:bg-dark-accent'}`}>
 
                 {/* svg or image container */}
                 <div className="hidden md:block flex-1 h-full w-full">
                     <div className="h-full">
-                        <img src="/favicon.png" alt="" className="h-1/2 w-1/2 mx-auto" />
+                        <img src="/privacy.svg" alt="" className="h-3/5 w-3/5 mx-auto" />
                     </div>
                 </div>
 

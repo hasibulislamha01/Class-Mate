@@ -114,10 +114,12 @@ const CreateSession = () => {
             <DashboardHeading
                 title={'Create a Session'}
                 subtitle={'Create a session and expand yourself as a ClassMate tutor'} />
-            {/* <div className=''>
-                <img src="/favicon.png" alt="" className='w-48 md:w-60 lg:w-72' />
-            </div> */}
-            <div className="px-3 md:px-6 lg:px-12 xl:px-32 w-full py-10 bg-accent/95 dark:bg-dark-accent rounded-lg">
+
+            <div className="px-3 md:px-6 lg:px-12 xl:px-32 w-full py-10 bg-accent dark:bg-dark-accent rounded-lg flex items-center gap-12 lg:gap-20 ">
+
+                <div className='w-72 h-72'>
+                    <img src="/scientist.svg" alt="" className='w-full h-full' />
+                </div>
 
                 <form onSubmit={handleCreateSession} className="w-full flex flex-col space-y-6 ">
 

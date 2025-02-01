@@ -93,7 +93,11 @@ const Registration = () => {
 
     return (
         <div className="w-[90%] md:w-[95%] min-h-screen flex flex-col justify-center container mx-auto">
-            <div className="flex flex-col lg:flex-row justify-center items-center">
+            <div className="flex flex-col-reverse md:flex-row justify-center items-center gap-10">
+
+                <div className="w-60 h-60 lg:h-96 lg:w-96 hidden md:block">
+                    <img src="/smart-people.svg" alt="" className="h-full w-full" />
+                </div>
 
                 <div className="my-20 w-auto">
                 
