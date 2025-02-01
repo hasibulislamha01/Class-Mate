@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Info from "../../../../../Components/UI/TabCard/Info";
 import { MdAutorenew } from "react-icons/md";
 import { Button, Tooltip } from "antd";
+import ShowModal from "../../../../../Components/UI/ShowModal/ShowModal";
 
 
 const SessionInfoTab = ({
@@ -51,13 +52,28 @@ const SessionInfoTab = ({
                         <div className="flex items-center gap-5">
                             <h6 className="font-semibold ">Expired</h6>
                             <Tooltip title='Request Renew'>
+                                <ShowModal controlButton={
+                                    <Button shape="circle">
+                                        <MdAutorenew size={15} className="hover:rotate-180 transition-transform duration-700" />
+                                    </Button>
+                                }
+                                    modalContent={
+                                        <section className="space-y-5">
+                                            <h1 className="text-red-500 text-lg">Session Expired</h1>
+                                            <p>
+                                                The registration deadline is finished. The students are no longer able to enroll the session. By renewing it the students can enroll the session again.
+                                            </p>
 
-                                <Button shape="circle" onClick={() => handleRenewSession(sessionId)}>
-
-                                    <MdAutorenew size={15} className="hover:rotate-180 transition-transform duration-700" />
-                                </Button>
-
+                                            <Button
+                                                type="primary"
+                                                icon={<MdAutorenew size={20} />}
+                                                onClick={() => handleRenewSession(sessionId)}
+                                            >Renew</Button>
+                                        </section>
+                                    }
+                                />
                             </Tooltip>
+
                         </div> :
                         status === 'rejected' ? 'Pending' :
                             'Currenly Enrolling'
