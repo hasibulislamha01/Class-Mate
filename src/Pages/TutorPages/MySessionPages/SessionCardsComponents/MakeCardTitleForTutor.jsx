@@ -13,7 +13,7 @@ const MakeCardTitleForTutor = ({ tutorPhoto, sessionId, sessionTitle, status, re
     if (status === 'pending') {
         badgeBg = 'bg-warning'
     }
-    else if (status === 'approved') {
+    else if (status === 'approved' || status === 'renewed') {
         badgeBg = 'bg-[#15803d] text-[#dcfce7]'
     }
     else if (status === 'rejected') {
@@ -81,7 +81,7 @@ const MakeCardTitleForTutor = ({ tutorPhoto, sessionId, sessionTitle, status, re
                     </Tooltip>
                 }
                 <div className={`${badgeBg} h-3 w-3 rounded-full`}></div>
-                <h5 className='text-xs'>{status}</h5>
+                <h5 className='text-xs font-medium'>{status}</h5>
             </div>
         </div>
     );

@@ -26,14 +26,21 @@ const MySession = () => {
     const tutorEmail = user?.email;
     const tutorPhoto = user?.photoURL
     const axiosSecure = useAxiosSecure()
-    const queryInfo = useGetLatestData(`/sessions?tutorEmail=${tutorEmail}`)
-    const mySessions = queryInfo[0]
-    const refetch = queryInfo[1]
-    // console.log(mySessions, sessionId, tutorEmail)
+    const [data, refetch, isLoading] = useGetLatestData(`/sessions?tutorEmail=${tutorEmail}`)
+
 
     const handleRenewSession = (sessionId) => {
-        console.log(`renewing the session ${sessionId}`);
-        // axiosSecure.patch(`/sessions/`)
+        console.log(`/sessions/${sessionId}`);
+        const updates = [
+            {updatableKey: 'status', value: 'renewed'}
+        ]
+
+        axiosSecure.patch(`/sessions/${sessionId}`, updates)
+            .then(res => {
+                console.log(res.data)
+                refetch()
+            })
+            .catch(error => console.error(error.message))
     }
 
 
@@ -44,9 +51,10 @@ const MySession = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-4 ">
 
                 {
-                    mySessions?.map(session =>
+                    data?.map(session =>
                         <TabCard
                             key={session._id}
+                            loading={isLoading}
                             contentList={{
                                 sessionTab:
                                     <SessionInfoTab

@@ -2,7 +2,7 @@ import { Card } from "antd";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-const TabCard = ({ cardTitle, tabList, defaultTabkey, image, contentList }) => {
+const TabCard = ({ cardTitle, tabList, defaultTabkey, image, contentList, loading }) => {
 
     // antD card controlling logics
     const [activeTabKey, setActiveTabKey] = useState(defaultTabkey);
@@ -16,6 +16,7 @@ const TabCard = ({ cardTitle, tabList, defaultTabkey, image, contentList }) => {
 
     return (
         <Card
+            loading={loading}
             title={cardTitle}
             styles={{
                 title: {
@@ -55,6 +56,7 @@ TabCard.propTypes = {
     defaultTabkey: PropTypes.any,
     image: PropTypes.string,
     contentList: PropTypes.object,
-    cardTitle: PropTypes.node
+    cardTitle: PropTypes.node,
+    loading: PropTypes.bool
 }
 export default TabCard;

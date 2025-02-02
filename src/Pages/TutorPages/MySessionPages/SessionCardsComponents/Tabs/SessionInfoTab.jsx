@@ -5,6 +5,7 @@ import Info from "../../../../../Components/UI/TabCard/Info";
 import { MdAutorenew } from "react-icons/md";
 import { Button, Tooltip } from "antd";
 import ShowModal from "../../../../../Components/UI/ShowModal/ShowModal";
+import { useEffect, useState } from "react";
 
 
 const SessionInfoTab = ({
@@ -21,7 +22,13 @@ const SessionInfoTab = ({
     const todaysDate = new Date(useTodaysDate())
     const regEndDate = new Date(regEnds)
     const formattedClassEndingDate = useFormateDate(classEnds)
-    const isExpired = todaysDate > regEndDate
+    const [isExpired, setIsExpired] = useState(false)
+
+    useEffect(() => {
+        if (todaysDate > regEndDate && status !== 'renewed') {
+            () => setIsExpired(true)
+        }
+    })
 
     const iterableItems = [
         { keyName: 'Duration', keyValue: duration, unit: 'hours' },
@@ -75,8 +82,8 @@ const SessionInfoTab = ({
                             </Tooltip>
 
                         </div> :
-                        status === 'rejected' ? 'Pending' :
-                            'Currenly Enrolling'
+                        status !== 'rejected' ? 'Currenly Enrolling' :
+                            'Pending'
                     }
                 </h3>
             </div>
