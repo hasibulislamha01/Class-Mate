@@ -5,18 +5,18 @@ import PropTypes from 'prop-types';
 
 const Reviews = ({ sessionId }) => {
 
-    const [data] = useGetLatestData(`/reviews/${sessionId}`)
-    // console.log(typeof data[0]?.ratingValue);
-
+    console.log(sessionId);
+    const [data] = useGetLatestData(`/reviews?sessionId?${sessionId}`)
+    console.log(data);
     return (
 
-        <section>
+        <section className=''>
             {data?.length !== 0 ?
                 data?.map(review =>
                     <div
                         key={review._id}
                         className='flex items-center gap-4'>
-                        {console.log(typeof review.ratingValue)}
+                        {/* {console.log(typeof review.ratingValue)} */}
                         <div>
                             {
                                 review.reviewerImage ?

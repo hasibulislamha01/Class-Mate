@@ -66,7 +66,7 @@ const SessionDetails = () => {
     }
 
     useEffect(() => {
-        axiosSecure.get(`/reviews/average/${sessionId}`)
+        axiosSecure.get(`/reviews?sessionId=${sessionId}`)
             .then(res => setRating(res?.data.rating))
             .catch(error => console.error(error.message))
     })
