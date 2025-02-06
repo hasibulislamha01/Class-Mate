@@ -107,7 +107,7 @@ const CreateSession = () => {
                 title={'Create a Session'}
                 subtitle={'Create a session and expand yourself as a ClassMate tutor'} />
 
-            <div className="px-3 md:px-6 lg:px-12 xl:px-32 w-full py-10 bg-accent dark:bg-dark-accent rounded-lg flex items-center gap-12 lg:gap-20 ">
+            <div className="px-3 md:px-6 lg:px-12 xl:px-32 w-full py-10 bg-accent dark:bg-dark-accent rounded-lg flex items-center gap-12 lg:gap-20 shadow-lg hover:shadow-primary/20">
 
                 <div className='w-72 h-72'>
                     <img src="/scientist.svg" alt="" className='w-full h-full' />

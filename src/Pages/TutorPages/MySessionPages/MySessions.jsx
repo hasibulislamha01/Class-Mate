@@ -5,6 +5,7 @@ import SessionInfoTab from './SessionCardsComponents/Tabs/SessionInfoTab';
 import MaterialTab from './SessionCardsComponents/Tabs/MaterialTab';
 import MakeCardTitleForTutor from "./SessionCardsComponents/MakeCardTitleForTutor";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
+import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
 
 const tabList = [{
     key: 'sessionTab',
@@ -32,7 +33,7 @@ const MySession = () => {
     const handleRenewSession = (sessionId) => {
         console.log(`/sessions/${sessionId}`);
         const updates = [
-            {updatableKey: 'status', value: 'renewed'}
+            { updatableKey: 'status', value: 'renewed' }
         ]
 
         axiosSecure.patch(`/sessions/${sessionId}`, updates)
@@ -46,7 +47,8 @@ const MySession = () => {
 
     return (
         <div className=" relative">
-            <h1 className="mt-6 mb-12 text-center text-xl font-bold text-primary">My Sessions</h1>
+
+            <DashboardHeading subtitle={'These are the sessions you have created so far'} title={'Created Sessions'} />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-4 ">
 

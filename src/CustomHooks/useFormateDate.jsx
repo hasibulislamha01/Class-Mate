@@ -1,14 +1,14 @@
 import { format } from "date-fns";
 
 const useFormateDate = ( date ) => {
-console.log(date)
+// console.log(date)
     if(!date){
         return
     }
     // Split the date string based on the double hyphen separator
     const [month, day, year] = date.split(/\/|-/);
 
-    console.log(month, day, year)
+    // console.log(month, day, year)
 
     // Create a valid date string for the Date constructor
     const validDateString = `${year}-${month}-${day}`;

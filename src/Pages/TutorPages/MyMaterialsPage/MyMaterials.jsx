@@ -3,6 +3,7 @@ import MaterialsCard from "../../../Components/SharedComponents/DashboardCompone
 import { Button, message } from "antd";
 import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
+import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
 
 const MyMaterials = () => {
 
@@ -32,7 +33,8 @@ const MyMaterials = () => {
 
     return (
         <div className="min-h-screen">
-            <h1 className="text-center text-xl font-bold text-primary my-6">My Materials</h1>
+            
+            <DashboardHeading subtitle={'These are the materials you have uploaded'} title={'Uploaded Materials'}/>
 
             {
                 materials?.length !== 0 ?

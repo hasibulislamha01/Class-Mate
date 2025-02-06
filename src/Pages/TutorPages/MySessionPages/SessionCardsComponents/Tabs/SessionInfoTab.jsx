@@ -1,11 +1,12 @@
 import useFormateDate from "../../../../../CustomHooks/useFormateDate";
-import useTodaysDate from "../../../../../CustomHooks/useTodaysDate";
+// import useTodaysDate from "../../../../../CustomHooks/useTodaysDate";
 import PropTypes from 'prop-types'
 import Info from "../../../../../Components/UI/TabCard/Info";
 import { MdAutorenew } from "react-icons/md";
 import { Button, Tooltip } from "antd";
 import ShowModal from "../../../../../Components/UI/ShowModal/ShowModal";
 import { useEffect, useState } from "react";
+// import dayjs from "dayjs";
 
 
 const SessionInfoTab = ({
@@ -17,18 +18,19 @@ const SessionInfoTab = ({
     handleRenewSession,
     sessionId }) => {
 
-    console.log(handleRenewSession);
-
-    const todaysDate = new Date(useTodaysDate())
-    const regEndDate = new Date(regEnds)
+    // console.log(handleRenewSession);
     const formattedClassEndingDate = useFormateDate(classEnds)
     const [isExpired, setIsExpired] = useState(false)
-
+    console.log(isExpired, 'expirty', formattedClassEndingDate)
+    
     useEffect(() => {
-        if (todaysDate > regEndDate && status !== 'renewed') {
-            () => setIsExpired(true)
+        const todaysDate = new Date();
+        const regEndDate = new Date(regEnds)
+        console.log('todays date',todaysDate, 'reg ends date', regEndDate)
+        if (todaysDate > regEndDate) {
+            () => { return setIsExpired(true)}
         }
-    })
+    }, [regEnds])
 
     const iterableItems = [
         { keyName: 'Duration', keyValue: duration, unit: 'hours' },

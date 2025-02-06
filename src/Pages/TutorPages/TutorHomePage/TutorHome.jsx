@@ -8,7 +8,7 @@ const TutorHome = () => {
     const { user } = useAuth()
 
     return (
-        <div className="h-full py-6">
+        <div className="h-full">
             {/* <h1 className="text-xl font-bold text-center text-primary">Welcome Tutor</h1> */}
 
             <DashboardHeading
