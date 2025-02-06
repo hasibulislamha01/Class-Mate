@@ -63,15 +63,7 @@ const CreateSession = () => {
 
     const handleCreateSession = (event) => {
         event.preventDefault()
-        setLoading(true)
-        const form = event.target
-        const sessionTitle = form.sessionTitle.value;
-        const duration = form.duration.value;
-        const description = form.description.value;
-        const registrationStarts = form.regStarts.value;
-        const registrationEnds = form.regEnds.value;
-        const classStarts = form.classStarts.value;
-        const classEnds = form.classEnds.value;
+        
 
         const sessionInfo = {
             sessionTitle,
@@ -161,7 +153,7 @@ const CreateSession = () => {
 
                     <div className='flex flex-col md:flex-row gap-5 '>
                         <div className="flex flex-col">
-                            <label htmlFor="">Registration starting and ending date</label>
+                            <label htmlFor="">Pick Registrtion timeline</label>
                             <Datefield
                                 setStart={setRegStart}
                                 setEnd={setRegEnd}
@@ -169,7 +161,7 @@ const CreateSession = () => {
                         </div>
 
                         <div className="flex flex-col">
-                            <label htmlFor="">Class starting and ending date</label>
+                            <label htmlFor="">Pick Class timeline</label>
                             <Datefield
                                 setStart={setClassStart}
                                 setEnd={setClassEnds}
@@ -190,6 +182,7 @@ const CreateSession = () => {
 
 
                     <Button
+                        htmlType='submit'
                         disabled={!ready}
                         style={{
                             border: '0px'

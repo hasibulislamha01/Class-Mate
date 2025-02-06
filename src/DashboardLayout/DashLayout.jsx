@@ -16,7 +16,7 @@ const DashLayout = () => {
     const isLoading = !user || !role;
 
     return (
-        <div className="h-screen max-w-[1600px] mx-auto text-text dark:text-dark-text bg-background dark:bg-dark-background transition-colors duration-300 overflow-hidden">
+        <div className="min-h-screen max-w-[1600px] mx-auto text-text dark:text-dark-text bg-background dark:bg-dark-background transition-colors duration-300">
 
             {
                 !isLoading ?
@@ -35,12 +35,12 @@ const DashLayout = () => {
                         <div className="flex items-start max-w-[1920px]">
 
                             {/*static sidebar */}
-                            <div className="h-full w-11 md:w-[20%] lg:w-60 sticky top-0  text-text dark:bg-neutral dark:bg-gradient-to-r from-[#121418] to-[#1A1F26] rounded-r-lg">
+                            <div className="h-full w-11 md:w-[20%] lg:w-60 sticky top-0  text-text dark:bg-neutral dark:bg-gradient-to-r from-[#121418] to-[#1A1F26] rounded-r-lg ">
                                 <DashBoardMenu role={role} />
                             </div>
 
                             {/* contents */}
-                            <div className="h-full mx-auto px-2 md:px-5 lg:px-8 xl:px-10  w-full overflow-y-auto bg-background dark:bg-dark-background rounded-lg">
+                            <div className="h-full mx-auto px-2 md:px-5 lg:px-8 xl:px-10  w-full bg-background dark:bg-dark-background rounded-lg overflow-y-auto pb-12">
                                 <Outlet />
                             </div>
                         </div>

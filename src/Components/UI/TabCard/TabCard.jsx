@@ -34,7 +34,7 @@ const TabCard = ({ cardTitle, tabList, defaultTabkey, image, contentList, loadin
             tabProps={{
                 size: 'middle',
             }}
-            className="shadow-md shadow-primary/10 text-text dark:text-dark-text bg-accent dark:bg-dark-accent"
+            className="shadow-md hover:shadow-primary/20 text-text dark:text-dark-text bg-accent dark:bg-dark-accent"
         >
             <div className="flex items-center gap-3">
                 <div className="h-28 w-40">
