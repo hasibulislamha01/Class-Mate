@@ -1,70 +1,62 @@
 
 import { Link } from "react-router-dom";
-import { Skeleton } from "antd";
 import useGetAllUsersWithSameAttribute from "../../../CustomHooks/useGetAllUsersWithSameAttribute";
+import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
+import ShowTable from "../../../Components/UI/ShowTable/ShowTable";
+
+const columnItems = [
+    {
+        title: 'Student Name',
+        dataIndex: 'name',
+        key: 'name',
+        render: (title, record) => (
+            <div className='flex items-center gap-3'>
+                <div className='h-8 w-8 '>
+                    <img src={record?.thumbnail} alt="student image" className='h-full w-full rounded-full' />
+                </div>
+                <h3><Link to={`/users/${record.id}`}>{title}</Link></h3>
+            </div>
+        ),
+    },
+    {
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+    },
+    {
+        title: 'Phone',
+        dataIndex: 'phone',
+        key: 'phone',
+    },
+]
+
 
 const AllStudents = () => {
 
     const students = useGetAllUsersWithSameAttribute('student')
     console.log(students);
+
+    const tableItems = students?.map((student, index) => {
+        return (
+            {
+                key: index + 1,
+                id: student._id,
+                name: student.userName,
+                thumbnail: student.userPhoto,
+                email: student.userEmail,
+                phone: student.phone,
+            }
+        )
+    })
+
+    console.log(tableItems, columnItems)
     return (
         <div className="">
 
             {/* hedings */}
-            <h1 className="font-bold text-3xl text-center my-12">ClassMate Students</h1>
+            <DashboardHeading title={'ClassMate Students'} subtitle={'View the studnts available in the platform'} />
 
-            <table className="mt-6 w-full table table-zebra table-auto table-pin-rows table-xs md:table-md lg:table-lg">
-                <thead>
-                    <tr className="bg-sky-100 text-primary text-[15px]">
-                        <th className=" ">Student Name</th>
-                        <th className="hidden lg:table-cell text-left">Email</th>
-                        <th className="hidden md:table-cell text-left">Phone</th>
-                        <th>See Details</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {
-                        students ? 
-                        students?.map(student =>
-                            <tr key={student._id}>
-
-                                <td>
-                                    <div className="flex items-center gap-3">
-                                        <div className="avatar hidden md:block">
-                                            <div className="mask mask-squircle h-12 w-12">
-                                                <img
-                                                    src={student.userPhoto}
-                                                    alt='student image'
-                                                    className="rounded-full"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="font-bold text-left">{student.userName}</div>
-
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="hidden lg:table-cell">
-                                    {student.userEmail}
-                                </td>
-                                <td className="hidden md:table-cell">{student?.phone}</td>
-                                <td>
-                                    <Link to={`/studentDetails/${student._id}`}>
-                                        <button className="btn btn-ghost btn-xs">details</button>
-                                    </Link>
-                                </td>
-                                <td className=" flex justify-evenly items-center">
-
-                                </td>
-                            </tr>
-                        )
-                        :
-                        <Skeleton/>
-                    }
-                </tbody>
-            </table>
+            <ShowTable columns={columnItems} dataSource={tableItems} />
         </div>
     );
 };
