@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import ApproveModal from "./ConfirmModal";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
-import ListSkeleton from "../../../Components/Skeletons/ListSkeleton";
+import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
+import ShowTable from "../../../Components/UI/ShowTable/ShowTable";
+
 
 
 const AllSessions = () => {
@@ -13,7 +15,22 @@ const AllSessions = () => {
     const allSessions = queryInfo[0]
     const refetch = queryInfo[1]
 
-    console.log(allSessions)
+
+    const tableData = allSessions?.map((session, index) => {
+        return (
+            {
+                key: index + 1,
+                id: session._id,
+                name: session.sessionTitle,
+                thumbnail: session.sessionImage,
+                tutor: session.tutorName,
+                tutorThumbnail: session.tutorPhoto,
+                status: session.status,
+
+            }
+        )
+    })
+    // console.log('table data is :', tableData)
 
     // delete the session
     const handleDeleteSession = (id) => {
@@ -87,13 +104,83 @@ const AllSessions = () => {
 
     }
 
+    const tableColumns = [
+        {
+            title: 'Session',
+            dataIndex: 'name',
+            key: 'name',
+            render: (title, record) => (
+                <div className='flex items-center gap-3'>
+                    <div className='h-8 w-8 '>
+                        <img src={record?.thumbnail} alt="session image" className='h-full w-full rounded-full' />
+                    </div>
+                    <h3><Link to={`/sessions/${record.id}`}>{title}</Link></h3>
+                </div>
+            ),
+        },
+        {
+            title: 'Tutor',
+            dataIndex: 'tutor',
+            key: 'tutor',
+            render: (title, record) => (
+                <div className='flex items-center gap-3'>
+                    <div className='h-8 w-8 '>
+                        <img src={record?.tutorThumbnail} alt="session image" className='h-full w-full rounded-full' />
+                    </div>
+                    <h3><Link to={`/users/${record.id}`}>{title}</Link></h3>
+                </div>
+            ),
+        },
+        {
+            title: 'Actions',
+            dataIndex: 'actions',
+            key: 'actions',
+            render: (title, record) => (
+
+                record.status === 'approved' ?
+                    <div className='ml-2 flex items-center gap-4'>
+                        <Link to={`/dashboard/admin/allSessions/update/${record.id}`}>
+                            <button className="btn btn-sm w-[65px] bg-sky-200">
+                                Update
+                            </button>
+                        </Link>
+                        <button
+                            className="btn btn-sm bg-red-100 w-[65px]"
+                            onClick={() => handleDeleteSession(record.id)}>
+                            Delete
+                        </button>
+                    </div>
+                    :
+                    record.status === 'pending' ?
+                        <div className='flex items-center justify-evenly'>
+                            <ApproveModal
+                                id={record.id}
+                            // refetch={refetch}
+                            ></ApproveModal>
+                            < button className="btn btn-sm bg-green-300" onClick={() => document.getElementById('my_modal_5').showModal()}>
+                                Approve
+                            </button >
+
+                            <div onClick={() => handleSession(record.id, 'rejected', 'Reject')} className='btn btn-sm bg-red-300'>
+                                Reject
+                            </div>
+
+                            
+
+                        </div>
+                        : <></>
+
+            )
+        }
+    ]
+
+
     return (
         <div className="container mx-auto">
-            <h1 className="text-3xl text-center ">All Sessions</h1>
-            <div className="my-12 mx-auto">
+            <DashboardHeading subtitle={'All sessions that are created and waiting for your approve'} title={'All Sessions'} />
 
-
-                <table className="mt-6 w-full table table-zebra table-auto table-pin-rows table-xs md:table-md lg:table-lg">
+            <div className="mx-auto">
+                {/* <table className="mt-6 w-full table table-zebra table-auto table-pin-rows table-xs md:table-md lg:table-lg">
                     <thead>
                         <tr className="text-[15px] h-[50px] bg-sky-50 text-primary">
                             <th>Session Title</th>
@@ -174,21 +261,21 @@ const AllSessions = () => {
 
                                                             {/* <Button onClick={() => handleSession(sessionId, 'approved', 'Approve')} variant="contained" className='ml-5'>Approve</Button>
                             <Button onClick={() => handleSession(sessionId, 'rejected', 'Reject')} variant="contained" className='ml-5'>Reject</Button> */}
-                                                        </div>
+                {/* </div>
                                                         :
-                                                        <></>
+                                                        <></> */}
 
 
 
-                                            }
+                {/* }
                                         </td>
                                     </tr>
                                 )
                         }
 
-                    </tbody>
-                </table>
-                {/* 
+                    </tbody> */}
+                {/* </table> */}
+                {/*                 
                         // console.log(session)
                         // <SessionCardinAdmin
                         //     key={session?._id}
@@ -197,7 +284,8 @@ const AllSessions = () => {
                         // ></SessionCardinAdmin>
                      */}
             </div>
-        </div>
+            <ShowTable columns={tableColumns} dataSource={tableData} />
+        </div >
     );
 };
 
