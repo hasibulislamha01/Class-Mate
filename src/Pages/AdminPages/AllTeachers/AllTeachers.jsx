@@ -1,70 +1,61 @@
 import { Link } from "react-router-dom";
-import ListSkeleton from "../../../Components/Skeletons/ListSkeleton";
 import useGetAllUsersWithSameAttribute from "../../../CustomHooks/useGetAllUsersWithSameAttribute";
+import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
+import ShowTable from "../../../Components/UI/ShowTable/ShowTable";
+
+const columnItems = [
+    {
+        title: 'Tutor Name',
+        dataIndex: 'tutor',
+        key: 'tutor',
+        render: (title, record) => (
+            <div className='flex items-center gap-3'>
+                <div className='h-8 w-8 '>
+                    <img src={record?.thumbnail} alt="session image" className='h-full w-full rounded-full' />
+                </div>
+                <h3><Link to={`/users/${record.id}`}>{title}</Link></h3>
+            </div>
+        ),
+    },
+    {
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+    },
+    {
+        title: 'Phone',
+        dataIndex: 'phone',
+        key: 'phone',
+    },
+]
+
 
 const AllTeachers = () => {
+
+
 
     const teachers = useGetAllUsersWithSameAttribute('tutor')
     console.log(teachers);
 
+    const tableData = teachers?.map((tutor, index) => {
+        return(
+            {
+                key: index + 1,
+                id: tutor._id,
+                tutor: tutor.userName,
+                thumbnail: tutor.userPhoto,
+                email: tutor.userEmail,
+                phone: tutor.phone,
+            }
+        )
+    })
+
     return (
-        <div className="min-h-screen py-8">
-            <h1 className="text-xl font-bold text-center">ClassMate Tutors</h1>
+        <div className="min-h-screen">
+            
+            <DashboardHeading subtitle={'See all the teachers in the platform'} title={'All Tutors'}/>
 
-            <table className="mt-6 w-full table table-auto table-pin-rows table-xs md:table-md lg:table-lg">
-                <thead>
-                    <tr className="text-[15px] h-[50px] text-primary bg-sky-50">
-                        <th>Tutor Name</th>
-                        <th className="text-left">Email</th>
-                        <th className="text-left hidden md:table-cell">Phone</th>
-                        <th>See Details</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {
-                        !teachers ?
-                            <ListSkeleton />
-                            :
-                            teachers?.map(tutor =>
-                                <tr key={tutor._id}>
-
-                                    <td>
-                                        <div className="flex items-center gap-3">
-                                            <div className="avatar hidden md:block">
-                                                <div className="mask mask-squircle h-12 w-12">
-                                                    <img
-                                                        src={tutor.userPhoto}
-                                                        alt='student image'
-                                                        className="rounded-full"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="font-bold text-left">{tutor.userName}</div>
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="">
-                                        {tutor.userEmail}
-                                    </td>
-                                    <td className="hidden md:table-cell">{tutor?.phone}</td>
-                                    <th>
-                                        <Link to={`/tutorDetails/${tutor._id}`}>
-                                            <button className="btn btn-ghost btn-xs">details</button>
-                                        </Link>
-                                    </th>
-                                    <td className=" flex justify-evenly items-center">
-
-                                    </td>
-
-                                </tr>
-                            )
-
-                    }
-                </tbody>
-            </table>
+            <ShowTable columns={columnItems} dataSource={tableData}/>
         </div>
     );
 };
