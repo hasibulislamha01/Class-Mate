@@ -25,6 +25,7 @@ const ShowModal = ({ modalTitle, controlButton, modalContent }) => {
                 onOk={handleOk}
                 onCancel={handleCancel}
                 footer={null}
+                
             >
                 {modalContent}
             </Modal>

@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 
 const Reviews = ({ sessionId }) => {
 
-    console.log(sessionId);
+    // console.log(sessionId);
     const [data] = useGetLatestData(`/reviews?sessionId?${sessionId}`)
-    console.log(data);
+    // console.log(data);
     return (
 
         <section className=''>

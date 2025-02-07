@@ -1,58 +1,32 @@
-import Select from 'react-select'
-import { useState } from 'react';
+import { Select, Button, Input } from 'antd';
+import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../CustomHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 const ApproveModal = ({ id, refetch }) => {
-
-    const axiosSecure = useAxiosSecure()
+    const axiosSecure = useAxiosSecure();
     const paymentOptions = [
         { value: 'paid', label: 'Paid' },
         { value: 'free', label: 'Free' }
-    ]
-
+    ];
 
     const [selectedOption, setSelectedOption] = useState(null);
+    const [fee, setFee] = useState('0');
+    const [ready, setReady] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleChange = (selectedOption) => {
-        setSelectedOption(selectedOption);
-
-        const amountContainer = document.getElementById('amountContainer')
-        const amountField = document.getElementById('amountField')
-        if (selectedOption?.value === 'paid') {
-            amountContainer.classList.remove('hidden')
-            amountField.setAttribute('required', true)
-            amountField.setAttribute('name', 'amount')
-
-        }
-        else {
-            amountContainer.classList.add('hidden')
-            amountField.removeAttribute('required', true)
-        }
-    };
-
+    useEffect(() => {
+        setReady((selectedOption === 'free' && fee === '0') || (selectedOption === 'paid' && fee > 0));
+    }, [fee, selectedOption]);
 
     const handleApprove = (event) => {
-        event.preventDefault()
-        const form = event.target;
-        // const paymentStatus = form.paymentStatus.value;
-        const amount = form?.amount?.value;
-        const defaultAmount = '0'
-        const newStatus = 'approved'
-
-        let info = {}
-        if (selectedOption?.value === 'paid') {
-            info = { newStatus, amount }
-        }
-        else {
-            info = { newStatus, defaultAmount }
-        }
-        console.log(info)
+        event.preventDefault();
+        const newStatus = 'approved';
+        const info = selectedOption === 'paid' ? { newStatus, amount: fee } : { newStatus, amount: '0' };
 
         Swal.fire({
             title: "Are you sure?",
-            customClass: 'swal-container',
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
@@ -61,11 +35,11 @@ const ApproveModal = ({ id, refetch }) => {
             confirmButtonText: `Approve Session`
         }).then((result) => {
             if (result.isConfirmed) {
+                setIsSubmitting(true);
                 axiosSecure.patch(`/sessions/${id}`, info)
                     .then(res => {
-                        console.log(res.data)
                         if (res.data.modifiedCount) {
-                            refetch()
+                            refetch();
                             Swal.fire({
                                 title: 'Success',
                                 text: `You have approved the session`,
@@ -74,57 +48,65 @@ const ApproveModal = ({ id, refetch }) => {
                         }
                     })
                     .catch(error => {
-                        console.error(error.message)
+                        console.error(error.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong! Please try again.',
+                        });
                     })
-
+                    .finally(() => setIsSubmitting(false));
             }
-        })
+        });
+    };
 
-    }
     return (
-        <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle lowModal">
-            <div className="modal-box">
-                <h3 className="font-bold text-lg">Hello!</h3>
-                <form onSubmit={handleApprove}>
+        <section className='w-full'>
+            <form onSubmit={handleApprove} className='space-y-4 w-full'>
 
-                    <div>
-                        <p>Is the Session Paid ?</p>
-                        <Select
-                            value={selectedOption}
-                            onChange={handleChange}
-                            id='select'
-                            required
-                            name='paymentStatus'
-                            options={paymentOptions}
-                            className="z-50"
-                            placeholder='Select one'
-                        />
-                    </div>
-
-                    <div id="amountContainer" className="input-container hidden">
-                        <p>If paid, Enter amont</p>
-                        <input
-                            id="amountField"
-                            type="number"
-                        />
-                    </div>
-                    <button type="submit" className="btn ">Approve</button>
-                </form>
-                <p className="py-4">Press ESC key or click the button below to close</p>
-                <div className="modal-action">
-                    <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn">Close</button>
-                    </form>
+                <div className='w-full'>
+                    <label htmlFor="paymentStatus" className='block mb-1'>Is the Session Paid?</label>
+                    <Select
+                        value={selectedOption}
+                        onChange={(value) => setSelectedOption(value)}
+                        id="paymentStatus"
+                        required
+                        options={paymentOptions}
+                        className="z-50 w-full"
+                        placeholder="Select one"
+                    />
                 </div>
-            </div>
-        </dialog>
+
+                {selectedOption === 'paid' && (
+                    <div>
+                        <label htmlFor="fee" className='block mb-1'>Set a Registration Fee</label>
+                        <Input
+                            id="fee"
+                            value={fee}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (/^\d*$/.test(value)) {
+                                    setFee(value);
+                                }
+                            }}
+                            placeholder="Enter a number"
+                            className="w-full"
+                            required
+                        />
+                    </div>
+                )}
+
+                <Button disabled={!ready || isSubmitting} loading={isSubmitting} htmlType='submit' type='primary'>
+                    Approve
+                </Button>
+            </form>
+        </section>
     );
 };
 
 ApproveModal.propTypes = {
-    id: PropTypes.string,
-    refetch: PropTypes.func
-}
+    id: PropTypes.string.isRequired,
+    refetch: PropTypes.func.isRequired
+};
 
 export default ApproveModal;

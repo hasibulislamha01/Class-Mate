@@ -11,7 +11,7 @@ const RadialChart = () => {
     const totalFemaleStudents = useGetAllUsersWithSameAttribute('Student', 'female').length
     const totalStudents = totalFemaleStudents + totalMaleStudents
 
-    console.log(totalFemaleStudents, totalMaleStudents);
+    // console.log(totalFemaleStudents, totalMaleStudents);
     const data = [
         {
             name: 'Students',

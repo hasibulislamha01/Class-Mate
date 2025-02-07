@@ -19,12 +19,12 @@ const SessionDetails = () => {
     const navigate = useNavigate()
     const todaysDateString = useTodaysDate()
     const showMessage = useShowMessage()
-    console.log(session)
+    // console.log(session)
     const role = useUserRole()
     const axiosSecure = useAxiosSecure()
     const location = useLocation()
     const [rating, setRating] = useState(0)
-    console.log(role, location, showMessage)
+    // console.log(role, location, showMessage)
 
 
     const sessionId = session?._id

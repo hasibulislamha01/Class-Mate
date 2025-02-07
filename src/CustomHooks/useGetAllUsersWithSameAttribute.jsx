@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "./useAxiosSecure";
 
 const useGetAllUsersWithSameAttribute = (role, gender) => {
-    console.log(role, gender);
+    // console.log(role, gender);
 
     const axiosSecure = useAxiosSecure()
     const [userWithSameRole, setUserWithSameAttribute] = useState([])

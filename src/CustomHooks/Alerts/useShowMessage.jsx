@@ -5,7 +5,7 @@ const useShowMessage = () => {
     const [messageApi, contextHolder] = message.useMessage();
 
     const success = (message) => {
-        console.log('hitting message');
+        // console.log('hitting message');
         messageApi.open({
             type: 'success',
             content: message,

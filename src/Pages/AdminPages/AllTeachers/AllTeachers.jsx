@@ -35,7 +35,7 @@ const AllTeachers = () => {
 
 
     const teachers = useGetAllUsersWithSameAttribute('tutor')
-    console.log(teachers);
+    // console.log(teachers);
 
     const tableData = teachers?.map((tutor, index) => {
         return(

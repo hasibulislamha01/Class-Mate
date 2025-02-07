@@ -5,6 +5,9 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
 import ShowTable from "../../../Components/UI/ShowTable/ShowTable";
+import { Button } from "antd";
+import ShowModal from "../../../Components/UI/ShowModal/ShowModal";
+import UpdateSession from "./UpdateSession";
 
 
 
@@ -138,34 +141,64 @@ const AllSessions = () => {
             render: (title, record) => (
 
                 record.status === 'approved' ?
-                    <div className='ml-2 flex items-center gap-4'>
-                        <Link to={`/dashboard/admin/allSessions/update/${record.id}`}>
-                            <button className="btn btn-sm w-[65px] bg-sky-200">
-                                Update
-                            </button>
-                        </Link>
-                        <button
-                            className="btn btn-sm bg-red-100 w-[65px]"
-                            onClick={() => handleDeleteSession(record.id)}>
+                    <div className='ml-2 flex items-center justify-start gap-4'>
+
+
+                        <ShowModal
+                            controlButton={
+                                <Button danger variant='outlined' size="small" >
+                                    Update
+                                </Button>
+                            }
+                            modalContent={
+                                <UpdateSession
+                                    sessionId={record?.id}
+                                />
+                            }
+
+                        />
+
+                        <Button type="primary" size="small" danger
+                            onClick={() => handleDeleteSession(record.id)}
+                        >
                             Delete
-                        </button>
+                        </Button>
+
                     </div>
                     :
                     record.status === 'pending' ?
-                        <div className='flex items-center justify-evenly'>
-                            <ApproveModal
-                                id={record.id}
-                            // refetch={refetch}
-                            ></ApproveModal>
-                            < button className="btn btn-sm bg-green-300" onClick={() => document.getElementById('my_modal_5').showModal()}>
-                                Approve
-                            </button >
+                        <div className='flex items-center justify-start gap-4'>
 
-                            <div onClick={() => handleSession(record.id, 'rejected', 'Reject')} className='btn btn-sm bg-red-300'>
+
+
+                            <ShowModal
+                                modalTitle='Approve Session?'
+                                controlButton={
+                                    <Button
+                                        className="border-green-700 text-green-700 hover:border-green-500 hover:text-green-500"
+                                        variant="outlined"
+                                        size="small"
+                                    >
+                                        Approve
+                                    </Button>
+                                }
+
+                                modalContent={
+                                    <ApproveModal
+                                        id={record.id}
+                                        refetch={refetch}
+                                    ></ApproveModal>
+                                }
+                            />
+
+
+                            <Button type="primary" size="small" danger
+                                onClick={() => handleSession(record.id, 'rejected', 'Reject')}
+                            >
                                 Reject
-                            </div>
+                            </Button>
 
-                            
+
 
                         </div>
                         : <></>
@@ -178,112 +211,6 @@ const AllSessions = () => {
     return (
         <div className="container mx-auto">
             <DashboardHeading subtitle={'All sessions that are created and waiting for your approve'} title={'All Sessions'} />
-
-            <div className="mx-auto">
-                {/* <table className="mt-6 w-full table table-zebra table-auto table-pin-rows table-xs md:table-md lg:table-lg">
-                    <thead>
-                        <tr className="text-[15px] h-[50px] bg-sky-50 text-primary">
-                            <th>Session Title</th>
-                            <th className="hidden lg:table-cell">Tutor Name</th>
-                            <th className="hidden md:table-cell">Deadline</th>
-                            <th>See Details</th>
-                            <th colSpan={2} className="text-center">Actions</th>
-                        </tr>
-                    </thead>
-
-                    <tbody className="text-center">
-
-
-                        {
-                            !allSessions ?
-
-                                <ListSkeleton />
-
-                                :
-
-                                allSessions?.map(session =>
-                                    <tr key={session._id}>
-
-                                        <td>
-                                            <div className="flex items-center gap-3">
-                                                <div className="avatar hidden md:block">
-                                                    <div className="mask mask-squircle h-12 w-12">
-                                                        <img
-                                                            src={session.sessionImage}
-                                                            alt='session image'
-                                                            className="rounded-full"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="font-bold text-left">{session.sessionTitle}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="hidden lg:table-cell text-left">
-                                            {session.tutorName}
-                                        </td>
-                                        <td className="hidden md:table-cell text-left">{session?.registrationEnds}</td>
-                                        <th className="text-left">
-                                            <Link to={`/sessionDetails/${session._id}`}>
-                                                <button className="btn btn-ghost btn-xs">details</button>
-                                            </Link>
-                                        </th>
-                                        <td className=" flex justify-evenly items-center">
-                                            {
-                                                session.status === 'approved' ?
-                                                    <div className='ml-2 flex items-center gap-4'>
-                                                        <Link to={`/dashboard/admin/allSessions/update/${session._id}`}>
-                                                            <button className="btn btn-sm w-[65px] bg-sky-200">
-                                                                Update
-                                                            </button>
-                                                        </Link>
-                                                        <button
-                                                            className="btn btn-sm bg-red-100 w-[65px]"
-                                                            onClick={() => handleDeleteSession(session._id)}>
-                                                            Delete
-                                                        </button>
-                                                    </div>
-                                                    :
-                                                    session.status === 'pending' ?
-                                                        <div className='ml-5 flex items-center justify-evenly gap-6'>
-                                                            <ApproveModal
-                                                                id={session._id}
-                                                                refetch={refetch}
-                                                            ></ApproveModal>
-                                                            < button className="btn btn-sm bg-green-300 w-[65px]" onClick={() => document.getElementById('my_modal_5').showModal()}>
-                                                                Approve
-                                                            </button >
-
-                                                            <div onClick={() => handleSession(session._id, 'rejected', 'Reject')} className='btn btn-sm bg-red-300 w-[65px]'>
-                                                                Reject
-                                                            </div>
-
-                                                            {/* <Button onClick={() => handleSession(sessionId, 'approved', 'Approve')} variant="contained" className='ml-5'>Approve</Button>
-                            <Button onClick={() => handleSession(sessionId, 'rejected', 'Reject')} variant="contained" className='ml-5'>Reject</Button> */}
-                {/* </div>
-                                                        :
-                                                        <></> */}
-
-
-
-                {/* }
-                                        </td>
-                                    </tr>
-                                )
-                        }
-
-                    </tbody> */}
-                {/* </table> */}
-                {/*                 
-                        // console.log(session)
-                        // <SessionCardinAdmin
-                        //     key={session?._id}
-                        //     session={session}
-                        //     refetch={refetch}
-                        // ></SessionCardinAdmin>
-                     */}
-            </div>
             <ShowTable columns={tableColumns} dataSource={tableData} />
         </div >
     );

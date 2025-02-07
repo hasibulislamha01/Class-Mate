@@ -34,7 +34,7 @@ const columnItems = [
 const AllStudents = () => {
 
     const students = useGetAllUsersWithSameAttribute('student')
-    console.log(students);
+    // console.log(students);
 
     const tableItems = students?.map((student, index) => {
         return (
@@ -49,7 +49,7 @@ const AllStudents = () => {
         )
     })
 
-    console.log(tableItems, columnItems)
+    // console.log(tableItems, columnItems)
     return (
         <div className="">
 
