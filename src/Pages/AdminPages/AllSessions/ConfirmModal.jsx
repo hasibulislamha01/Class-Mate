@@ -22,8 +22,12 @@ const ApproveModal = ({ id, refetch }) => {
 
     const handleApprove = (event) => {
         event.preventDefault();
-        const newStatus = 'approved';
-        const info = selectedOption === 'paid' ? { newStatus, amount: fee } : { newStatus, amount: '0' };
+
+        const updatableInfo = [
+            { "updatableKey": "status", "value": 'approved' },
+            { "updatableKey": "registrationFee", "value": fee },
+        ]
+        // const info = selectedOption === 'paid' ? { newStatus, amount: fee } : { newStatus, amount: '0' };
 
         Swal.fire({
             title: "Are you sure?",
@@ -36,9 +40,9 @@ const ApproveModal = ({ id, refetch }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 setIsSubmitting(true);
-                axiosSecure.patch(`/sessions/${id}`, info)
+                axiosSecure.patch(`/sessions/${id}`, updatableInfo)
                     .then(res => {
-                        if (res.data.modifiedCount) {
+                        if (res.data.result.modifiedCount > 0) {
                             refetch();
                             Swal.fire({
                                 title: 'Success',

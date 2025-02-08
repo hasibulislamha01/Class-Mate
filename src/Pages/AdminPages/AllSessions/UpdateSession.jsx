@@ -15,16 +15,18 @@ const paymentOptions = [
 
 
 const UpdateSession = ({ sessionId }) => {
-
+    
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
     const sessionArr = useGetLatestData(`/sessions/${sessionId}`)
     const session = sessionArr[0]
-
+    const refetch = sessionArr[1]
+    
     const [selectedOption, setSelectedOption] = useState(null);
     const [fee, setFee] = useState('0');
     const [ready, setReady] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [updatableInfo, setUpdatableInfo] = useState([]);
     // console.log(selectedOption, fee)
 
     useEffect(() => {
@@ -32,7 +34,7 @@ const UpdateSession = ({ sessionId }) => {
             setFee('0')
         }
         setReady((selectedOption === 'free' && fee === '0') || (selectedOption === 'paid' && fee > 0));
-
+        setUpdatableInfo([{ updatableKey: "registrationFee", value: fee }]);
     }, [fee, selectedOption]);
     // console.log(sessionArr)
 
@@ -48,20 +50,8 @@ const UpdateSession = ({ sessionId }) => {
     const handleUpdate = (event) => {
         event.preventDefault()
         setIsSubmitting(true)
-        const form = event.target;
-        // const paymentStatus = form.paymentStatus.value;
-        const amount = form?.amount?.value;
-        const defaultAmount = '0'
-        const newStatus = 'approved'
-
-        let info = {}
-        if (selectedOption?.value === 'paid') {
-            info = { newStatus, amount }
-        }
-        else {
-            info = { newStatus, defaultAmount }
-        }
-        console.log(info)
+       
+        console.log(updatableInfo)
 
         Swal.fire({
             title: "Are you sure?",
@@ -74,11 +64,11 @@ const UpdateSession = ({ sessionId }) => {
             confirmButtonText: `Update Session`
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.patch(`/sessions/${sessionId}`, info)
+                axiosSecure.patch(`/sessions/${sessionId}`, updatableInfo)
                     .then(res => {
                         console.log(res.data)
-                        if (res.data.modifiedCount) {
-                            // refetch()
+                        if (res.data.result.modifiedCount > 0) {
+                            refetch()
                             Swal.fire({
                                 title: 'Success',
                                 text: `You have Updated the session`,
