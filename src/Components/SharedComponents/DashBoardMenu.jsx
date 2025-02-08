@@ -2,16 +2,18 @@ import { NavLink } from "react-router-dom";
 import PropTypes from 'prop-types'
 import { FiUsers } from "react-icons/fi";
 import { GiNotebook } from "react-icons/gi";
-import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { LiaChalkboardTeacherSolid, LiaUserTieSolid } from "react-icons/lia";
 import { SiGoogleclassroom } from "react-icons/si";
-import { GrDocumentUser } from "react-icons/gr";
+import { GrDocumentUser, GrUserAdmin } from "react-icons/gr";
 import { SlDocs } from "react-icons/sl";
+import { PiGraduationCapLight } from "react-icons/pi";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import ThemeController from "../ThemeController";
 import { GoHome } from "react-icons/go";
 // import { RiShutDownLine } from "react-icons/ri";
 import { UserOutlined, VideoCameraAddOutlined } from '@ant-design/icons'
+import { MdOutlineNoteAlt } from "react-icons/md";
 
 
 const DashBoardMenu = ({ role }) => {
@@ -32,22 +34,22 @@ const DashBoardMenu = ({ role }) => {
 
         {
             link: '/dashboard/admin/profile',
-            icon: <FiUsers />,
+            icon: <UserOutlined />,
             linkTitle: 'Profile'
         },
         {
             link: '/dashboard/admin/students',
-            icon: <FiUsers />,
+            icon: <PiGraduationCapLight/>,
             linkTitle: 'Students'
         },
         {
             link: '/dashboard/admin/tutors',
-            icon: <FiUsers />,
+            icon: <LiaUserTieSolid />,
             linkTitle: 'Tutors'
         },
         {
             link: '/dashboard/admin/administrators',
-            icon: <FiUsers />,
+            icon: <GrUserAdmin />,
             linkTitle: 'Administrators'
         },
         {
@@ -100,7 +102,7 @@ const DashBoardMenu = ({ role }) => {
 
         {
             link: '/dashboard/student/profile',
-            icon: <GiNotebook />,
+            icon: <UserOutlined/>,
             linkTitle: 'Profile'
         },
 
@@ -111,7 +113,7 @@ const DashBoardMenu = ({ role }) => {
         },
         {
             link: '/dashboard/student/createNote',
-            icon: <GiNotebook />,
+            icon: <MdOutlineNoteAlt />,
             linkTitle: 'Create Note'
         },
         {
