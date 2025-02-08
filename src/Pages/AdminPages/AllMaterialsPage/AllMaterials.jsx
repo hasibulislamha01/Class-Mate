@@ -3,7 +3,7 @@ import useGetLatestData from "../../../CustomHooks/useGetLatestData";
 import AllMaterialsCard from "./AllMaterialsCard";
 
 const AllMaterials = () => {
-    const query = useGetLatestData('allMaterials', `/materials`)
+    const query = useGetLatestData(`/materials`)
     const materials = query[0]
     const refetch = query[1]
     return (

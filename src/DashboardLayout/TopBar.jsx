@@ -1,16 +1,16 @@
 import { Input } from "antd";
 import { BellOutlined, SearchOutlined } from '@ant-design/icons'
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 
-const TopBar = ({userName, userPhoto, userRole}) => {
+const TopBar = ({ userName, userPhoto, userRole }) => {
     return (
         <div className="bg-accent dark:bg-dark-accent py-3 flex items-center">
 
             {/* logo */}
-            <div className="w-11 md:w-[20%] lg:w-60 flex items-center justify-center gap-2">
-
-
+            <Link to={'/'} className="w-11 md:w-[20%] lg:w-60 flex items-center justify-center gap-2">
+            
                 {/* icon */}
                 <div className="w-6 h-6 border-blue-200">
                     <img src="/favicon.png" alt="logo" className="w-full h-full rounded-full" />
@@ -19,7 +19,7 @@ const TopBar = ({userName, userPhoto, userRole}) => {
                     <span className="text-primary">Class</span>
                     Mate</h1>
 
-            </div>
+            </Link>
 
             <div className="w-full pr-5 lg:pr-8 flex justify-end md:justify-between ">
                 {/* search */}

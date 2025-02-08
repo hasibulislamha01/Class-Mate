@@ -140,7 +140,7 @@ const AllSessions = () => {
             key: 'actions',
             render: (title, record) => (
 
-                record.status === 'approved' ?
+                record.status === 'approved' || record.status === 'renewed'  ?
                     <div className='ml-2 flex items-center justify-start gap-4'>
 
 

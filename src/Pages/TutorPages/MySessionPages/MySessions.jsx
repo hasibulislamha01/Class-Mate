@@ -33,7 +33,7 @@ const MySession = () => {
     const handleRenewSession = (sessionId) => {
         console.log(`/sessions/${sessionId}`);
         const updates = [
-            { updatableKey: 'status', value: 'renewed' }
+            { updatableKey: 'status', value: 'renewed' },
         ]
 
         axiosSecure.patch(`/sessions/${sessionId}`, updates)

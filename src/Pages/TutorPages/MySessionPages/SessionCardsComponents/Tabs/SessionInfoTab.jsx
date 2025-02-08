@@ -21,16 +21,16 @@ const SessionInfoTab = ({
     // console.log(handleRenewSession);
     const formattedClassEndingDate = useFormateDate(classEnds)
     const [isExpired, setIsExpired] = useState(false)
-    console.log(isExpired, 'expirty', formattedClassEndingDate)
+    // console.log(isExpired, 'expirty', formattedClassEndingDate)
     
     useEffect(() => {
         const todaysDate = new Date();
         const regEndDate = new Date(regEnds)
-        console.log('todays date',todaysDate, 'reg ends date', regEndDate)
-        if (todaysDate > regEndDate) {
-            () => { return setIsExpired(true)}
+        // console.log('todays date',todaysDate, 'reg ends date', regEndDate, 'expired', todaysDate > regEndDate)
+        if (todaysDate > regEndDate && status !== 'renewed') {
+            setIsExpired(true)
         }
-    }, [regEnds])
+    }, [regEnds, status])
 
     const iterableItems = [
         { keyName: 'Duration', keyValue: duration, unit: 'hours' },
@@ -56,8 +56,9 @@ const SessionInfoTab = ({
 
             <div className="flex flex-col justify-start">
                 <p>Registration Status</p>
-                <h3 className={`font-semibold ${isExpired || status === 'rejected' ? 'text-red-500' : 'text-green-500 text-sm'} `}>
-                    {isExpired ?
+                <h3 className={`font-semibold ${isExpired || status === 'rejected' ? 'text-red-500' : 'text-green-600 text-sm'} `}>
+
+                    {isExpired && status !== 'renewed' ?
                         <div className="flex items-center gap-5">
                             <h6 className="font-semibold ">Expired</h6>
                             <Tooltip title='Request Renew'>
