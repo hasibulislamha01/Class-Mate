@@ -1,27 +1,24 @@
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <footer className="footer p-10 bg-neutral text-neutral-content">
-            <nav>
-                <h6 className="footer-title">Services</h6>
-                <a className="link link-hover">Branding</a>
-                <a className="link link-hover">Design</a>
-                <a className="link link-hover">Marketing</a>
-                <a className="link link-hover">Advertisement</a>
-            </nav>
-            <nav>
-                <h6 className="footer-title">Company</h6>
-                <a className="link link-hover">About us</a>
-                <a className="link link-hover">Contact</a>
-                <a className="link link-hover">Jobs</a>
-                <a className="link link-hover">Press kit</a>
-            </nav>
-            <nav>
-                <h6 className="footer-title">Legal</h6>
-                <a className="link link-hover">Terms of use</a>
-                <a className="link link-hover">Privacy policy</a>
-                <a className="link link-hover">Cookie policy</a>
-            </nav>
+        <footer className="p-10 bg-primary dark:bg-dark-accent text-accent dark:text-dark-text">
+
+            <section className="flex justify-between items-start">
+                <div className="flex items-center gap-3">
+                    <img src="/favicon.png" alt="logo" className="h-10 w-10" />
+                    <h1 className="text-xl font-semibold">Class<span className="font-semibold text-secondary">Mate</span></h1>
+                </div>
+
+                <div className="flex flex-col items-start">
+                    <h1 className="text-accent font-semibold">Contact</h1>
+                    <p className="font-light"><Link to='' target="_blank">github</Link></p>
+                    <p><Link to='' target="_blank">Linkedin</Link></p>
+                    <p><Link to='' target="_blank">facebook</Link></p>
+                </div>
+            </section>
+            <hr className="border-b border-accent/50" />
+
         </footer>
     );
 };
