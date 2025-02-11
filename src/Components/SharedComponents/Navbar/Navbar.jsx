@@ -21,7 +21,7 @@ const Navbar = () => {
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
     const role = useUserRole()
-    // console.log(role);
+    console.log('user role is: ',role);
     const [isSticky, setIsSticky] = useState(false)
 
     const userImage = user ? user?.photoURL : 'avatar.gif'
@@ -103,15 +103,15 @@ const Navbar = () => {
     // console.log("user role is: ", role);
     let dashboardLink = '/login'
     let title = 'Login'
-    if (role === 'administrator') {
+    if (role.toLowerCase() === 'administrator') {
         dashboardLink = '/dashboard/admin/profile'
         title = 'Dashboard'
     }
-    else if (role === 'tutor') {
+    else if (role.toLowerCase() === 'tutor') {
         dashboardLink = '/dashboard/tutor/profile'
         title = 'Dashboard'
     }
-    else if (role === 'student') {
+    else if (role.toLowerCase() === 'student') {
         dashboardLink = '/dashboard/student/profile'
         title = 'Dashboard'
     } else {
