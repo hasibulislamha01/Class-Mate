@@ -5,9 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider } from "firebase/auth";
 import useAxiosPublic from "../../CustomHooks/useAxiosPublic";
-import { useEffect, useState } from "react";
-import LoginModal from "./LoginModal";
-import useUserRole from "../../CustomHooks/useUserRole";
+import {  useState } from "react";
 import { Form, Button, Input, Spin } from "antd";
 
 
@@ -16,24 +14,17 @@ const Login = () => {
 
     const [loginLoading, setLoginLoading] = useState(false)
     const location = useLocation()
-    const userRole = useUserRole()
     const axiosPublic = useAxiosPublic()
     const { loginUser, loginWithGoogle } = useAuth()
     const navigate = useNavigate()
-    const [showModal, setShowModal] = useState(false)
 
-    // console.log(location.state)
-
-    useEffect(() => {
-        userRole === 'unknown' ? setShowModal(true) : setShowModal(false)
-    }, [userRole])
+    console.log(location?.state)
 
     const createUser = (userInfo) => {
         axiosPublic.post(`/users`, userInfo)
             .then(response => {
                 console.log(response);
                 toast.success(response?.data?.message || 'WTF USER')
-                setShowModal(true)
 
                 // if (location?.state) {
                 //     navigate(location.state)
@@ -55,6 +46,7 @@ const Login = () => {
                 setLoginLoading(false)
                 toast.success('Login Successful')
                 if (location?.state) {
+                    console.log(location.state)
                     navigate(location?.state)
                 }
                 else {
@@ -117,6 +109,8 @@ const Login = () => {
                 // creating user...
                 userInfo && createUser(userInfo)
 
+                navigate(location?.state)
+
             }).catch(error => {
                 console.error(error.message)
                 toast.error(error.message)
@@ -140,16 +134,16 @@ const Login = () => {
             <div>
                 {
                     location?.state ?
-                        <p className="text-warning text-center text-sm md:text-lg"> You have to login first to proceed </p>
+                        <p className="text-red-500 text-center text-sm md:text-lg"> You have to login first to proceed </p>
                         : <></>
                 }
             </div>
 
-            {
+            {/* {
                 showModal && <LoginModal email />
-            }
+            } */}
             {/* content container */}
-            <div className={`w-[85%] md:w-[80%] lg:w-[70%] mx-auto py-20 md:py-8 lg:py-10 px-0 md:px-2 lg:px-8 flex flex-col-reverse md:flex-row items-center rounded-lg shadow-lg border-none ${showModal ? 'bg-accent dark:bg-dark-accent/30' : 'bg-accent dark:bg-dark-accent'}`}>
+            <div className={`w-[85%] md:w-[80%] lg:w-[70%] mx-auto py-20 md:py-8 lg:py-10 px-0 md:px-2 lg:px-8 flex flex-col-reverse md:flex-row items-center rounded-lg shadow-lg border-none `}>
 
                 {/* svg or image container */}
                 <div className="hidden md:block flex-1 h-full w-full">

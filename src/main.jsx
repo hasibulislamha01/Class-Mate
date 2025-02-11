@@ -39,6 +39,7 @@ import AllStudents from './Pages/AdminPages/AllStudents/AllStudents';
 import AllTeachers from './Pages/AdminPages/AllTeachers/AllTeachers';
 import AllAdmins from './Pages/AdminPages/AllAdminsPage/AllAdmins';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
+import Unknown from './Pages/UnknownRole/Unknown';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -175,6 +176,11 @@ const router = createBrowserRouter(
               path: "/dashboard/student/allMaterials/:id",
               element: <CourseMaterial></CourseMaterial>
             },
+            {
+              path: "/dashboard/user",
+              element: <Unknown/>
+            },
+            
           ]
         },
       ]

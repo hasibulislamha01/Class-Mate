@@ -3,7 +3,9 @@ import DashBoardMenu from "../Components/SharedComponents/DashBoardMenu";
 import useUserRole from "../CustomHooks/useUserRole";
 import useAuth from "../CustomHooks/useAuth";
 import TopBar from "./TopBar";
-import { Spin } from "antd";
+import { Card, Spin } from "antd";
+import ShowModal from "../Components/UI/ShowModal/ShowModal";
+import LoginModal from "../Pages/LoginPage/LoginModal";
 
 // import DashboardMenu from "./DashboardMenu";
 
@@ -11,13 +13,13 @@ import { Spin } from "antd";
 const DashLayout = () => {
 
     const { user } = useAuth()
-    const {role} = useUserRole()
+    const { role } = useUserRole()
     console.log('user in layout', user);
     const isLoading = !user || !role;
 
     return (
         <div className="min-h-screen max-w-[1600px] mx-auto text-text dark:text-dark-text bg-background dark:bg-dark-background transition-colors duration-300">
-
+            
             {
                 !isLoading ?
 
@@ -49,7 +51,7 @@ const DashLayout = () => {
                     :
 
                     <div className="h-screen flex items-center justify-center">
-                        <Spin size="large"/>
+                        <Spin size="large" />
                     </div>
             }
         </div>

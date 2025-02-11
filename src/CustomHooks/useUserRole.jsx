@@ -6,7 +6,7 @@ const useUserRole = () => {
     const { user } = useAuth();
     const [data, refetch, isLoading, isError, error] = useGetLatestData(`/users/${user?.email}/role`)
     const role = data?.role?.toLowerCase()
-    console.log('user role found: ', role)
+    // console.log('user role found: ', role)
 
 
     return {role, refetch, isLoading, isError, error};

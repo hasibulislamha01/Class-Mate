@@ -21,10 +21,10 @@ const Navbar = () => {
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
     const [dashboardLink, setDashboardLink] = useState({ link: '/login', title: 'Login' })
-    // const [dashLinkTitle, setDashTitle]= useState('Login')
     const { role, refetch, } = useUserRole()
-    console.log('user role in navbar is: ', role);
     const [isSticky, setIsSticky] = useState(false)
+
+    console.log('user role in navbar is : ', role)
 
     const userImage = user ? user?.photoURL : 'avatar.gif'
 
@@ -115,6 +115,8 @@ const Navbar = () => {
         }
         else if (role === 'student') {
             setDashboardLink({ link: '/dashboard/student/profile', title: 'Dashboard' })
+        }else if (role === 'unknown') {
+            setDashboardLink({ link: '/dashboard/user', title: 'Dashboard' })
         } else {
             setDashboardLink({ link: '/login', title: 'Login' })
         }
@@ -160,7 +162,15 @@ const Navbar = () => {
                     Update Profile
                 </button>
             ),
-        }
+        },
+        {
+            key: '3',
+            label: (
+                <button onClick={() => handleDeleteUser()}>
+                    Delete account
+                </button>
+            ),
+        },
     ]
 
     const guestItems = [
@@ -183,6 +193,7 @@ const Navbar = () => {
             icon: <VscSaveAs />
         },
     ]
+
 
     let items;
     // console.log(user);
