@@ -1,3 +1,4 @@
+import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
 import MaterialsCard from "../../../Components/SharedComponents/DashboardComponents/MaterialsCard";
 import useAuth from "../../../CustomHooks/useAuth";
 import useGetLatestData from "../../../CustomHooks/useGetLatestData";
@@ -10,8 +11,8 @@ const StundentAllMaterials = () => {
     const materials = query[0]
     console.log('students materials are : ', materials)
     return (
-        <div className="py-4 md:py=6">
-            <h1 className="text-center text-xl text-primary font-bold mb-6">Browse materials</h1>
+        <div className="pb-4 md:py=6">
+            <DashboardHeading title={'Materials'} subtitle={'These are the materials for you uploaded by the tutors'} />
             <div className="">
                 {
                     materials?.map(material =>

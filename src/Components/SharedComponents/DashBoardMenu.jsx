@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import PropTypes from 'prop-types'
-import { FiUsers } from "react-icons/fi";
 import { GiNotebook } from "react-icons/gi";
 import { LiaChalkboardTeacherSolid, LiaUserTieSolid } from "react-icons/lia";
 import { SiGoogleclassroom } from "react-icons/si";

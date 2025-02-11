@@ -11,8 +11,7 @@ import { Spin } from "antd";
 const DashLayout = () => {
 
     const { user } = useAuth()
-    const foundRole = useUserRole()
-    const role = foundRole?.toLowerCase()
+    const {role} = useUserRole()
     console.log('user in layout', user);
     const isLoading = !user || !role;
 

@@ -20,8 +20,10 @@ const Navbar = () => {
     const axiosPublic = useAxiosPublic()
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
-    const role = useUserRole()
-    console.log('user role is: ',role);
+    const [dashboardLink, setDashboardLink] = useState({ link: '/login', title: 'Login' })
+    // const [dashLinkTitle, setDashTitle]= useState('Login')
+    const { role, refetch, } = useUserRole()
+    console.log('user role in navbar is: ', role);
     const [isSticky, setIsSticky] = useState(false)
 
     const userImage = user ? user?.photoURL : 'avatar.gif'
@@ -79,6 +81,7 @@ const Navbar = () => {
         logoutUser()
             .then(() => {
                 console.log("logout successfull")
+                refetch()
                 toast.success('Logout Successfull')
                 navigate('/')
             }).catch((error) => {
@@ -93,7 +96,7 @@ const Navbar = () => {
         axiosPublic.delete(`/users/:${user?.userEmail}`)
             .then(res => {
                 console.log('deleted user', res);
-
+                refetch()
             }).catch(error => {
                 console.error(error, error?.message);
 
@@ -101,23 +104,22 @@ const Navbar = () => {
     }
 
     // console.log("user role is: ", role);
-    let dashboardLink = '/login'
-    let title = 'Login'
-    if (role.toLowerCase() === 'administrator') {
-        dashboardLink = '/dashboard/admin/profile'
-        title = 'Dashboard'
-    }
-    else if (role.toLowerCase() === 'tutor') {
-        dashboardLink = '/dashboard/tutor/profile'
-        title = 'Dashboard'
-    }
-    else if (role.toLowerCase() === 'student') {
-        dashboardLink = '/dashboard/student/profile'
-        title = 'Dashboard'
-    } else {
-        dashboardLink = '/login',
-            title = 'Login'
-    }
+
+    // let title = 'Login'
+    useEffect(() => {
+        if (role === 'administrator') {
+            setDashboardLink({ link: '/dashboard/admin/profile', title: 'Dashboard' })
+        }
+        else if (role === 'tutor') {
+            setDashboardLink({ link: '/dashboard/tutor/profile', title: 'Dashboard' })
+        }
+        else if (role === 'student') {
+            setDashboardLink({ link: '/dashboard/student/profile', title: 'Dashboard' })
+        } else {
+            setDashboardLink({ link: '/login', title: 'Login' })
+        }
+    }, [role])
+
 
 
 
@@ -134,8 +136,8 @@ const Navbar = () => {
             style: '',
         },
         {
-            link: dashboardLink,
-            title: title,
+            link: dashboardLink?.link,
+            title: dashboardLink?.title,
             style: user && role ? 'flex' : 'hidden',
         },
 
@@ -238,7 +240,7 @@ const Navbar = () => {
                     <Dropdown menu={{ items }} placement="bottom" arrow>
                         {
                             user ? (
-                                <img id='userImage' src={userImage} alt="user image" className="h-8 w-8 rounded-full" />
+                                <img id='userImage' src={userImage} alt="user image" className="h-8 w-8 rounded-full object-cover" />
                             ) : (
 
                                 <RxAvatar size={30} fill="#F4E04D" className="text-accent" />
@@ -250,38 +252,6 @@ const Navbar = () => {
 
             </div>
 
-            {/* user controlls dropdown */}
-            <div className="">
-
-                {/* {
-                    user ?
-                        <>
-                            <button
-                                onClick={handleLogout}
-                                className="btn h-[40px] btn-block border-transparent bg-sky-400 hover:bg-primary hover:text-white dark:bg-primary dark:hover:bg-sky-400 dark:text-white dark:hover:text-black transition-all duration-500"
-                            >
-                                Logout
-                            </button>
-
-
-                            <button
-                                onClick={handleDeleteUser}
-                                className="btn h-[40px] btn-block border-transparent bg-sky-400 hover:bg-primary hover:text-white dark:bg-primary dark:hover:bg-sky-400 dark:text-white dark:hover:text-black transition-all duration-500"
-                            >
-                                Delete Account
-                            </button>
-
-                        </>
-                        :
-                        <NavLink to={'/login'}>
-                            <button
-                                className="btn h-[40px] btn-block border-transparent bg-sky-400 hover:bg-primary hover:text-white transition-all duration-500">
-                                Login
-                            </button>
-                        </NavLink>
-                } */}
-
-            </div>
 
             {/* mobile navbar */}
             <SideNavBar
