@@ -28,12 +28,10 @@ const LoginModal = () => {
 
 
     const handleUpdateUser = async (userData) => {
-        const role = userData?.role?.toLowerCase()
         try {
             const response = await axiosPublic.put(`/users/${userEmail}`, userData);
             console.log(response.data)
-            navigate(`/dashboard/${role}/profile`)
-            if (!response?.user) throw new Error("User registration failed");
+            navigate(`/`)
         } catch (error) {
             console.error("Registration Error:", error);
         } finally {

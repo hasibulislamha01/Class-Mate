@@ -18,7 +18,7 @@ const Login = () => {
     const { loginUser, loginWithGoogle } = useAuth()
     const navigate = useNavigate()
 
-    console.log(location?.state)
+    // console.log(location?.state)
 
     const createUser = (userInfo) => {
         axiosPublic.post(`/users`, userInfo)
@@ -26,11 +26,11 @@ const Login = () => {
                 console.log(response);
                 toast.success(response?.data?.message || 'WTF USER')
 
-                // if (location?.state) {
-                //     navigate(location.state)
-                // } else {
-                //     navigate('/')
-                // }
+                if (location?.state) {
+                    navigate(location.state)
+                } else {
+                    navigate('/')
+                }
             })
             .catch(error => {
                 console.error(error?.message)
@@ -46,7 +46,7 @@ const Login = () => {
                 setLoginLoading(false)
                 toast.success('Login Successful')
                 if (location?.state) {
-                    console.log(location.state)
+                    console.log(location?.state)
                     navigate(location?.state)
                 }
                 else {
@@ -109,7 +109,13 @@ const Login = () => {
                 // creating user...
                 userInfo && createUser(userInfo)
 
-                navigate(location?.state)
+                if (location?.state) {
+                    console.log(location?.state)
+                    navigate(location?.state)
+                }
+                else {
+                    navigate('/')
+                }
 
             }).catch(error => {
                 console.error(error.message)

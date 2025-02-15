@@ -1,17 +1,15 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../../CustomHooks/useAuth";
-import toast from "react-hot-toast";
 import useUserRole from "../../../CustomHooks/useUserRole";
 import SideNavBar from "../SideNavBar";
 import { useEffect, useState } from "react";
 import './Navbar.css'
 import ThemeController from "../../ThemeController";
 import useAxiosPublic from "../../../CustomHooks/useAxiosPublic";
-import { Dropdown } from "antd";
+import { Dropdown, message } from "antd";
 import { AiOutlineLogin } from "react-icons/ai";
 import { VscSaveAs } from "react-icons/vsc";
 import { RxAvatar } from "react-icons/rx";
-
 
 
 
@@ -21,13 +19,14 @@ const Navbar = () => {
     const { user, logoutUser } = useAuth()
     const navigate = useNavigate()
     const [dashboardLink, setDashboardLink] = useState({ link: '/login', title: 'Login' })
-    const { role, refetch, } = useUserRole()
+    const { role, refetch } = useUserRole()
     const [isSticky, setIsSticky] = useState(false)
 
-    console.log('user role in navbar is : ', role)
+    // console.log('user role in navbar is : ', role)
 
     const userImage = user ? user?.photoURL : 'avatar.gif'
 
+    if (role === undefined) { refetch() }
     useEffect(() => {
         const handleScroll = () => {
             setIsSticky(window.scrollY > 0);
@@ -36,7 +35,7 @@ const Navbar = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
 
-    }, [])
+    })
 
 
     // useEffect(() => {
@@ -82,25 +81,33 @@ const Navbar = () => {
             .then(() => {
                 console.log("logout successfull")
                 refetch()
-                toast.success('Logout Successfull')
+                message.success('Logout Successfull')
                 navigate('/')
             }).catch((error) => {
                 console.error(error.message)
-                toast.error(error.message)
+                message.error(error.message)
             });
     }
 
 
     // delete user
-    const handleDeleteUser = () => {
-        axiosPublic.delete(`/users/:${user?.userEmail}`)
-            .then(res => {
-                console.log('deleted user', res);
-                refetch()
-            }).catch(error => {
-                console.error(error, error?.message);
+    const deleteUser = async (email) => {
+        try {
+            const response = await axiosPublic.delete(`/users/${email}`);
 
-            })
+            if (response.status === 200) {
+                console.log('User deleted successfully:', response.data.message);
+                message.success(response.data.message)
+                handleLogout()
+
+            } else {
+                console.error('Error deleting user:', response.data.message || 'Unknown error');
+                message.error(response.data.message)
+            }
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            message.error(error)
+        }
     }
 
     // console.log("user role is: ", role);
@@ -115,7 +122,7 @@ const Navbar = () => {
         }
         else if (role === 'student') {
             setDashboardLink({ link: '/dashboard/student/profile', title: 'Dashboard' })
-        }else if (role === 'unknown') {
+        } else if (role === 'unknown') {
             setDashboardLink({ link: '/dashboard/user', title: 'Dashboard' })
         } else {
             setDashboardLink({ link: '/login', title: 'Login' })
@@ -166,7 +173,7 @@ const Navbar = () => {
         {
             key: '3',
             label: (
-                <button onClick={() => handleDeleteUser()}>
+                <button onClick={() => deleteUser(user?.email)}>
                     Delete account
                 </button>
             ),

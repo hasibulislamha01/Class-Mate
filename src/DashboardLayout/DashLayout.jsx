@@ -3,9 +3,7 @@ import DashBoardMenu from "../Components/SharedComponents/DashBoardMenu";
 import useUserRole from "../CustomHooks/useUserRole";
 import useAuth from "../CustomHooks/useAuth";
 import TopBar from "./TopBar";
-import { Card, Spin } from "antd";
-import ShowModal from "../Components/UI/ShowModal/ShowModal";
-import LoginModal from "../Pages/LoginPage/LoginModal";
+import {  Spin } from "antd";
 
 // import DashboardMenu from "./DashboardMenu";
 
@@ -14,8 +12,10 @@ const DashLayout = () => {
 
     const { user } = useAuth()
     const { role } = useUserRole()
-    console.log('user in layout', user);
+    // console.log('user in layout', user);
     const isLoading = !user || !role;
+
+    
 
     return (
         <div className="min-h-screen max-w-[1600px] mx-auto text-text dark:text-dark-text bg-background dark:bg-dark-background transition-colors duration-300">
@@ -38,7 +38,7 @@ const DashLayout = () => {
 
                             {/*static sidebar */}
                             <div className="h-full w-11 md:w-[20%] lg:w-60 sticky top-0  text-text dark:bg-neutral dark:bg-gradient-to-r from-[#121418] to-[#1A1F26] rounded-r-lg ">
-                                <DashBoardMenu role={role} />
+                                <DashBoardMenu />
                             </div>
 
                             {/* contents */}
