@@ -45,9 +45,9 @@ const BookedSessions = () => {
             
             {
                 bookedSessions?.length === 0 ?
-                    <div className="min-h-screen flex flex-col items-center justify-center gap-6 text-pretty">
+                    <div className="min-h-[70vh] flex flex-col items-center justify-center gap-6 text-pretty">
                         <h1 className="text-lg font-semibold text-center text-red-500">You have not booked any sessions yet.</h1>
-                        <Link to='/all-sessions'>
+                        <Link to='/sessions'>
                             <Button 
                             type="primary"
                             >Book One</Button>
