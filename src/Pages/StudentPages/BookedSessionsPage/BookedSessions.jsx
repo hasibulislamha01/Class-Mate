@@ -7,6 +7,7 @@ import MakeCardTitle from "./MakeCardTitle";
 import SessionTab from "./SessionCardTabs/SessionTab";
 import MaterialTab from "./SessionCardTabs/MaterialTab";
 import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
+import { Button } from "antd";
 
 const tabs = [
     {
@@ -45,9 +46,11 @@ const BookedSessions = () => {
             {
                 bookedSessions?.length === 0 ?
                     <div className="min-h-screen flex flex-col items-center justify-center gap-6 text-pretty">
-                        <h1 className="text-2xl font-bold text-center text-red-500">You have not booked any sessions yet.</h1>
+                        <h1 className="text-lg font-semibold text-center text-red-500">You have not booked any sessions yet.</h1>
                         <Link to='/all-sessions'>
-                            <button className="btn bg-primary text-white hover:bg-primary/90 hover:scale-105">Book one</button>
+                            <Button 
+                            type="primary"
+                            >Book One</Button>
                         </Link>
                     </div>
                     :
