@@ -8,6 +8,7 @@ import SessionTab from "./SessionCardTabs/SessionTab";
 import MaterialTab from "./SessionCardTabs/MaterialTab";
 import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
 import { Button } from "antd";
+import NotesTab from "./SessionCardTabs/NotesTab";
 
 const tabs = [
     {
@@ -77,7 +78,7 @@ const BookedSessions = () => {
                                                 <MaterialTab
                                                     sessionId={bookedSession.sessionId}
                                                 />,
-                                            notes: <p>Project content</p>,
+                                            notes: <NotesTab email={user?.email} sessionId={bookedSession.sessionId}/>,
                                         }}
                                         defaultTabkey={'session'}
                                         image={bookedSession?.sessionImage}
