@@ -112,12 +112,12 @@ const DashBoardMenu = () => {
             {
                 link: '/dashboard/student/bookedSessions',
                 icon: <GiNotebook />,
-                linkTitle: 'Booked Sessions'
+                linkTitle: 'My Sessions'
             },
             {
-                link: '/dashboard/student/createNote',
+                link: '/dashboard/student/notes',
                 icon: <MdOutlineNoteAlt />,
-                linkTitle: 'Create Note'
+                linkTitle: 'My Notes'
             },
             {
                 link: '/dashboard/student/manageNotes',

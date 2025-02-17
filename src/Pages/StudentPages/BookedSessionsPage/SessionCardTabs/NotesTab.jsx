@@ -4,7 +4,7 @@ import Info from "../../../../Components/UI/TabCard/Info";
 import useGetLatestData from "../../../../CustomHooks/useGetLatestData";
 import PropTypes from "prop-types";
 import ShowModal from "../../../../Components/UI/ShowModal/ShowModal";
-import CreateNoteForm from "../../CreateNotePage/CreateNoteForm";
+import CreateNoteForm from "../../NotesPage/CreateNoteForm";
 
 
 const NotesTab = ({ email, sessionId }) => {

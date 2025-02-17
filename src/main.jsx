@@ -29,7 +29,6 @@ import StudentHome from './Pages/StudentPages/StudentHomePage/StudentHome';
 import LoginValidator from './Components/LoginValidator/LoginValidator';
 import Payment from './Pages/StudentPages/PaymentPage/Payment';
 import BookedSessions from './Pages/StudentPages/BookedSessionsPage/BookedSessions';
-import CreateNote from './Pages/StudentPages/CreateNotePage/CreateNote';
 import ManageNote from './Pages/StudentPages/ManageNotePage/ManageNote';
 import AllMaterials from './Pages/AdminPages/AllMaterialsPage/AllMaterials';
 import StundentAllMaterials from './Pages/StudentPages/StudentAllMaterialsPage/StundentAllMaterials';
@@ -40,6 +39,7 @@ import AllTeachers from './Pages/AdminPages/AllTeachers/AllTeachers';
 import AllAdmins from './Pages/AdminPages/AllAdminsPage/AllAdmins';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import Unknown from './Pages/UnknownRole/Unknown';
+import MyNotes from './Pages/StudentPages/NotesPage/MyNotes';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -161,8 +161,8 @@ const router = createBrowserRouter(
               element: <BookedSessions></BookedSessions>
             },
             {
-              path: "/dashboard/student/createNote",
-              element: <CreateNote></CreateNote>
+              path: "/dashboard/student/notes",
+              element: <MyNotes/>
             },
             {
               path: "/dashboard/student/manageNotes",
