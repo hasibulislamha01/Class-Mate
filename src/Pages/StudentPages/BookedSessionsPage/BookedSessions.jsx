@@ -15,11 +15,11 @@ const tabs = [
         tab: 'Session',
     },
     {
-        key: 'tab2',
+        key: 'materials',
         tab: 'Materials',
     },
     {
-        key: 'tab3',
+        key: 'notes',
         tab: 'Notes',
     },
 ]
@@ -42,14 +42,14 @@ const BookedSessions = () => {
                 title={'Booked Sessions'}
                 subtitle={'The sessions you have purchased appear here.'}
             />
-            
+
             {
                 bookedSessions?.length === 0 ?
                     <div className="min-h-[70vh] flex flex-col items-center justify-center gap-6 text-pretty">
                         <h1 className="text-lg font-semibold text-center text-red-500">You have not booked any sessions yet.</h1>
                         <Link to='/sessions'>
-                            <Button 
-                            type="primary"
+                            <Button
+                                type="primary"
                             >Book One</Button>
                         </Link>
                     </div>
@@ -70,9 +70,14 @@ const BookedSessions = () => {
                                         tabList={tabs}
                                         contentList={{
                                             session:
-                                                <SessionTab session={bookedSession} />,
-                                            app: <MaterialTab sessionId={bookedSession.sessionId} />,
-                                            project: <p>Project content</p>,
+                                                <SessionTab
+                                                    session={bookedSession}
+                                                />,
+                                            materials:
+                                                <MaterialTab
+                                                    sessionId={bookedSession.sessionId}
+                                                />,
+                                            notes: <p>Project content</p>,
                                         }}
                                         defaultTabkey={'session'}
                                         image={bookedSession?.sessionImage}

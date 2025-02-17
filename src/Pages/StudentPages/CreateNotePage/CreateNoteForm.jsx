@@ -9,7 +9,7 @@ const CreateNoteForm = ({studentEmail}) => {
     const axiosSecure = useAxiosSecure()
     const [form] = Form.useForm();
     const handleSaveNote = (data) => {
-            axiosSecure.post('/notes', data)
+            axiosSecure.post(`/notes?sessionId=${data?.sessionId}`, data)
                 .then(res => {
                     console.log(res.data)
                     if (res.data.insertedId) {
