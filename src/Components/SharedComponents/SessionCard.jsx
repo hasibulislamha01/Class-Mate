@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
 import PropTypes from 'prop-types'
+import { Avatar, Button, Card } from "antd";
+import Meta from "antd/es/card/Meta";
 
 
 const SessionCard = ({ session }) => {
@@ -27,41 +29,48 @@ const SessionCard = ({ session }) => {
 
 
     return (
-        <div key={session?._id} className="card w-[300px] h-[350px]  rounded-[7px] border border-accent dark:border-dark-accent flex flex-col justify-between bg-sky-50 dark:bg-gray-900 shadow-lg shadow-primary/20 dark:shadow-dark-accent">
 
-            <img className='h-1/2 object-cover rounded-t-[7px]' src={session?.sessionImage} alt="session image" />
+        <Card
+            style={{
+                width: 300,
+                height: 350
+            }}
+            styles={{
+                cover: {
+                    height: 160
+                }
+            }}
+            cover={
+                <img
+                    alt="example"
+                    src={session?.sessionImage}
+                    className="h-full object-cover"
+                />
+            }
+        // actions={[
+        //     <SettingOutlined key="setting" />,
+        //     <EditOutlined key="edit" />,
+        //     <EllipsisOutlined key="ellipsis" />,
+        // ]}
+        >
+            <Meta
+                avatar={<Avatar src={session?.tutorPhoto} />}
+                title={
+                    <div className="flex items-center">
+                        <h3 className="font-semibold">{session.sessionTitle}</h3>
+                        <span className={`ml-auto w-2 h-2 ${statusColor} rounded-full`}></span>
+                    </div>
+                }
 
+            />
 
-            {/* card body */}
-            <div className='p-4 '>
-                <div className=' flex items-center gap-4'>
-                    <img src={session?.tutorPhoto} alt="tutor photo" className='w-8 h-8 rounded-full object-cover' />
-                    <h1 className="text-lg text-center font-semibold">
-                        {session.sessionTitle}
-                    </h1>
-                    <div className={`ml-auto w-2 h-2 ${statusColor} rounded-full`} ></div>
-                </div>
-
-                <p className='text-sm ml-12 text-gray-500/90'>
-                    {session?.description.split(' ')?.slice(0, 12)?.join(' ')}...
-                </p>
+            <div className="h-full flex flex-col justify-between gap-4 mt-3">
+                <p className="text-text/80">{session?.description.split('')?.slice(0, 75)?.join('')} ...</p>
+                <Link to={`/sessions/${session._id}`} className="flex justify-center items-center">
+                    <Button type="primary" size="small" className="w-1/2 mx-auto">View Details</Button>
+                </Link>
             </div>
-
-
-
-            <Link to={`/sessions/${session._id}`} className="flex justify-center items-center">
-
-                <button
-                    className='mb-6 btn btn-sm w-[120px] mx-auto text-sm font-bold bg-primary/80 text-white hover:bg-primary rounded-md dark:border-dark-background'
-                    
-                >
-                    View Details
-                </button>
-
-            </Link>
-
-
-        </div>
+        </Card>
     );
 };
 
