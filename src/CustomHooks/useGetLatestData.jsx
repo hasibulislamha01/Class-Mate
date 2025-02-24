@@ -29,7 +29,7 @@ const useGetLatestData = (api) => {
             }
         }
     });
-
+// console.log([data, refetch, isLoading, isError, error])
     return [data, refetch, isLoading, isError, error];
 };
 

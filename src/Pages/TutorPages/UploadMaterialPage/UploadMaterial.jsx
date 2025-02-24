@@ -10,21 +10,18 @@ const UploadMaterial = ({ sessionId, tutorEmail, sessionImage }) => {
 
     // console.log('email and id are ',tutorEmail, sessionId);
     const axiosSecure = useAxiosSecure()
-    
+
     const [materialTitle, setMaterialTitle] = useState('');
     const [driveLink, setDriveLink] = useState('');
-    
-    // console.log('imgbb api key is ', imgbbApiKey);
-    // console.log('slfjoe',   materialTitle,
-    //     sessionImage,
-    //     sessionId,
-    //     tutorEmail,
-    //     driveLink,);
+    const [loading, setLoading] = useState(false)
 
-    
+
+
+
 
     // Handle material upload to your backend
     const handleMaterialUpload = async () => {
+        setLoading(true)
         if (!materialTitle || !driveLink || !sessionImage || !sessionId) {
             message.error('Please fill in all fields before submitting.');
             return;
@@ -44,17 +41,19 @@ const UploadMaterial = ({ sessionId, tutorEmail, sessionImage }) => {
 
             if (response.data?.insertedId) {
                 message.success('Material uploaded successfully!');
-                // setModalOpen(false)
+                setLoading(false)
             } else {
                 message.error('Material upload failed.');
+                setLoading(false)
             }
         } catch (error) {
             console.error('Error during material upload:', error);
             message.error('Material upload failed.');
+            setLoading(false)
         }
     };
 
-    
+
 
     return (
         <div className="">
@@ -63,7 +62,7 @@ const UploadMaterial = ({ sessionId, tutorEmail, sessionImage }) => {
                 <div className="flex flex-col">
                     <label className="">Material Title</label>
                     <Input
-                        placeholder="Basic usage"
+                        placeholder="Material title"
                         type="text"
                         name="title"
                         required="Enter Material Title"
@@ -84,9 +83,10 @@ const UploadMaterial = ({ sessionId, tutorEmail, sessionImage }) => {
                     />
                 </div>
 
-                
+
 
                 <Button
+                    loading={loading}
                     type="primary"
                     onClick={handleMaterialUpload}
                     disabled={!sessionImage || !materialTitle || !driveLink || !tutorEmail}

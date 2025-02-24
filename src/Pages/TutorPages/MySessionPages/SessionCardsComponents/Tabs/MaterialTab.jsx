@@ -6,21 +6,22 @@ import ShowModal from "../../../../../Components/UI/ShowModal/ShowModal";
 import UploadMaterial from "../../../UploadMaterialPage/UploadMaterial";
 import { Link } from "react-router-dom";
 import Info from "../../../../../Components/UI/TabCard/Info";
+import useGetLatestData from "../../../../../CustomHooks/useGetLatestData";
 
 
 const MaterialTab = ({ sessionId, tutorEmail, sessionImage }) => {
 
+    const [data] = useGetLatestData(`/materials/counts?tutorEmail=${tutorEmail}`)
+
 
     const iterableItems = [
-        { itemName: 'Uploaded', itemValue: '2', unit: 'materials' },
-        { itemName: 'Requests', itemValue: '3' },
+        { itemName: 'Uploaded', itemValue: data?.count || 0, unit: 'materials' },
     ]
+
 
     return (
 
-        <div className='flex items-center gap-5'>
-
-            <div className="grid grid-cols-1 place-items-center justify-items-start gap-y-4">
+            <div className="grid grid-cols-2 place-items-center justify-items-start gap-y-6 gap-x-8">
                 {
                     iterableItems?.map(item =>
                         <Info
@@ -28,46 +29,47 @@ const MaterialTab = ({ sessionId, tutorEmail, sessionImage }) => {
                             itemName={item.itemName}
                             itemValue={item.itemValue}
                             unit={item.unit || ''}
+                            className={'border border-red-500'}
                         />
                     )
                 }
+
+                <div></div>
+
+
+                {/* action buttons */}
+               
+                    <Tooltip title='View Materials'>
+                        <Link to='/dashboard/tutor/myMaterials'>
+                            <Button
+                                // shape="circle"
+                                size="small"
+                                icon={<AiFillFileText />}
+                            >View</Button>
+                        </Link>
+                    </Tooltip>
+
+                    <Tooltip title='Upload Materials'>
+                        <div>
+                            <ShowModal
+                                controlButton={
+                                    <Button
+                                        icon={<IoCloudUploadOutline />}
+                                        size="small"
+                                    >Upload</Button>
+                                }
+                                modalContent={<UploadMaterial
+                                    sessionId={sessionId}
+                                    tutorEmail={tutorEmail}
+                                    sessionImage={sessionImage}
+                                />}
+
+                            />
+                        </div>
+                    </Tooltip>
+
             </div>
 
-            <div className="ml-3 flex flex-col gap-4">
-
-                <Tooltip title='View Materials'>
-
-                    <Link to='/dashboard/tutor/myMaterials'>
-                        <Button
-                            shape="circle"
-                            icon={<AiFillFileText />}
-                        ></Button>
-                    </Link>
-
-
-                </Tooltip>
-
-                <Tooltip title='Upload Materials'>
-                    <div>
-                        <ShowModal
-                            controlButton={
-                                <Button
-                                    shape="circle"
-                                    icon={<IoCloudUploadOutline />}
-                                ></Button>
-                            }
-                            modalContent={<UploadMaterial
-                                sessionId={sessionId}
-                                tutorEmail={tutorEmail}
-                                sessionImage={sessionImage}
-                            />}
-
-                        />
-                    </div>
-                </Tooltip>
-
-            </div>
-        </div>
     );
 };
 
