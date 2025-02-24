@@ -6,6 +6,7 @@ import MaterialTab from './SessionCardsComponents/Tabs/MaterialTab';
 import MakeCardTitleForTutor from "./SessionCardsComponents/MakeCardTitleForTutor";
 import useAxiosSecure from "../../../CustomHooks/useAxiosSecure";
 import DashboardHeading from "../../../Components/SharedComponents/DashboardComponents/DashboardHeading";
+import { message } from "antd";
 
 const tabList = [{
     key: 'sessionTab',
@@ -40,8 +41,12 @@ const MySession = () => {
             .then(res => {
                 console.log(res.data)
                 refetch()
+                message.success('Session Renewed.')
             })
-            .catch(error => console.error(error.message))
+            .catch(error => {
+                console.error(error.message)
+                message.error('Failed to Renew, Try again')
+            })
     }
 
 

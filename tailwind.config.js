@@ -27,7 +27,7 @@ export default {
         dark: {
           primary: '#4F9FD4', // Soft Sky Blue (professional and calming)
           secondary: '#F6C86D', // Warm Muted Gold for subtle highlights
-          accent: '#1F252B', // Deep Charcoal for clean contrast
+          accent: '#1F252B', // Deep Charcoal for clean contrast 
           background: '#121418', // True Blackish Gray for immersive dark mode
           text: '#D1D5DB', // Soft Light Gray for readability
           banner: {

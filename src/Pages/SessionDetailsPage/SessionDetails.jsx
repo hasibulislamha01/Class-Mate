@@ -40,6 +40,7 @@ const SessionDetails = () => {
     const classEnds = useFormateDate(session?.classEnds)
     const regFee = session?.registrationFee
     const duration = session?.duration
+    const status = session?.status
 
     const todaysDate = new Date(todaysDateString)
     const regEndDate = new Date(regEnds)
@@ -53,7 +54,7 @@ const SessionDetails = () => {
     } else if (role === 'Tutor') {
         disableBookNowButton = true
         paymentPageLink = ''
-    } else if (regEndDate < todaysDate) {
+    } else if (regEndDate < todaysDate && status === 'approved') {
         disableBookNowButton = true
         paymentPageLink = ''
     } else if (location.state === '/dashboard/student/bookedSessions') {
@@ -168,10 +169,13 @@ const SessionDetails = () => {
                                             <h3 className="">Fee:  ${regFee}</h3>
                                             <h3>Duration: {duration} hours</h3>
                                         </div>
-                                        <div className="w-full flex justify-end">
-                                            <Button
-                                                onClick={showMessage?.success('done')}
-                                                className="bg-primary text-accent">Book Now</Button>
+                                        <div className="w-full flex justify-end items-end">
+
+                                            <Button 
+                                            type="primary"
+                                            size="small"
+                                            className={``} disabled={disableBookNowButton} 
+                                            onClick={handleBookSession} > Book Now </Button>
                                         </div>
                                     </div>
                                 </div>
@@ -190,11 +194,11 @@ const SessionDetails = () => {
                                         <div className="text-sm font-semibold flex items-center gap-4">
                                             <h3>Rating:</h3>
                                             {rating ?
-                                                <Rate 
-                                                style={{
-                                                    fontSize: 16,
-                                                    color: '#5CBFE9'
-                                                }} disabled value={rating} /> :
+                                                <Rate
+                                                    style={{
+                                                        fontSize: 16,
+                                                        color: '#5CBFE9'
+                                                    }} disabled value={rating} /> :
                                                 <p className="font-medium text-xs">no reviews yet</p>
                                             }
                                         </div>

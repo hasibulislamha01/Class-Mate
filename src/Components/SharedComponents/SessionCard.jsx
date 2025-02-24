@@ -31,9 +31,11 @@ const SessionCard = ({ session }) => {
     return (
 
         <Card
+        className="bg-accent dark:bg-dark-accent shadow-lg shadow-primary/20"
             style={{
                 width: 300,
-                height: 350
+                height: 350,
+                border: '0px'
             }}
             styles={{
                 cover: {
@@ -54,10 +56,11 @@ const SessionCard = ({ session }) => {
         // ]}
         >
             <Meta
+            className=""
                 avatar={<Avatar src={session?.tutorPhoto} />}
                 title={
                     <div className="flex items-center">
-                        <h3 className="font-semibold">{session.sessionTitle}</h3>
+                        <h3 className="font-semibold dark:text-dark-text">{session.sessionTitle}</h3>
                         <span className={`ml-auto w-2 h-2 ${statusColor} rounded-full`}></span>
                     </div>
                 }
@@ -65,7 +68,7 @@ const SessionCard = ({ session }) => {
             />
 
             <div className="h-full flex flex-col justify-between gap-4 mt-3">
-                <p className="text-text/80">{session?.description.split('')?.slice(0, 75)?.join('')} ...</p>
+                <p className="text-text/80 dark:text-dark-text/60">{session?.description.split('')?.slice(0, 75)?.join('')} ...</p>
                 <Link to={`/sessions/${session._id}`} className="flex justify-center items-center">
                     <Button type="primary" size="small" className="w-1/2 mx-auto">View Details</Button>
                 </Link>

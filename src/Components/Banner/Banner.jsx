@@ -14,7 +14,7 @@ const Banner = () => {
                             Join millions of learners and transform your skills today. <br /> Start your journey with expert-led online courses.
                         </p>
 
-                        <button className='bg-primary/90 text-accent hover:bg-primary text-[1.1rem] font-bold rounded-full w-52 btn hover:scale-[102%] shadow-lg shadow-accent'>
+                        <button className='py-2 bg-primary/90 text-accent hover:bg-primary text-[1.1rem] font-bold rounded-full w-52 btn hover:scale-[102%] shadow-lg shadow-accent transition-all duration-500'>
                             
                                 {
                                     // console.log(user)
