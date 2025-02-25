@@ -1,4 +1,4 @@
-import { Button, Card, Rate } from "antd";
+import { Button, Card } from "antd";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import useFormateDate from "../../CustomHooks/useFormateDate";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
@@ -7,25 +7,25 @@ import useAxiosSecure from "../../CustomHooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import Review from "../StudentPages/ReviewSection/Review";
 import useUserRole from "../../CustomHooks/useUserRole";
-import useShowMessage from "../../CustomHooks/Alerts/useShowMessage";
 import { AiOutlineMail } from "react-icons/ai";
 import { IoIosCall } from "react-icons/io";
 import Reviews from "./Reviews";
 import { useEffect, useState } from "react";
+import Rating from "./Rating";
 
 const SessionDetails = () => {
     const session = useLoaderData()
     const { user } = useAuth()
     const navigate = useNavigate()
     const todaysDateString = useTodaysDate()
-    const showMessage = useShowMessage()
     // console.log(session)
-    const role = useUserRole()
+    const { role } = useUserRole()
     const axiosSecure = useAxiosSecure()
     const location = useLocation()
-    const [rating, setRating] = useState(0)
-    // console.log(role, location, showMessage)
-
+    const [bookingValidator, setBookingValidator] = useState({ state: true, message: '' })
+    const [loading, setLoading] = useState(false);
+    const [paymentPageLink, setPaymentPageLink] = useState('');
+    console.log(bookingValidator)
 
     const sessionId = session?._id
     const sessionTitle = session?.sessionTitle
@@ -46,33 +46,48 @@ const SessionDetails = () => {
     const regEndDate = new Date(regEnds)
 
 
-    let disableBookNowButton = false
-    let paymentPageLink = ''
-    if (role === 'Administrator') {
-        disableBookNowButton = true
-        paymentPageLink = ''
-    } else if (role === 'Tutor') {
-        disableBookNowButton = true
-        paymentPageLink = ''
-    } else if (regEndDate < todaysDate && status === 'approved') {
-        disableBookNowButton = true
-        paymentPageLink = ''
-    } else if (location.state === '/dashboard/student/bookedSessions') {
-        disableBookNowButton = true
-        paymentPageLink = ''
-    }
-    else {
-        disableBookNowButton = false
-        paymentPageLink = `/payment/${sessionId}`
-    }
 
     useEffect(() => {
-        axiosSecure.get(`/reviews?sessionId=${sessionId}`)
-            .then(res => setRating(res?.data.rating))
-            .catch(error => console.error(error.message))
-    })
+        validateBooking();
+    }, []);
+    const validateBooking = async () => {
+        try {
+            setLoading(true);
+            const { data } = await axiosSecure.get(`/bookedSessions?studentEmail=${studentEmail}&sessionId=${sessionId}`);
+            setLoading(false);
 
-    const handleBookSession = () => {
+            if (data.length > 0) {
+                setBookingValidator({ status: false, message: 'You cannot book a session twice' });
+                return;
+            }
+
+            if (role !== 'student') {
+                setBookingValidator({ status: false, message: 'Only students can book sessions' });
+                return;
+            }
+
+            if (formattedRegEndDate < todaysDate && status === 'approved') {
+                setBookingValidator({ status: false, message: 'Registration deadline expired' });
+                return;
+            }
+
+            if (location.state === '/dashboard/student/bookedSessions') {
+                setBookingValidator({ status: false, message: 'Session already booked' });
+                return;
+            }
+
+            setBookingValidator({ status: true, message: '' });
+            setPaymentPageLink(`/payment/${sessionId}`);
+        } catch (error) {
+            setLoading(false);
+            console.error('Error validating booking:', error);
+            setBookingValidator({ status: false, message: 'Something went wrong. Please try again.' });
+        }
+    };
+
+    const handleBookSession = (sessionId) => {
+
+
         const studentEmail = user?.email
         console.log(sessionId, studentEmail, regFee)
         const bookedSessionInfo = {
@@ -140,7 +155,7 @@ const SessionDetails = () => {
                             styles={{
                                 body: { padding: 10 }
                             }}
-                            className="sticky tracking-wider text-xl shadow-sm"
+                            className="sticky tracking-wider text-xl shadow-sm shadow-primary/20"
                         >
 
                             <h1 className="text-center text-primary font-bold">{sessionTitle}</h1>
@@ -149,41 +164,49 @@ const SessionDetails = () => {
                         {/* hero cards */}
                         <div className="h-full flex flex-col lg:flex-row gap-3">
                             {/* image card */}
-                            <Card
-                                styles={{
-                                    body: {
-                                        padding: 15
-                                    }
-                                }}
-                                className="shadow-sm"
-                            >
-                                <div className="h-full flex flex-col md:flex-row lg:flex-col items-center justify-between gap-5">
+                            <div className="flex flex-col gap-2 justify-between items-center">
+                                <Card
+                                    styles={{
+                                        body: {
+                                            padding: 15
+                                        }
+                                    }}
+                                    className="shadow-sm"
+                                >
+                                    <div className="h-full flex flex-col md:flex-row lg:flex-col items-center justify-between gap-5">
 
-                                    <div className="w-80 h-48">
-                                        <img src={sessionImg} alt="session image" className="w-full h-full object-cover rounded-md" />
-                                    </div>
-
-                                    <div className="leading-7 flex flex-col md:flex-col items-start justify-center w-full">
-                                        <div className="">
-                                            <h1 className="font-bold">{sessionTitle}</h1>
-                                            <h3 className="">Fee:  ${regFee}</h3>
-                                            <h3>Duration: {duration} hours</h3>
+                                        <div className="w-80 h-48">
+                                            <img src={sessionImg} alt="session image" className="w-full h-full object-cover rounded-md" />
                                         </div>
-                                        <div className="w-full flex justify-end items-end">
 
-                                            <Button 
-                                            type="primary"
-                                            size="small"
-                                            className={``} disabled={disableBookNowButton} 
-                                            onClick={handleBookSession} > Book Now </Button>
+                                        <div className="leading-7 flex flex-col md:flex-col items-start justify-center w-full">
+                                            <div className="">
+                                                <h1 className="font-bold">{sessionTitle}</h1>
+                                                <h3 className="">Fee:  ${regFee}</h3>
+                                                <h3>Duration: {duration} hours</h3>
+                                            </div>
+
                                         </div>
                                     </div>
+
+                                </Card>
+                                <div className="w-full md:w-[61%] lg:w-full">
+
+                                    <Button
+                                        type="primary"
+                                        block
+                                        size="medium"
+                                        className={``}
+                                        onClick={() => validateBooking(sessionId, user?.email)} > Book Now </Button>
                                 </div>
+                            </div>
 
-                            </Card>
+
                             {/* details container */}
-                            <div className="h-full flex flex-col justify-between gap-10">
-                                <Card className="shadow-sm">
+                            <div className="flex flex-col justify-between items-center gap-4">
+
+                                {/* about card */}
+                                <Card className=" shadow-sm">
                                     <div className="space-y-8">
                                         <div>
                                             <h1 className="text-lg font-bold mb-2">About:</h1>
@@ -191,21 +214,14 @@ const SessionDetails = () => {
                                                 {description}
                                             </p>
                                         </div>
-                                        <div className="text-sm font-semibold flex items-center gap-4">
-                                            <h3>Rating:</h3>
-                                            {rating ?
-                                                <Rate
-                                                    style={{
-                                                        fontSize: 16,
-                                                        color: '#5CBFE9'
-                                                    }} disabled value={rating} /> :
-                                                <p className="font-medium text-xs">no reviews yet</p>
-                                            }
-                                        </div>
+
+                                        <Rating sessionId={sessionId} />
+
                                     </div>
                                 </Card>
 
-                                <Card className="shadow-sm">
+                                {/* date card */}
+                                <Card className="shadow-sm w-full">
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-stretch gap-10">
                                         <div className="pr-2 border-r-2 border-primary">
                                             <h1 className="text-lg font-bold">{regStarts}</h1>
@@ -239,7 +255,7 @@ const SessionDetails = () => {
                                         ></Review>
                                     </section>
                                     :
-                                    <Button className={`flex justify-center mx-auto`} disabled={disableBookNowButton} onClick={handleBookSession} > Book Now </Button>
+                                    <></>
                             }
                         </div>
 
