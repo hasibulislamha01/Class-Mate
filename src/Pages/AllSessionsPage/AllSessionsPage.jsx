@@ -25,7 +25,7 @@ const filterOptions = [
 
 const AllSessionsPage = () => {
 
-    const [data] = useGetLatestData(`/sessions?status=approved`)
+    const [data] = useGetLatestData(`/sessions/bookable`)
     const [sessions, setSessions] = useState([])
     const [isGridView, setIsGridView] = useState(true)
     const [loading, setLoading] = useState(true)

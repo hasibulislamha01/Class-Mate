@@ -1,4 +1,4 @@
-import { Button, Card } from "antd";
+import { Button, Card, message } from "antd";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import useFormateDate from "../../CustomHooks/useFormateDate";
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
@@ -25,6 +25,7 @@ const SessionDetails = () => {
     const [bookingValidator, setBookingValidator] = useState({ state: true, message: '' })
     const [loading, setLoading] = useState(false);
     const [paymentPageLink, setPaymentPageLink] = useState('');
+    const [studentEmail, setStudentEmail] = useState('')
     console.log(bookingValidator)
 
     const sessionId = session?._id
@@ -48,8 +49,10 @@ const SessionDetails = () => {
 
 
     useEffect(() => {
-        validateBooking();
+        if (role === 'student') setStudentEmail(user?.email)
+        validateBooking(studentEmail);
     }, []);
+
     const validateBooking = async () => {
         try {
             setLoading(true);
@@ -58,26 +61,27 @@ const SessionDetails = () => {
 
             if (data.length > 0) {
                 setBookingValidator({ status: false, message: 'You cannot book a session twice' });
-                return;
+                return false;
             }
 
             if (role !== 'student') {
                 setBookingValidator({ status: false, message: 'Only students can book sessions' });
-                return;
+                return false;
             }
 
-            if (formattedRegEndDate < todaysDate && status === 'approved') {
+            if (regEndDate < todaysDate && status === 'approved') {
                 setBookingValidator({ status: false, message: 'Registration deadline expired' });
-                return;
+                return false;
             }
 
             if (location.state === '/dashboard/student/bookedSessions') {
                 setBookingValidator({ status: false, message: 'Session already booked' });
-                return;
+                return false;
             }
 
             setBookingValidator({ status: true, message: '' });
             setPaymentPageLink(`/payment/${sessionId}`);
+            return true;
         } catch (error) {
             setLoading(false);
             console.error('Error validating booking:', error);
@@ -85,18 +89,15 @@ const SessionDetails = () => {
         }
     };
 
-    const handleBookSession = (sessionId) => {
-
-
-        const studentEmail = user?.email
+    const bookeSession = () => {
+        if (!studentEmail) return
         console.log(sessionId, studentEmail, regFee)
         const bookedSessionInfo = {
             ...session,
             sessionId,
             studentEmail
         }
-        delete bookedSessionInfo?._id
-        // console.log(sessionImg),
+
 
         Swal.fire({
             title: `Book ${sessionTitle} session?`,
@@ -114,6 +115,7 @@ const SessionDetails = () => {
 
         }).then((result) => {
             if (result.isConfirmed) {
+                validateBooking(studentEmail)
                 if (regFee !== '0') {
                     console.log('redirecting to payment gateway')
                     console.log(bookedSessionInfo)
@@ -137,7 +139,17 @@ const SessionDetails = () => {
                 }
             }
         });
+    }
 
+    const handleBookSession = async () => {
+        const bookingStatus = await validateBooking()
+        console.log(bookingStatus)
+        if (bookingStatus) {
+            bookeSession()
+        }
+        else {
+            message.error(bookingValidator?.message)
+        }
     }
 
     return (
@@ -197,7 +209,7 @@ const SessionDetails = () => {
                                         block
                                         size="medium"
                                         className={``}
-                                        onClick={() => validateBooking(sessionId, user?.email)} > Book Now </Button>
+                                        onClick={() => handleBookSession(sessionId)} > Book Now </Button>
                                 </div>
                             </div>
 
