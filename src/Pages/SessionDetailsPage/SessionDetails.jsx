@@ -215,10 +215,10 @@ const SessionDetails = () => {
 
 
                             {/* details container */}
-                            <div className="flex flex-col justify-between items-center gap-4">
+                            <div className=" flex flex-col justify-between items-center gap-4">
 
                                 {/* about card */}
-                                <Card className=" shadow-sm">
+                                <Card className="w-full h-full shadow-sm">
                                     <div className="space-y-8">
                                         <div>
                                             <h1 className="text-lg font-bold mb-2">About:</h1>
@@ -258,7 +258,7 @@ const SessionDetails = () => {
                         </div>
 
 
-                        <div className="text-center space-y-6">
+                        <div className="text-center space-y-6 ">
                             {
                                 location.state === '/dashboard/student/bookedSessions' ?
                                     <section className="my-12 lg:my-24 md:w-[80%] lg:w-[60%] mx-auto">
@@ -271,7 +271,7 @@ const SessionDetails = () => {
                             }
                         </div>
 
-                        <Reviews sessionId={sessionId} />
+                        <Reviews sessionId={sessionId}  />
 
                         <div className="my-24 flex flex-col-reverse lg:flex-row justify-center items-center">
                             <Card

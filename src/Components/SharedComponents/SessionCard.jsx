@@ -3,35 +3,43 @@ import useTodaysDate from "../../CustomHooks/useTodaysDate";
 import PropTypes from 'prop-types'
 import { Avatar, Button, Card } from "antd";
 import Meta from "antd/es/card/Meta";
+import { useEffect, useState } from "react";
 
 
 const SessionCard = ({ session }) => {
 
     const todaysDateString = useTodaysDate()
-    const regEndDateString = session?.registrationEnds
-    const todaysDate = new Date(todaysDateString)
-    const regEndDate = new Date(regEndDateString)
+    const [statusColor, setStatusColor] = useState('')
 
 
-    const status = session?.status
 
-    let statusColor
-    if (status === "pending") {
-        statusColor = 'bg-orange-500'
-    }
-    else if (status === "rejected") {
-        statusColor = 'bg-red-600'
-    } else if (regEndDate < todaysDate) {
-        statusColor = 'bg-red-400'
-    } else if (status === "approved") {
-        statusColor = 'bg-green-500'
-    }
+    useEffect(() => {
+        const status = session?.status
+        const regEndDateString = session?.registrationEnds
+        const todaysDate = new Date(todaysDateString)
+        const regEndDate = new Date(regEndDateString)
 
+        if (status === "pending") {
+            setStatusColor('bg-orange-500')
+        } else if (status === "approved") {
+            setStatusColor('bg-green-500')
+        } else if (status === 'renewed') {
+            setStatusColor('bg-green-500')
+        }
+        else if (status === "rejected") {
+            setStatusColor('bg-red-600')
+        } else if (regEndDate < todaysDate) {
+            setStatusColor('bg-red-400')
+        }
+        console.log(`${session?.sessionTitle}`, status)
+    }, [session, todaysDateString])
+
+    console.log(statusColor)
 
     return (
 
         <Card
-        className="bg-accent dark:bg-dark-accent shadow-lg shadow-primary/20"
+            className="bg-accent dark:bg-dark-accent shadow-lg shadow-primary/20"
             style={{
                 width: 300,
                 height: 350,
@@ -49,14 +57,9 @@ const SessionCard = ({ session }) => {
                     className="h-full object-cover"
                 />
             }
-        // actions={[
-        //     <SettingOutlined key="setting" />,
-        //     <EditOutlined key="edit" />,
-        //     <EllipsisOutlined key="ellipsis" />,
-        // ]}
         >
             <Meta
-            className=""
+                className=""
                 avatar={<Avatar src={session?.tutorPhoto} />}
                 title={
                     <div className="flex items-center">

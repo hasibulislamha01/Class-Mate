@@ -10,8 +10,8 @@ const Reviews = ({ sessionId }) => {
     // console.log(data);
     return (
 
-        <section className='min-h-48 flex flex-col justify-center'>
-            <h1 className='text-primary text-xl font-semibold text-center mb-8'>User Reviews</h1>
+        <section className='min-h-48 flex flex-col justify-center items-center'>
+            <h1 className='my-10 font-semibold text-lg'>User Reviews</h1>
             {data?.length !== 0 ?
                 data?.map(review =>
                     <div
@@ -44,9 +44,8 @@ const Reviews = ({ sessionId }) => {
                         </div>
                     </div>
                 ) :
-                <div className='h-48 flex flex-col items-center justify-center'>
-                    <h3 className='text-lg font-bold'>No Reviews Yet</h3>
-                </div>
+                
+                    <h3 className='font-semibold text-sm text-red-500'>No Reviews Yet</h3>
             }
 
         </section>
