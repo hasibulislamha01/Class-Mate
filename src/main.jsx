@@ -40,6 +40,7 @@ import AllAdmins from './Pages/AdminPages/AllAdminsPage/AllAdmins';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import Unknown from './Pages/UnknownRole/Unknown';
 import MyNotes from './Pages/StudentPages/NotesPage/MyNotes';
+import NotFound from './Pages/NotFound/NotFound';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -50,6 +51,10 @@ const baseURL = import.meta.env.VITE_BASE_URL
 const router = createBrowserRouter(
 
   [
+    {
+      element: <Root />,
+      errorElement: <NotFound/>
+    },
     {
       path: "/",
       element: <Root></Root>,
@@ -68,7 +73,7 @@ const router = createBrowserRouter(
         },
         {
           path: "/sessions",
-          element: <AllSessionsPage/>
+          element: <AllSessionsPage />
         },
         {
           path: "/sessions/:id",
@@ -82,7 +87,7 @@ const router = createBrowserRouter(
         },
         {
           path: "/unauthorized",
-          element: <Unauthorized/>
+          element: <Unauthorized />
         },
         {
           path: "/dashboard",
@@ -96,15 +101,15 @@ const router = createBrowserRouter(
             },
             {
               path: "/dashboard/admin/students",
-              element: <AllStudents/>
+              element: <AllStudents />
             },
             {
               path: "/dashboard/admin/tutors",
-              element: <AllTeachers/>
+              element: <AllTeachers />
             },
             {
               path: "/dashboard/admin/administrators",
-              element: <AllAdmins/>
+              element: <AllAdmins />
             },
             {
               path: "/dashboard/admin/allSessions",
@@ -162,7 +167,7 @@ const router = createBrowserRouter(
             },
             {
               path: "/dashboard/student/notes",
-              element: <MyNotes/>
+              element: <MyNotes />
             },
             {
               path: "/dashboard/student/manageNotes",
@@ -178,9 +183,9 @@ const router = createBrowserRouter(
             },
             {
               path: "/dashboard/user",
-              element: <Unknown/>
+              element: <Unknown />
             },
-            
+
           ]
         },
       ]

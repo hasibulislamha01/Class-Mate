@@ -213,7 +213,7 @@ const Navbar = () => {
 
 
     return (
-        <div className={`w-full h-[50px] fixed z-50 flex items-center px-2 md:px-0 ${isSticky ? 'stickyNav shadow-lg' : 'bg-white/40'}`}>
+        <div className={`w-full h-[50px] fixed z-50 flex items-center px-2 md:px-0 ${isSticky ? 'stickyNav shadow-lg dark:bg-slate-900/95' : 'bg-white/40 dark:bg-slate-900/60'}`}>
 
             {/* website name visible in mobiles */}
             <NavLink to='/' className={`md:hidden text-lg font-bold mr-auto`}>
@@ -233,8 +233,8 @@ const Navbar = () => {
                         <img src="/favicon.png" className="w-8 h-8 " />
                     </div>
                     <h1>
-                        <span className={`font-semibold ${isSticky ? 'text-accent' : 'text-primary'}`}> Class</span>
-                        <span className={`font-semibold ${isSticky ? 'text-secondary' : 'text-primary'} `}>Mate</span>
+                        <span className={`font-semibold ${isSticky ? 'text-accent' : 'text-primary  dark:text-accent'}`}> Class</span>
+                        <span className={`font-semibold ${isSticky ? 'text-secondary' : 'text-primary dark:text-secondary'} `}>Mate</span>
                     </h1>
                 </NavLink>
 
@@ -244,7 +244,7 @@ const Navbar = () => {
                             <NavLink
                                 key={routes.link}
                                 to={routes.link}
-                                className={({ isActive }) => `font-semibold ${isActive ? isSticky ? 'text-secondary' : 'text-primary' : `${isSticky ? 'text-accent' : 'text-gray-500'}`} `}
+                                className={({ isActive }) => `font-semibold ${isActive ? isSticky ? 'text-secondary' : 'text-primary dark:text-secondary' : `${isSticky ? 'text-accent' : 'text-gray-500 dark:text-gray-300'}`} `}
 
                             >
                                 {routes.title}
