@@ -10,13 +10,13 @@ const Reviews = ({ sessionId }) => {
     // console.log(data);
     return (
 
-        <section className='min-h-48 flex flex-col justify-center items-center'>
+        <section className='min-h-48 flex flex-col justify-center items-center '>
             <h1 className='my-10 font-semibold text-lg'>User Reviews</h1>
             {data?.length !== 0 ?
                 data?.map(review =>
                     <div
                         key={review._id}
-                        className=' flex items-center gap-4'>
+                        className='w-full flex justify-start items-center gap-4'>
                         {/* {console.log(typeof review.ratingValue)} */}
                         <div className=''>
                             {

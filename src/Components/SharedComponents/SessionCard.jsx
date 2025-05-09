@@ -31,10 +31,10 @@ const SessionCard = ({ session }) => {
         } else if (regEndDate < todaysDate) {
             setStatusColor('bg-red-400')
         }
-        console.log(`${session?.sessionTitle}`, status)
+        // console.log(`${session?.sessionTitle}`, status)
     }, [session, todaysDateString])
 
-    console.log(statusColor)
+    // console.log(statusColor)
 
     return (
 
