@@ -9,8 +9,9 @@ import { AppstoreOutlined, BarsOutlined, SearchOutlined } from '@ant-design/icon
 import { Input, Segmented, Select } from 'antd';
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
 import useFormateDate from "../../CustomHooks/useFormateDate";
+import { findSessions } from "./allSessions";
 
-
+const { Search } = Input
 
 const filterOptions = [
     {
@@ -50,7 +51,7 @@ const AllSessionsPage = () => {
     // filtering sessions according to their status
     const filterSessions = (query) => {
         console.log(`${query}`);
-        if(query === 'active'){
+        if (query === 'active') {
             const displayableSessions = data?.filter(session => {
                 const deadline = new Date(session.registrationEnds)
                 return (todaysDate >= deadline)
@@ -58,10 +59,17 @@ const AllSessionsPage = () => {
             // console.log(displayableSessions)
             setSessions(displayableSessions)
         }
-        else{
+        else {
             setSessions(data)
         }
     }
+
+    // searchSesions
+    const searchSessions = (value) => {
+        console.log("searching for", value)
+        findSessions(value)
+    }
+
 
     return (
         <div className="min-h-screen container mx-auto py-16 md:py-24 bg-background dark:bg-dark-background text-text dark:text-dark-text transition-colors duration-300">
@@ -76,9 +84,17 @@ const AllSessionsPage = () => {
             <div className="my-5 w-[95%] mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
 
                 {/* search field */}
-                <div className="font-semibold text-primary">
+                <Search
+                    placeholder="Search here"
+                    allowClear
+                    enterButton='Search'
+                    size="large"
+                    onSearch={searchSessions}
+                />
+                {/* <div className="font-semibold text-primary">
                     <Input size="medium" placeholder="Search Sessions" prefix={<SearchOutlined />} className="w-72" />
-                </div>
+                    <button onClick={searchSessions()}>Search</button>
+                </div> */}
 
                 <div className="flex items-center gap-5">
 
