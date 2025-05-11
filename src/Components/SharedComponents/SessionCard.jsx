@@ -18,18 +18,20 @@ const SessionCard = ({ session }) => {
         const regEndDateString = session?.registrationEnds
         const todaysDate = new Date(todaysDateString)
         const regEndDate = new Date(regEndDateString)
+        console.log(session?.sessionTitle, regEndDate < todaysDate)
 
         if (status === "pending") {
             setStatusColor('bg-orange-500')
-        } else if (status === "approved") {
-            setStatusColor('bg-green-500')
-        } else if (status === 'renewed') {
-            setStatusColor('bg-green-500')
-        }
-        else if (status === "rejected") {
+        } else if (status === "rejected") {
             setStatusColor('bg-red-600')
-        } else if (regEndDate < todaysDate) {
+        } else if (status === 'renewed') {
+            setStatusColor('bg-blue-500')
+        }
+        else if (regEndDate < todaysDate) {
             setStatusColor('bg-red-400')
+        }
+        else if (regEndDate >= todaysDate) {
+            setStatusColor('bg-green-500')
         }
         // console.log(`${session?.sessionTitle}`, status)
     }, [session, todaysDateString])
