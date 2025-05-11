@@ -54,9 +54,10 @@ const AllSessionsPage = () => {
         if (query === 'active') {
             const displayableSessions = data?.filter(session => {
                 const deadline = new Date(session.registrationEnds)
-                return (todaysDate >= deadline)
+                const currentDate = new Date (todaysDate)
+                // console.log(todaysDate, deadline, currentDate, currentDate <= deadline)
+                return (currentDate <= deadline)
             })
-            // console.log(displayableSessions)
             setSessions(displayableSessions)
         }
         else {
