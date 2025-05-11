@@ -5,7 +5,7 @@ import GridView from "./GridView";
 import TableView from "./TableView";
 import ShowPagination from "./ShowPagination";
 import useGetLatestData from "../../CustomHooks/useGetLatestData";
-import { AppstoreOutlined, BarsOutlined, SearchOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
 import { Input, Segmented, Select } from 'antd';
 import useTodaysDate from "../../CustomHooks/useTodaysDate";
 import useFormateDate from "../../CustomHooks/useFormateDate";
@@ -67,7 +67,7 @@ const AllSessionsPage = () => {
     // searchSesions
     const searchSessions = (value) => {
         console.log("searching for", value)
-        findSessions(value)
+        findSessions(value, sessions, setSessions)
     }
 
 
@@ -88,7 +88,7 @@ const AllSessionsPage = () => {
                     placeholder="Search here"
                     allowClear
                     enterButton='Search'
-                    size="large"
+                    size="middle"
                     onSearch={searchSessions}
                 />
                 {/* <div className="font-semibold text-primary">
