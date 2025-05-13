@@ -41,19 +41,20 @@ import Unauthorized from './Components/Unauthorized/Unauthorized';
 import Unknown from './Pages/UnknownRole/Unknown';
 import MyNotes from './Pages/StudentPages/NotesPage/MyNotes';
 import NotFound from './Pages/NotFound/NotFound';
+import UserDetailsPage from './Pages/AdminPages/UserDetailsPage/UserDetailsPage';
 
 // Create a client
 const queryClient = new QueryClient()
 
 const baseURL = import.meta.env.VITE_BASE_URL
-// console.log(baseURL)
+console.log(baseURL)
 
 const router = createBrowserRouter(
 
   [
     {
       element: <Root />,
-      errorElement: <NotFound/>
+      errorElement: <NotFound />
     },
     {
       path: "/",
@@ -90,6 +91,11 @@ const router = createBrowserRouter(
           element: <Unauthorized />
         },
         {
+          path: "users/:id",
+          loader: ({params})=> fetch(`${baseURL}/users/${params.id}`),
+          element: <UserDetailsPage/>
+        },
+        {
           path: "/dashboard",
           element: <DashLayout></DashLayout>,
           children: [
@@ -123,6 +129,10 @@ const router = createBrowserRouter(
               path: "/dashboard/admin/allMaterials",
               element: <AllMaterials></AllMaterials>
             },
+            // {
+            //   path: "/users/:id",
+            //   element: <UserDetailsPage />,
+            // },
 
 
             // tutor routes

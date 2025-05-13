@@ -18,7 +18,7 @@ const SessionCard = ({ session }) => {
         const regEndDateString = session?.registrationEnds
         const todaysDate = new Date(todaysDateString)
         const regEndDate = new Date(regEndDateString)
-        console.log(session?.sessionTitle, regEndDate < todaysDate)
+        // console.log(session?.sessionTitle, regEndDate < todaysDate)
 
         if (status === "pending") {
             setStatusColor('bg-orange-500')
