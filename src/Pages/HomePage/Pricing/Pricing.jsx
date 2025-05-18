@@ -71,9 +71,10 @@ const Pricing = () => {
                         <Card
                             style={{
                                 padding: '0px',
+                                border: "0px"
                             }}
                             key={plan.planName}
-                            className={`w-full rounded-lg shadow-lg ${index === 1 && 'bg-gradient-to-tl from-[#a1c4fd] to-[#c2e9fb] p-6 rounded-lg shadow-lg'}`}
+                            className={`w-full rounded-lg shadow-lg dark:bg-dark-accent dark:text-dark-text ${index === 1 && 'p-6 rounded-lg shadow-lg bg-blue-300 dark:bg-dark-secondary dark:text-dark-accent'}`}
                         >
                             <div className="space-y-8 lg:space-y-12">
 

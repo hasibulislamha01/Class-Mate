@@ -27,6 +27,7 @@ const tabList = [
 
 
 const HowItWorks = () => {
+
     const [activeTabKey1, setActiveTabKey1] = useState('tab1');
     const onTab1Change = (key) => {
         setActiveTabKey1(key);
@@ -34,25 +35,25 @@ const HowItWorks = () => {
     const studentOptions = [
         {
             id: 1,
-            icon: <VscSaveAs size={30}/>,
+            icon: <VscSaveAs size={30} />,
             title: 'Sign Up',
             description: 'Sign Up with your personal information and get started.'
         },
         {
             id: 2,
-            icon: <GoSearch size={30}/>,
+            icon: <GoSearch size={30} />,
             title: 'Find Course',
             description: 'Find your desired course or choose any desired one to start learning'
         },
         {
             id: 3,
-            icon: <CiCreditCard2 size={30}/>,
+            icon: <CiCreditCard2 size={30} />,
             title: 'Enroll Course',
             description: 'Get any course in our platform and save 20% with tutor support'
         },
         {
             id: 4,
-            icon: <PiCertificateLight size={30}/>,
+            icon: <PiCertificateLight size={30} />,
             title: 'Get Certificate',
             description: 'Get a certificate of acknowledgement of your learning.'
         },
@@ -60,25 +61,25 @@ const HowItWorks = () => {
     const tutorOptions = [
         {
             id: 1,
-            icon: <VscSaveAs size={30}/>,
+            icon: <VscSaveAs size={30} />,
             title: 'Sign Up',
             description: 'Sign Up with your personal information and get started.'
         },
         {
             id: 2,
-            icon: <IoCreateOutline size={30}/>,
+            icon: <IoCreateOutline size={30} />,
             title: 'Create Course',
             description: 'Create a course for the students on ClassMate.'
         },
         {
             id: 3,
-            icon: <PiNoteLight size={30}/>,
+            icon: <PiNoteLight size={30} />,
             title: 'Mange Materials',
             description: 'Get any course in our platform and save 20% with tutor support.'
         },
         {
             id: 4,
-            icon: <PiCurrencyCircleDollarLight size={30}/>,
+            icon: <PiCurrencyCircleDollarLight size={30} />,
             title: 'Get Profit',
             description: 'Enrollment of your cours by students earns you money.'
         },
@@ -133,13 +134,14 @@ const HowItWorks = () => {
                 </p>
             </div>
             <Card
+                className='dark:bg-dark-accent dark:text-dark-text shadow-lg shadow-primary/10'
                 style={{
                     width: '100%',
+                    border: '0px',
                 }}
                 tabList={tabList}
                 activeTabKey={activeTabKey1}
                 onTabChange={onTab1Change}
-                className="shadow-lg shadow-primary/10"
             >
                 {contentList[activeTabKey1]}
             </Card>

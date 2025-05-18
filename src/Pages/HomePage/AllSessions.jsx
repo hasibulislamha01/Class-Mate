@@ -112,7 +112,8 @@ const AllSessions = () => {
             <Link to='/sessions'>
                 <Button
                     size="large"
-                    className=" font-semibold text-accent bg-primary shadow-lg shadow-primary/10 dark:shadow-dark-accent transition-all duration-300"
+                    type="primary"
+                    className=" font-semibold text-accent  shadow-lg shadow-primary/10 dark:shadow-dark-accent transition-all duration-300"
                 >
                     Browse more sessions
                 </Button>

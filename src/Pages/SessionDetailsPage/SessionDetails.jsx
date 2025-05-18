@@ -215,7 +215,7 @@ const SessionDetails = () => {
 
 
                             {/* details container */}
-                            <div className=" flex flex-col justify-between items-center gap-4">
+                            <div className="w-full flex flex-col justify-between items-center gap-4">
 
                                 {/* about card */}
                                 <Card className="w-full h-full shadow-sm">
